@@ -1,6 +1,7 @@
 package com.example.mabar_v1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +16,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WelcomeActivity extends AppCompatActivity {
-    @BindView(R.id.btnLogin)
+    @BindView(R.id.btn_login)
     Button btnLogin;
-    @BindView(R.id.btnSignup)
+    @BindView(R.id.btn_signup)
     Button btnSignup;
+    @BindView(R.id.cl_main)
+    ConstraintLayout clMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        clMain.getBackground().setDither(true);
 
     }
 }

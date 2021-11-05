@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/primary_background_gradient"
     tools:context=".signup.SignUpActivity">
 
     <ImageView
@@ -124,7 +125,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginBottom="33dp"
         android:text="Log in"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/primary_color_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3" />
 

@@ -4,39 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/primary_background_gradient"
+    android:id="@+id/cl_main"
     tools:context=".WelcomeActivity">
 
 
     <ImageView
         android:id="@+id/imageView2"
+        android:visibility="visible"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="94dp"
         android:layout_marginBottom="34dp"
         android:scaleType="center"
-        app:layout_constraintBottom_toTopOf="@+id/btnSignup"
+        app:layout_constraintBottom_toTopOf="@+id/btn_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_mabar" />
 
     <Button
-        android:id="@+id/btnSignup"
+        android:id="@+id/btn_signup"
+        android:background="@drawable/rounded_corners_button_primary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="54dp"
         android:layout_marginEnd="54dp"
         android:layout_marginBottom="9dp"
         android:text="Sign Up"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners_button_primary"
         android:layout_marginStart="54dp"
         android:layout_marginEnd="54dp"
         android:layout_marginBottom="115dp"
@@ -44,7 +49,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
 
     <TextView
         android:id="@+id/textView"
@@ -52,12 +57,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="33dp"
         android:text="E-Sports Tournament Platform"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/primary_color_blue"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
