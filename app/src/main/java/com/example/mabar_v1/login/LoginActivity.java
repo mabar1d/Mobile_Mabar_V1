@@ -17,6 +17,7 @@ import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.signup.SignUpActivity;
 import com.example.mabar_v1.signup.model.ResponseRegisterModel;
+import com.example.mabar_v1.splash.SplashScreen1;
 import com.example.mabar_v1.splash.SplashScreenActivity;
 
 import butterknife.BindView;
@@ -81,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         String desc = response.body().getDesc();
                         Toast.makeText(LoginActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(LoginActivity.this, SplashScreenActivity.class);
+                        Intent i = new Intent(LoginActivity.this, SplashScreen1.class);
                         startActivity(i);
                         finish();
                     } else {
