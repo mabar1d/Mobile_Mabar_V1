@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.mabar_v1.main.HomeFragmentNew"
+        tools:layout="@layout/fragment_home_new" />
+
+    <fragment
+        android:id="@+id/navigation_tournament"
+        android:name="com.example.mabar_v1.main.TournamentFragment"
+        tools:layout="@layout/fragment_tournament" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.mabar_v1.main.ProfileNewFragment"
+        tools:layout="@layout/fragment_profile_new" />
+</navigation>
