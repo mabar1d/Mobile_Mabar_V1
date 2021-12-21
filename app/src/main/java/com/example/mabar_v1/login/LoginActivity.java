@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mabar_v1.MainActivity;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.WelcomeActivity;
 import com.example.mabar_v1.login.model.ResponseLoginModel;
@@ -82,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         String desc = response.body().getDesc();
                         Toast.makeText(LoginActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(LoginActivity.this, SplashScreen1.class);
+                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();
                     } else {
