@@ -72,11 +72,11 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
 
 
     public class TournamentViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageTourney, icTopTournament;
-        TextView judulTourney,judulGame,prizeTourney,btnDetail;
+        ImageView imageTourney;
+        TextView judulTourney,judulGame,prizeTourney,btnDetail, ratingTourney;
         public TournamentViewHolder(@NonNull View itemView) {
             super(itemView);
-            icTopTournament = itemView.findViewById(R.id.ic_top_tournament);
+            ratingTourney = itemView.findViewById(R.id.rating_tourney);
             judulTourney = itemView.findViewById(R.id.judul_tourney);
             prizeTourney = itemView.findViewById(R.id.prize_tourney);
             imageTourney = itemView.findViewById(R.id.image_tourney);
