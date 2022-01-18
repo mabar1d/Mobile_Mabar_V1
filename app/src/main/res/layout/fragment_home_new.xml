@@ -91,8 +91,7 @@
                 android:textSize="18dp"/>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                app:cardBackgroundColor="@color/black"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="20dp"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="15dp"
                 android:padding="10dp">
@@ -102,7 +101,7 @@
                     android:layout_height="wrap_content"/>
             </androidx.cardview.widget.CardView>
 
-            <!--Popular Movies-->
+            <!--New Tournaments-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

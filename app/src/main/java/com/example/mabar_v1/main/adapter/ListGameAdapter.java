@@ -4,46 +4,49 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mabar_v1.R;
+import com.example.mabar_v1.main.model.ListGameModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.utility.GlobalMethod;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListGameAdapter extends RecyclerView.Adapter<ListGameAdapter.TournamentViewHolder> {
+public class ListGameAdapter extends RecyclerView.Adapter<ListGameAdapter.GameViewHolder> {
     private Context context;
-    private List<GetListTournamentResponseModel.Data> dataTournament = new ArrayList<>();
+    private List<ListGameModel> dataGame = new ArrayList<>();
     private GlobalMethod globalMethod;
 
-    public ListGameAdapter(Context context, List<GetListTournamentResponseModel.Data> dataTournament) {
+    public ListGameAdapter(Context context, List<ListGameModel> dataGame) {
         this.context = context;
-        this.dataTournament = dataTournament;
+        this.dataGame = dataGame;
     }
 
     @NonNull
     @Override
-    public TournamentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_tournament_home,parent,false);
+    public GameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_game_home,parent,false);
         globalMethod = new GlobalMethod();
-        return new TournamentViewHolder(view);
+        return new GameViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TournamentViewHolder holder, int position) {
-        holder.judulTourney.setText(dataTournament.get(position).getName());
-        holder.prizeTourney.setText("Rp. "+dataTournament.get(position).getPrize());
+    public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
 
-        //holder.judulGame.setText(dataTournament.get(position).getData().get(position).getGame());
-        /*Glide.with(context)
-                .load(globalMethod.getUriImage(dataTv.get(position).getPosterPath()))
-                .into(holder.imageTv);*/
+        holder.judulGame.setText(dataGame.get(position).getJudulGame());
+
+        Glide.with(context)
+                .load(dataGame.get(position).getUrlImage())
+                .into(holder.civGame);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,21 +66,19 @@ public class ListGameAdapter extends RecyclerView.Adapter<ListGameAdapter.Tourna
 
     @Override
     public int getItemCount() {
-        return dataTournament.size();
+        return dataGame.size();
     }
 
 
-    public class TournamentViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageTourney;
-        TextView judulTourney,judulGame,prizeTourney,btnDetail, ratingTourney;
-        public TournamentViewHolder(@NonNull View itemView) {
+    public class GameViewHolder extends RecyclerView.ViewHolder {
+        CircularImageView civGame;
+        TextView judulGame;
+
+        public GameViewHolder(@NonNull View itemView) {
             super(itemView);
-            ratingTourney = itemView.findViewById(R.id.rating_tourney);
-            judulTourney = itemView.findViewById(R.id.judul_tourney);
-            prizeTourney = itemView.findViewById(R.id.prize_tourney);
-            imageTourney = itemView.findViewById(R.id.image_tourney);
+            civGame = itemView.findViewById(R.id.civ_game);
             judulGame = itemView.findViewById(R.id.judul_game);
-            btnDetail = itemView.findViewById(R.id.btn_detail);
         }
+
     }
 }

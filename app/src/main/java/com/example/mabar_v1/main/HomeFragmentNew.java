@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -17,12 +18,17 @@ import com.asura.library.views.PosterSlider;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.login.model.ResponseLoginModel;
+import com.example.mabar_v1.main.adapter.ListGameAdapter;
 import com.example.mabar_v1.main.adapter.ListTournamentAdapter;
+import com.example.mabar_v1.main.model.ListGameModel;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.splash.SplashScreen1;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +47,9 @@ public class HomeFragmentNew extends Fragment {
     private GlobalMethod gm;
     private SessionUser sess;
     private String page = "0";
+    private ListGameAdapter listGameAdapter;
 
+    private ArrayList<ListGameModel> listGameModels = new ArrayList<>();
     List<GetListTournamentResponseModel.Data> listTournament = new ArrayList<>();
 
     @Override
@@ -50,8 +58,6 @@ public class HomeFragmentNew extends Fragment {
         gm = new GlobalMethod();
         sess = new SessionUser(getActivity());
 
-
-        getListTournament(sess.getString("id_user"),"","0");
     }
 
     @Override
@@ -62,6 +68,9 @@ public class HomeFragmentNew extends Fragment {
         rlGame = root.findViewById(R.id.recycler_game_list);
         rlTournament = root.findViewById(R.id.recycler_new_tournaments);
         posterSlider = root.findViewById(R.id.poster_slider);
+
+        getListGame();
+        getListTournament(sess.getString("id_user"),"","0");
 
         // Inflate the layout for this fragment
         return root;
@@ -105,5 +114,50 @@ public class HomeFragmentNew extends Fragment {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+    private void getListGame(){
+
+        try {
+            listGameModels.clear();
+            String response = "[\n" +
+                    "      {\n" +
+                    "        \"id\": \"001\" ,\n" +
+                    "        \"name\": \"Mobile Legend\",\n" +
+                    "        \"url_image\": \"https://cdn.upstation.asia/wp-content/uploads/2020/09/14153307/1600072356446-800x445.jpeg\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"id\": \"002\",\n" +
+                    "        \"name\": \"Free Fire\",\n" +
+                    "        \"url_image\": \"https://4.bp.blogspot.com/-8_4-f8lwU90/XE5vuORAt2I/AAAAAAAARzg/CYpBFdDAkLwkTQhexYqGByIaaCWBZLAXgCLcBGAs/s1600/Free%2BFire.png\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"id\": \"003\",\n" +
+                    "        \"name\": \"PUBG Mobile\",\n" +
+                    "        \"url_image\": \"https://www.pubgmobile.com/id/event/brandassets/images/img-logo2.png\"\n" +
+                    "      }\n" +
+                    "    ]";
+            JSONArray resA = new JSONArray(response);
+            if (resA.length() > 0) {
+                for (int i = 0; i < resA.length(); i++) {
+
+                    JSONObject o = resA.getJSONObject(i);
+
+                    ListGameModel listGameModel = new ListGameModel(
+                            o.getString("id"),
+                            o.getString("name"),
+                            o.getString("url_image"));
+                    listGameModels.add(listGameModel);
+                }
+            }else {
+                Toast.makeText(getContext(),"Tidak Ada Data",Toast.LENGTH_LONG);
+            }
+            listGameAdapter = new ListGameAdapter(getContext(),listGameModels);
+            rlGame.setLayoutManager(new GridLayoutManager(getContext(),1,GridLayoutManager.HORIZONTAL,false));
+            rlGame.setAdapter(listGameAdapter);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
