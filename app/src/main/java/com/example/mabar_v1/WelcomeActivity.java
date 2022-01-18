@@ -28,12 +28,16 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         ButterKnife.bind(this);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                Intent i = new Intent(WelcomeActivity.this, LoginActivity.class);
                startActivity(i);
-               /*finish();*/
+               finish();
             }
         });
         btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +45,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(WelcomeActivity.this, SignUpActivity.class);
                 startActivity(i);
-                /*finish();*/
+                finish();
             }
         });
 

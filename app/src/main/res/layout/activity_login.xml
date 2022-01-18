@@ -16,6 +16,7 @@
         android:layout_marginTop="258dp"
         android:layout_marginEnd="54dp"
         android:background="@drawable/rounded_edit_text_grey"
+        android:textColor="@color/text_grey"
         android:ems="10"
         android:hint="@string/tx_login_username"
         android:inputType="textEmailAddress"
@@ -35,6 +36,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="54dp"
         android:background="@drawable/rounded_edit_text_grey"
+        android:textColor="@color/text_grey"
         android:ems="10"
         android:hint="@string/tx_login_password"
         android:inputType="textPassword"
@@ -94,14 +96,15 @@
         android:id="@+id/imageView2"
         android:layout_width="248dp"
         android:layout_height="0dp"
+        android:padding="30dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="40dp"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/etEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_mabar" />
+        app:srcCompat="@drawable/logo_circle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,14 +11,15 @@
         android:id="@+id/imageView2"
         android:layout_width="248dp"
         android:layout_height="0dp"
+        android:padding="30dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="24dp"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/etUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_mabar" />
+        app:srcCompat="@drawable/logo_circle" />
 
     <EditText
         android:id="@+id/etUsername"

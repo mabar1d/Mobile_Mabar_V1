@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/primary_background_gradient"
+    android:background="@color/background_primary"
     android:orientation="vertical"
     tools:context=".main.ProfileNewFragment">
 
@@ -12,7 +12,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +26,7 @@
             app:civ_border_color="@color/purple_700"
             app:civ_border_width="4dp"
             app:civ_shadow="true"
+            android:src="@drawable/person1"
             app:civ_shadow_color="@color/primary_color_blue"
             tools:layout_editor_absoluteX="105dp"
             tools:layout_editor_absoluteY="100dp" />
@@ -60,11 +61,11 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="187dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
             android:id="@+id/btn_account"
@@ -130,7 +131,7 @@
         android:id="@+id/btn_logout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="127dp"
         android:text="Log Out"
         android:textAlignment="center"
         android:textSize="18sp"

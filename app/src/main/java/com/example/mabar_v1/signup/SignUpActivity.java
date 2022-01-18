@@ -1,7 +1,6 @@
 package com.example.mabar_v1.signup;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,14 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mabar_v1.GlobalMethod;
-import com.example.mabar_v1.MainActivity;
+import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.R;
-import com.example.mabar_v1.WelcomeActivity;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.signup.model.ResponseRegisterModel;
-import com.example.mabar_v1.splash.SplashScreenActivity;
+import com.example.mabar_v1.utility.SessionUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +44,7 @@ public class SignUpActivity extends AppCompatActivity {
     String iVerifPassword = "";
 
     GlobalMethod gm;
+    private SessionUser sess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +52,18 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
         gm = new GlobalMethod();
+        sess = new SessionUser(this);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -86,7 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<ResponseRegisterModel> req = RetrofitConfig.getApiServices().register(username, email, password, verifPassword);
+            Call<ResponseRegisterModel> req = RetrofitConfig.getApiServices(sess.getString("token")).register(username, email, password, verifPassword);
             req.enqueue(new Callback<ResponseRegisterModel>() {
                 @Override
                 public void onResponse(Call<ResponseRegisterModel> call, Response<ResponseRegisterModel> response) {

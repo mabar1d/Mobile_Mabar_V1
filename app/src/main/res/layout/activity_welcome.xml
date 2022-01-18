@@ -15,13 +15,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="94dp"
+        android:padding="40dp"
         android:layout_marginBottom="34dp"
-        android:scaleType="center"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/btn_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_mabar" />
+        app:srcCompat="@drawable/logo_circle" />
 
     <Button
         android:id="@+id/btn_signup"

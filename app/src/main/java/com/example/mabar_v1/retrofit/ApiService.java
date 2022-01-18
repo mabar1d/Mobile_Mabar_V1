@@ -7,8 +7,6 @@ import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.signup.model.ResponseRegisterModel;
 
-import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.http.POST;
 import retrofit2.http.Query;

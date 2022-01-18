@@ -4,10 +4,13 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="background_primary">#E5ECF2</color>
     <color name="primary_color_blue">#85A8BA</color>
     <color name="primary_color_blue_transparant">#8885A8BA</color>
     <color name="primary_color_bone">#E4DECB</color>
     <color name="primary_color_bone_transparant">#88E4DECB</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text_grey">#585F65</color>
+    <color name="orange">#fb6f31</color>
 </resources>

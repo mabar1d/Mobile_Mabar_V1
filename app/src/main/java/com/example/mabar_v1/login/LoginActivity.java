@@ -11,15 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mabar_v1.MainActivity;
 import com.example.mabar_v1.R;
-import com.example.mabar_v1.WelcomeActivity;
 import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.signup.SignUpActivity;
-import com.example.mabar_v1.signup.model.ResponseRegisterModel;
 import com.example.mabar_v1.splash.SplashScreen1;
-import com.example.mabar_v1.splash.SplashScreenActivity;
+import com.example.mabar_v1.utility.SessionUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.tvSignup)
     TextView tvSignUp;
     private String iUser,iEmail,iPassword = "";
+    private SessionUser sess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +45,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        sess = new SessionUser(this);
+        sess.clearSess();
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -76,16 +81,26 @@ public class LoginActivity extends AppCompatActivity {
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<ResponseLoginModel> req = RetrofitConfig.getApiServices().login(username, email, password);
+            Call<ResponseLoginModel> req = RetrofitConfig.getApiServices("").login(username, email, password);
             req.enqueue(new Callback<ResponseLoginModel>() {
                 @Override
                 public void onResponse(Call<ResponseLoginModel> call, Response<ResponseLoginModel> response) {
                     if (response.isSuccessful()) {
-                        String desc = response.body().getDesc();
-                        Toast.makeText(LoginActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(i);
-                        finish();
+                        if (response.body().getCode().equals("00")){
+                            sess.setString("token",response.body().getData().getAccessToken());
+                            sess.setString("username",response.body().getData().getUser().getUsername());
+                            sess.setString("email",response.body().getData().getUser().getEmail());
+                            sess.setString("id_user",response.body().getData().getUser().getId()+"");
+                            sess.commitSess();
+                            String desc = response.body().getDesc();
+                            Toast.makeText(LoginActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(LoginActivity.this, SplashScreen1.class);
+                            startActivity(i);
+                            finish();
+                        }else {
+                            String notif = response.body().getDesc();
+                            Toast.makeText(LoginActivity.this, notif, Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(LoginActivity.this, "Gagal Login", Toast.LENGTH_SHORT).show();
                     }
@@ -94,6 +109,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseLoginModel> call, Throwable t) {
+                    Toast.makeText(LoginActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    System.out.println("onFailure"+call);
+                    progress.dismiss();
 
                 }
 
