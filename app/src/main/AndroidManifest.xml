@@ -11,29 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mabar_V1">
-        <activity android:name=".profile.HostSettingActivity"></activity>
+        <activity android:name=".profile.DetailProfileAccountActivity"></activity>
+        <activity android:name=".profile.HostSettingActivity" />
         <activity android:name=".profile.TeamSettingActivity" />
-        <activity android:name=".profile.DetailAccountActivity" />
         <activity android:name=".splash.SplashScreen1">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WelcomeActivity">
-
-        </activity>
+        <activity android:name=".WelcomeActivity"></activity>
         <activity android:name=".signup.SignUpActivity" />
         <activity android:name=".login.LoginActivity" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:layout_alignParentBottom="true"
             android:fitsSystemWindows="true"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustNothing">
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
     </application>
 
 </manifest>

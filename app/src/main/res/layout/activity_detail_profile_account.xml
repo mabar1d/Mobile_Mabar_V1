@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/primary_background_gradient"
-    tools:context=".profile.DetailAccountActivity">
+    tools:context=".profile.DetailProfileAccountActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -26,21 +26,10 @@
             app:civ_border_color="@color/purple_700"
             app:civ_border_width="4dp"
             app:civ_shadow="true"
+            android:src="@drawable/person1"
             app:civ_shadow_color="@color/primary_color_blue"
             tools:layout_editor_absoluteX="105dp"
             tools:layout_editor_absoluteY="100dp" />
-
-        <TextView
-            android:id="@+id/id_akun"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="5dp"
-            android:text="id_akun"
-            android:textAlignment="center"
-            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/nama_akun"
@@ -48,10 +37,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="5dp"
             android:text="nama_akun"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/id_akun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="15dp"
+            android:textStyle="italic"
+            android:layout_marginEnd="8dp"
+            android:text="id_akun"
+            android:textAlignment="center"
+            android:textSize="16sp" />
 
 
     </LinearLayout>
@@ -89,7 +91,7 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/rounded_corners_button_primary"
                 android:padding="8dp"
-                android:text="Janu"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -117,7 +119,7 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/rounded_corners_button_primary"
                 android:padding="8dp"
-                android:text="Dwi"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -138,16 +140,51 @@
                 android:text="Gender"
                 android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <!-- <EditText
+                 android:id="@+id/gender"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="0.5"
+                 android:background="@drawable/rounded_corners_button_primary"
+                 android:padding="8dp"
+                 android:text="Laki-laki"
+                 android:textColor="@color/white"
+                 android:textSize="14sp" />-->
+            <RelativeLayout
                 android:layout_weight="0.5"
-                android:background="@drawable/rounded_corners_button_primary"
-                android:padding="8dp"
-                android:text="Laki-laki"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <RadioGroup
+                    android:id="@+id/radio_group_gender"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    >
+                    <RadioButton
+                        android:id="@+id/radio_male"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:checked="true"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:text="Male"
+                        />
+                    <RadioButton
+                        android:id="@+id/radio_female"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:checked="false"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:text="Female"
+                        />
+                </RadioGroup>
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -171,9 +208,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:inputType="date"
+                android:focusable="false"
                 android:background="@drawable/rounded_corners_button_primary"
                 android:padding="8dp"
-                android:text="2 Januari 1996"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -201,7 +240,7 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/rounded_corners_button_primary"
                 android:padding="8dp"
-                android:text="Semarang Rt.4, Rw.1"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -229,7 +268,7 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/rounded_corners_button_primary"
                 android:padding="8dp"
-                android:text="55321"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -257,7 +296,7 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/rounded_corners_button_primary"
                 android:padding="8dp"
-                android:text="089676426277"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>

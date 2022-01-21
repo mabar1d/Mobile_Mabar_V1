@@ -1,6 +1,7 @@
 package com.example.mabar_v1.main;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.asura.library.posters.Poster;
 import com.asura.library.posters.RemoteImage;
 import com.example.mabar_v1.R;
+import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.main.adapter.ListTournamentAdapter;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
@@ -99,8 +101,18 @@ public class TournamentFragment extends Fragment {
                             String notif = response.body().getDesc();
                             Toast.makeText(getContext(), notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(getContext(), "Gagal Mengambil List Tournament", Toast.LENGTH_SHORT).show();
+                    } else if (response.body().getCode().equals("05")){
+                        String desc = response.body().getDesc();
+                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                        sess.clearSess();
+                        Intent i = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(i);
+                        getActivity().finish();
+                    }  else {
+                        String desc = response.body().getDesc();
+                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
                     }
                     progress.dismiss();
                 }

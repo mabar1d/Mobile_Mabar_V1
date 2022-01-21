@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.asura.library.views.PosterSlider;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
-import com.example.mabar_v1.profile.DetailAccountActivity;
+import com.example.mabar_v1.profile.DetailProfileAccountActivity;
 import com.example.mabar_v1.profile.HostSettingActivity;
 import com.example.mabar_v1.profile.TeamSettingActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
@@ -83,7 +83,7 @@ public class ProfileNewFragment extends Fragment {
         btnAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), DetailAccountActivity.class);
+                Intent i = new Intent(getActivity(), DetailProfileAccountActivity.class);
                 startActivity(i);
             }
         });
@@ -117,7 +117,7 @@ public class ProfileNewFragment extends Fragment {
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
-                                //addTanggapan();
+                                requestTeamLeader();
                                 sDialog.dismissWithAnimation();
                             }
                         })
@@ -140,7 +140,7 @@ public class ProfileNewFragment extends Fragment {
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
-                                //addTanggapan();
+                                requestHostTournament();
                                 sDialog.dismissWithAnimation();
                             }
                         })
@@ -165,15 +165,22 @@ public class ProfileNewFragment extends Fragment {
                         if (response.body().getCode().equals("00")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(getActivity(), LoginActivity.class);
-                            startActivity(i);
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else {
-                        Toast.makeText(getActivity(), "Gagal Melakukan Request", Toast.LENGTH_SHORT).show();
+                    } else if (response.body().getCode().equals("05")){
+                        String desc = response.body().getDesc();
+                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                        sess.clearSess();
+                        Intent i = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(i);
+                        getActivity().finish();
+                    }  else {
+                        String desc = response.body().getDesc();
+                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
@@ -207,15 +214,23 @@ public class ProfileNewFragment extends Fragment {
                         if (response.body().getCode().equals("00")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(getActivity(), LoginActivity.class);
-                            startActivity(i);
+
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else {
-                        Toast.makeText(getActivity(), "Gagal Melakukan Request", Toast.LENGTH_SHORT).show();
+                    } else if (response.body().getCode().equals("05")){
+                        String desc = response.body().getDesc();
+                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                        sess.clearSess();
+                        Intent i = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(i);
+                        getActivity().finish();
+                    }  else {
+                        String desc = response.body().getDesc();
+                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();

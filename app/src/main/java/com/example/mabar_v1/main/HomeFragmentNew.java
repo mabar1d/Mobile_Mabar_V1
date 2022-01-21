@@ -23,6 +23,7 @@ import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.main.adapter.ListGameAdapter;
 import com.example.mabar_v1.main.adapter.ListTournamentAdapter;
 import com.example.mabar_v1.main.model.ListGameModel;
+import com.example.mabar_v1.profile.DetailProfileAccountActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.splash.SplashScreen1;
@@ -106,8 +107,18 @@ public class HomeFragmentNew extends Fragment {
                             String notif = response.body().getDesc();
                             Toast.makeText(getContext(), notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(getContext(), "Gagal Mengambil List Tournament", Toast.LENGTH_SHORT).show();
+                    }else if (response.body().getCode().equals("05")){
+                        String desc = response.body().getDesc();
+                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                        sess.clearSess();
+                        Intent i = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(i);
+                        getActivity().finish();
+                    }  else {
+                        String desc = response.body().getDesc();
+                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
                     }
                     progress.dismiss();
                 }
