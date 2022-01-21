@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.asura.library.posters.Poster;
+import com.asura.library.posters.RemoteImage;
 import com.asura.library.views.PosterSlider;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
@@ -89,6 +91,15 @@ public class HomeFragmentNew extends Fragment {
                         if (response.body().getCode().equals("00")){
                             listTournament = response.body().getData();
 
+                            List<Poster> posters=new ArrayList<>();
+                            //add poster using remote url
+                            posters.add(new RemoteImage("https://eventkampus.com/data/event/1/1319/poster-i-fest-2018-supernova-tournament-mobile-legends.jpeg"));
+                            posters.add(new RemoteImage("https://1.bp.blogspot.com/-nz7E2so-ud8/X2lbq-9nb4I/AAAAAAAAFTU/5UrnMMLEhOoaiSY5MyXhoB8neZX9m9HwwCLcBGAsYHQ/s957/Untitled-1.jpg"));
+                            posters.add(new RemoteImage("https://www.itcshoppingfestival.com/wp-content/uploads/2019/03/banner-web.jpeg"));
+                            posters.add(new RemoteImage("https://1.bp.blogspot.com/-tpxDJceDtTg/YS8FCUQncfI/AAAAAAAAClo/QRiA3xb6j00osV6jROkrUFFD7fW4Sry4wCLcBGAsYHQ/s1697/Poster%2BTurnamen%2BMobile%2BLegends%2BVersi%2B1%2Blow.jpg"));
+                            posters.add(new RemoteImage("https://mhs.unikama.ac.id/hmps-si/wp-content/nfs/sites/38/2019/10/Artboard-1.png"));
+                            posterSlider.setPosters(posters);
+
                             rlTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament));
                             rlTournament.setLayoutManager(new GridLayoutManager(getActivity(),1,GridLayoutManager.HORIZONTAL,false));
                         }else {
@@ -115,6 +126,7 @@ public class HomeFragmentNew extends Fragment {
             e.printStackTrace();
         }
     }
+
     private void getListGame(){
 
         try {

@@ -1,5 +1,6 @@
 package com.example.mabar_v1.main;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,14 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asura.library.views.PosterSlider;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
+import com.example.mabar_v1.profile.DetailAccountActivity;
+import com.example.mabar_v1.profile.HostSettingActivity;
+import com.example.mabar_v1.profile.TeamSettingActivity;
+import com.example.mabar_v1.retrofit.RetrofitConfig;
+import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
+import com.example.mabar_v1.signup.SignUpActivity;
+import com.example.mabar_v1.signup.model.ResponseRegisterModel;
 import com.example.mabar_v1.utility.SessionUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ProfileNewFragment extends Fragment {
@@ -42,7 +55,6 @@ public class ProfileNewFragment extends Fragment {
 
     private SessionUser sess;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +68,9 @@ public class ProfileNewFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile_new, container, false);
         ButterKnife.bind(this, rootView);
 
+        tvNamaAkun.setText(sess.getString("username"));
+        tvIdAkun.setText("Id: "+sess.getString("id_user"));
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,8 +80,160 @@ public class ProfileNewFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), DetailAccountActivity.class);
+                startActivity(i);
+            }
+        });
+        btnTeamSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), TeamSettingActivity.class);
+                startActivity(i);
+            }
+        });
+        btnHostSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), HostSettingActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnReqTeamLead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Request Team Leader?")
+                        .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .setConfirmText("Confirm")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                //addTanggapan();
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
+            }
+        });
+
+        btnReqHost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Request Host Tournament?")
+                        .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .setConfirmText("Confirm")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                //addTanggapan();
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
+            }
+        });
 
         return rootView;
 
     }
+
+    private void requestTeamLeader(){
+        ProgressDialog progress = new ProgressDialog(getActivity());
+        progress.setMessage("Request Team Leader...");
+        progress.show();
+        try {
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqTeamLead(sess.getString("user_id"));
+            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
+                @Override
+                public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), "Gagal Melakukan Request", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
+                    String msg = t.getMessage();
+                    Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private void requestHostTournament(){
+        ProgressDialog progress = new ProgressDialog(getActivity());
+        progress.setMessage("Request Host Tournament...");
+        progress.show();
+        try {
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqHost(sess.getString("user_id"));
+            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
+                @Override
+                public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), "Gagal Melakukan Request", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
+                    String msg = t.getMessage();
+                    Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

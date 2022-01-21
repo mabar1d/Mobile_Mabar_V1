@@ -1,66 +1,122 @@
 package com.example.mabar_v1.main;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.asura.library.posters.Poster;
+import com.asura.library.posters.RemoteImage;
 import com.example.mabar_v1.R;
+import com.example.mabar_v1.main.adapter.ListTournamentAdapter;
+import com.example.mabar_v1.retrofit.RetrofitConfig;
+import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
+import com.example.mabar_v1.utility.SessionUser;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TournamentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 public class TournamentFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView rlMyTournament;
+    private EditText searchBarTournament;
+    private ImageView btnSearch;
+    private SessionUser sess;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public TournamentFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TournamentFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TournamentFragment newInstance(String param1, String param2) {
-        TournamentFragment fragment = new TournamentFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    List<GetListTournamentResponseModel.Data> listTournament = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        sess = new SessionUser(getActivity());
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tournament, container, false);
+        View root = inflater.inflate(R.layout.fragment_tournament, container, false);
+
+        rlMyTournament = root.findViewById(R.id.recycler_my_tournaments);
+        searchBarTournament = root.findViewById(R.id.search_bar_tournament);
+        btnSearch = root.findViewById(R.id.btn_search);
+
+        getListTournament(sess.getString("id_user"),"","0");
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getListTournament(sess.getString("id_user"),searchBarTournament.getText().toString(),"0");
+            }
+        });
+        searchBarTournament.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
+                    getListTournament(sess.getString("id_user"),searchBarTournament.getText().toString(),"0");
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        return root;
+    }
+
+    private void getListTournament(String userId,String search,String page){
+        ProgressDialog progress = new ProgressDialog(getContext());
+        progress.setMessage("Loading...");
+        progress.show();
+        try {
+            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTournament(userId, search, page);
+            req.enqueue(new Callback<GetListTournamentResponseModel>() {
+                @Override
+                public void onResponse(Call<GetListTournamentResponseModel> call, Response<GetListTournamentResponseModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+                            listTournament = response.body().getData();
+
+                            rlMyTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament));
+                            rlMyTournament.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                        }else {
+                            String notif = response.body().getDesc();
+                            Toast.makeText(getContext(), notif, Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Gagal Mengambil List Tournament", Toast.LENGTH_SHORT).show();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<GetListTournamentResponseModel> call, Throwable t) {
+                    Toast.makeText(getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    System.out.println("onFailure"+call);
+                    progress.dismiss();
+
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

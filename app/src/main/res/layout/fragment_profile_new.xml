@@ -32,27 +32,28 @@
             tools:layout_editor_absoluteY="100dp" />
 
         <TextView
-            android:id="@+id/id_akun"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="5dp"
-            android:text="id_akun"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/nama_akun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="5dp"
             android:text="nama_akun"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/id_akun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="15dp"
+            android:textStyle="italic"
+            android:layout_marginEnd="8dp"
+            android:text="id_akun"
+            android:textAlignment="center"
+            android:textSize="16sp" />
 
 
     </LinearLayout>
@@ -111,6 +112,8 @@
         android:layout_marginEnd="95dp"
         android:text="Request Team Leader"
         android:textSize="12dp"
+        android:minLines="2"
+        android:maxLines="2"
         app:layout_constraintEnd_toStartOf="@+id/btn_req_host"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -123,6 +126,8 @@
         android:layout_marginEnd="16dp"
         android:text="Request Host"
         android:textSize="12dp"
+        android:minLines="2"
+        android:maxLines="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_req_team_lead"
         app:layout_constraintTop_toTopOf="parent" />
