@@ -74,10 +74,26 @@ public class ProfileNewFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sess.clearSess();
-                Intent i = new Intent(getActivity(), LoginActivity.class);
-                startActivity(i);
-                getActivity().finish();
+                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Log Out Now?")
+                        .setCancelButton("No", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .setConfirmText("Yes")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                sess.clearSess();
+                                Intent i = new Intent(getActivity(), LoginActivity.class);
+                                startActivity(i);
+                                getActivity().finish();
+                            }
+                        })
+                        .show();
             }
         });
         btnAccount.setOnClickListener(new View.OnClickListener() {
