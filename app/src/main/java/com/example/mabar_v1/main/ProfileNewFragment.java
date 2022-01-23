@@ -173,7 +173,7 @@ public class ProfileNewFragment extends Fragment {
         progress.setMessage("Request Team Leader...");
         progress.show();
         try {
-            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqTeamLead(sess.getString("user_id"));
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqTeamLead(sess.getString("id_user"));
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
                 public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
@@ -181,22 +181,21 @@ public class ProfileNewFragment extends Fragment {
                         if (response.body().getCode().equals("00")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                            getActivity().finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(getActivity(), LoginActivity.class);
-                        startActivity(i);
-                        getActivity().finish();
-                    }  else {
-                        String desc = response.body().getDesc();
-                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Failed Request Team Leader", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
@@ -222,7 +221,7 @@ public class ProfileNewFragment extends Fragment {
         progress.setMessage("Request Host Tournament...");
         progress.show();
         try {
-            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqHost(sess.getString("user_id"));
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqHost(sess.getString("id_user"));
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
                 public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
@@ -231,22 +230,21 @@ public class ProfileNewFragment extends Fragment {
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
 
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                            getActivity().finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(getActivity(), LoginActivity.class);
-                        startActivity(i);
-                        getActivity().finish();
-                    }  else {
-                        String desc = response.body().getDesc();
-                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Failed Request Host Tournament", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();

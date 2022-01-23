@@ -20,6 +20,7 @@ import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
+import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -64,6 +65,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
     Calendar myCalendar = Calendar.getInstance();
     private SimpleDateFormat sdf;
+    private GlobalMethod gm;
 
 
     private SessionUser sess;
@@ -84,6 +86,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
         }
         ButterKnife.bind(this);
         sess = new SessionUser(this);
+        gm = new GlobalMethod();
         sdf = new SimpleDateFormat("dd-MM-yyyy");
         getDataPerson();
 
@@ -100,9 +103,9 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
                 gender = radioButton.getText().toString();
                 if (gender.equalsIgnoreCase("male")){
-                    genderId = "0";
-                }else {
                     genderId = "1";
+                }else {
+                    genderId = "2";
                 }
                 firstName = etFirstName.getText().toString();
                 lastName = etLastName.getText().toString();
@@ -125,7 +128,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                etBirthdate.setText(sdf.format(myCalendar.getTime()));
+                etBirthdate.setText(gm.setDateIndonesia(2,sdf.format(myCalendar.getTime())));
             }
         };
         etBirthdate.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +154,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
         progress.setMessage("Getting Profile Info...");
         progress.show();
         try {
-            Call<PersonnelResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getPersonnel(sess.getString("user_id"));
+            Call<PersonnelResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getPersonnel(sess.getString("id_user"));
             req.enqueue(new Callback<PersonnelResponseModel>() {
                 @Override
                 public void onResponse(Call<PersonnelResponseModel> call, Response<PersonnelResponseModel> response) {
@@ -166,8 +169,8 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                             if (response.body().getData().getLastname() != null){
                                 etLastName.setText(response.body().getData().getLastname());
                             }
-                            if (response.body().getData().getGender() != null){
-                                if (response.body().getData().getGender().equalsIgnoreCase("0")){
+                            if (response.body().getData().getGenderId() != null){
+                                if (response.body().getData().getGenderId().equalsIgnoreCase("1")){
                                     rbMale.setChecked(true);
                                     rbFemale.setChecked(false);
 
@@ -180,30 +183,29 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                                 etBirthdate.setText(response.body().getData().getBirthdate());
                             }
                             if (response.body().getData().getAddress() != null){
-                                etFirstName.setText(response.body().getData().getAddress());
+                                etAddress.setText(response.body().getData().getAddress());
                             }
                             if (response.body().getData().getZipcode() != null){
-                                etFirstName.setText(response.body().getData().getZipcode());
+                                etZipCode.setText(response.body().getData().getZipcode());
                             }
                             if (response.body().getData().getPhone() != null){
-                                etFirstName.setText(response.body().getData().getPhone());
+                                etPhone.setText(response.body().getData().getPhone());
                             }
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
                         }
 
-                    }/*else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    } */else {
-                        /*String desc = response.body().getDesc();
-                        Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();*/
+                    } else {
+                        Toast.makeText(DetailProfileAccountActivity.this, "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
@@ -228,7 +230,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
         progress.setMessage("Updating Profile Info...");
         progress.show();
         try {
-            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateInfoPersonnel(sess.getString("user_id"),fname,lName,gender_id,birthDate,address,subDistrictId,districtId,provinceId,zipCode,phone);
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateInfoPersonnel(sess.getString("id_user"),fname,lName,gender_id,birthDate,address,subDistrictId,districtId,provinceId,zipCode,phone);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
                 public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
@@ -237,22 +239,21 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
 
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
                         }
 
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    }  else {
-                        String desc = response.body().getDesc();
-                        Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(DetailProfileAccountActivity.this, "Failed Update Profil Info", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();

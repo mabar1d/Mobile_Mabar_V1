@@ -103,21 +103,21 @@ public class HomeFragmentNew extends Fragment {
 
                             rlTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament));
                             rlTournament.setLayoutManager(new GridLayoutManager(getActivity(),1,GridLayoutManager.HORIZONTAL,false));
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                            getActivity().finish();
                         }else {
-                            String notif = response.body().getDesc();
-                            Toast.makeText(getContext(), notif, Toast.LENGTH_SHORT).show();
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
                         }
-                    }else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(getActivity(), LoginActivity.class);
-                        startActivity(i);
-                        getActivity().finish();
-                    }  else {
-                        String desc = response.body().getDesc();
-                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(getActivity(), "Failed Request List Tournament", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
