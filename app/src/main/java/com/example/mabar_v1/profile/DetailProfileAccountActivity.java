@@ -76,6 +76,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     private String address = "";
     private String zipCode = "";
     private String phone = "";
+    private String brithdateNonFormat = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,12 +110,11 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                 }
                 firstName = etFirstName.getText().toString();
                 lastName = etLastName.getText().toString();
-                birthDate = etBirthdate.getText().toString();
                 address = etAddress.getText().toString();
                 zipCode = etZipCode.getText().toString();
                 phone = etPhone.getText().toString();
 
-                updateDataPerson(firstName,lastName,genderId,birthDate,address,"","","",zipCode,phone);
+                updateDataPerson(firstName,lastName,genderId,brithdateNonFormat,address,"","","",zipCode,phone);
 
 
             }
@@ -129,6 +129,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 etBirthdate.setText(gm.setDateIndonesia(2,sdf.format(myCalendar.getTime())));
+                brithdateNonFormat = sdf.format(myCalendar.getTime());
             }
         };
         etBirthdate.setOnClickListener(new View.OnClickListener() {
@@ -144,10 +145,6 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
     }
 
-
-    private void setBirthdate(){
-
-    }
 
     private void getDataPerson(){
         ProgressDialog progress = new ProgressDialog(DetailProfileAccountActivity.this);
@@ -180,7 +177,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                                 }
                             }
                             if (response.body().getData().getBirthdate() != null){
-                                etBirthdate.setText(response.body().getData().getBirthdate());
+                                etBirthdate.setText(gm.setDateIndonesia(2,response.body().getData().getBirthdate()));
                             }
                             if (response.body().getData().getAddress() != null){
                                 etAddress.setText(response.body().getData().getAddress());
