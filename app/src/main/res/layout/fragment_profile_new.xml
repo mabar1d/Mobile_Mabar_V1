@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_primary"
+    android:background="@color/primary_color_blue"
     android:orientation="vertical"
     tools:context=".main.ProfileNewFragment">
 
@@ -12,7 +12,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +40,7 @@
             android:layout_marginTop="5dp"
             android:text="nama_akun"
             android:textStyle="bold"
+            android:textColor="@color/text_grey"
             android:textAlignment="center"
             android:textSize="18sp" />
 
@@ -49,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="15dp"
+            android:textColor="@color/text_grey"
             android:textStyle="italic"
             android:layout_marginEnd="8dp"
             android:text="id_akun"
@@ -70,6 +72,7 @@
 
         <TextView
             android:id="@+id/btn_account"
+            android:textColor="@color/text_grey"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,6 +85,7 @@
 
         <TextView
             android:id="@+id/btn_team_settings"
+            android:textColor="@color/text_grey"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,6 +98,7 @@
 
         <TextView
             android:id="@+id/btn_host_settings"
+            android:textColor="@color/text_grey"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -113,10 +118,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="95dp"
-        android:text="Request Team Leader"
+        android:background="@drawable/rounded_button_grey"
+        android:text="Buat Team"
+        android:textColor="@color/grey"
         android:textSize="12dp"
-        android:minLines="2"
-        android:maxLines="2"
         app:layout_constraintEnd_toStartOf="@+id/btn_req_host"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -127,7 +132,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Request Host"
+        android:background="@drawable/rounded_button_grey"
+        android:textColor="@color/grey"
+        android:text="Buat Turnamen"
         android:textSize="12dp"
         android:minLines="2"
         android:maxLines="2"
@@ -137,6 +144,7 @@
 
     <TextView
         android:id="@+id/btn_logout"
+        android:textColor="@color/text_grey"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="127dp"

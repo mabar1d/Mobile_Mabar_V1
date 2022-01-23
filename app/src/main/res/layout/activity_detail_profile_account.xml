@@ -38,6 +38,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="5dp"
+            android:textColor="@color/text_grey"
             android:text="nama_akun"
             android:textStyle="bold"
             android:textAlignment="center"
@@ -51,6 +52,7 @@
             android:layout_marginBottom="15dp"
             android:textStyle="italic"
             android:layout_marginEnd="8dp"
+            android:textColor="@color/text_grey"
             android:text="id_akun"
             android:textAlignment="center"
             android:textSize="16sp" />
@@ -89,10 +91,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="@drawable/rounded_corners_button_primary"
+                android:background="@drawable/rounded_edit_text_grey"
+                android:textColor="@color/text_grey"
                 android:padding="8dp"
                 android:text=""
-                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -117,10 +119,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="@drawable/rounded_corners_button_primary"
+                android:background="@drawable/rounded_edit_text_grey"
+                android:textColor="@color/text_grey"
                 android:padding="8dp"
                 android:text=""
-                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -210,10 +212,10 @@
                 android:layout_weight="0.5"
                 android:inputType="date"
                 android:focusable="false"
-                android:background="@drawable/rounded_corners_button_primary"
+                android:background="@drawable/rounded_edit_text_grey"
+                android:textColor="@color/text_grey"
                 android:padding="8dp"
                 android:text=""
-                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -238,10 +240,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="@drawable/rounded_corners_button_primary"
+                android:background="@drawable/rounded_edit_text_grey"
+                android:textColor="@color/text_grey"
                 android:padding="8dp"
                 android:text=""
-                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -266,10 +268,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="@drawable/rounded_corners_button_primary"
+                android:background="@drawable/rounded_edit_text_grey"
+                android:textColor="@color/text_grey"
                 android:padding="8dp"
                 android:text=""
-                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -294,10 +296,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="@drawable/rounded_corners_button_primary"
+                android:background="@drawable/rounded_edit_text_grey"
+                android:textColor="@color/text_grey"
                 android:padding="8dp"
                 android:text=""
-                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -305,11 +307,13 @@
 
     <Button
         android:id="@+id/btn_save"
-        android:layout_width="88dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
+        android:background="@drawable/gray_button_background"
+        android:textColor="@color/text_grey"
         android:text="Save"
-        android:textSize="12dp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
