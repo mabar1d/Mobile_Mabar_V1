@@ -1,15 +1,24 @@
 package com.example.mabar_v1.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,6 +31,13 @@ import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +45,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import id.zelory.compressor.Compressor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,11 +78,14 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     EditText etPhone;
     @BindView(R.id.btn_save)
     Button btnSave;
+    @BindView(R.id.btn_edit_image)
+    Button btnEditImage;
     private RadioButton radioButton;
 
     Calendar myCalendar = Calendar.getInstance();
     private SimpleDateFormat sdf;
     private GlobalMethod gm;
+    private Compressor compressedImageFile;
 
 
     private SessionUser sess;
@@ -77,6 +97,9 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     private String zipCode = "";
     private String phone = "";
     private String brithdateNonFormat = "";
+
+    private static int RESULT_LOAD_IMAGE = 1;
+    private String picturePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +162,24 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                         myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        btnEditImage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(DetailProfileAccountActivity.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(DetailProfileAccountActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent i = new Intent(
+                            Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                    startActivityForResult(i, RESULT_LOAD_IMAGE);
+                }
             }
         });
 
@@ -269,5 +310,32 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            //compressedImageFile = new Compressor().compress(DetailProfileAccountActivity.this,picturePath);
+
+            ivProfile.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+        }
+
+
+    }
+
+
 
 }
