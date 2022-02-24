@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -335,6 +336,59 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
 
     }
+
+    /*private void dialogImage(){
+        AlertDialog.Builder photoBuilder = new AlertDialog.Builder(DetailProfileAccountActivity.this);
+        View photoView = getLayoutInflater().inflate(R.layout.dialog_pick_image, null);
+        final ImageView editPhoto = (ImageView) photoView.findViewById(R.id.imagePlaceholder);
+        final ImageView cameraImageView = (ImageView) photoView.findViewById(R.id.cameraImageView);
+        final ImageView galleryImageView = (ImageView) photoView.findViewById(R.id.galleryImageView);
+        Button saveButtonPhoto = (Button) photoView.findViewById(R.id.saveButtonPhoto);
+        Button cancelButtonPhoto = (Button) photoView.findViewById(R.id.cancelButtonPhoto);
+
+        *//*ColorGenerator generator = ColorGenerator.MATERIAL;
+        int color = generator.getColor(id);
+        String firstLetter = name.substring(0, 1);
+        TextDrawable textDrawable = TextDrawable.builder().buildRect(firstLetter, color);
+        editPhoto.setImageDrawable(textDrawable);*//*
+
+        cameraImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_PICK);
+            }
+        });
+
+        galleryImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*"); //set type for files (image type)
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_FROM_GALLERY);
+            }
+        });
+
+        photoBuilder.setView(photoView);
+        final AlertDialog photoDialog = photoBuilder.create();
+        photoDialog.show();
+        saveButtonPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(DetailProfileAccountActivity.this,
+                        "Sukses",
+                        Toast.LENGTH_SHORT).show();
+                photoDialog.dismiss();
+            }
+        });
+        cancelButtonPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                photoDialog.dismiss();
+            }
+        });
+    }*/
 
 
 
