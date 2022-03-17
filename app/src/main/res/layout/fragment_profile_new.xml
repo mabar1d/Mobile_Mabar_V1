@@ -38,6 +38,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="5dp"
+            android:gravity="center"
             android:text="nama_akun"
             android:textStyle="bold"
             android:textColor="@color/text_grey"
@@ -46,6 +47,7 @@
 
         <TextView
             android:id="@+id/id_akun"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -68,6 +70,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
@@ -81,6 +84,7 @@
             android:layout_marginEnd="8dp"
             android:text="Account"
             android:textAlignment="center"
+            android:gravity="center"
             android:textSize="18sp" />
 
         <TextView
@@ -94,11 +98,13 @@
             android:layout_marginEnd="8dp"
             android:text="Team Settings"
             android:textAlignment="center"
+            android:gravity="center"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/btn_host_settings"
             android:textColor="@color/text_grey"
+            android:gravity="center"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -113,6 +119,7 @@
 
     <Button
         android:id="@+id/btn_req_team_lead"
+        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -128,6 +135,7 @@
 
     <Button
         android:id="@+id/btn_req_host"
+        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -138,13 +146,31 @@
         android:textSize="12dp"
         android:minLines="2"
         android:maxLines="2"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_req_team_lead"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/btn_switch_account"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Logged in as: Host"
+        android:textAlignment="center"
+        android:textColor="@color/text_grey"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/btn_logout"
         android:textColor="@color/text_grey"
+        android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="127dp"

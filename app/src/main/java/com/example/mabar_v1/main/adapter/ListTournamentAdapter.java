@@ -1,5 +1,6 @@
 package com.example.mabar_v1.main.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mabar_v1.R;
+import com.example.mabar_v1.main.DetailTournamentActivity;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 
@@ -40,7 +42,7 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TournamentViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TournamentViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.judulTourney.setText(dataTournament.get(position).getName());
         holder.prizeTourney.setText("Rp. "+dataTournament.get(position).getPrize());
 
@@ -52,15 +54,11 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent i = new Intent(context, .class);
+                Intent i = new Intent(context, DetailTournamentActivity.class);
                 Bundle bun = new Bundle();
-                bun.putString("title",dataTv.get(position).getName());
-                bun.putString("backdrop_path",dataTv.get(position).getBackdropPath());
-                bun.putString("deskripsi",dataTv.get(position).getOverview());
-                bun.putString("release_date",dataTv.get(position).getFirstAirDate());
-                bun.putString("popularity", String.valueOf(dataTv.get(position).getPopularity()));
+                bun.putString("id_tournament", String.valueOf(dataTournament.get(position).getId()));
                 i.putExtras(bun);
-                context.startActivity(i);*/
+                context.startActivity(i);
             }
         });
     }

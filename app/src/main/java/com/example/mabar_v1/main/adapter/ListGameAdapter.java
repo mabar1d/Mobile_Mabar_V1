@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.model.ListGameModel;
-import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
+import com.example.mabar_v1.retrofit.model.DataItem;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -23,10 +21,10 @@ import java.util.List;
 
 public class ListGameAdapter extends RecyclerView.Adapter<ListGameAdapter.GameViewHolder> {
     private Context context;
-    private List<ListGameModel> dataGame = new ArrayList<>();
+    private List<DataItem> dataGame = new ArrayList<>();
     private GlobalMethod globalMethod;
 
-    public ListGameAdapter(Context context, List<ListGameModel> dataGame) {
+    public ListGameAdapter(Context context, List<DataItem> dataGame) {
         this.context = context;
         this.dataGame = dataGame;
     }
@@ -42,10 +40,10 @@ public class ListGameAdapter extends RecyclerView.Adapter<ListGameAdapter.GameVi
     @Override
     public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
 
-        holder.judulGame.setText(dataGame.get(position).getJudulGame());
+        holder.judulGame.setText(dataGame.get(position).getTitle());
 
         Glide.with(context)
-                .load(dataGame.get(position).getUrlImage())
+                .load(dataGame.get(position).getImage())
                 .into(holder.civGame);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

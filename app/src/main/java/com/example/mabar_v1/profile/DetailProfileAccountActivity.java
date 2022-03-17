@@ -41,12 +41,16 @@ import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.zelory.compressor.Compressor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -331,6 +335,14 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
             //compressedImageFile = new Compressor().compress(DetailProfileAccountActivity.this,picturePath);
 
             ivProfile.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+            File file = new File(picturePath);
+            //create RequestBody instance from file
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image"), file);
+
+            // MultipartBody.Part is used to send also the actual file name
+            MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file.getName(), requestFile);
+            body.toString();
 
         }
 

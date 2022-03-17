@@ -4,6 +4,8 @@ import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
+import com.example.mabar_v1.retrofit.model.ResponseGetInfoTournamentModel;
+import com.example.mabar_v1.retrofit.model.ResponseListGame;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.signup.model.ResponseRegisterModel;
 
@@ -189,11 +191,29 @@ public interface ApiService {
             @Query("page") String page
     );
 
+    //Register Tournament
+    @POST("registerTournament")
+    Call<SuccessResponseDefaultModel> registerTournament(
+            @Query("user_id") String user_id,
+            @Query("tournament_id") String search
+    );
+
     //get Info Tournament
     @POST("getInfoTournament")
-    Call<SuccessResponseDefaultModel> getInfoTournament(
+    Call<ResponseGetInfoTournamentModel> getInfoTournament(
             @Query("user_id") String user_id,
             @Query("tournament_id") String tournament_id
     );
+
+    //Game API
+
+    //get list game
+    @POST("getListMasterGame")
+    Call<ResponseListGame> getListGame(
+            @Query("user_id") String user_id,
+            @Query("search") String search,
+            @Query("page") String page
+    );
+
 
 }

@@ -94,6 +94,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_start_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
@@ -118,6 +119,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_end_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -142,6 +144,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_reg_start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -167,6 +170,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tv_reg_end"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
@@ -192,6 +196,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/num_participant"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
@@ -217,11 +222,12 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:gravity="start"
-                            android:text=""
+                            android:text="-"
                             android:textSize="14sp" />
                     </LinearLayout>
 
