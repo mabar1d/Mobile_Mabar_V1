@@ -1,6 +1,9 @@
 package com.example.mabar_v1.main.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mabar_v1.R;
+import com.example.mabar_v1.main.GeneralSearchTournamentActivity;
 import com.example.mabar_v1.main.model.ListGameModel;
 import com.example.mabar_v1.retrofit.model.DataItem;
 import com.example.mabar_v1.utility.GlobalMethod;
@@ -38,7 +42,7 @@ public class ListGameAdapter extends RecyclerView.Adapter<ListGameAdapter.GameVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GameViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.judulGame.setText(dataGame.get(position).getTitle());
 
@@ -49,15 +53,12 @@ public class ListGameAdapter extends RecyclerView.Adapter<ListGameAdapter.GameVi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent i = new Intent(context, .class);
+                Intent i = new Intent(context, GeneralSearchTournamentActivity.class);
                 Bundle bun = new Bundle();
-                bun.putString("title",dataTv.get(position).getName());
-                bun.putString("backdrop_path",dataTv.get(position).getBackdropPath());
-                bun.putString("deskripsi",dataTv.get(position).getOverview());
-                bun.putString("release_date",dataTv.get(position).getFirstAirDate());
-                bun.putString("popularity", String.valueOf(dataTv.get(position).getPopularity()));
+                bun.putString("id_game",dataGame.get(position).getId().toString());
+                bun.putString("judul_game",dataGame.get(position).getTitle());
                 i.putExtras(bun);
-                context.startActivity(i);*/
+                context.startActivity(i);
             }
         });
     }

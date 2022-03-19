@@ -55,6 +55,7 @@ public class HomeFragmentNew extends Fragment {
     private ListGameAdapter listGameAdapter;
 
     private ArrayList<ListGameModel> listGameModels = new ArrayList<>();
+    private JSONArray listFilterGame = new JSONArray();
     List<GetListTournamentResponseModel.Data> listTournament = new ArrayList<>();
     List<DataItem> listGames = new ArrayList<>();
 
@@ -76,18 +77,18 @@ public class HomeFragmentNew extends Fragment {
         posterSlider = root.findViewById(R.id.poster_slider);
 
         getListGame(sess.getString("id_user"),"","0");
-        getListTournament(sess.getString("id_user"),"","0");
+        getListTournament(sess.getString("id_user"),"","0",listFilterGame);
 
         // Inflate the layout for this fragment
         return root;
     }
 
-    private void getListTournament(String userId,String search,String page){
+    private void getListTournament(String userId,String search,String page,JSONArray filterGame){
         ProgressDialog progress = new ProgressDialog(getContext());
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTournament(userId, search, page);
+            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTournament(userId, search, page,filterGame);
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTournamentResponseModel> call, Response<GetListTournamentResponseModel> response) {

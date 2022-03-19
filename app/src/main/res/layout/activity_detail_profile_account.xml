@@ -47,7 +47,7 @@
 
         <TextView
             android:id="@+id/nama_akun"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
@@ -55,12 +55,13 @@
             android:textColor="@color/text_grey"
             android:text="nama_akun"
             android:textStyle="bold"
+            android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/id_akun"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="15dp"
@@ -68,6 +69,7 @@
             android:layout_marginEnd="8dp"
             android:textColor="@color/text_grey"
             android:text="id_akun"
+            android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="16sp" />
 

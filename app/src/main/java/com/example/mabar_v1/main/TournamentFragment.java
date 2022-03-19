@@ -27,6 +27,8 @@ import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.utility.SessionUser;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class TournamentFragment extends Fragment {
     private EditText searchBarTournament;
     private ImageView btnSearch;
     private SessionUser sess;
-
+    private JSONArray fltGame = new JSONArray();
     List<GetListTournamentResponseModel.Data> listTournament = new ArrayList<>();
 
     @Override
@@ -60,19 +62,19 @@ public class TournamentFragment extends Fragment {
         searchBarTournament = root.findViewById(R.id.search_bar_tournament);
         btnSearch = root.findViewById(R.id.btn_search);
 
-        getListTournament(sess.getString("id_user"),"","0");
+        getListTournament(sess.getString("id_user"),"","0",fltGame);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getListTournament(sess.getString("id_user"),searchBarTournament.getText().toString(),"0");
+                getListTournament(sess.getString("id_user"),searchBarTournament.getText().toString(),"0",fltGame);
             }
         });
         searchBarTournament.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    getListTournament(sess.getString("id_user"),searchBarTournament.getText().toString(),"0");
+                    getListTournament(sess.getString("id_user"),searchBarTournament.getText().toString(),"0",fltGame);
                     return true;
                 }
                 return false;
@@ -82,12 +84,15 @@ public class TournamentFragment extends Fragment {
         return root;
     }
 
-    private void getListTournament(String userId,String search,String page){
+    private void getListTournament(String userId, String search, String page, JSONArray filterGame ){
+        filterGame = new JSONArray();
+        filterGame.put("6");
+        filterGame.put("7");
         ProgressDialog progress = new ProgressDialog(getContext());
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTournament(userId, search, page);
+            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTournament(userId, search, page,filterGame);
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTournamentResponseModel> call, Response<GetListTournamentResponseModel> response) {

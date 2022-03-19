@@ -9,6 +9,11 @@ import com.example.mabar_v1.retrofit.model.ResponseListGame;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.signup.model.ResponseRegisterModel;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -188,7 +193,8 @@ public interface ApiService {
     Call<GetListTournamentResponseModel> getListTournament(
             @Query("user_id") String user_id,
             @Query("search") String search,
-            @Query("page") String page
+            @Query("page") String page,
+            @Query("filter_game") JSONArray filter_game
     );
 
     //Register Tournament

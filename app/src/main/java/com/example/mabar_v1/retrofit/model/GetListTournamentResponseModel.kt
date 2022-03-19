@@ -48,6 +48,21 @@ data class GetListTournamentResponseModel(
         var registerDateStart: String,
         @SerializedName("start_date")
         @Expose
-        var startDate: String
+        var startDate: String,
+        @SerializedName("image")
+        @Expose
+        var image: String,
+        @SerializedName("game_id")
+        @Expose
+        var game_id: Int,
+        @SerializedName("type")
+        @Expose
+        var type: Int,
+        @SerializedName("title_game")
+        @Expose
+        var title_game: String,
+        @SerializedName("created_name")
+        @Expose
+        var created_name: String
     )
 }

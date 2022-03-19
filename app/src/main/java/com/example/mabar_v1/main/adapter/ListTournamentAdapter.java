@@ -45,11 +45,12 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
     public void onBindViewHolder(@NonNull TournamentViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.judulTourney.setText(dataTournament.get(position).getName());
         holder.prizeTourney.setText("Rp. "+dataTournament.get(position).getPrize());
+        holder.createdBy.setText("Created by "+dataTournament.get(position).getCreated_name());
 
-        //holder.judulGame.setText(dataTournament.get(position).getData().get(position).getGame());
-        /*Glide.with(context)
-                .load(globalMethod.getUriImage(dataTv.get(position).getPosterPath()))
-                .into(holder.imageTv);*/
+        holder.judulGame.setText(dataTournament.get(position).getTitle_game());
+        Glide.with(context)
+                .load(dataTournament.get(position).getImage())
+                .into(holder.imageTourney);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +58,7 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
                 Intent i = new Intent(context, DetailTournamentActivity.class);
                 Bundle bun = new Bundle();
                 bun.putString("id_tournament", String.valueOf(dataTournament.get(position).getId()));
+                bun.putString("judul_game", (dataTournament.get(position).getTitle_game()));
                 i.putExtras(bun);
                 context.startActivity(i);
             }
@@ -71,7 +73,7 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
 
     public class TournamentViewHolder extends RecyclerView.ViewHolder {
         ImageView imageTourney;
-        TextView judulTourney,judulGame,prizeTourney,btnDetail, ratingTourney;
+        TextView judulTourney,judulGame,prizeTourney,btnDetail, ratingTourney, createdBy;
         public TournamentViewHolder(@NonNull View itemView) {
             super(itemView);
             ratingTourney = itemView.findViewById(R.id.rating_tourney);
@@ -79,6 +81,7 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
             prizeTourney = itemView.findViewById(R.id.prize_tourney);
             imageTourney = itemView.findViewById(R.id.image_tourney);
             judulGame = itemView.findViewById(R.id.judul_game);
+            createdBy = itemView.findViewById(R.id.tv_created_by);
             btnDetail = itemView.findViewById(R.id.btn_detail);
         }
     }

@@ -8,23 +8,36 @@
     android:orientation="vertical"
     android:background="@color/primary_color_blue"
     tools:context=".main.DetailTournamentActivity">
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:id="@+id/image_tournament"
-        android:padding="30dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="10dp"
-        android:scaleType="centerCrop"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="400dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="15dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/image_tournament"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"/>
+
+
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,7 +64,17 @@
                 android:text="prize"
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tv_game"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_grey"
+                android:text="Game "
+                android:textStyle="bold|italic"
+                android:layout_marginBottom="5dp"
+                android:textAlignment="center"
+                android:textSize="14sp" />
             <TextView
                 android:id="@+id/tv_created_by"
                 android:layout_width="match_parent"
@@ -59,7 +82,7 @@
                 android:textColor="@color/text_grey"
                 android:layout_marginBottom="20dp"
                 android:text="Created By "
-                android:textStyle="bold"
+                android:textStyle="bold|italic"
                 android:textAlignment="center"
                 android:textSize="14sp" />
 
@@ -235,18 +258,22 @@
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
+        <Button
+            android:id="@+id/btn_register_tournament"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/rounded_button_grey"
+            android:text="Register Tournament"
+            android:textColor="@color/grey"
+            android:textSize="14dp" />
     </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_register_tournament"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_button_grey"
-        android:text="Register Tournament"
-        android:textColor="@color/grey"
-        android:textSize="14dp" />
+
+
 
 </LinearLayout>
