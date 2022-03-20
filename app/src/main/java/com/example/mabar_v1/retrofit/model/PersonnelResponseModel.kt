@@ -57,6 +57,12 @@ data class PersonnelResponseModel(
         var userId: Int,
         @SerializedName("zipcode")
         @Expose
-        var zipcode: String
+        var zipcode: String,
+        @SerializedName("is_verified")
+        @Expose
+        var isVerified: String,
+        @SerializedName("image")
+        @Expose
+        var image: String
     )
 }

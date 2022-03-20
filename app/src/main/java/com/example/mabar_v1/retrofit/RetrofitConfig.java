@@ -1,5 +1,7 @@
 package com.example.mabar_v1.retrofit;
 
+import androidx.annotation.NonNull;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -12,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitConfig {
     private static String BASE_URL = "https://apimabar.vidiwijaya.my.id/api/";
+    private static Retrofit retrofit;
 
     public static ApiService getApiServices(String token){
 
@@ -38,5 +41,26 @@ public class RetrofitConfig {
 
         ApiService service = retrofit.create(ApiService.class);
         return  service;
+    }
+
+    public static Retrofit getApiUpload(String token) {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
+                /*.addInterceptor(new Interceptor() {
+                    @NonNull
+                    @Override
+                    public Response intercept(@NonNull Chain chain) throws IOException {
+                        Request newRequest  = chain.request().newBuilder()
+                                .addHeader("Authorization", " Bearer " + token )
+                                .build();
+                        return chain.proceed(newRequest);
+                    }
+                }).build();*/
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient).build();
+        }
+        return retrofit;
     }
 }

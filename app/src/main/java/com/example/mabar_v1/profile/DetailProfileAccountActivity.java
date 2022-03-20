@@ -1,11 +1,9 @@
 package com.example.mabar_v1.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,26 +17,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
+import com.example.mabar_v1.retrofit.ApiService;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
-import com.karumi.dexter.listener.single.PermissionListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.File;
@@ -50,10 +43,13 @@ import butterknife.ButterKnife;
 import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class DetailProfileAccountActivity extends AppCompatActivity {
 
@@ -105,6 +101,8 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
     private String picturePath = "";
+    private File fileUpload;
+    private MultipartBody.Part bodyImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +140,16 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                 zipCode = etZipCode.getText().toString();
                 phone = etPhone.getText().toString();
 
-                updateDataPerson(firstName,lastName,genderId,brithdateNonFormat,address,"","","",zipCode,phone);
+                if (zipCode.length()<5){
+                    Toast.makeText(DetailProfileAccountActivity.this, "Zip Code Must be 5 digits", Toast.LENGTH_SHORT).show();
+                }else {
+                    if (phone.length()<10){
+                        Toast.makeText(DetailProfileAccountActivity.this, "Phone Number Must be at Least 10 digits", Toast.LENGTH_SHORT).show();
+                    }else {
+                        updateDataPerson(firstName,lastName,genderId,brithdateNonFormat,address,"","","",zipCode,phone);
+                    }
+                }
+
 
 
             }
@@ -203,8 +210,14 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                 public void onResponse(Call<PersonnelResponseModel> call, Response<PersonnelResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
-                            String desc = response.body().getDesc();
-                            Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+
+                            if (response.body().getData().getImage() != null){
+                                Glide.with(DetailProfileAccountActivity.this)
+                                        .load(response.body().getData().getImage())
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
+                                        .into(ivProfile);
+                            }
 
                             if (response.body().getData().getFirstname() != null){
                                 etFirstName.setText(response.body().getData().getFirstname());
@@ -281,6 +294,9 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                         if (response.body().getCode().equals("00")){
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            if (!picturePath.equals("")){
+                                uploadImage();
+                            }
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
@@ -336,13 +352,14 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
             ivProfile.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
-            File file = new File(picturePath);
+            //fileUpload = new File(picturePath);
+            //filePath = fileUpload.getAbsoluteFile();
             //create RequestBody instance from file
-            RequestBody requestFile = RequestBody.create(MediaType.parse("image"), file);
+            //RequestBody requestFile = RequestBody.create(MediaType.parse("image"), fileUpload);
 
             // MultipartBody.Part is used to send also the actual file name
-            MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file.getName(), requestFile);
-            body.toString();
+            //bodyImage = MultipartBody.Part.createFormData("uploaded_file", fileUpload.getName(), requestFile);
+            //body.toString();
 
         }
 
@@ -403,5 +420,111 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     }*/
 
 
+   /* private void uploadPhoto(){
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    try {
+                        OkHttpClient client = new OkHttpClient().newBuilder()
+                                .build();
+                        MediaType mediaType = MediaType.parse("text/plain");
+                        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                .addFormDataPart("image_file", fileUpload.getName(),
+                                        RequestBody.create(MediaType.parse("application/octet-stream"),
+                                                new File(picturePath)))
+                                .addFormDataPart("user_id", sess.getString("id_user"))
+                                .build();
+                        Request request = new Request.Builder()
+                                .url("https://apimabar.vidiwijaya.my.id/api/uploadImagePersonnel")
+                                .method("POST", body)
+                                .build();
+                        okhttp3.Response response = client.newCall(request).execute();
+                        response.toString();
+                        response.body().toString();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+    }*/
+
+   private void uploadImage() {
+       ProgressDialog progress = new ProgressDialog(DetailProfileAccountActivity.this);
+       progress.setMessage("Uploading Photo");
+       progress.show();
+
+       File file = new File(picturePath);
+       Retrofit retrofit = RetrofitConfig.getApiUpload(sess.getString("token"));
+
+       RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+       MultipartBody.Part parts = MultipartBody.Part.createFormData("image_file", file.getName(), requestBody);
+
+       RequestBody someData = RequestBody.create(MediaType.parse("text/plain"), sess.getString("id_user"));
+
+      /* ApiService uploadApis = retrofit.create(ApiService.class);
+       Call<SuccessResponseDefaultModel> call = uploadApis.uploadImagePerson(someData,parts);
+       call.enqueue(new Callback() {
+           @Override
+           public void onResponse(Call call, Response response) {
+               Toast.makeText(DetailProfileAccountActivity.this,"Berhasil",Toast.LENGTH_SHORT);
+           }
+
+           @Override
+           public void onFailure(Call call, Throwable t) {
+               Toast.makeText(DetailProfileAccountActivity.this,"Gagal",Toast.LENGTH_SHORT);
+           }
+       });*/
+       try {
+           Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiUpload(sess.getString("token")).create(ApiService.class).uploadImagePerson(someData,parts);
+           req.enqueue(new Callback<SuccessResponseDefaultModel>() {
+               @Override
+               public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
+                   if (response.isSuccessful()) {
+                       if (response.body().getCode().equals("00")){
+                           String desc = response.body().getDesc();
+                           Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+
+                       }else if (response.body().getCode().equals("05")){
+                           String desc = response.body().getDesc();
+                           Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+                           progress.dismiss();
+                           sess.clearSess();
+                           Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
+                           startActivity(i);
+                           finish();
+                       }else {
+                           String desc = response.body().getDesc();
+                           Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+                       }
+
+                   } else {
+                       Toast.makeText(DetailProfileAccountActivity.this, "Failed Upload Image", Toast.LENGTH_SHORT).show();
+                       progress.dismiss();
+                   }
+                  progress.dismiss();
+               }
+
+               @Override
+               public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
+                   String msg = t.getMessage();
+                   Toast.makeText(DetailProfileAccountActivity.this, msg, Toast.LENGTH_SHORT).show();
+                   progress.dismiss();
+               }
+
+
+           });
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+   }
 
 }

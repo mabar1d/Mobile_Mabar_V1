@@ -3,12 +3,17 @@ package com.example.mabar_v1.utility;
 import android.content.Context;
 import android.graphics.Color;
 
+import java.io.File;
+import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class GlobalMethod {
 
@@ -104,6 +109,28 @@ public class GlobalMethod {
         }
 
         return result;
+    }
+
+    public static MultipartBody.Part prepareFilePart(
+            String fileName,
+            File file
+    ){
+        String filePath = file.getAbsolutePath();
+        RequestBody requestFile = (GlobalMethod.isImageFile(filePath))?RequestBody.create(file, MediaType.parse("image/jpg")):
+                GlobalMethod.isPdfFile(filePath)?RequestBody.create(file,MediaType.parse("application/pdf")):
+                        RequestBody.create(file,MediaType.parse("multipart/form-data"));
+
+        return MultipartBody.Part.createFormData("file", fileName, requestFile);
+    }
+
+    public static Boolean isImageFile(String path) {
+        String mimeType = URLConnection.guessContentTypeFromName(path);
+        return mimeType != null && mimeType.startsWith("image");
+    }
+
+    public static Boolean isPdfFile(String path) {
+        String mimeType = URLConnection.guessContentTypeFromName(path);
+        return mimeType != null && mimeType.startsWith("application");
     }
 
 }

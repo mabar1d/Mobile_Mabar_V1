@@ -286,6 +286,7 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/rounded_edit_text_grey"
                 android:textColor="@color/text_grey"
+                android:maxLength="5"
                 android:padding="8dp"
                 android:text=""
                 android:textSize="14sp" />
@@ -315,6 +316,7 @@
                 android:background="@drawable/rounded_edit_text_grey"
                 android:textColor="@color/text_grey"
                 android:padding="8dp"
+                android:maxLength="13"
                 android:text=""
                 android:textSize="14sp" />
         </LinearLayout>
