@@ -170,12 +170,14 @@ public interface ApiService {
             @Query("host_id") String host_id,
             @Query("name") String name,
             @Query("detail") String detail,
-            @Query("number_of_participants") String number_of_participants,
+            @Query("number_of_participants") Integer number_of_participants,
             @Query("register_date_start") String register_date_start,
             @Query("register_date_end") String register_date_end,
             @Query("start_date") String start_date,
             @Query("end_date") String end_date,
-            @Query("prize") String prize
+            @Query("prize") String prize,
+            @Query("game_id") Integer game_id,
+            @Query("type") Integer type
     );
 
     //Update Tournament
@@ -231,6 +233,13 @@ public interface ApiService {
     @POST("uploadImagePersonnel")
     Call<SuccessResponseDefaultModel> uploadImagePerson(
             @Part("user_id") RequestBody user_id,
+            @Part MultipartBody.Part image_file
+    );
+    @Multipart
+    @POST("uploadImageTournament")
+    Call<SuccessResponseDefaultModel> uploadImageTournament(
+            @Part("user_id") RequestBody user_id,
+            @Part("tournament_id") RequestBody tournament_id,
             @Part MultipartBody.Part image_file
     );
 

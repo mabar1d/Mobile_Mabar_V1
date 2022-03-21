@@ -1,7 +1,16 @@
 package com.example.mabar_v1.utility;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+
+import com.example.mabar_v1.R;
+import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
 import java.net.URLConnection;
@@ -16,9 +25,9 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class GlobalMethod {
-
     SessionUser sessionUser;
     SweetAlertDialog pDialog;
+    Dialog alertDialogSwitchAccount;
     /*public String getUriImage(String path){
         //String url = "https://image.tmdb.org/t/p/w500"+path;
         //return url;
@@ -47,6 +56,19 @@ public class GlobalMethod {
         pDialog.dismissWithAnimation();
     }
 
+    public String getRoleById(Integer role){
+        String textRole = "";
+        if (role == 1){
+            textRole = "Member";
+        }else if (role == 2){
+            textRole = "Team Leader";
+        }else if (role == 3){
+            textRole = "Host";
+        }else {
+            textRole = "--";
+        }
+        return textRole;
+    }
     public String setDateIndonesia(Integer type, String date){
         DateFormat df;
         Date dt;
@@ -131,6 +153,31 @@ public class GlobalMethod {
     public static Boolean isPdfFile(String path) {
         String mimeType = URLConnection.guessContentTypeFromName(path);
         return mimeType != null && mimeType.startsWith("application");
+    }
+
+    public void showDialogSwitchAccount(
+            Context context,
+            View view,
+            View.OnClickListener onClickListenerHost,
+            View.OnClickListener onClickListenerTeamLead) {
+
+        alertDialogSwitchAccount = new Dialog(context);
+        View dv  = view;
+        //alertDialogSwitchAccount.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialogSwitchAccount.setContentView(dv);
+
+
+        Button btnHost = (Button) alertDialogSwitchAccount.findViewById(R.id.btn_host);
+        Button btnTeamLead = (Button) alertDialogSwitchAccount.findViewById(R.id.btn_team_lead);
+        btnHost.setOnClickListener(onClickListenerHost);
+        btnTeamLead.setOnClickListener(onClickListenerTeamLead);
+
+        alertDialogSwitchAccount.show();
+
+    }
+    public void dismissDialogSwitchAccount() {
+        alertDialogSwitchAccount.dismiss();
+
     }
 
 }

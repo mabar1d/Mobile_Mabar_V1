@@ -60,7 +60,7 @@ data class PersonnelResponseModel(
         var zipcode: String,
         @SerializedName("is_verified")
         @Expose
-        var isVerified: String,
+        var isVerified: Int,
         @SerializedName("image")
         @Expose
         var image: String

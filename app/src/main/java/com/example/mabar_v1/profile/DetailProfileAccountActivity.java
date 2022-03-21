@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -82,6 +83,8 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     @BindView(R.id.btn_edit_image)
     Button btnEditImage;
     private RadioButton radioButton;
+    @BindView(R.id.iv_is_verif)
+    ImageView ivIsVerified;
 
     Calendar myCalendar = Calendar.getInstance();
     private SimpleDateFormat sdf;
@@ -217,6 +220,12 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                                         .skipMemoryCache(true)
                                         .into(ivProfile);
+                            }
+
+                            if (response.body().getData().isVerified() == 1){
+                                ivIsVerified.setVisibility(View.VISIBLE);
+                            }else {
+                                ivIsVerified.setVisibility(View.GONE);
                             }
 
                             if (response.body().getData().getFirstname() != null){
@@ -366,123 +375,17 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
     }
 
-    /*private void dialogImage(){
-        AlertDialog.Builder photoBuilder = new AlertDialog.Builder(DetailProfileAccountActivity.this);
-        View photoView = getLayoutInflater().inflate(R.layout.dialog_pick_image, null);
-        final ImageView editPhoto = (ImageView) photoView.findViewById(R.id.imagePlaceholder);
-        final ImageView cameraImageView = (ImageView) photoView.findViewById(R.id.cameraImageView);
-        final ImageView galleryImageView = (ImageView) photoView.findViewById(R.id.galleryImageView);
-        Button saveButtonPhoto = (Button) photoView.findViewById(R.id.saveButtonPhoto);
-        Button cancelButtonPhoto = (Button) photoView.findViewById(R.id.cancelButtonPhoto);
-
-        *//*ColorGenerator generator = ColorGenerator.MATERIAL;
-        int color = generator.getColor(id);
-        String firstLetter = name.substring(0, 1);
-        TextDrawable textDrawable = TextDrawable.builder().buildRect(firstLetter, color);
-        editPhoto.setImageDrawable(textDrawable);*//*
-
-        cameraImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_PICK);
-            }
-        });
-
-        galleryImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*"); //set type for files (image type)
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_FROM_GALLERY);
-            }
-        });
-
-        photoBuilder.setView(photoView);
-        final AlertDialog photoDialog = photoBuilder.create();
-        photoDialog.show();
-        saveButtonPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(DetailProfileAccountActivity.this,
-                        "Sukses",
-                        Toast.LENGTH_SHORT).show();
-                photoDialog.dismiss();
-            }
-        });
-        cancelButtonPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                photoDialog.dismiss();
-            }
-        });
-    }*/
-
-
-   /* private void uploadPhoto(){
-
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try  {
-                    try {
-                        OkHttpClient client = new OkHttpClient().newBuilder()
-                                .build();
-                        MediaType mediaType = MediaType.parse("text/plain");
-                        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                                .addFormDataPart("image_file", fileUpload.getName(),
-                                        RequestBody.create(MediaType.parse("application/octet-stream"),
-                                                new File(picturePath)))
-                                .addFormDataPart("user_id", sess.getString("id_user"))
-                                .build();
-                        Request request = new Request.Builder()
-                                .url("https://apimabar.vidiwijaya.my.id/api/uploadImagePersonnel")
-                                .method("POST", body)
-                                .build();
-                        okhttp3.Response response = client.newCall(request).execute();
-                        response.toString();
-                        response.body().toString();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        thread.start();
-
-    }*/
-
    private void uploadImage() {
        ProgressDialog progress = new ProgressDialog(DetailProfileAccountActivity.this);
        progress.setMessage("Uploading Photo");
        progress.show();
 
        File file = new File(picturePath);
-       Retrofit retrofit = RetrofitConfig.getApiUpload(sess.getString("token"));
-
        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
        MultipartBody.Part parts = MultipartBody.Part.createFormData("image_file", file.getName(), requestBody);
 
        RequestBody someData = RequestBody.create(MediaType.parse("text/plain"), sess.getString("id_user"));
 
-      /* ApiService uploadApis = retrofit.create(ApiService.class);
-       Call<SuccessResponseDefaultModel> call = uploadApis.uploadImagePerson(someData,parts);
-       call.enqueue(new Callback() {
-           @Override
-           public void onResponse(Call call, Response response) {
-               Toast.makeText(DetailProfileAccountActivity.this,"Berhasil",Toast.LENGTH_SHORT);
-           }
-
-           @Override
-           public void onFailure(Call call, Throwable t) {
-               Toast.makeText(DetailProfileAccountActivity.this,"Gagal",Toast.LENGTH_SHORT);
-           }
-       });*/
        try {
            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiUpload(sess.getString("token")).create(ApiService.class).uploadImagePerson(someData,parts);
            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
