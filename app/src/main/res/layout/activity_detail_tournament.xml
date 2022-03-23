@@ -27,6 +27,7 @@
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
             app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="@color/material_grey_700"
             android:layout_marginBottom="15dp">
 
             <ImageView
@@ -129,6 +130,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@color/material_grey_700"
                 android:padding="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -149,6 +151,7 @@
                     android:layout_weight="0.5"
                     android:gravity="start"
                     android:text="Start Date"
+                    android:textColor="@color/grey"
                     android:textSize="14sp" />
 
                 <TextView
@@ -157,6 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="start"
+                    android:textColor="@color/grey"
                     android:text="-"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -173,6 +177,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:gravity="start"
+                        android:textColor="@color/grey"
                         android:text="End Date"
                         android:textSize="14sp" />
 
@@ -182,6 +187,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:gravity="start"
+                        android:textColor="@color/grey"
                         android:text="-"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -199,6 +205,7 @@
                         android:layout_weight="0.5"
                         android:gravity="start"
                         android:text="Register Start"
+                        android:textColor="@color/grey"
                         android:textSize="14sp" />
 
                     <TextView
@@ -206,6 +213,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
+                        android:textColor="@color/grey"
                         android:gravity="start"
                         android:text="-"
                         android:textSize="14sp" />
@@ -225,6 +233,7 @@
                             android:layout_weight="0.5"
                             android:gravity="start"
                             android:text="Register End"
+                            android:textColor="@color/grey"
                             android:textSize="14sp" />
 
                         <TextView
@@ -233,6 +242,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:gravity="start"
+                            android:textColor="@color/grey"
                             android:text="-"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -250,6 +260,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:gravity="start"
+                            android:textColor="@color/grey"
                             android:text="Number of Participant"
                             android:textSize="14sp" />
 
@@ -259,6 +270,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:gravity="start"
+                            android:textColor="@color/grey"
                             android:text="-"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -276,6 +288,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:gravity="start"
+                            android:textColor="@color/grey"
                             android:text="Description"
                             android:textSize="14sp" />
 
@@ -284,6 +297,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
+                            android:textColor="@color/grey"
                             android:gravity="start"
                             android:text="-"
                             android:textSize="14sp" />

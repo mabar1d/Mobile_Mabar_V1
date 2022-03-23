@@ -3,6 +3,7 @@ package com.example.mabar_v1.retrofit;
 import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
+import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseGetInfoTournamentModel;
@@ -149,7 +150,7 @@ public interface ApiService {
 
     //search list Team
     @POST("getListTeam")
-    Call<SuccessResponseDefaultModel> getListTeam(
+    Call<ListTeamResponseModel> getListTeam(
             @Query("user_id") String user_id,
             @Query("search") String search,
             @Query("page") String page

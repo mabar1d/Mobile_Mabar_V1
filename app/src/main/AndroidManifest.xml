@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mabar_V1">
         <activity
+            android:name=".team.TeamSettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".profile.HostSettingNewActivity"
             android:exported="false" />
         <activity android:name=".main.DetailTournamentActivity" />

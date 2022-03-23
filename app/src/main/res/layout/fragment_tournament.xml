@@ -36,18 +36,22 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/material_grey_700">
+
                 <EditText
                     android:id="@+id/search_bar_tournament"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:paddingLeft="10dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
                     android:background="@null"
+                    android:hint="Cari Tournament"
                     android:imeOptions="actionSearch"
+                    android:textSize="14dp"
+                    android:paddingLeft="10dp"
                     android:singleLine="true"
-                    android:hint="Cari Tournament" />
+                    android:textColorHint="@color/grey" />
 
                 <ImageView
                     android:id="@+id/btn_search"

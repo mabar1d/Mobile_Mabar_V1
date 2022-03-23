@@ -33,6 +33,7 @@ import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.signup.SignUpActivity;
 import com.example.mabar_v1.signup.model.ResponseRegisterModel;
+import com.example.mabar_v1.team.TeamSettingsActivity;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -118,7 +119,7 @@ public class ProfileNewFragment extends Fragment {
         btnTeamSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), TeamSettingActivity.class);
+                Intent i = new Intent(getActivity(), TeamSettingsActivity.class);
                 startActivity(i);
             }
         });
