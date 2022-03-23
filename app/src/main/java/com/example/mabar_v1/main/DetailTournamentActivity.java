@@ -21,6 +21,7 @@ import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseGetInfoTournamentModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
+import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
 
 import butterknife.BindView;
@@ -36,6 +37,8 @@ public class DetailTournamentActivity extends AppCompatActivity {
     ImageView ivTournament;
     @BindView(R.id.tv_judul_tourney)
     TextView tvJudulTourney;
+    @BindView(R.id.rating_tourney)
+    TextView tvRating;
     @BindView(R.id.tv_prize)
     TextView tvPrize;
     @BindView(R.id.tv_game)
@@ -60,6 +63,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
     private String idTournament = "";
     private String judulGame = "";
     private SessionUser sess;
+    private GlobalMethod gm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +79,8 @@ public class DetailTournamentActivity extends AppCompatActivity {
         }
 
         sess = new SessionUser(this);
+        gm = new GlobalMethod();
+
         getInfoTournament(sess.getString("id_user"),idTournament);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,8 +124,9 @@ public class DetailTournamentActivity extends AppCompatActivity {
                                     .load(response.body().getData().getImage())
                                     .into(ivTournament);
                             tvJudulTourney.setText(response.body().getData().getName());
+                            tvRating.setText(response.body().getData().getRating());
                             tvPrize.setText("Rp. "+response.body().getData().getPrize());
-                            tvGame.setText(judulGame);
+                            tvGame.setText(response.body().getData().getTitleGame());
                             tvCreatedBy.setText("Created By "+response.body().getData().getCreatedName());
                             tvStartDate.setText(response.body().getData().getStartDate());
                             tvEndDate.setText(response.body().getData().getEndDate());
@@ -127,6 +134,14 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             tvRegEnd.setText(response.body().getData().getRegisterDateEnd());
                             tvNumParticipant.setText(response.body().getData().getNumberOfParticipants().toString()+" Slot");
                             tvDescription.setText(response.body().getData().getDetail());
+                            String fee = response.body().getData().getRegister_fee();
+
+                            if (fee.equalsIgnoreCase("0")){
+                                fee = "FREE";
+                            }else {
+                                fee = "Rp. "+fee;
+                            }
+                            btnRegister.setText("Register "+ "("+fee+")");
 
 
                         }else {

@@ -44,6 +44,7 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
     @Override
     public void onBindViewHolder(@NonNull TournamentViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.judulTourney.setText(dataTournament.get(position).getName());
+        holder.ratingTourney.setText(dataTournament.get(position).getRating());
         holder.prizeTourney.setText("Rp. "+dataTournament.get(position).getPrize());
         holder.createdBy.setText("Created by "+dataTournament.get(position).getCreated_name());
 

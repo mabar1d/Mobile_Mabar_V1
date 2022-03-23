@@ -61,6 +61,9 @@ data class GetListTournamentResponseModel(
         @SerializedName("title_game")
         @Expose
         var title_game: String,
+        @SerializedName("rating")
+        @Expose
+        var rating: String,
         @SerializedName("created_name")
         @Expose
         var created_name: String

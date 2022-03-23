@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.retrofit.ApiService;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
+import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
@@ -51,9 +53,9 @@ public class HostSettingNewActivity extends AppCompatActivity {
     @BindView(R.id.btn_add_image)
     Button btnAddImage;
     @BindView(R.id.et_tour_name)
-    TextView etTourName;
+    EditText etTourName;
     @BindView(R.id.et_description)
-    TextView etDescription;
+    EditText etDescription;
     @BindView(R.id.radio_group_participants)
     RadioGroup rgParticipants;
     @BindView(R.id.radio_eight)
@@ -61,17 +63,19 @@ public class HostSettingNewActivity extends AppCompatActivity {
     @BindView(R.id.radio_sixteen)
     RadioButton rbSixteen;
     @BindView(R.id.et_register_date_start)
-    TextView etRegisterDateStart;
+    EditText etRegisterDateStart;
     @BindView(R.id.et_register_date_end)
-    TextView etRegisterDateEnd;
+    EditText etRegisterDateEnd;
     @BindView(R.id.et_start_date)
-    TextView etStartDate;
+    EditText etStartDate;
     @BindView(R.id.et_end_date)
-    TextView etEndDate;
+    EditText etEndDate;
     @BindView(R.id.et_prize)
-    TextView etPrize;
-    @BindView(R.id.et_game)
-    TextView etGame;
+    EditText etPrize;
+    @BindView(R.id.et_reg_fee)
+    EditText etRegFee;
+    @BindView(R.id.sp_game)
+    Spinner spGame;
     @BindView(R.id.radio_group_type)
     RadioGroup rgType;
     @BindView(R.id.radio_tree)
@@ -90,6 +94,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
     private String startDate = "";
     private String endDate = "";
     private String prize = "";
+    private String regFee = "";
     private Integer game;
     private Integer type;
 
@@ -141,10 +146,27 @@ public class HostSettingNewActivity extends AppCompatActivity {
                 tourName = etTourName.getText().toString();
                 tourDescription = etDescription.getText().toString();
                 prize = etPrize.getText().toString();
-                game = Integer.parseInt(etGame.getText().toString());
+                regFee = etRegFee.getText().toString();
 
-                createTournament(tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
-                        dateStartNonFormat,dateEndNonFormat,prize,game,type);
+                //Mapping Game
+                String getGame = spGame.getSelectedItem().toString();
+                if (getGame.equalsIgnoreCase("Mobile Legends")){
+                    game = 6;
+                }else if (getGame.equalsIgnoreCase("Free Fire")){
+                    game = 7;
+                }else if (getGame.equalsIgnoreCase("PUBG")){
+                    game = 8;
+                }else {
+                    game = 0;
+                }
+                //game = Integer.parseInt(etGame.getText().toString());
+                if (picturePath.equals("")){
+                    Toast.makeText(HostSettingNewActivity.this, "Please select a picture before create Tournament", Toast.LENGTH_SHORT).show();
+                }else {
+                    createTournament(tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
+                            dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type);
+                }
+
 
 
             }
@@ -277,24 +299,23 @@ public class HostSettingNewActivity extends AppCompatActivity {
     }
 
     private void createTournament(String tourName,String description,Integer numParticipants,
-                                  String regStartDate,String regEndDate,String startDate,String endDate,
+                                  String regStartDate,String regEndDate,String startDate,String endDate,String regFee,
                                   String prize,Integer game,Integer type){
         ProgressDialog progress = new ProgressDialog(HostSettingNewActivity.this);
         progress.setMessage("Create Tournament");
         progress.show();
         try {
-            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).createTournament(sess.getString("id_user"),
-                    tourName,description,numParticipants,regStartDate,regEndDate,startDate,endDate,prize,game,type);
-            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
+            Call<ResponseCreateTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).createTournament(sess.getString("id_user"),
+                    tourName,description,numParticipants,regStartDate,regEndDate,startDate,endDate,regFee,prize,game,type);
+            req.enqueue(new Callback<ResponseCreateTournamentResponseModel>() {
                 @Override
-                public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
+                public void onResponse(Call<ResponseCreateTournamentResponseModel> call, Response<ResponseCreateTournamentResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
                             String desc = response.body().getDesc();
                             Toast.makeText(HostSettingNewActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            if (!picturePath.equals("")){
-                                //uploadImage();
-                            }
+                            String idTour = String.valueOf(response.body().getData().getTournamentId());
+                            uploadImage(idTour);
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
@@ -317,7 +338,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
+                public void onFailure(Call<ResponseCreateTournamentResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(HostSettingNewActivity.this, msg, Toast.LENGTH_SHORT).show();
                     progress.dismiss();
@@ -329,7 +350,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private void uploadImage() {
+    private void uploadImage(String idTournament) {
         ProgressDialog progress = new ProgressDialog(HostSettingNewActivity.this);
         progress.setMessage("Uploading Image");
         progress.show();
@@ -339,7 +360,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
         MultipartBody.Part parts = MultipartBody.Part.createFormData("image_file", file.getName(), requestBody);
 
         RequestBody idUser = RequestBody.create(MediaType.parse("text/plain"), sess.getString("id_user"));
-        RequestBody idTour = RequestBody.create(MediaType.parse("text/plain"), "belom ditambah siniiii");
+        RequestBody idTour = RequestBody.create(MediaType.parse("text/plain"), idTournament);
 
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiUpload(sess.getString("token")).create(ApiService.class).uploadImageTournament(idUser,idTour,parts);

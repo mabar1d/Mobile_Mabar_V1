@@ -1,5 +1,6 @@
 package com.example.mabar_v1.retrofit.model
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class ResponseGetInfoTournamentModel(
@@ -53,5 +54,14 @@ data class Data(
 	val startDate: String? = null,
 
 	@field:SerializedName("game_id")
-	val gameId: Int? = null
+	val gameId: String? = null,
+
+	@field:SerializedName("title_game")
+	val titleGame: String? = null,
+
+	@field:SerializedName("register_fee")
+	val register_fee: String? = null,
+
+	@field:SerializedName("rating")
+	val rating: String? = null
 )

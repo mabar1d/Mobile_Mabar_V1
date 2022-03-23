@@ -4,6 +4,7 @@ import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
+import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseGetInfoTournamentModel;
 import com.example.mabar_v1.retrofit.model.ResponseListGame;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
@@ -166,7 +167,7 @@ public interface ApiService {
 
     //Create Tournament
     @POST("createTournament")
-    Call<SuccessResponseDefaultModel> createTournament(
+    Call<ResponseCreateTournamentResponseModel> createTournament(
             @Query("host_id") String host_id,
             @Query("name") String name,
             @Query("detail") String detail,
@@ -175,6 +176,7 @@ public interface ApiService {
             @Query("register_date_end") String register_date_end,
             @Query("start_date") String start_date,
             @Query("end_date") String end_date,
+            @Query("register_fee") String register_fee,
             @Query("prize") String prize,
             @Query("game_id") Integer game_id,
             @Query("type") Integer type
