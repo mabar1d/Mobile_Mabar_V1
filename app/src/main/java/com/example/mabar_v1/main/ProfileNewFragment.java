@@ -90,26 +90,22 @@ public class ProfileNewFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Log Out Now?")
-                        .setCancelButton("No", new SweetAlertDialog.OnSweetClickListener() {
+
+                gm.showDialogConfirmation(getActivity(), "Log Out", "Log out now?", "Log Out", "Cancel",
+                        new View.OnClickListener() {
                             @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                sDialog.dismissWithAnimation();
-                            }
-                        })
-                        .setConfirmText("Yes")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                sDialog.dismissWithAnimation();
+                            public void onClick(View view) {
                                 sess.clearSess();
                                 Intent i = new Intent(getActivity(), LoginActivity.class);
                                 startActivity(i);
                                 getActivity().finish();
                             }
-                        })
-                        .show();
+                        }, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gm.dismissDialogConfirmation();
+                            }
+                        });
             }
         });
         btnAccount.setOnClickListener(new View.OnClickListener() {

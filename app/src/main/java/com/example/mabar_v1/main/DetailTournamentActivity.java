@@ -85,23 +85,20 @@ public class DetailTournamentActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SweetAlertDialog(DetailTournamentActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Are You Sure?")
-                        .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+
+                gm.showDialogConfirmation(DetailTournamentActivity.this, "Register Tournament?", "Are you sure?",
+                        "Register", "Cancel", new View.OnClickListener() {
                             @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                sDialog.dismissWithAnimation();
-                            }
-                        })
-                        .setConfirmText("Register")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
+                            public void onClick(View view) {
                                 registerTournament(sess.getString("id_user"),idTournament);
-                                sDialog.dismissWithAnimation();
+                                gm.dismissDialogConfirmation();
                             }
-                        })
-                        .show();
+                        }, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gm.dismissDialogConfirmation();
+                            }
+                        });
 
             }
         });
@@ -191,15 +188,8 @@ public class DetailTournamentActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
                             String notif = response.body().getDesc();
-                            new SweetAlertDialog(DetailTournamentActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                    .setContentText(notif)
-                                    .setConfirmButton("OK", new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            finish();
-                                        }
-                                    })
-                                    .show();
+                            Toast.makeText(DetailTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
+                            finish();
                         }else {
                             String notif = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();

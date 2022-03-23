@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
+import com.example.mabar_v1.main.DetailTournamentActivity;
 import com.example.mabar_v1.retrofit.ApiService;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel;
@@ -128,45 +129,55 @@ public class HostSettingNewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                int i = rgParticipants.getCheckedRadioButtonId();
-                radioButton = (RadioButton) findViewById(i);
-                numberParticipants = Integer.parseInt(radioButton.getText().toString());
+                gm.showDialogConfirmation(HostSettingNewActivity.this, "Create Tournament?", "Are you sure?", "Create", "Cancel", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                String typeId ;
-                int j = rgType.getCheckedRadioButtonId();
-                radioButton = (RadioButton) findViewById(j);
+                        int i = rgParticipants.getCheckedRadioButtonId();
+                        radioButton = (RadioButton) findViewById(i);
+                        numberParticipants = Integer.parseInt(radioButton.getText().toString());
 
-                typeId = radioButton.getText().toString();
-                if (typeId.equalsIgnoreCase("Tree")){
-                    type = 1;
-                }else {
-                    type = 2;
-                }
+                        String typeId ;
+                        int j = rgType.getCheckedRadioButtonId();
+                        radioButton = (RadioButton) findViewById(j);
 
-                tourName = etTourName.getText().toString();
-                tourDescription = etDescription.getText().toString();
-                prize = etPrize.getText().toString();
-                regFee = etRegFee.getText().toString();
+                        typeId = radioButton.getText().toString();
+                        if (typeId.equalsIgnoreCase("Tree")){
+                            type = 1;
+                        }else {
+                            type = 2;
+                        }
 
-                //Mapping Game
-                String getGame = spGame.getSelectedItem().toString();
-                if (getGame.equalsIgnoreCase("Mobile Legends")){
-                    game = 6;
-                }else if (getGame.equalsIgnoreCase("Free Fire")){
-                    game = 7;
-                }else if (getGame.equalsIgnoreCase("PUBG")){
-                    game = 8;
-                }else {
-                    game = 0;
-                }
-                //game = Integer.parseInt(etGame.getText().toString());
-                if (picturePath.equals("")){
-                    Toast.makeText(HostSettingNewActivity.this, "Please select a picture before create Tournament", Toast.LENGTH_SHORT).show();
-                }else {
-                    createTournament(tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
-                            dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type);
-                }
+                        tourName = etTourName.getText().toString();
+                        tourDescription = etDescription.getText().toString();
+                        prize = etPrize.getText().toString();
+                        regFee = etRegFee.getText().toString();
 
+                        //Mapping Game
+                        String getGame = spGame.getSelectedItem().toString();
+                        if (getGame.equalsIgnoreCase("Mobile Legends")){
+                            game = 6;
+                        }else if (getGame.equalsIgnoreCase("Free Fire")){
+                            game = 7;
+                        }else if (getGame.equalsIgnoreCase("PUBG")){
+                            game = 8;
+                        }else {
+                            game = 0;
+                        }
+                        //game = Integer.parseInt(etGame.getText().toString());
+                        if (picturePath.equals("")){
+                            Toast.makeText(HostSettingNewActivity.this, "Please select a picture before create Tournament", Toast.LENGTH_SHORT).show();
+                        }else {
+                            createTournament(tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
+                                    dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type);
+                        }
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gm.dismissDialogConfirmation();
+                    }
+                });
 
 
             }
@@ -369,8 +380,9 @@ public class HostSettingNewActivity extends AppCompatActivity {
                 public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
-                            String desc = response.body().getDesc();
-                            Toast.makeText(HostSettingNewActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            String notif = response.body().getDesc();
+                            Toast.makeText(HostSettingNewActivity.this, notif, Toast.LENGTH_SHORT).show();
+                            finish();
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();

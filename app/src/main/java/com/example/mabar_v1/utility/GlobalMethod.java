@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.mabar_v1.R;
 import com.google.android.material.button.MaterialButton;
@@ -27,7 +28,7 @@ import okhttp3.RequestBody;
 public class GlobalMethod {
     SessionUser sessionUser;
     SweetAlertDialog pDialog;
-    Dialog alertDialogSwitchAccount;
+    Dialog confirmationDialog;
     /*public String getUriImage(String path){
         //String url = "https://image.tmdb.org/t/p/w500"+path;
         //return url;
@@ -155,28 +156,37 @@ public class GlobalMethod {
         return mimeType != null && mimeType.startsWith("application");
     }
 
-    public void showDialogSwitchAccount(
+    public void showDialogConfirmation(
             Context context,
-            View view,
-            View.OnClickListener onClickListenerHost,
-            View.OnClickListener onClickListenerTeamLead) {
+            String title,
+            String subTitle,
+            String valueBtnYes,
+            String valueBtnNo,
+            View.OnClickListener onClickListenerYes,
+            View.OnClickListener onClickListenerNo) {
 
-        alertDialogSwitchAccount = new Dialog(context);
-        View dv  = view;
-        //alertDialogSwitchAccount.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        alertDialogSwitchAccount.setContentView(dv);
+        confirmationDialog = new Dialog(context);
+        View dv  = View.inflate(context,R.layout.dialog_confirmation,null);
+        confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        confirmationDialog.setContentView(dv);
 
+        TextView tvTitle = (TextView) confirmationDialog.findViewById(R.id.tv_title);
+        TextView tvsubTitle = (TextView) confirmationDialog.findViewById(R.id.tv_subtitle);
+        Button btnYes = (Button) confirmationDialog.findViewById(R.id.btn_yes);
+        Button btnNo = (Button) confirmationDialog.findViewById(R.id.btn_no);
 
-        Button btnHost = (Button) alertDialogSwitchAccount.findViewById(R.id.btn_host);
-        Button btnTeamLead = (Button) alertDialogSwitchAccount.findViewById(R.id.btn_team_lead);
-        btnHost.setOnClickListener(onClickListenerHost);
-        btnTeamLead.setOnClickListener(onClickListenerTeamLead);
+        tvTitle.setText(title);
+        tvsubTitle.setText(subTitle);
+        btnYes.setText(valueBtnYes);
+        btnNo.setText(valueBtnNo);
+        btnYes.setOnClickListener(onClickListenerYes);
+        btnNo.setOnClickListener(onClickListenerNo);
 
-        alertDialogSwitchAccount.show();
+        confirmationDialog.show();
 
     }
-    public void dismissDialogSwitchAccount() {
-        alertDialogSwitchAccount.dismiss();
+    public void dismissDialogConfirmation() {
+        confirmationDialog.dismiss();
 
     }
 
