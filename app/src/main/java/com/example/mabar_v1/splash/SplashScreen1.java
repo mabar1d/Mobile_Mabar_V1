@@ -93,7 +93,7 @@ public class SplashScreen1 extends AppCompatActivity {
         clVideo.addView(videoLayout);*/
 
         cekSession();
-        Uri uri = Uri.parse(pathVideo);
+        /*Uri uri = Uri.parse(pathVideo);
         videoView.setVideoURI(uri);
         videoView.start();
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -101,7 +101,7 @@ public class SplashScreen1 extends AppCompatActivity {
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mediaPlayer.setLooping(true);
             }
-        });
+        });*/
 
 
 

@@ -46,7 +46,13 @@ data class ListPersonnelResponseModel(
         @SerializedName("role")
         @Expose
         var role: Int,
+        @SerializedName("is_verified")
+        @Expose
+        var is_verified: Int,
         @SerializedName("sub_district_id")
+        @Expose
+        var image: String,
+        @SerializedName("image")
         @Expose
         var subDistrictId: String,
         @SerializedName("team_id")
@@ -57,6 +63,8 @@ data class ListPersonnelResponseModel(
         var userId: Int,
         @SerializedName("zipcode")
         @Expose
-        var zipcode: String
+        var zipcode: String,
+
+        var onClick: Boolean = false
     )
 }

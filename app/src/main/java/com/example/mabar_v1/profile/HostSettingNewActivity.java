@@ -33,6 +33,7 @@ import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -87,6 +88,8 @@ public class HostSettingNewActivity extends AppCompatActivity {
     @BindView(R.id.btn_create_tournament)
     Button btnCreateTournament;
 
+    BottomSheetDialog bsDialog;
+
     private String tourName = "";
     private String tourDescription = "";
     private Integer numberParticipants;
@@ -98,6 +101,8 @@ public class HostSettingNewActivity extends AppCompatActivity {
     private String regFee = "";
     private Integer game;
     private Integer type;
+    private boolean flagSendData = false;
+    private String idTour = "";
 
     private String regDateStartNonFormat = "";
     private String regDateEndNonFormat = "";
@@ -168,8 +173,13 @@ public class HostSettingNewActivity extends AppCompatActivity {
                         if (picturePath.equals("")){
                             Toast.makeText(HostSettingNewActivity.this, "Please select a picture before create Tournament", Toast.LENGTH_SHORT).show();
                         }else {
-                            createTournament(tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
-                                    dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type);
+                            if (flagSendData){
+                                uploadImage(idTour);
+                            }else {
+                                createTournament(tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
+                                        dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type);
+                            }
+
                         }
                     }
                 }, new View.OnClickListener() {
@@ -325,7 +335,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
                         if (response.body().getCode().equals("00")){
                             String desc = response.body().getDesc();
                             Toast.makeText(HostSettingNewActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            String idTour = String.valueOf(response.body().getData().getTournamentId());
+                            idTour = String.valueOf(response.body().getData().getTournamentId());
                             uploadImage(idTour);
 
                         }else if (response.body().getCode().equals("05")){

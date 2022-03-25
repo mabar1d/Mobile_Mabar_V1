@@ -51,6 +51,7 @@
                     android:paddingLeft="10dp"
                     android:textSize="14dp"
                     android:singleLine="true"
+                    android:textColor="@color/grey"
                     android:textColorHint="@color/grey" />
 
                 <ImageView

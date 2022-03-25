@@ -32,6 +32,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="@color/material_grey_700"
             android:layout_marginBottom="20dp">
 
             <RelativeLayout
@@ -47,7 +48,9 @@
                     android:background="@null"
                     android:imeOptions="actionSearch"
                     android:singleLine="true"
-                    android:hint="Cari Tournament" />
+                    android:hint="Cari Tournament"
+                    android:textColor="@color/grey"
+                    android:textColorHint="@color/grey"/>
 
                 <ImageView
                     android:id="@+id/btn_search"

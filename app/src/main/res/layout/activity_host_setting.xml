@@ -32,6 +32,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="25dp"
                 android:layout_marginBottom="15dp"
+                android:background="@color/material_grey_700"
                 app:cardCornerRadius="20dp">
 
                 <ImageView

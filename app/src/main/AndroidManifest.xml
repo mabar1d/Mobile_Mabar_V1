@@ -9,12 +9,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_logo_circle"
+        android:icon="@drawable/logo_circle_hd"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_logo_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mabar_V1">
+        <activity
+            android:name=".team.CreateTeamActivity"
+            android:exported="false" />
         <activity
             android:name=".team.TeamSettingsActivity"
             android:exported="false" />
@@ -24,7 +27,6 @@
         <activity android:name=".main.DetailTournamentActivity" />
         <activity android:name=".main.GeneralSearchTournamentActivity" />
         <activity android:name=".profile.DetailProfileAccountActivity" />
-        <activity android:name=".profile.HostSettingActivity" />
         <activity android:name=".profile.TeamSettingActivity" />
         <activity android:name=".splash.SplashScreen1">
             <intent-filter>

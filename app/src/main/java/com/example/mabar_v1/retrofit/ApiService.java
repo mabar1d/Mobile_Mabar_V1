@@ -1,6 +1,7 @@
 package com.example.mabar_v1.retrofit;
 
 import com.example.mabar_v1.login.model.ResponseLoginModel;
+import com.example.mabar_v1.retrofit.model.CreateTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
@@ -116,11 +117,11 @@ public interface ApiService {
 
     //Create Team
     @POST("createTeam")
-    Call<SuccessResponseDefaultModel> createTeam(
+    Call<CreateTeamResponseModel> createTeam(
             @Query("user_id") String user_id,
             @Query("name") String name,
             @Query("info") String info,
-            @Query("personnel") String[] personnel
+            @Query("personnel") JSONArray personnel
     );
 
     //Update Team
@@ -243,6 +244,14 @@ public interface ApiService {
     Call<SuccessResponseDefaultModel> uploadImageTournament(
             @Part("user_id") RequestBody user_id,
             @Part("tournament_id") RequestBody tournament_id,
+            @Part MultipartBody.Part image_file
+    );
+
+    @Multipart
+    @POST("uploadImageTeam")
+    Call<SuccessResponseDefaultModel> uploadImageTeam(
+            @Part("user_id") RequestBody user_id,
+            @Part("team_id") RequestBody team_id,
             @Part MultipartBody.Part image_file
     );
 

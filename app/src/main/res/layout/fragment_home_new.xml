@@ -28,7 +28,7 @@
                 android:layout_marginLeft="30dp"
                 app:cardCornerRadius="20dp"
                 app:cardBackgroundColor="@color/material_grey_700"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="10dp">
 
                 <com.asura.library.views.PosterSlider
                     android:id="@+id/poster_slider"
@@ -91,7 +91,7 @@
                 android:textSize="18dp"/>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"

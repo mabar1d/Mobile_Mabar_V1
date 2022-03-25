@@ -25,6 +25,7 @@ import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseListGame;
+import com.example.mabar_v1.splash.SplashScreen1;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
 
@@ -49,6 +50,8 @@ public class TeamSettingsActivity extends AppCompatActivity {
     TextView btnCreateTeam;
     @BindView(R.id.btn_edit_team)
     TextView btnEditTeam;
+    @BindView(R.id.btn_manage_team)
+    TextView btnManageTeam;
 
     private GlobalMethod gm;
     private SessionUser sess;
@@ -85,6 +88,28 @@ public class TeamSettingsActivity extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+
+        btnCreateTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(TeamSettingsActivity.this, CreateTeamActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnEditTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getListGame(sess.getString("id_user"),searchTeam.getText().toString(),"0");
+            }
+        });
+
+        btnManageTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getListGame(sess.getString("id_user"),searchTeam.getText().toString(),"0");
             }
         });
 
