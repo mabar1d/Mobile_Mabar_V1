@@ -111,7 +111,10 @@ public class TeamSettingsActivity extends AppCompatActivity {
         btnManageTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(TeamSettingsActivity.this, EditTeamActivity.class);
+                Intent i = new Intent(TeamSettingsActivity.this, ManageTeamActivity.class);
+                Bundle bun = new Bundle();
+                bun.putString("id_team", teamId);
+                i.putExtras(bun);
                 startActivity(i);
             }
         });
@@ -286,7 +289,7 @@ public class TeamSettingsActivity extends AppCompatActivity {
                         }
 
                     } else {
-                        Toast.makeText(TeamSettingsActivity.this, "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TeamSettingsActivity.this, "Failed Request Team Info", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();

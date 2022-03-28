@@ -19,6 +19,7 @@ import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.DetailTournamentActivity;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
+import com.example.mabar_v1.team.DetailTeamInfoActivity;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -51,15 +52,13 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.TeamVi
 
         Glide.with(context)
                 .load(dataTeam.get(position).getImage())
-                //.load(R.drawable.image_team)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                //.skipMemoryCache(true)
                 .into(holder.civTeam);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, DetailTournamentActivity.class);
+                Intent i = new Intent(context, DetailTeamInfoActivity.class);
                 Bundle bun = new Bundle();
                 bun.putString("id_team", String.valueOf(dataTeam.get(position).getId()));
                 i.putExtras(bun);

@@ -2,6 +2,7 @@ package com.example.mabar_v1.retrofit;
 
 import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.model.CreateTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.GetListRequestJoinTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
@@ -141,6 +142,12 @@ public interface ApiService {
             @Query("user_id") String user_id,
             @Query("user_id_requested") String user_id_requested,
             @Query("answer") String answer
+    );
+
+    @POST("getListReqJoinTeam")
+    Call<GetListRequestJoinTeamResponseModel> getListReqJoinTeam(
+            @Query("user_id") String user_id,
+            @Query("team_id") String user_id_requested
     );
 
     //Delete Team

@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mabar_V1">
         <activity
+            android:name=".team.DetailTeamInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".team.ManageTeamActivity"
             android:exported="false" />
         <activity
@@ -42,7 +45,7 @@
         <activity android:name=".main.DetailTournamentActivity" />
         <activity android:name=".main.GeneralSearchTournamentActivity" />
         <activity android:name=".profile.DetailProfileAccountActivity" />
-        <activity android:name=".profile.TeamSettingActivity" />
+
         <activity android:name=".splash.SplashScreen1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
