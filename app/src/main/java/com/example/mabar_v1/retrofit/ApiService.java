@@ -10,6 +10,7 @@ import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel
 import com.example.mabar_v1.retrofit.model.ResponseGetInfoTournamentModel;
 import com.example.mabar_v1.retrofit.model.ResponseListGame;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
+import com.example.mabar_v1.retrofit.model.TeamInfoResponseModel;
 import com.example.mabar_v1.signup.model.ResponseRegisterModel;
 
 import org.json.JSONArray;
@@ -131,7 +132,7 @@ public interface ApiService {
             @Query("team_id") String team_id,
             @Query("name") String name,
             @Query("info") String info,
-            @Query("personnel") String[] personnel
+            @Query("personnel") JSONArray personnel
     );
 
     //answer Req Team from person
@@ -159,7 +160,7 @@ public interface ApiService {
 
     //get Team Info
     @POST("getInfoTeam")
-    Call<SuccessResponseDefaultModel> getInfoTeam(
+    Call<TeamInfoResponseModel> getInfoTeam(
             @Query("user_id") String user_id,
             @Query("team_id") String team_id
     );
@@ -191,12 +192,15 @@ public interface ApiService {
             @Query("tournament_id") String tournament_id,
             @Query("name") String name,
             @Query("detail") String detail,
-            @Query("number_of_participants") String number_of_participants,
+            @Query("number_of_participants") Integer number_of_participants,
             @Query("register_date_start") String register_date_start,
             @Query("register_date_end") String register_date_end,
             @Query("start_date") String start_date,
             @Query("end_date") String end_date,
-            @Query("prize") String prize
+            @Query("register_fee") String register_fee,
+            @Query("prize") String prize,
+            @Query("game_id") Integer game_id,
+            @Query("type") Integer type
     );
 
     //get List Tournament

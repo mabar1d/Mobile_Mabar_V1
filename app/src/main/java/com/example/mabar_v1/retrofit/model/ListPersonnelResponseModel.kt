@@ -16,6 +16,9 @@ data class ListPersonnelResponseModel(
     var desc: String
 ) {
     data class Data(
+        @SerializedName("username")
+        @Expose
+        var username: String,
         @SerializedName("address")
         @Expose
         var address: String,

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.DetailTournamentActivity;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
@@ -44,13 +45,20 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
     @Override
     public void onBindViewHolder(@NonNull TournamentViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.judulTourney.setText(dataTournament.get(position).getName());
-        holder.ratingTourney.setText(dataTournament.get(position).getRating());
+
+        if (dataTournament.get(position).getRating() != null){
+            holder.ratingTourney.setText(dataTournament.get(position).getRating());
+        }else {
+            holder.ratingTourney.setText("-");
+        }
         holder.prizeTourney.setText("Rp. "+dataTournament.get(position).getPrize());
         holder.createdBy.setText("Created by "+dataTournament.get(position).getCreated_name());
 
         holder.judulGame.setText(dataTournament.get(position).getTitle_game());
         Glide.with(context)
                 .load(dataTournament.get(position).getImage())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                //.skipMemoryCache(true)
                 .into(holder.imageTourney);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

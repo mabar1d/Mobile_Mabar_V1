@@ -1,4 +1,4 @@
-package com.example.mabar_v1.profile;
+package com.example.mabar_v1.host;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -26,14 +26,13 @@ import android.widget.Toast;
 
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
-import com.example.mabar_v1.main.DetailTournamentActivity;
+import com.example.mabar_v1.profile.CreateTournamentActivity;
 import com.example.mabar_v1.retrofit.ApiService;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -48,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HostSettingNewActivity extends AppCompatActivity {
+public class HostManageTournamentActivity extends AppCompatActivity {
 
     @BindView(R.id.image_tournament)
     ImageView ivTournament;
@@ -85,18 +84,13 @@ public class HostSettingNewActivity extends AppCompatActivity {
     @BindView(R.id.radio_stage)
     RadioButton rbGroupStage;
     TextView etType;
-    @BindView(R.id.btn_create_tournament)
-    Button btnCreateTournament;
-
-    BottomSheetDialog bsDialog;
+    @BindView(R.id.btn_update_tournament)
+    Button btnUpdateTournament;
 
     private String tourName = "";
     private String tourDescription = "";
     private Integer numberParticipants;
-    private String regDateStart = "";
-    private String regDateEnd = "";
-    private String startDate = "";
-    private String endDate = "";
+
     private String prize = "";
     private String regFee = "";
     private Integer game;
@@ -120,21 +114,22 @@ public class HostSettingNewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_host_setting);
+        setContentView(R.layout.activity_host_manage_tournament);
         ButterKnife.bind(this);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
         sess = new SessionUser(this);
         gm = new GlobalMethod();
         sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-        btnCreateTournament.setOnClickListener(new View.OnClickListener() {
+        btnUpdateTournament.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                gm.showDialogConfirmation(HostSettingNewActivity.this, "Create Tournament?", "Are you sure?", "Create", "Cancel", new View.OnClickListener() {
+                gm.showDialogConfirmation(HostManageTournamentActivity.this, "Update Tournament?", "Are you sure?", "Update", "Cancel", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -171,12 +166,12 @@ public class HostSettingNewActivity extends AppCompatActivity {
                         }
                         //game = Integer.parseInt(etGame.getText().toString());
                         if (picturePath.equals("")){
-                            Toast.makeText(HostSettingNewActivity.this, "Please select a picture before create Tournament", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HostManageTournamentActivity.this, "Please select a picture before create Tournament", Toast.LENGTH_SHORT).show();
                         }else {
-                            if (flagSendData){
+                            if (flagSendData == true){
                                 uploadImage(idTour);
                             }else {
-                                createTournament(tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
+                                updateTournament(idTour,tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
                                         dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type);
                             }
 
@@ -197,10 +192,10 @@ public class HostSettingNewActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(HostSettingNewActivity.this,
+                if (ContextCompat.checkSelfPermission(HostManageTournamentActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(HostSettingNewActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HostManageTournamentActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent i = new Intent(
                             Intent.ACTION_PICK,
@@ -236,7 +231,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
         etRegisterDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(HostSettingNewActivity.this, date,
+                new DatePickerDialog(HostManageTournamentActivity.this, date,
                         myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -261,7 +256,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
         etRegisterDateEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(HostSettingNewActivity.this, date,
+                new DatePickerDialog(HostManageTournamentActivity.this, date,
                         myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -286,7 +281,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
         etStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(HostSettingNewActivity.this, date,
+                new DatePickerDialog(HostManageTournamentActivity.this, date,
                         myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -311,7 +306,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
         etEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(HostSettingNewActivity.this, date,
+                new DatePickerDialog(HostManageTournamentActivity.this, date,
                         myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -319,49 +314,49 @@ public class HostSettingNewActivity extends AppCompatActivity {
         });
     }
 
-    private void createTournament(String tourName,String description,Integer numParticipants,
+    private void updateTournament(String tourId,String tourName,String description,Integer numParticipants,
                                   String regStartDate,String regEndDate,String startDate,String endDate,String regFee,
                                   String prize,Integer game,Integer type){
-        ProgressDialog progress = new ProgressDialog(HostSettingNewActivity.this);
-        progress.setMessage("Create Tournament");
+        ProgressDialog progress = new ProgressDialog(HostManageTournamentActivity.this);
+        progress.setMessage("Update Tournament");
         progress.show();
         try {
-            Call<ResponseCreateTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).createTournament(sess.getString("id_user"),
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateTournament(sess.getString("id_user"),tourId,
                     tourName,description,numParticipants,regStartDate,regEndDate,startDate,endDate,regFee,prize,game,type);
-            req.enqueue(new Callback<ResponseCreateTournamentResponseModel>() {
+            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
-                public void onResponse(Call<ResponseCreateTournamentResponseModel> call, Response<ResponseCreateTournamentResponseModel> response) {
+                public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
+                            flagSendData = true;
                             String desc = response.body().getDesc();
-                            Toast.makeText(HostSettingNewActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            idTour = String.valueOf(response.body().getData().getTournamentId());
+                            Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                             uploadImage(idTour);
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
-                            Toast.makeText(HostSettingNewActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                             progress.dismiss();
                             sess.clearSess();
-                            Intent i = new Intent(HostSettingNewActivity.this, LoginActivity.class);
+                            Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
                             startActivity(i);
                             finish();
                         }else {
                             String desc = response.body().getDesc();
-                            Toast.makeText(HostSettingNewActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(HostSettingNewActivity.this, "Failed Create Tournament", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HostManageTournamentActivity.this, "Failed Update Tournament", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
                 }
 
                 @Override
-                public void onFailure(Call<ResponseCreateTournamentResponseModel> call, Throwable t) {
+                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
-                    Toast.makeText(HostSettingNewActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HostManageTournamentActivity.this, msg, Toast.LENGTH_SHORT).show();
                     progress.dismiss();
                 }
 
@@ -372,7 +367,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
         }
     }
     private void uploadImage(String idTournament) {
-        ProgressDialog progress = new ProgressDialog(HostSettingNewActivity.this);
+        ProgressDialog progress = new ProgressDialog(HostManageTournamentActivity.this);
         progress.setMessage("Uploading Image");
         progress.show();
 
@@ -391,24 +386,24 @@ public class HostSettingNewActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
                             String notif = response.body().getDesc();
-                            Toast.makeText(HostSettingNewActivity.this, notif, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HostManageTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
                             finish();
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
-                            Toast.makeText(HostSettingNewActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                             progress.dismiss();
                             sess.clearSess();
-                            Intent i = new Intent(HostSettingNewActivity.this, LoginActivity.class);
+                            Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
                             startActivity(i);
                             finish();
                         }else {
                             String desc = response.body().getDesc();
-                            Toast.makeText(HostSettingNewActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(HostSettingNewActivity.this, "Failed Upload Image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HostManageTournamentActivity.this, "Failed Upload Image", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
@@ -417,7 +412,7 @@ public class HostSettingNewActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
-                    Toast.makeText(HostSettingNewActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HostManageTournamentActivity.this, msg, Toast.LENGTH_SHORT).show();
                     progress.dismiss();
                 }
 

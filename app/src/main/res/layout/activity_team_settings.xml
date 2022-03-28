@@ -8,82 +8,105 @@
     android:background="@color/primary_color_blue"
     tools:context=".team.TeamSettingsActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="70dp"
-        android:orientation="vertical">
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="My Team"/>-->
+        android:orientation="vertical"
+        android:paddingBottom="70dp">
 
-        <!--Searchbar-->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_gravity="left"
-            android:layout_height="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="40dp"
-            app:cardCornerRadius="20dp"
-            app:cardBackgroundColor="@color/material_grey_700"
-            android:layout_marginBottom="20dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/search_bar_team"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="30dp"
-                    android:background="@null"
-                    android:hint="Cari Team"
-                    android:imeOptions="actionSearch"
-                    android:paddingLeft="10dp"
-                    android:textSize="14dp"
-                    android:singleLine="true"
-                    android:textColor="@color/grey"
-                    android:textColorHint="@color/grey" />
-
-                <ImageView
-                    android:id="@+id/btn_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:src="@android:drawable/ic_menu_search" />
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/btn_delete_team"
+            android:layout_margin="15dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_delete"/>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cv_team"
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/primary_color_blue"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            app:cardCornerRadius="15dp"
-            android:padding="10dp">
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/material_grey_700"
+            app:cardCornerRadius="10dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:id="@+id/recycler_team"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:id="@+id/civ_team"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/person_photo"
+                        app:civ_border_color="@color/grey" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="5dp">
+
+                        <TextView
+                            android:id="@+id/tv_name_team"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:text="Rebellion Genflix Esports"
+                            android:textColor="@color/grey"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_team_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="Mobile Legends"
+                            android:textColor="@color/grey"
+                            android:textSize="14dp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/tv_team_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="Team Id : "
+                            android:textColor="@color/grey"
+                            android:textSize="12dp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
         </androidx.cardview.widget.CardView>
 
 

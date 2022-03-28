@@ -55,7 +55,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateTeamActivity extends AppCompatActivity {
+public class EditTeamActivity extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -69,8 +69,8 @@ public class CreateTeamActivity extends AppCompatActivity {
     Spinner spGame;
     @BindView(R.id.et_personnel)
     TextView etPersonnel;
-    @BindView(R.id.btn_crate_team)
-    Button btnCreateTeam;
+    @BindView(R.id.btn_update_team)
+    Button btnUpdateTeam;
     @BindView(R.id.btn_add_image)
     Button btnAddImage;
 
@@ -96,8 +96,6 @@ public class CreateTeamActivity extends AppCompatActivity {
     private JSONArray personnel = new JSONArray();
     private JSONArray personnelId = new JSONArray();
 
-    private String[] person1;
-
     private SessionUser sess;
     private GlobalMethod gm;
     private ListPersonAdapter listPersonAdapter;
@@ -108,7 +106,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_team);
+        setContentView(R.layout.activity_edit_team);
 
         ButterKnife.bind(this);
         sess = new SessionUser(this);
@@ -122,10 +120,10 @@ public class CreateTeamActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(CreateTeamActivity.this,
+                if (ContextCompat.checkSelfPermission(EditTeamActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(CreateTeamActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent i = new Intent(
                             Intent.ACTION_PICK,
@@ -138,7 +136,7 @@ public class CreateTeamActivity extends AppCompatActivity {
         });
 
         //BOttomsheet
-        bsDialog = new BottomSheetDialog(CreateTeamActivity.this);
+        bsDialog = new BottomSheetDialog(EditTeamActivity.this);
         bottomSheet = LayoutInflater.from(getApplicationContext())
                 .inflate(
                         R.layout.dialog_search_person,
@@ -184,11 +182,11 @@ public class CreateTeamActivity extends AppCompatActivity {
             }
         });
 
-        btnCreateTeam.setOnClickListener(new View.OnClickListener() {
+        btnUpdateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                gm.showDialogConfirmation(CreateTeamActivity.this, "Create Team?", "Are you sure?", "Create", "Cancel", new View.OnClickListener() {
+                gm.showDialogConfirmation(EditTeamActivity.this, "Update Team?", "Are you sure?", "Update", "Cancel", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -206,12 +204,12 @@ public class CreateTeamActivity extends AppCompatActivity {
                         }
                         //game = Integer.parseInt(etGame.getText().toString());
                         if (picturePath.equals("")){
-                            Toast.makeText(CreateTeamActivity.this, "Please select a picture before create Team", Toast.LENGTH_SHORT).show();
+                            updateTeam(idTeam,teamName,getGame,personnelId);
                         }else {
                             if (flagSendData){
                                 uploadImage(idTeam);
                             }else {
-                                createTeam(teamName,getGame,personnelId);
+                                updateTeam(idTeam,teamName,getGame,personnelId);
                             }
 
                         }
@@ -231,48 +229,48 @@ public class CreateTeamActivity extends AppCompatActivity {
 
 
 
-    private void createTeam(String teamName,String game,JSONArray personnels){
-        ProgressDialog progress = new ProgressDialog(CreateTeamActivity.this);
-        progress.setMessage("Create Team");
+    private void updateTeam(String teamId,String teamName,String game,JSONArray personnels){
+        ProgressDialog progress = new ProgressDialog(EditTeamActivity.this);
+        progress.setMessage("Update Team");
         progress.show();
         try {
-            Call<CreateTeamResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).createTeam(sess.getString("id_user"),
-                    teamName,game,personnels);
-            req.enqueue(new Callback<CreateTeamResponseModel>() {
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateTeam(sess.getString("id_user"),
+                    teamId,teamName,game,personnels);
+            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
-                public void onResponse(Call<CreateTeamResponseModel> call, Response<CreateTeamResponseModel> response) {
+                public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
                             String desc = response.body().getDesc();
-                            Toast.makeText(CreateTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            idTeam = String.valueOf(response.body().getData().getTeamId());
+                            Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
                             flagSendData = true;
-                            uploadImage(idTeam);
-
+                            if (!picturePath.equals("")) {
+                                uploadImage(idTeam);
+                            }
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
-                            Toast.makeText(CreateTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
                             progress.dismiss();
                             sess.clearSess();
-                            Intent i = new Intent(CreateTeamActivity.this, LoginActivity.class);
+                            Intent i = new Intent(EditTeamActivity.this, LoginActivity.class);
                             startActivity(i);
                             finish();
                         }else {
                             String desc = response.body().getDesc();
-                            Toast.makeText(CreateTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(CreateTeamActivity.this, "Failed Create Team", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditTeamActivity.this, "Failed Update Team", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
                 }
 
                 @Override
-                public void onFailure(Call<CreateTeamResponseModel> call, Throwable t) {
+                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
-                    Toast.makeText(CreateTeamActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamActivity.this, msg, Toast.LENGTH_SHORT).show();
                     progress.dismiss();
                 }
 
@@ -284,7 +282,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     }
 
     private void uploadImage(String idTeam) {
-        ProgressDialog progress = new ProgressDialog(CreateTeamActivity.this);
+        ProgressDialog progress = new ProgressDialog(EditTeamActivity.this);
         progress.setMessage("Uploading Image");
         progress.show();
 
@@ -303,24 +301,24 @@ public class CreateTeamActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
                             String notif = response.body().getDesc();
-                            Toast.makeText(CreateTeamActivity.this, notif, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamActivity.this, notif, Toast.LENGTH_SHORT).show();
                             finish();
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
-                            Toast.makeText(CreateTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
                             progress.dismiss();
                             sess.clearSess();
-                            Intent i = new Intent(CreateTeamActivity.this, LoginActivity.class);
+                            Intent i = new Intent(EditTeamActivity.this, LoginActivity.class);
                             startActivity(i);
                             finish();
                         }else {
                             String desc = response.body().getDesc();
-                            Toast.makeText(CreateTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(CreateTeamActivity.this, "Failed Upload Image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditTeamActivity.this, "Failed Upload Image", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
@@ -329,7 +327,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
-                    Toast.makeText(CreateTeamActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamActivity.this, msg, Toast.LENGTH_SHORT).show();
                     progress.dismiss();
                 }
 
@@ -359,7 +357,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                             listPerson.clear();
                             listPerson = response.body().getData();
 
-                            listPersonAdapter = new ListPersonAdapter(CreateTeamActivity.this, listPerson, new ListPersonAdapter.OnItemClickListener() {
+                            listPersonAdapter = new ListPersonAdapter(EditTeamActivity.this, listPerson, new ListPersonAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(ListPersonnelResponseModel.Data item, int position) {
                                     //item.setOnClick(true);
@@ -406,12 +404,12 @@ public class CreateTeamActivity extends AppCompatActivity {
                                 }
                             });
 
-                            rvPersonell.setLayoutManager(new GridLayoutManager(CreateTeamActivity.this,2));
+                            rvPersonell.setLayoutManager(new GridLayoutManager(EditTeamActivity.this,2));
                             rvPersonell.setAdapter(listPersonAdapter);
                             listPersonAdapter.notifyDataSetChanged();
 
                             //Setting Adapter Added Person
-                            listPersonAddedAdapter = new ListPersonAddedAdapter(CreateTeamActivity.this, listPersonAdded, new ListPersonAddedAdapter.OnItemClickListener() {
+                            listPersonAddedAdapter = new ListPersonAddedAdapter(EditTeamActivity.this, listPersonAdded, new ListPersonAddedAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(ListPersonnelResponseModel.Data item, int position) {
                                     listPersonAdded.remove(position);
@@ -434,7 +432,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                                 }
                             });
 
-                            rvPersonellAdded.setLayoutManager(new GridLayoutManager(CreateTeamActivity.this,2,GridLayoutManager.HORIZONTAL,false));
+                            rvPersonellAdded.setLayoutManager(new GridLayoutManager(EditTeamActivity.this,2,GridLayoutManager.HORIZONTAL,false));
                             rvPersonellAdded.setAdapter(listPersonAddedAdapter);
                             listPersonAddedAdapter.notifyDataSetChanged();
 
@@ -443,19 +441,19 @@ public class CreateTeamActivity extends AppCompatActivity {
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
-                            Toast.makeText(CreateTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
                             progress.dismiss();
                             sess.clearSess();
-                            Intent i = new Intent(CreateTeamActivity.this, LoginActivity.class);
+                            Intent i = new Intent(EditTeamActivity.this, LoginActivity.class);
                             startActivity(i);
                             finish();
                         }else {
                             String desc = response.body().getDesc();
-                            Toast.makeText(CreateTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(CreateTeamActivity.this, "Failed Request List Teams", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditTeamActivity.this, "Failed Request List Teams", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
@@ -463,7 +461,7 @@ public class CreateTeamActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ListPersonnelResponseModel> call, Throwable t) {
-                    Toast.makeText(CreateTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     progress.dismiss();
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.main.adapter.ListTournamentAdapter;
@@ -119,9 +120,16 @@ public class DetailTournamentActivity extends AppCompatActivity {
 
                             Glide.with(DetailTournamentActivity.this)
                                     .load(response.body().getData().getImage())
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    //.skipMemoryCache(true)
                                     .into(ivTournament);
                             tvJudulTourney.setText(response.body().getData().getName());
-                            tvRating.setText(response.body().getData().getRating());
+                            if (response.body().getData().getRating() != null){
+                                tvRating.setText(response.body().getData().getRating());
+                            }else {
+                                tvRating.setText("-");
+                            }
+
                             tvPrize.setText("Rp. "+response.body().getData().getPrize());
                             tvGame.setText(response.body().getData().getTitleGame());
                             tvCreatedBy.setText("Created By "+response.body().getData().getCreatedName());

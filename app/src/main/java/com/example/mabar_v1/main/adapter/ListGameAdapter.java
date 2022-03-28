@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.GeneralSearchTournamentActivity;
 import com.example.mabar_v1.main.model.ListGameModel;
@@ -48,6 +49,8 @@ public class ListGameAdapter extends RecyclerView.Adapter<ListGameAdapter.GameVi
 
         Glide.with(context)
                 .load(dataGame.get(position).getImage())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                //.skipMemoryCache(true)
                 .into(holder.civGame);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

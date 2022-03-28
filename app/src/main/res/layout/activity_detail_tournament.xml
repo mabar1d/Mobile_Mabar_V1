@@ -89,6 +89,16 @@
 
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_grey"
+                android:layout_marginTop="10dp"
+                android:text="Prize Pool"
+                android:gravity="center"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:textSize="14sp" />
+            <TextView
                 android:id="@+id/tv_prize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

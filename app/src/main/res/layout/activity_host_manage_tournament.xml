@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_color_blue"
-    tools:context=".profile.CreateTournamentActivity">
+    tools:context=".host.HostManageTournamentActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -454,7 +454,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_create_tournament"
+            android:id="@+id/btn_update_tournament"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"
@@ -462,7 +462,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="28dp"
             android:background="@drawable/gray_button_background"
-            android:text="Create Tournament"
+            android:text="Update Tournament"
             android:textColor="@color/text_grey"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"

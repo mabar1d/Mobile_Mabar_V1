@@ -17,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.DetailTournamentActivity;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
@@ -69,12 +70,14 @@ public class ListPersonAdapter extends RecyclerView.Adapter {
             holderItem.cvPerson.setBackgroundColor(context.getResources().getColor(R.color.white));
         }*/
 
-        holderItem.tvPersonName.setText(dataTeam.get(position).getFirstname());
+        holderItem.tvPersonName.setText(dataTeam.get(position).getUsername());
         holderItem.tvIdPerson.setText("Id: "+ dataTeam.get(position).getUserId());
 
         Glide.with(context)
                 /*.load(dataTeam.get(position).getImage())*/
                 .load(R.drawable.person_photo)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                //.skipMemoryCache(true)
                 .into(holderItem.civPerson);
 
         holderItem.bind(dataTeam.get(position), listener);

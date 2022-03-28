@@ -218,7 +218,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                                 Glide.with(DetailProfileAccountActivity.this)
                                         .load(response.body().getData().getImage())
                                         .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                        .skipMemoryCache(true)
+                                        //.skipMemoryCache(true)
                                         .into(ivProfile);
                             }
 

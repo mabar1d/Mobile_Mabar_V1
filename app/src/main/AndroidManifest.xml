@@ -16,13 +16,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mabar_V1">
         <activity
+            android:name=".team.ManageTeamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.JoinTeamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".team.EditTeamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".host.HostManageTournamentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".host.HostMenuSettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".team.CreateTeamActivity"
             android:exported="false" />
         <activity
             android:name=".team.TeamSettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".profile.HostSettingNewActivity"
+            android:name=".profile.CreateTournamentActivity"
             android:exported="false" />
         <activity android:name=".main.DetailTournamentActivity" />
         <activity android:name=".main.GeneralSearchTournamentActivity" />

@@ -4,7 +4,7 @@
     <string name="tx_login_password">Password</string>
 
     <string name="title_home">Home</string>
-    <string name="title_tournament">My Tournament</string>
+    <string name="title_tournament">Tournament</string>
     <string name="title_profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -1,6 +1,7 @@
 package com.example.mabar_v1.team;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,17 +18,25 @@ import android.widget.Toast;
 
 import com.asura.library.posters.Poster;
 import com.asura.library.posters.RemoteImage;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
+import com.example.mabar_v1.main.DetailTournamentActivity;
 import com.example.mabar_v1.main.adapter.ListGameAdapter;
 import com.example.mabar_v1.main.adapter.ListTeamAdapter;
+import com.example.mabar_v1.profile.DetailProfileAccountActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseListGame;
+import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
+import com.example.mabar_v1.retrofit.model.TeamInfoResponseModel;
 import com.example.mabar_v1.splash.SplashScreen1;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,24 +49,33 @@ import retrofit2.Response;
 
 public class TeamSettingsActivity extends AppCompatActivity {
 
-    @BindView(R.id.search_bar_team)
-    EditText searchTeam;
-    @BindView(R.id.btn_search)
-    ImageView btnSearch;
-    @BindView(R.id.recycler_team)
-    RecyclerView rvTeam;
     @BindView(R.id.btn_create_team)
     TextView btnCreateTeam;
     @BindView(R.id.btn_edit_team)
     TextView btnEditTeam;
+    @BindView(R.id.cv_team)
+    CardView cvTeam;
+
+    @BindView(R.id.civ_team)
+    CircularImageView civTeam;
+    @BindView(R.id.tv_name_team)
+    TextView tvTeamName;
+    @BindView(R.id.tv_team_info)
+    TextView tvTeamInfo;
+    @BindView(R.id.tv_team_id)
+    TextView tvTeamId;
+    @BindView(R.id.btn_delete_team)
+    ImageView btnDeleteTeam;
+
     @BindView(R.id.btn_manage_team)
     TextView btnManageTeam;
+
+    private String teamId = "";
 
     private GlobalMethod gm;
     private SessionUser sess;
 
-    private ListTeamAdapter listTeamAdapter;
-    List<ListTeamResponseModel.Data> listTeam = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,24 +90,7 @@ public class TeamSettingsActivity extends AppCompatActivity {
         gm = new GlobalMethod();
         sess = new SessionUser(this);
 
-        getListGame(sess.getString("id_user"),"","");
-
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getListGame(sess.getString("id_user"),searchTeam.getText().toString(),"0");
-            }
-        });
-        searchTeam.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    getListGame(sess.getString("id_user"),searchTeam.getText().toString(),"0");
-                    return true;
-                }
-                return false;
-            }
-        });
+        getDataPerson();
 
         btnCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,37 +103,70 @@ public class TeamSettingsActivity extends AppCompatActivity {
         btnEditTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getListGame(sess.getString("id_user"),searchTeam.getText().toString(),"0");
+                Intent i = new Intent(TeamSettingsActivity.this, EditTeamActivity.class);
+                startActivity(i);
             }
         });
 
         btnManageTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getListGame(sess.getString("id_user"),searchTeam.getText().toString(),"0");
+                Intent i = new Intent(TeamSettingsActivity.this, EditTeamActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnDeleteTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                gm.showDialogConfirmation(TeamSettingsActivity.this, "Delete Team?", "Are you sure?",
+                        "Delete", "Cancel", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                deleteTeam(teamId);
+                                gm.dismissDialogConfirmation();
+                            }
+                        }, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gm.dismissDialogConfirmation();
+                            }
+                        });
+
             }
         });
 
     }
 
-    private void getListGame(String userId,String search,String page){
-
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
+    private void getDataPerson(){
+        ProgressDialog progress = new ProgressDialog(TeamSettingsActivity.this);
+        progress.setMessage("Getting Info...");
         progress.show();
         try {
-            Call<ListTeamResponseModel> req = RetrofitConfig.getApiServices("").getListTeam(userId, search, page);
-            req.enqueue(new Callback<ListTeamResponseModel>() {
+            Call<PersonnelResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getPersonnel(sess.getString("id_user"));
+            req.enqueue(new Callback<PersonnelResponseModel>() {
                 @Override
-                public void onResponse(Call<ListTeamResponseModel> call, Response<ListTeamResponseModel> response) {
+                public void onResponse(Call<PersonnelResponseModel> call, Response<PersonnelResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
-                            listTeam.clear();
-                            listTeam = response.body().getData();
 
-                            listTeamAdapter = new ListTeamAdapter(TeamSettingsActivity.this,listTeam);
-                            rvTeam.setLayoutManager(new GridLayoutManager(TeamSettingsActivity.this,2,GridLayoutManager.HORIZONTAL,false));
-                            rvTeam.setAdapter(listTeamAdapter);
+                            if (response.body().getData().getTeamId()!= null){
+                                btnCreateTeam.setVisibility(View.GONE);
+                                btnEditTeam.setVisibility(View.VISIBLE);
+                                btnManageTeam.setVisibility(View.VISIBLE);
+                                teamId = response.body().getData().getTeamId();
+                                getDataTeam(teamId);
+                            }else {
+                                btnCreateTeam.setVisibility(View.VISIBLE);
+                                btnEditTeam.setVisibility(View.GONE);
+                                btnManageTeam.setVisibility(View.GONE);
+
+                                cvTeam.setVisibility(View.INVISIBLE);
+                                btnDeleteTeam.setVisibility(View.INVISIBLE);
+                            }
+
+
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(TeamSettingsActivity.this, desc, Toast.LENGTH_SHORT).show();
@@ -147,18 +181,17 @@ public class TeamSettingsActivity extends AppCompatActivity {
                         }
 
                     } else {
-                        Toast.makeText(TeamSettingsActivity.this, "Failed Request List Teams", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TeamSettingsActivity.this, "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
                 }
 
                 @Override
-                public void onFailure(Call<ListTeamResponseModel> call, Throwable t) {
-                    Toast.makeText(TeamSettingsActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
-                    System.out.println("onFailure"+call);
+                public void onFailure(Call<PersonnelResponseModel> call, Throwable t) {
+                    String msg = t.getMessage();
+                    Toast.makeText(TeamSettingsActivity.this, msg, Toast.LENGTH_SHORT).show();
                     progress.dismiss();
-
                 }
 
 
@@ -166,7 +199,111 @@ public class TeamSettingsActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
+
+    private void deleteTeam(String idTeam){
+        ProgressDialog progress = new ProgressDialog(TeamSettingsActivity.this);
+        progress.setMessage("Getting Info...");
+        progress.show();
+        try {
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).deleteTeam(sess.getString("id_user"),idTeam);
+            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
+                @Override
+                public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+
+                            String desc = response.body().getDesc();
+                            Toast.makeText(TeamSettingsActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            finish();
+
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(TeamSettingsActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(TeamSettingsActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(TeamSettingsActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(TeamSettingsActivity.this, "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
+                    String msg = t.getMessage();
+                    Toast.makeText(TeamSettingsActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void getDataTeam(String teamId){
+        ProgressDialog progress = new ProgressDialog(TeamSettingsActivity.this);
+        progress.setMessage("Getting Info...");
+        progress.show();
+        try {
+            Call<TeamInfoResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTeam(sess.getString("id_user"),teamId);
+            req.enqueue(new Callback<TeamInfoResponseModel>() {
+                @Override
+                public void onResponse(Call<TeamInfoResponseModel> call, Response<TeamInfoResponseModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+
+                            Glide.with(TeamSettingsActivity.this)
+                                    .load(response.body().getData().getImage())
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .into(civTeam);
+
+                            tvTeamName.setText(response.body().getData().getName());
+                            tvTeamInfo.setText(response.body().getData().getInfo());
+                            tvTeamId.setText("Team Id: "+response.body().getData().getId());
+
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(TeamSettingsActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(TeamSettingsActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(TeamSettingsActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(TeamSettingsActivity.this, "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<TeamInfoResponseModel> call, Throwable t) {
+                    String msg = t.getMessage();
+                    Toast.makeText(TeamSettingsActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

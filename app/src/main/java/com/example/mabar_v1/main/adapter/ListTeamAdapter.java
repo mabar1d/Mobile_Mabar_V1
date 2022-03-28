@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.DetailTournamentActivity;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
@@ -49,8 +50,10 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.TeamVi
         holder.tvTeamInfo.setText(dataTeam.get(position).getInfo());
 
         Glide.with(context)
-                //.load(dataTeam.get(position).getImage())
-                .load(R.drawable.image_team)
+                .load(dataTeam.get(position).getImage())
+                //.load(R.drawable.image_team)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                //.skipMemoryCache(true)
                 .into(holder.civTeam);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
