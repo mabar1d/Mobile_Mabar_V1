@@ -46,8 +46,11 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
     TextView tvMember;
     @BindView(R.id.btn_join_team)
     Button btnJoinTeam;
+    @BindView(R.id.btn_leave_team)
+    Button btnLeaveTeam;
 
     private String idTeam = "";
+    private String flagTeam = "";
     private SessionUser sess;
     private GlobalMethod gm;
 
@@ -62,11 +65,20 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
         }
         if(b != null) {
             idTeam = b.getString("id_team");
+            flagTeam = b.getString("flag_team");
         }
         sess = new SessionUser(this);
         gm = new GlobalMethod();
 
         getDataTeam(idTeam);
+
+        if (flagTeam != null){
+            btnLeaveTeam.setVisibility(View.VISIBLE);
+            btnJoinTeam.setVisibility(View.GONE);
+        }else {
+            btnLeaveTeam.setVisibility(View.GONE);
+            btnJoinTeam.setVisibility(View.VISIBLE);
+        }
 
         btnJoinTeam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +98,26 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                         });
             }
         });
+
+        btnLeaveTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gm.showDialogConfirmation(DetailTeamInfoActivity.this, "Leave Team?", "Are you sure?",
+                        "Leave", "Cancel", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                requestLeaveTeam();
+                                gm.dismissDialogConfirmation();
+                            }
+                        }, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gm.dismissDialogConfirmation();
+                            }
+                        });
+            }
+        });
+
     }
 
 
@@ -159,6 +191,56 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
                             //finish();
+
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(DetailTeamInfoActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(DetailTeamInfoActivity.this, "Failed Request Join team", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
+                    String msg = t.getMessage();
+                    Toast.makeText(DetailTeamInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void requestLeaveTeam(){
+        ProgressDialog progress = new ProgressDialog(DetailTeamInfoActivity.this);
+        progress.setMessage("Request Join...");
+        progress.show();
+        try {
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelLeaveTeam(sess.getString("id_user"));
+            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
+                @Override
+                public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            finish();
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();

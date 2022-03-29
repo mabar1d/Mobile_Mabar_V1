@@ -21,8 +21,9 @@
             android:textSize="16dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
+            android:textColor="@color/grey"
             android:layout_marginBottom="10dp"
-            android:text="My Tournaments"/>
+            android:text="Tournament"/>
 
         <!--Searchbar-->
         <androidx.cardview.widget.CardView
@@ -46,7 +47,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="30dp"
                     android:background="@null"
-                    android:hint="Cari Tournament"
+                    android:hint="Find Tournament"
                     android:imeOptions="actionSearch"
                     android:paddingLeft="10dp"
                     android:singleLine="true"
@@ -68,11 +69,12 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/black"
+            app:cardBackgroundColor="@color/primary_color_blue"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginBottom="5dp"
             app:cardCornerRadius="15dp"
             android:padding="10dp">
 

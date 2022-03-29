@@ -27,6 +27,7 @@ import com.example.mabar_v1.profile.JoinTeamActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
+import com.example.mabar_v1.team.DetailTeamInfoActivity;
 import com.example.mabar_v1.team.TeamSettingsActivity;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
@@ -59,6 +60,8 @@ public class ProfileNewFragment extends Fragment {
     TextView btnHostSettings;
     @BindView(R.id.btn_join_team)
     TextView btnJoinTeam;
+    @BindView(R.id.btn_my_team)
+    TextView btnMyTeam;
 
     @BindView(R.id.btn_logout)
     TextView btnLogout;
@@ -67,6 +70,7 @@ public class ProfileNewFragment extends Fragment {
     private GlobalMethod gm;
     private Integer role = 1;
     private Dialog dialogSwitchAccount;
+    private String idTeam = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,6 +137,17 @@ public class ProfileNewFragment extends Fragment {
             }
         });
 
+        btnMyTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), DetailTeamInfoActivity.class);
+                Bundle bun = new Bundle();
+                bun.putString("id_team", idTeam );
+                bun.putString("flag_team", "Y");
+                i.putExtras(bun);
+                startActivity(i);
+            }
+        });
 
         btnSwitchAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,6 +283,7 @@ public class ProfileNewFragment extends Fragment {
                                         //.skipMemoryCache(true)
                                         .into(ivProfile);
                             }
+                            idTeam = response.body().getData().getTeamId();
                             if (response.body().getData().isVerified() == 1){
                                 ivIsVerified.setVisibility(View.VISIBLE);
                             }else {
@@ -279,13 +295,29 @@ public class ProfileNewFragment extends Fragment {
                             if (role == 2){
                                 btnHostSettings.setVisibility(View.GONE);
                                 btnJoinTeam.setVisibility(View.GONE);
+                                btnMyTeam.setVisibility(View.GONE);
                             }else if (role == 3){
                                 btnTeamSettings.setVisibility(View.GONE);
+                                if (idTeam != null){
+                                    btnMyTeam.setVisibility(View.VISIBLE);
+                                    btnJoinTeam.setVisibility(View.GONE);
+                                }else {
+                                    btnMyTeam.setVisibility(View.GONE);
+                                    btnJoinTeam.setVisibility(View.VISIBLE);
+                                }
                             }else {
                                 btnHostSettings.setVisibility(View.GONE);
                                 btnTeamSettings.setVisibility(View.GONE);
+                                if (idTeam != null){
+                                    btnMyTeam.setVisibility(View.VISIBLE);
+                                    btnJoinTeam.setVisibility(View.GONE);
+                                }else {
+                                    btnMyTeam.setVisibility(View.GONE);
+                                    btnJoinTeam.setVisibility(View.VISIBLE);
+                                }
                             }
                             btnSwitchAccount.setText("Logged in as : "+ gm.getRoleById(role));
+
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();

@@ -203,7 +203,21 @@
                 android:text="Join Team"
                 android:layout_gravity="bottom"
                 android:background="@drawable/rounded_button_green"
-                android:textColor="@color/white_fab"
+                android:textColor="@color/grey"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/btn_leave_team"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:text="Leave Team"
+                android:layout_gravity="bottom"
+                android:background="@drawable/rounded_button_red"
+                android:textColor="@color/grey"
+                android:visibility="gone"
                 android:textAllCaps="false"/>
 
 
