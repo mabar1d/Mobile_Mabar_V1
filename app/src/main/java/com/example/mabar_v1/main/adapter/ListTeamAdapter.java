@@ -17,8 +17,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.DetailTournamentActivity;
+import com.example.mabar_v1.retrofit.model.GetListTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
-import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
 import com.example.mabar_v1.team.DetailTeamInfoActivity;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -29,10 +29,10 @@ import java.util.List;
 
 public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.TeamViewHolder> {
     private Context context;
-    private List<ListTeamResponseModel.Data> dataTeam = new ArrayList<>();
+    private List<GetListTeamResponseModel.Data> dataTeam = new ArrayList<>();
     private GlobalMethod globalMethod;
 
-    public ListTeamAdapter(Context context, List<ListTeamResponseModel.Data> dataTeam) {
+    public ListTeamAdapter(Context context, List<GetListTeamResponseModel.Data> dataTeam) {
         this.context = context;
         this.dataTeam = dataTeam;
     }

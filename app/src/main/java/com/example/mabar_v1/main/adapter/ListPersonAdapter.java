@@ -21,7 +21,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.DetailTournamentActivity;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
-import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -56,19 +55,6 @@ public class ListPersonAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ListPersonnelResponseModel.Data dataModel  = dataTeam.get(position);
         final ListPersonAdapter.PersonViewHolder holderItem = (ListPersonAdapter.PersonViewHolder)holder;
-
-
-
-        //postFinancingHolder.rbAsuransi.setEnabled(false);
-
-
-        /*if (dataModel.getOnClick() == true){
-            holderItem.cvPerson.setBackgroundColor(Color.parseColor("#ededed"));
-            //postFinancingHolder.rbAsuransi.setChecked(true);
-        }else {
-           // postFinancingHolder.rbAsuransi.setChecked(false);
-            holderItem.cvPerson.setBackgroundColor(context.getResources().getColor(R.color.white));
-        }*/
 
         holderItem.tvPersonName.setText(dataTeam.get(position).getUsername());
         holderItem.tvIdPerson.setText("Id: "+ dataTeam.get(position).getUserId());

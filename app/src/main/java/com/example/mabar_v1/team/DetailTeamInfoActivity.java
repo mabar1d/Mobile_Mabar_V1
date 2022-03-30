@@ -16,8 +16,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
+import com.example.mabar_v1.retrofit.model.GetTeamInfoResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
-import com.example.mabar_v1.retrofit.model.TeamInfoResponseModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -126,10 +126,10 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
         progress.setMessage("Getting Info...");
         progress.show();
         try {
-            Call<TeamInfoResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTeam(sess.getString("id_user"),teamId);
-            req.enqueue(new Callback<TeamInfoResponseModel>() {
+            Call<GetTeamInfoResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTeam(sess.getString("id_user"),teamId);
+            req.enqueue(new Callback<GetTeamInfoResponseModel>() {
                 @Override
-                public void onResponse(Call<TeamInfoResponseModel> call, Response<TeamInfoResponseModel> response) {
+                public void onResponse(Call<GetTeamInfoResponseModel> call, Response<GetTeamInfoResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
 
@@ -163,7 +163,7 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<TeamInfoResponseModel> call, Throwable t) {
+                public void onFailure(Call<GetTeamInfoResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(DetailTeamInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                     progress.dismiss();

@@ -3,15 +3,16 @@ package com.example.mabar_v1.retrofit;
 import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.model.CreateTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListRequestJoinTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.GetListTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.GetListTeamTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
+import com.example.mabar_v1.retrofit.model.GetTeamInfoResponseModel;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
-import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseGetInfoTournamentModel;
 import com.example.mabar_v1.retrofit.model.ResponseListGame;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
-import com.example.mabar_v1.retrofit.model.TeamInfoResponseModel;
 import com.example.mabar_v1.signup.model.ResponseRegisterModel;
 
 import org.json.JSONArray;
@@ -108,6 +109,22 @@ public interface ApiService {
             @Query("team_id") String team_id
     );
 
+    //Team Tournament List(Team Leader)
+    @POST("getListTournamentTeam")
+    Call<GetListTeamTournamentResponseModel> getListTeamTournamentforLeader(
+            @Query("user_id") String user_id,
+            @Query("team_id") String team_id
+    );
+
+    //get List Tournament (Member)
+    @POST("getListMyTeamTournament")
+    Call<GetListTournamentResponseModel> getListTeamTournamentforMember(
+            @Query("user_id") String user_id,
+            @Query("team_id") String team_id,
+            @Query("search") String search,
+            @Query("page") String page
+    );
+
     //Person leave Team
     @POST("personnelLeaveTeam")
     Call<SuccessResponseDefaultModel> personnelLeaveTeam(
@@ -159,7 +176,7 @@ public interface ApiService {
 
     //search list Team
     @POST("getListTeam")
-    Call<ListTeamResponseModel> getListTeam(
+    Call<GetListTeamResponseModel> getListTeam(
             @Query("user_id") String user_id,
             @Query("search") String search,
             @Query("page") String page
@@ -167,7 +184,7 @@ public interface ApiService {
 
     //get Team Info
     @POST("getInfoTeam")
-    Call<TeamInfoResponseModel> getInfoTeam(
+    Call<GetTeamInfoResponseModel> getInfoTeam(
             @Query("user_id") String user_id,
             @Query("team_id") String team_id
     );

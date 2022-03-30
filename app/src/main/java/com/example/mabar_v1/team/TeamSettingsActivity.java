@@ -28,11 +28,10 @@ import com.example.mabar_v1.main.adapter.ListTeamAdapter;
 import com.example.mabar_v1.profile.DetailProfileAccountActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
-import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.GetTeamInfoResponseModel;
 import com.example.mabar_v1.retrofit.model.PersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseListGame;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
-import com.example.mabar_v1.retrofit.model.TeamInfoResponseModel;
 import com.example.mabar_v1.splash.SplashScreen1;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
@@ -259,10 +258,10 @@ public class TeamSettingsActivity extends AppCompatActivity {
         progress.setMessage("Getting Info...");
         progress.show();
         try {
-            Call<TeamInfoResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTeam(sess.getString("id_user"),teamId);
-            req.enqueue(new Callback<TeamInfoResponseModel>() {
+            Call<GetTeamInfoResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTeam(sess.getString("id_user"),teamId);
+            req.enqueue(new Callback<GetTeamInfoResponseModel>() {
                 @Override
-                public void onResponse(Call<TeamInfoResponseModel> call, Response<TeamInfoResponseModel> response) {
+                public void onResponse(Call<GetTeamInfoResponseModel> call, Response<GetTeamInfoResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
 
@@ -296,7 +295,7 @@ public class TeamSettingsActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<TeamInfoResponseModel> call, Throwable t) {
+                public void onFailure(Call<GetTeamInfoResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(TeamSettingsActivity.this, msg, Toast.LENGTH_SHORT).show();
                     progress.dismiss();

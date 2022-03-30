@@ -4,7 +4,7 @@ package com.example.mabar_v1.retrofit.model
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
 
-data class ListTeamResponseModel(
+data class GetListTeamResponseModel(
     @SerializedName("code")
     @Expose
     var code: String,
@@ -21,7 +21,7 @@ data class ListTeamResponseModel(
         var adminId: String,
         @SerializedName("id")
         @Expose
-        var id: Int,
+        var id: String,
         @SerializedName("image")
         @Expose
         var image: String,
@@ -33,6 +33,18 @@ data class ListTeamResponseModel(
         var name: String,
         @SerializedName("personnel")
         @Expose
-        var personnel: String
-    )
+        var personnel: List<Personnel>,
+        @SerializedName("username_admin")
+        @Expose
+        var usernameAdmin: String
+    ) {
+        data class Personnel(
+            @SerializedName("user_id")
+            @Expose
+            var userId: String,
+            @SerializedName("username")
+            @Expose
+            var username: String
+        )
+    }
 }

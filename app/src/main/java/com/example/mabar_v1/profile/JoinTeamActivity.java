@@ -19,7 +19,7 @@ import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.main.adapter.ListTeamAdapter;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
-import com.example.mabar_v1.retrofit.model.ListTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.GetListTeamResponseModel;
 import com.example.mabar_v1.team.TeamSettingsActivity;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
@@ -46,7 +46,7 @@ public class JoinTeamActivity extends AppCompatActivity {
     private SessionUser sess;
 
     private ListTeamAdapter listTeamAdapter;
-    List<ListTeamResponseModel.Data> listTeam = new ArrayList<>();
+    List<GetListTeamResponseModel.Data> listTeam = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,10 +87,10 @@ public class JoinTeamActivity extends AppCompatActivity {
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<ListTeamResponseModel> req = RetrofitConfig.getApiServices("").getListTeam(userId, search, page);
-            req.enqueue(new Callback<ListTeamResponseModel>() {
+            Call<GetListTeamResponseModel> req = RetrofitConfig.getApiServices("").getListTeam(userId, search, page);
+            req.enqueue(new Callback<GetListTeamResponseModel>() {
                 @Override
-                public void onResponse(Call<ListTeamResponseModel> call, Response<ListTeamResponseModel> response) {
+                public void onResponse(Call<GetListTeamResponseModel> call, Response<GetListTeamResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
                             listTeam.clear();
@@ -120,7 +120,7 @@ public class JoinTeamActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ListTeamResponseModel> call, Throwable t) {
+                public void onFailure(Call<GetListTeamResponseModel> call, Throwable t) {
                     Toast.makeText(JoinTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     progress.dismiss();
