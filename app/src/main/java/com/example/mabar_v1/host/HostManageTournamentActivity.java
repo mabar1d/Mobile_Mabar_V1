@@ -31,6 +31,7 @@ import com.example.mabar_v1.retrofit.ApiService;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
+import com.example.mabar_v1.utility.CurrencyEditTextWatcher;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
 
@@ -125,6 +126,9 @@ public class HostManageTournamentActivity extends AppCompatActivity {
         gm = new GlobalMethod();
         sdf = new SimpleDateFormat("dd-MM-yyyy");
 
+        etPrize.addTextChangedListener(new CurrencyEditTextWatcher(etPrize));
+        etRegFee.addTextChangedListener(new CurrencyEditTextWatcher(etRegFee));
+
         btnUpdateTournament.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,8 +154,8 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
                         tourName = etTourName.getText().toString();
                         tourDescription = etDescription.getText().toString();
-                        prize = etPrize.getText().toString();
-                        regFee = etRegFee.getText().toString();
+                        prize = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etPrize.getText().toString()));
+                        regFee = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etRegFee.getText().toString()));
 
                         //Mapping Game
                         String getGame = spGame.getSelectedItem().toString();

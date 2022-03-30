@@ -54,7 +54,7 @@
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/rounded_button_orange_border"
                 android:text="Add Image"
-                android:textColor="@color/white"
+                android:textColor="@color/grey"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Tournament Name"
                     android:textSize="14sp" />
 
@@ -117,6 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Description"
                     android:textSize="14sp" />
 
@@ -145,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Number of Participants"
                     android:textSize="14sp" />
 
@@ -166,6 +169,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
+                            android:textColor="@color/text_grey"
                             android:layout_weight="1"
                             android:checked="true"
                             android:text="8"
@@ -176,6 +180,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
+                            android:textColor="@color/text_grey"
                             android:layout_weight="1"
                             android:checked="false"
                             android:text="16"
@@ -197,6 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Register Date Start"
                     android:textSize="14sp" />
 
@@ -227,6 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Register Date End"
                     android:textSize="14sp" />
 
@@ -257,6 +264,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Start Date"
                     android:textSize="14sp" />
 
@@ -287,6 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="End Date"
                     android:textSize="14sp" />
 
@@ -317,6 +326,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Prize"
                     android:textSize="14sp" />
 
@@ -346,6 +356,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Register Fee"
                     android:textSize="14sp" />
 
@@ -375,6 +386,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Game"
                     android:textSize="14sp" />
 
@@ -412,6 +424,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/text_grey"
                     android:text="Type"
                     android:textSize="14sp" />
 
@@ -433,6 +446,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
+                            android:textColor="@color/text_grey"
                             android:layout_weight="1"
                             android:checked="true"
                             android:text="Knockout"
@@ -443,6 +457,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
+                            android:textColor="@color/text_grey"
                             android:layout_weight="1"
                             android:checked="false"
                             android:text="Group"

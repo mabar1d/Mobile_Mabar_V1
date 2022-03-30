@@ -30,13 +30,18 @@ import com.example.mabar_v1.retrofit.ApiService;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
+import com.example.mabar_v1.utility.CurrencyEditTextWatcher;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,6 +120,8 @@ public class CreateTournamentActivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMAGE = 1;
     private String picturePath = "";
     private RadioButton radioButton;
+    private String current = "";
+    NumberFormat currencyFormatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +135,10 @@ public class CreateTournamentActivity extends AppCompatActivity {
         sess = new SessionUser(this);
         gm = new GlobalMethod();
         sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        etPrize.addTextChangedListener(new CurrencyEditTextWatcher(etPrize));
+        etRegFee.addTextChangedListener(new CurrencyEditTextWatcher(etRegFee));
+
 
         btnCreateTournament.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,8 +165,8 @@ public class CreateTournamentActivity extends AppCompatActivity {
 
                         tourName = etTourName.getText().toString();
                         tourDescription = etDescription.getText().toString();
-                        prize = etPrize.getText().toString();
-                        regFee = etRegFee.getText().toString();
+                        prize = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etPrize.getText().toString()));
+                        regFee = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etRegFee.getText().toString()));
 
                         //Mapping Game
                         String getGame = spGame.getSelectedItem().toString();
@@ -427,6 +438,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

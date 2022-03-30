@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Mobile Legend"
             android:textSize="12dp"
+            android:textColor="@color/grey"
             android:gravity="center"
             android:textStyle="italic"
             android:maxLines="2"/>

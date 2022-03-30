@@ -14,11 +14,15 @@ import com.example.mabar_v1.R;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URLConnection;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.MediaType;
@@ -29,6 +33,7 @@ public class GlobalMethod {
     SessionUser sessionUser;
     SweetAlertDialog pDialog;
     Dialog confirmationDialog;
+    NumberFormat currencyFormatter;
     /*public String getUriImage(String path){
         //String url = "https://image.tmdb.org/t/p/w500"+path;
         //return url;
@@ -188,6 +193,16 @@ public class GlobalMethod {
     public void dismissDialogConfirmation() {
         confirmationDialog.dismiss();
 
+    }
+
+    public String formattedRupiah(String value){
+        currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        currencyFormatter.setMaximumFractionDigits(0);
+        currencyFormatter.setRoundingMode(RoundingMode.FLOOR);
+
+        BigDecimal bigValue = new BigDecimal(value);
+        String formattedValue = currencyFormatter.format(bigValue);
+        return formattedValue;
     }
 
 }
