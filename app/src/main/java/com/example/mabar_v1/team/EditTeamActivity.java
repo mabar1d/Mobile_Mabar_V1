@@ -26,6 +26,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.main.adapter.ListPersonAdapter;
@@ -33,6 +35,7 @@ import com.example.mabar_v1.main.adapter.ListPersonAddedAdapter;
 import com.example.mabar_v1.retrofit.ApiService;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.CreateTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.GetTeamInfoResponseModel;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.utility.GlobalMethod;
@@ -65,6 +68,8 @@ public class EditTeamActivity extends AppCompatActivity {
     CircularImageView civTeam;
     @BindView(R.id.team_name)
     EditText etTeamName;
+    @BindView(R.id.team_info)
+    EditText etTeamInfo;
     @BindView(R.id.sp_game)
     Spinner spGame;
     @BindView(R.id.et_personnel)
@@ -91,6 +96,7 @@ public class EditTeamActivity extends AppCompatActivity {
     private String picturePath = "";
 
     private String teamName = "";
+    private String teamInfo = "";
     private String tourDescription = "";
     private Integer game;
     private JSONArray personnel = new JSONArray();
@@ -102,6 +108,7 @@ public class EditTeamActivity extends AppCompatActivity {
     private ListPersonAddedAdapter listPersonAddedAdapter;
     List<ListPersonnelResponseModel.Data> listPerson = new ArrayList<>();
     List<ListPersonnelResponseModel.Data> listPersonAdded = new ArrayList<>();
+    List<GetTeamInfoResponseModel.Data.Personnel> listPersonnelExisting = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,6 +198,8 @@ public class EditTeamActivity extends AppCompatActivity {
                     public void onClick(View view) {
 
                         teamName = etTeamName.getText().toString();
+                        teamInfo = etTeamInfo.getText().toString();
+
                         //Mapping Game
                         String getGame = spGame.getSelectedItem().toString();
                         if (getGame.equalsIgnoreCase("Mobile Legends")){
@@ -204,12 +213,12 @@ public class EditTeamActivity extends AppCompatActivity {
                         }
                         //game = Integer.parseInt(etGame.getText().toString());
                         if (picturePath.equals("")){
-                            updateTeam(idTeam,teamName,getGame,personnelId);
+                            updateTeam(idTeam,teamName,teamInfo,game.toString(),personnelId);
                         }else {
                             if (flagSendData){
                                 uploadImage(idTeam);
                             }else {
-                                updateTeam(idTeam,teamName,getGame,personnelId);
+                                updateTeam(idTeam,teamName,teamInfo,game.toString(),personnelId);
                             }
 
                         }
@@ -229,13 +238,13 @@ public class EditTeamActivity extends AppCompatActivity {
 
 
 
-    private void updateTeam(String teamId,String teamName,String game,JSONArray personnels){
+    private void updateTeam(String teamId,String teamName,String teamInfo,String game,JSONArray personnels){
         ProgressDialog progress = new ProgressDialog(EditTeamActivity.this);
         progress.setMessage("Update Team");
         progress.show();
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateTeam(sess.getString("id_user"),
-                    teamId,teamName,game,personnels);
+                    teamId,teamName,teamInfo,game,personnels);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
                 public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
@@ -369,6 +378,7 @@ public class EditTeamActivity extends AppCompatActivity {
                                         listPerson.set(i, itemLain);
                                     }
 
+
                                     //tvAddedPerson.setText(item.getFirstname());
                                     listPerson.set(position, item);
 
@@ -474,6 +484,85 @@ public class EditTeamActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void getDataTeam(String teamId){
+        ProgressDialog progress = new ProgressDialog(EditTeamActivity.this);
+        progress.setMessage("Getting Info...");
+        progress.show();
+        try {
+            Call<GetTeamInfoResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTeam(sess.getString("id_user"),teamId);
+            req.enqueue(new Callback<GetTeamInfoResponseModel>() {
+                @Override
+                public void onResponse(Call<GetTeamInfoResponseModel> call, Response<GetTeamInfoResponseModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+
+                            Glide.with(EditTeamActivity.this)
+                                    .load(response.body().getData().getImage())
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .into(civTeam);
+
+                            etTeamName.setText(response.body().getData().getName());
+                            etTeamInfo.setText(response.body().getData().getInfo());
+
+                            if (response.body().getData().getGame_id().equals("6")){
+                                spGame.setSelection(0);
+                            }else if (response.body().getData().getGame_id().equals("7")){
+                                spGame.setSelection(1);
+                            }else if (response.body().getData().getGame_id().equals("8")){
+                                spGame.setSelection(2);
+                            }else {
+                                spGame.setSelection(0);
+                            }
+
+                            listPersonnelExisting = response.body().getData().getPersonnel();
+                            for (int i = 0; i < listPersonnelExisting.size(); i++) {
+                                personnel.put(listPersonnelExisting.get(i).getUsername());
+                                personnelId.put(listPersonnelExisting.get(i).getUserId());
+                            }
+                            valueMember = personnel.toString();
+                            if (valueMember.contains("[")) {
+                                valueMember=valueMember.replace("[", "");
+                            }
+                            if (valueMember.contains("]")){
+                                valueMember=valueMember.replace("]", "");
+                            }
+                            etPersonnel.setText(valueMember);
+
+
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(EditTeamActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(EditTeamActivity.this, "Failed Request Team Info", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<GetTeamInfoResponseModel> call, Throwable t) {
+                    String msg = t.getMessage();
+                    Toast.makeText(EditTeamActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

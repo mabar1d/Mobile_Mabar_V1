@@ -71,7 +71,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_team_info"
+                            android:id="@+id/tv_team_game"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -144,12 +144,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:gravity="start"
-                            android:text="Bio"
+                            android:text="Info"
                             android:textColor="@color/grey"
                             android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/tv_bio_team"
+                            android:id="@+id/tv_team_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"

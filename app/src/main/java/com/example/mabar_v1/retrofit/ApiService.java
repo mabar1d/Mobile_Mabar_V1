@@ -140,6 +140,7 @@ public interface ApiService {
             @Query("user_id") String user_id,
             @Query("name") String name,
             @Query("info") String info,
+            @Query("game_id") String game_id,
             @Query("personnel") JSONArray personnel
     );
 
@@ -150,6 +151,7 @@ public interface ApiService {
             @Query("team_id") String team_id,
             @Query("name") String name,
             @Query("info") String info,
+            @Query("game_id") String game_id,
             @Query("personnel") JSONArray personnel
     );
 

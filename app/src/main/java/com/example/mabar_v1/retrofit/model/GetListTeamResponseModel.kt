@@ -31,6 +31,12 @@ data class GetListTeamResponseModel(
         @SerializedName("name")
         @Expose
         var name: String,
+        @SerializedName("game_id")
+        @Expose
+        var game_id: String,
+        @SerializedName("title_game")
+        @Expose
+        var title_game: String,
         @SerializedName("personnel")
         @Expose
         var personnel: List<Personnel>,

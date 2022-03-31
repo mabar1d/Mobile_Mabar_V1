@@ -17,10 +17,16 @@ import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetTeamInfoResponseModel;
+import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,8 +46,8 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
     TextView tvTeamId;
     @BindView(R.id.tv_team_leader)
     TextView tvTeamLeader;
-    @BindView(R.id.tv_bio_team)
-    TextView tvBioTeam;
+    @BindView(R.id.tv_team_game)
+    TextView tvTeamGame;
     @BindView(R.id.et_personnel)
     TextView tvMember;
     @BindView(R.id.btn_join_team)
@@ -51,8 +57,11 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
 
     private String idTeam = "";
     private String flagTeam = "";
+    private String valueMember = "";
     private SessionUser sess;
     private GlobalMethod gm;
+    List<GetTeamInfoResponseModel.Data.Personnel> listPersonnel = new ArrayList<>();
+    List<String> listPersonnelNew = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,8 +148,24 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                                     .into(civTeam);
 
                             tvTeamName.setText(response.body().getData().getName());
-                            tvTeamInfo.setText(response.body().getData().getInfo());
+                            tvTeamGame.setText(response.body().getData().getTitle_game());
                             tvTeamId.setText("Team Id: "+response.body().getData().getId());
+                            tvTeamLeader.setText(response.body().getData().getUsernameAdmin());
+                            tvTeamInfo.setText(response.body().getData().getInfo());
+
+                            listPersonnel = response.body().getData().getPersonnel();
+                            for (int i = 0; i < listPersonnel.size(); i++) {
+                                listPersonnelNew.add(listPersonnel.get(i).getUsername());
+                            }
+                            valueMember = listPersonnelNew.toString();
+                            if (valueMember.contains("[")) {
+                                valueMember=valueMember.replace("[", "");
+                            }
+                            if (valueMember.contains("]")){
+                                valueMember=valueMember.replace("]", "");
+                            }
+                            tvMember.setText(valueMember);
+
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();

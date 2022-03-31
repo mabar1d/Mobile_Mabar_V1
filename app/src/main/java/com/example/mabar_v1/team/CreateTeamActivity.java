@@ -65,6 +65,8 @@ public class CreateTeamActivity extends AppCompatActivity {
     CircularImageView civTeam;
     @BindView(R.id.team_name)
     EditText etTeamName;
+    @BindView(R.id.team_info)
+    EditText etTeamInfo;
     @BindView(R.id.sp_game)
     Spinner spGame;
     @BindView(R.id.et_personnel)
@@ -91,7 +93,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     private String picturePath = "";
 
     private String teamName = "";
-    private String tourDescription = "";
+    private String teamInfo = "";
     private Integer game;
     private JSONArray personnel = new JSONArray();
     private JSONArray personnelId = new JSONArray();
@@ -193,6 +195,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                     public void onClick(View view) {
 
                         teamName = etTeamName.getText().toString();
+                        teamInfo = etTeamInfo.getText().toString();
                         //Mapping Game
                         String getGame = spGame.getSelectedItem().toString();
                         if (getGame.equalsIgnoreCase("Mobile Legends")){
@@ -211,7 +214,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                             if (flagSendData){
                                 uploadImage(idTeam);
                             }else {
-                                createTeam(teamName,getGame,personnelId);
+                                createTeam(teamName,game.toString(),teamInfo,personnelId);
                             }
 
                         }
@@ -231,13 +234,13 @@ public class CreateTeamActivity extends AppCompatActivity {
 
 
 
-    private void createTeam(String teamName,String game,JSONArray personnels){
+    private void createTeam(String teamName,String teamInfo,String game,JSONArray personnels){
         ProgressDialog progress = new ProgressDialog(CreateTeamActivity.this);
         progress.setMessage("Create Team");
         progress.show();
         try {
             Call<CreateTeamResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).createTeam(sess.getString("id_user"),
-                    teamName,game,personnels);
+                    teamName,teamInfo,game,personnels);
             req.enqueue(new Callback<CreateTeamResponseModel>() {
                 @Override
                 public void onResponse(Call<CreateTeamResponseModel> call, Response<CreateTeamResponseModel> response) {
@@ -352,9 +355,6 @@ public class CreateTeamActivity extends AppCompatActivity {
                 public void onResponse(Call<ListPersonnelResponseModel> call, Response<ListPersonnelResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
-/*
-                bottomSheet.buttonSubmit.setOnClickListener { dialog.dismiss() }
-*/
 
                             listPerson.clear();
                             listPerson = response.body().getData();
@@ -371,7 +371,6 @@ public class CreateTeamActivity extends AppCompatActivity {
                                         listPerson.set(i, itemLain);
                                     }
 
-                                    //tvAddedPerson.setText(item.getFirstname());
                                     listPerson.set(position, item);
 
                                     if (!listPersonAdded.contains(item)){
@@ -379,8 +378,6 @@ public class CreateTeamActivity extends AppCompatActivity {
                                         listPersonAdded.add(item);
                                         personnel.put(item.getUsername());
                                         personnelId.put(item.getUserId());
-                                        //tvAddedPerson.setText(personnel.toString());
-
 
                                         valueMember = personnel.toString();
                                         if (valueMember.contains("[")) {
@@ -389,9 +386,6 @@ public class CreateTeamActivity extends AppCompatActivity {
                                         if (valueMember.contains("]")){
                                             valueMember=valueMember.replace("]", "");
                                         }
-                                    /*if (valueMember.contains("")){
-                                        valueMember=valueMember.replace("", "");
-                                    }*/
 
                                         etPersonnel.setText(valueMember);
 
@@ -400,9 +394,7 @@ public class CreateTeamActivity extends AppCompatActivity {
 
                                     }
 
-                                    //listPerson.remove(position);
                                     listPersonAdapter.notifyDataSetChanged();
-                                    //notifyAll();
                                 }
                             });
 

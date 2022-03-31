@@ -48,7 +48,7 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.TeamVi
     @Override
     public void onBindViewHolder(@NonNull TeamViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.tvTeamName.setText(dataTeam.get(position).getName());
-        holder.tvTeamInfo.setText(dataTeam.get(position).getInfo());
+        holder.tvTeamInfo.setText(dataTeam.get(position).getTitle_game());
 
         Glide.with(context)
                 .load(dataTeam.get(position).getImage())
