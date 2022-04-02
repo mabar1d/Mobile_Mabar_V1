@@ -76,8 +76,8 @@ public class EditTeamActivity extends AppCompatActivity {
     TextView etPersonnel;
     @BindView(R.id.btn_update_team)
     Button btnUpdateTeam;
-    @BindView(R.id.btn_add_image)
-    Button btnAddImage;
+    @BindView(R.id.btn_edit_image)
+    Button btnEditImage;
 
     BottomSheetDialog bsDialog;
     View bottomSheet;
@@ -101,6 +101,7 @@ public class EditTeamActivity extends AppCompatActivity {
     private Integer game;
     private JSONArray personnel = new JSONArray();
     private JSONArray personnelId = new JSONArray();
+    private boolean memberEdited = false;
 
     private SessionUser sess;
     private GlobalMethod gm;
@@ -109,6 +110,7 @@ public class EditTeamActivity extends AppCompatActivity {
     List<ListPersonnelResponseModel.Data> listPerson = new ArrayList<>();
     List<ListPersonnelResponseModel.Data> listPersonAdded = new ArrayList<>();
     List<GetTeamInfoResponseModel.Data.Personnel> listPersonnelExisting = new ArrayList<>();
+    List<String> listPersonnelText = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,11 +121,16 @@ public class EditTeamActivity extends AppCompatActivity {
         sess = new SessionUser(this);
         gm = new GlobalMethod();
 
+        Bundle b = getIntent().getExtras();
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+        if(b != null) {
+            idTeam = b.getString("id_team");
+        }
 
-        btnAddImage.setOnClickListener(new View.OnClickListener() {
+        btnEditImage.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -186,6 +193,7 @@ public class EditTeamActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bsDialog.dismiss();
+                memberEdited = true;
             }
         });
 
@@ -220,7 +228,6 @@ public class EditTeamActivity extends AppCompatActivity {
                             }else {
                                 updateTeam(idTeam,teamName,teamInfo,game.toString(),personnelId);
                             }
-
                         }
                     }
                 }, new View.OnClickListener() {
@@ -233,6 +240,8 @@ public class EditTeamActivity extends AppCompatActivity {
 
             }
         });
+
+        getDataTeam(idTeam);
 
     }
 
@@ -255,6 +264,9 @@ public class EditTeamActivity extends AppCompatActivity {
                             flagSendData = true;
                             if (!picturePath.equals("")) {
                                 uploadImage(idTeam);
+                            }else {
+                                gm.dismissDialogConfirmation();
+                                finish();
                             }
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
@@ -311,6 +323,7 @@ public class EditTeamActivity extends AppCompatActivity {
                         if (response.body().getCode().equals("00")){
                             String notif = response.body().getDesc();
                             Toast.makeText(EditTeamActivity.this, notif, Toast.LENGTH_SHORT).show();
+                            gm.dismissDialogConfirmation();
                             finish();
 
                         }else if (response.body().getCode().equals("05")){
@@ -365,6 +378,40 @@ public class EditTeamActivity extends AppCompatActivity {
 
                             listPerson.clear();
                             listPerson = response.body().getData();
+                            if (memberEdited == false){
+                                listPersonAdded.clear();
+                                personnel = new JSONArray();
+                                personnelId = new JSONArray();
+                                for (int i = 0; i < listPersonnelExisting.size(); i++) {
+                                    String idPersonEx = "";
+                                    idPersonEx = listPersonnelExisting.get(i).getUserId();
+                                    for (int j = 0; j < listPerson.size(); j++) {
+                                        Integer idPerson;
+                                        idPerson = listPerson.get(j).getUserId();
+                                        if (idPersonEx.equals(idPerson.toString())){
+
+                                            listPersonAdded.add(listPerson.get(j));
+                                            personnel.put(listPerson.get(j).getUsername());
+                                            personnelId.put(idPersonEx);
+                                            valueMember = personnel.toString();
+
+                                            if (valueMember.contains("[")) {
+                                                valueMember=valueMember.replace("[", "");
+                                            }
+                                            if (valueMember.contains("]")){
+                                                valueMember=valueMember.replace("]", "");
+                                            }
+
+                                            etPersonnel.setText(valueMember);
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+
+
 
                             listPersonAdapter = new ListPersonAdapter(EditTeamActivity.this, listPerson, new ListPersonAdapter.OnItemClickListener() {
                                 @Override
@@ -388,7 +435,6 @@ public class EditTeamActivity extends AppCompatActivity {
                                         personnel.put(item.getUsername());
                                         personnelId.put(item.getUserId());
                                         //tvAddedPerson.setText(personnel.toString());
-
 
                                         valueMember = personnel.toString();
                                         if (valueMember.contains("[")) {

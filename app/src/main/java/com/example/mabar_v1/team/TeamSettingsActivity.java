@@ -103,6 +103,9 @@ public class TeamSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(TeamSettingsActivity.this, EditTeamActivity.class);
+                Bundle bun = new Bundle();
+                bun.putString("id_team", teamId);
+                i.putExtras(bun);
                 startActivity(i);
             }
         });

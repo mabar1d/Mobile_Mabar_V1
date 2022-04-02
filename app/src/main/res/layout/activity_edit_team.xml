@@ -29,14 +29,14 @@
             app:civ_shadow_color="@color/primary_color_blue"/>
 
         <Button
-            android:id="@+id/btn_add_image"
+            android:id="@+id/btn_edit_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_button_orange_border"
             android:textColor="@color/grey"
             android:layout_gravity="center"
-            android:text="Add"
+            android:text="Edit"
             android:textSize="14dp" />
 
 
@@ -92,6 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="center"
+                android:textColor="@color/text_grey"
                 android:text="Team Info"
                 android:textSize="14sp" />
 
