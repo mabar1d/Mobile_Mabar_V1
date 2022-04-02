@@ -17,8 +17,10 @@ import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.main.adapter.ListPersonAdapter;
 import com.example.mabar_v1.main.adapter.ListPersonAddedAdapter;
 import com.example.mabar_v1.main.adapter.ListPersonReqJoinTeamAdapter;
+import com.example.mabar_v1.main.adapter.ListTeamTournamentAdapter;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListRequestJoinTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.GetListTeamTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ListPersonnelResponseModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.utility.GlobalMethod;
@@ -41,6 +43,7 @@ public class ManageTeamActivity extends AppCompatActivity {
     RecyclerView rvTournament;
 
     private ListPersonReqJoinTeamAdapter listPersonAdapter;
+    private ListTeamTournamentAdapter listTeamTournamentAdapter;
 
     private GlobalMethod gm;
     private SessionUser sess;
@@ -49,6 +52,7 @@ public class ManageTeamActivity extends AppCompatActivity {
     private String memberName = "";
 
     List<GetListRequestJoinTeamResponseModel.Data> listPerson = new ArrayList<>();
+    List<GetListTeamTournamentResponseModel.Data> listTournament = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,7 @@ public class ManageTeamActivity extends AppCompatActivity {
         sess = new SessionUser(this);
 
         getListPerson();
+        getListTeamTournament();
 
     }
 
@@ -194,6 +199,65 @@ public class ManageTeamActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
+                    Toast.makeText(ManageTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    System.out.println("onFailure"+call);
+                    progress.dismiss();
+
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void getListTeamTournament(){
+
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Loading...");
+        progress.show();
+        try {
+            Call<GetListTeamTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListTeamTournamentforLeader(sess.getString("id_user"), idTeam);
+            req.enqueue(new Callback<GetListTeamTournamentResponseModel>() {
+                @Override
+                public void onResponse(Call<GetListTeamTournamentResponseModel> call, Response<GetListTeamTournamentResponseModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+
+                            listTournament.clear();
+                            listTournament = response.body().getData();
+
+                            listTeamTournamentAdapter = new ListTeamTournamentAdapter(ManageTeamActivity.this, listTournament);
+
+                            rvTournament.setLayoutManager(new GridLayoutManager(ManageTeamActivity.this,2));
+                            rvTournament.setAdapter(listTeamTournamentAdapter);
+
+
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(ManageTeamActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(ManageTeamActivity.this, "Failed Request List Tournament", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<GetListTeamTournamentResponseModel> call, Throwable t) {
                     Toast.makeText(ManageTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     progress.dismiss();
