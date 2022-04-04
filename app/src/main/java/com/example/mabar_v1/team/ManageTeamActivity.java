@@ -102,17 +102,16 @@ public class ManageTeamActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(View view) {
                                             String answer = "1";
-                                            answerReqJoin(answer,item.getUserRequestId());
                                             gm.dismissDialogConfirmation();
-                                            getListPerson();
+                                            answerReqJoin(answer,item.getUserRequestId());
+
                                         }
                                     }, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
                                             String answer = "0";
-                                            answerReqJoin(answer,item.getUserRequestId());
                                             gm.dismissDialogConfirmation();
-                                            getListPerson();
+                                            answerReqJoin(answer,item.getUserRequestId());
                                         }
                                     });
 
@@ -176,6 +175,7 @@ public class ManageTeamActivity extends AppCompatActivity {
                         if (response.body().getCode().equals("00")){
                             String desc = response.body().getDesc();
                             Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            getListPerson();
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
