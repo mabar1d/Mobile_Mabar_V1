@@ -102,7 +102,7 @@ public class ManageTeamActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(View view) {
                                             String answer = "1";
-                                            answerReqJoin(answer);
+                                            answerReqJoin(answer,item.getUserRequestId());
                                             gm.dismissDialogConfirmation();
                                             getListPerson();
                                         }
@@ -110,7 +110,7 @@ public class ManageTeamActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(View view) {
                                             String answer = "0";
-                                            answerReqJoin(answer);
+                                            answerReqJoin(answer,item.getUserRequestId());
                                             gm.dismissDialogConfirmation();
                                             getListPerson();
                                         }
@@ -162,13 +162,13 @@ public class ManageTeamActivity extends AppCompatActivity {
     }
 
     //1 yes, 0 no
-    private void answerReqJoin(String answer){
+    private void answerReqJoin(String answer,int idRequested){
 
         ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).answerReqJoinTeam(sess.getString("id_user"), idTeam,answer);
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).answerReqJoinTeam(sess.getString("id_user"), idRequested,answer);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
                 public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {

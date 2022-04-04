@@ -193,7 +193,6 @@ public class EditTeamActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bsDialog.dismiss();
-                memberEdited = true;
             }
         });
 
@@ -409,8 +408,7 @@ public class EditTeamActivity extends AppCompatActivity {
 
                                 }
                             }
-
-
+                            memberEdited = true;
 
 
                             listPersonAdapter = new ListPersonAdapter(EditTeamActivity.this, listPerson, new ListPersonAdapter.OnItemClickListener() {

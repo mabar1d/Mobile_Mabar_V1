@@ -159,7 +159,7 @@ public interface ApiService {
     @POST("answerReqJoinTeam")
     Call<SuccessResponseDefaultModel> answerReqJoinTeam(
             @Query("user_id") String user_id,
-            @Query("user_id_requested") String user_id_requested,
+            @Query("user_id_requested") int user_id_requested,
             @Query("answer") String answer
     );
 
