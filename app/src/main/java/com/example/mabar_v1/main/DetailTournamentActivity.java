@@ -60,8 +60,11 @@ public class DetailTournamentActivity extends AppCompatActivity {
     TextView tvDescription;
     @BindView(R.id.btn_register_tournament)
     Button btnRegister;
+    @BindView(R.id.btn_detail_tournament)
+    Button btnDetailTournament;
 
     private String idTournament = "";
+    private String usage = "";
     private String judulGame = "";
     private SessionUser sess;
     private GlobalMethod gm;
@@ -77,12 +80,22 @@ public class DetailTournamentActivity extends AppCompatActivity {
         if(b != null) {
             idTournament = b.getString("id_tournament");
             judulGame = b.getString("judul_game");
+            usage = b.getString("usage");
         }
 
         sess = new SessionUser(this);
         gm = new GlobalMethod();
 
         getInfoTournament(sess.getString("id_user"),idTournament);
+
+        if (!(usage == null)){
+            btnRegister.setVisibility(View.GONE);
+            btnDetailTournament.setVisibility(View.VISIBLE);
+        }else {
+            btnRegister.setVisibility(View.VISIBLE);
+            btnDetailTournament.setVisibility(View.GONE);
+        }
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -190,7 +190,21 @@
 
                 </LinearLayout>
 
-
+                <Button
+                    android:id="@+id/btn_fixture_team"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:padding="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Team's Tournaments"
+                    android:layout_gravity="right"
+                    android:background="@drawable/rounded_button_grey"
+                    android:textColor="@color/grey"
+                    android:textAllCaps="false"/>
             </LinearLayout>
 
             <Button
@@ -205,6 +219,7 @@
                 android:background="@drawable/rounded_button_green"
                 android:textColor="@color/grey"
                 android:textAllCaps="false"/>
+
 
             <Button
                 android:id="@+id/btn_leave_team"

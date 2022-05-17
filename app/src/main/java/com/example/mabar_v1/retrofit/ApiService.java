@@ -102,6 +102,12 @@ public interface ApiService {
             @Query("user_id") String user_id
     );
 
+    //Req Member
+    @POST("personnelReqMember")
+    Call<SuccessResponseDefaultModel> personnelReqMember(
+            @Query("user_id") String user_id
+    );
+
     //Person Request Join Team
     @POST("personnelReqJoinTeam")
     Call<SuccessResponseDefaultModel> personnelReqJoinTeam(

@@ -3,7 +3,40 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/BRISPOT/Android/sdk/platforms/android-31/data/res/drawable/btn_dropdown.xml" value="0.153" />
+        <entry key="..\:/MABAR/app/src/main/res/drawable/ic_new_information.xml" value="0.1" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_create_team.xml" value="0.21920289855072464" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_detail_profile_account.xml" value="0.264" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_detail_team_info.xml" value="0.25" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_detail_tournament.xml" value="0.2" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_edit_team.xml" value="0.1921875" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_general_search_tournament.xml" value="0.13360507246376813" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_host_manage_tournament.xml" value="0.203125" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_host_menu_settings.xml" value="0.23854166666666668" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_host_setting.xml" value="0.264" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_host_setting_new.xml" value="0.2028985507246377" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_join_team.xml" value="0.1921875" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_manage_team.xml" value="0.2" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_splash_screen.xml" value="0.14221014492753623" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_team_setting.xml" value="0.21510416666666668" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/activity_team_settings.xml" value="0.28892835997631733" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/dialog_confirmation.xml" value="0.23854166666666668" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/dialog_search_person.xml" value="0.176" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/dialog_switch_account.xml" value="0.2" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/fragment_home_new.xml" value="0.12590579710144928" />
         <entry key="..\:/MABAR/app/src/main/res/layout/fragment_profile_new.xml" value="0.264" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/fragment_tournament.xml" value="0.2" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/list_card_person.xml" value="0.4" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/list_card_person_added.xml" value="0.4" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/list_card_person_req_join.xml" value="0.6" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/list_card_team.xml" value="0.264" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/list_game_home.xml" value="0.4" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/list_team_tournament.xml" value="0.536" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/list_tournament_home.xml" value="0.4" />
+        <entry key="..\:/MABAR/app/src/main/res/layout/splash_screen_background.xml" value="0.14221014492753623" />
+        <entry key="..\:/MABAR/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -59,6 +59,7 @@ public class ListTeamTournamentAdapter extends RecyclerView.Adapter<ListTeamTour
                 Intent i = new Intent(context, DetailTournamentActivity.class);
                 Bundle bun = new Bundle();
                 bun.putString("id_tournament", String.valueOf(dataTournament.get(position).getTournamentId()));
+                bun.putString("usage", "detail_info");
                 bun.putString("judul_game", (dataTournament.get(position).getTournamentName()));
                 i.putExtras(bun);
                 context.startActivity(i);

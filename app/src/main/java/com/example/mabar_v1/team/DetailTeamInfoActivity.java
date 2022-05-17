@@ -52,6 +52,8 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
     TextView tvMember;
     @BindView(R.id.btn_join_team)
     Button btnJoinTeam;
+    @BindView(R.id.btn_fixture_team)
+    Button btnTeamTournament;
     @BindView(R.id.btn_leave_team)
     Button btnLeaveTeam;
 
@@ -83,9 +85,11 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
 
         if (flagTeam != null){
             btnLeaveTeam.setVisibility(View.VISIBLE);
+            btnTeamTournament.setVisibility(View.VISIBLE);
             btnJoinTeam.setVisibility(View.GONE);
         }else {
             btnLeaveTeam.setVisibility(View.GONE);
+            btnTeamTournament.setVisibility(View.GONE);
             btnJoinTeam.setVisibility(View.VISIBLE);
         }
 
@@ -124,6 +128,18 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                                 gm.dismissDialogConfirmation();
                             }
                         });
+            }
+        });
+
+        btnTeamTournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DetailTeamInfoActivity.this, DetailTeamInfoActivity.class);
+                Bundle bun = new Bundle();
+                bun.putString("id_team", idTeam );
+                bun.putString("flag_team", "Y");
+                i.putExtras(bun);
+                startActivity(i);
             }
         });
 

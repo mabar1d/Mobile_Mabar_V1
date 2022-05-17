@@ -326,8 +326,22 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="15dp"
             android:textAllCaps="false"
-            android:background="@drawable/rounded_button_grey"
+            android:background="@drawable/rounded_button_green"
             android:text="Register Tournament"
+            android:textColor="@color/grey"
+            android:textSize="14dp" />
+        <Button
+            android:id="@+id/btn_detail_tournament"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="15dp"
+            android:textAllCaps="false"
+            android:background="@drawable/rounded_button_grey"
+            android:text="See Fixture and Table"
             android:textColor="@color/grey"
             android:textSize="14dp" />
     </LinearLayout>

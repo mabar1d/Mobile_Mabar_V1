@@ -17,7 +17,7 @@
         android:layout_height="30dp"
         android:maxWidth="60dp"
         android:maxHeight="60dp"
-        android:src="@drawable/ic_new_information"
+        android:src="@drawable/ic_switch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,12 +43,12 @@
         android:textAlignment="textStart"
         android:textColor="@color/text_grey"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/btn_host"
+        app:layout_constraintBottom_toTopOf="@+id/btn_satu"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         android:text="Request as a?"/>
 
     <Button
-        android:id="@+id/btn_host"
+        android:id="@+id/btn_satu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
@@ -56,14 +56,14 @@
         android:paddingRight="30dp"
         android:paddingLeft="30dp"
         android:text="Host"
-        android:background="@drawable/rounded_corners_button_primary"
+        android:background="@drawable/rounded_button_green"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textColor="@color/white_fab"
-        app:layout_constraintEnd_toStartOf="@+id/btn_team_lead"
+        app:layout_constraintEnd_toStartOf="@+id/btn_dua"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/btn_team_lead"
+        android:id="@+id/btn_dua"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="18dp"
@@ -71,12 +71,12 @@
         android:paddingLeft="30dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/rounded_corners_button_primary"
+        android:background="@drawable/rounded_button_green"
         android:text="Team Lead"
         android:textColor="@color/white_fab"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_host"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_satu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_host"
-        app:layout_constraintTop_toTopOf="@+id/btn_host" />
+        app:layout_constraintStart_toEndOf="@+id/btn_satu"
+        app:layout_constraintTop_toTopOf="@+id/btn_satu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

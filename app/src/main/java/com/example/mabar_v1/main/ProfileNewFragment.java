@@ -164,7 +164,7 @@ public class ProfileNewFragment extends Fragment {
 
     private void requestTeamLeader(){
         ProgressDialog progress = new ProgressDialog(getActivity());
-        progress.setMessage("Request Team Leader...");
+        progress.setMessage("Log in as Team Leader...");
         progress.show();
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqTeamLead(sess.getString("id_user"));
@@ -191,7 +191,7 @@ public class ProfileNewFragment extends Fragment {
                         }
 
                     } else {
-                        Toast.makeText(getActivity(), "Failed Request Team Leader", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Failed Log in as Team Leader", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
@@ -214,7 +214,7 @@ public class ProfileNewFragment extends Fragment {
 
     private void requestHostTournament(){
         ProgressDialog progress = new ProgressDialog(getActivity());
-        progress.setMessage("Request Host Tournament...");
+        progress.setMessage("Log in as Host Tournament...");
         progress.show();
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqHost(sess.getString("id_user"));
@@ -243,7 +243,57 @@ public class ProfileNewFragment extends Fragment {
                         }
 
                     } else {
-                        Toast.makeText(getActivity(), "Failed Request Host Tournament", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Failed Log in as Host Tournament", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
+                    String msg = t.getMessage();
+                    Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private void requestMember(){
+        ProgressDialog progress = new ProgressDialog(getActivity());
+        progress.setMessage("Log in as Member...");
+        progress.show();
+        try {
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqMember(sess.getString("id_user"));
+            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
+                @Override
+                public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            dialogSwitchAccount.dismiss();
+                            getActivity().recreate();
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                            getActivity().finish();
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), "Failed Log in as Member", Toast.LENGTH_SHORT).show();
                         progress.dismiss();
                     }
                     progress.dismiss();
@@ -354,6 +404,7 @@ public class ProfileNewFragment extends Fragment {
 
     }
 
+    //1 member, 2 Captain, 3 Host
     public void showDialogSwitchAccount(){
 
         dialogSwitchAccount = new Dialog(getActivity());
@@ -362,36 +413,58 @@ public class ProfileNewFragment extends Fragment {
         dialogSwitchAccount.setContentView(dv);
 
 
-        Button btnHost = (Button) dialogSwitchAccount.findViewById(R.id.btn_host);
-        Button btnTeamLead = (Button) dialogSwitchAccount.findViewById(R.id.btn_team_lead);
+        Button btnSatu = (Button) dialogSwitchAccount.findViewById(R.id.btn_satu);
+        Button btnDua = (Button) dialogSwitchAccount.findViewById(R.id.btn_dua);
         if (role == 2){
-            btnHost.setBackground(getResources().getDrawable(R.drawable.rounded_corners_button_primary));
-            btnHost.setEnabled(true);
-            btnTeamLead.setBackground(getResources().getDrawable(R.drawable.rounded_button_grey));
-            btnTeamLead.setEnabled(false);
+            btnSatu.setText("Host");
+            btnDua.setText("Member");
+            btnSatu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    requestHostTournament();
+                }
+            });
+            btnDua.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    requestMember();
+                }
+            });
+
         }else if (role == 3){
-            btnHost.setBackground(getResources().getDrawable(R.drawable.rounded_button_grey));
-            btnHost.setEnabled(false);
-            btnTeamLead.setBackground(getResources().getDrawable(R.drawable.rounded_corners_button_primary));
-            btnTeamLead.setEnabled(true);
+            btnSatu.setText("Captain");
+            btnDua.setText("Member");
+            btnSatu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    requestTeamLeader();
+                }
+            });
+            btnDua.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    requestMember();
+                }
+            });
+
         }else {
-            btnHost.setBackground(getResources().getDrawable(R.drawable.rounded_corners_button_primary));
-            btnHost.setEnabled(true);
-            btnTeamLead.setBackground(getResources().getDrawable(R.drawable.rounded_corners_button_primary));
-            btnTeamLead.setEnabled(true);
+            btnSatu.setText("Host");
+            btnDua.setText("Captain");
+            btnSatu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    requestHostTournament();
+                }
+            });
+            btnDua.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    requestTeamLeader();
+                }
+            });
+
         }
-        btnHost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requestHostTournament();
-            }
-        });
-        btnTeamLead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requestTeamLeader();
-            }
-        });
+
 
         dialogSwitchAccount.show();
 

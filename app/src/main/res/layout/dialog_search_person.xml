@@ -121,7 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/rounded_corners_button_primary"
+        android:background="@drawable/rounded_button_green"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:text="Save"
