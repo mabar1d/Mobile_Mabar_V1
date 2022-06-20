@@ -36,6 +36,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -134,7 +136,6 @@ public class HomeFragmentNew extends Fragment {
                     progress.dismiss();
 
                 }
-
 
             });
         }catch (Exception e){
