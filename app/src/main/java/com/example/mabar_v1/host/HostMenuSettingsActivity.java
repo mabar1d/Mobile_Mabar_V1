@@ -41,7 +41,7 @@ public class HostMenuSettingsActivity extends AppCompatActivity {
         btnManageTournament.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HostMenuSettingsActivity.this, HostManageTournamentActivity.class);
+                Intent i = new Intent(HostMenuSettingsActivity.this, HostListTournamentActivity.class);
                 startActivity(i);
             }
         });

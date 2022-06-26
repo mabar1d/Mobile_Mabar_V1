@@ -13,7 +13,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitConfig {
-    private static String BASE_URL = "https://apimabar.vidiwijaya.my.id/api/";
+    private static String BASE_URL = "https://api.circlegames.id/api/";
+    //private static String BASE_URL = "https://apimabar.vidiwijaya.my.id/api/";
+
     //https://api.circlegames.id/
     private static Retrofit retrofit;
 

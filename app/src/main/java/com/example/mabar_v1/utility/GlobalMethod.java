@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.mabar_v1.R;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
@@ -203,6 +206,24 @@ public class GlobalMethod {
         BigDecimal bigValue = new BigDecimal(value);
         String formattedValue = currencyFormatter.format(bigValue);
         return formattedValue;
+    }
+
+    public void setShimmerLinearLayout(Boolean loading,ShimmerFrameLayout shimmerLoad,LinearLayout llContent){
+        if (loading){
+            shimmerLoad.setVisibility(View.VISIBLE);
+            llContent.setVisibility(View.GONE);
+
+            shimmerLoad.startShimmer();
+        }else {
+
+            shimmerLoad.setVisibility(View.GONE);
+            llContent.setVisibility(View.VISIBLE);
+
+            shimmerLoad.stopShimmer();
+
+        }
+
+
     }
 
 }

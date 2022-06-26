@@ -24,7 +24,7 @@
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:src="@drawable/person_photo"
-            app:civ_border_color="@color/purple_700"
+            app:civ_border_color="@color/grey"
             app:civ_border_width="4dp"
             app:civ_shadow="true"
             app:civ_shadow_color="@color/primary_color_blue"
@@ -49,10 +49,9 @@
                 android:id="@+id/nama_akun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:text="nama_akun"
+                android:text=""
                 android:textAlignment="center"
-                android:textColor="@color/text_grey"
+                android:textColor="@color/grey"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -65,9 +64,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="15dp"
             android:gravity="center"
-            android:text="id_akun"
+            android:text=""
             android:textAlignment="center"
-            android:textColor="@color/text_grey"
+            android:textColor="@color/grey"
             android:textSize="16sp"
             android:textStyle="italic" />
 
@@ -87,6 +86,7 @@
 
         <TextView
             android:id="@+id/btn_account"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -95,7 +95,7 @@
             android:gravity="center"
             android:text="Account"
             android:textAlignment="center"
-            android:textColor="@color/text_grey"
+            android:textColor="@color/grey"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -103,13 +103,14 @@
             android:id="@+id/btn_team_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Team Settings"
             android:textAlignment="center"
-            android:textColor="@color/text_grey"
+            android:textColor="@color/grey"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -117,13 +118,14 @@
             android:id="@+id/btn_host_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
-            android:text="Host Settings"
+            android:text="Manage Tournament"
             android:textAlignment="center"
-            android:textColor="@color/text_grey"
+            android:textColor="@color/grey"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -131,13 +133,14 @@
             android:id="@+id/btn_join_team"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Join a Team"
             android:textAlignment="center"
-            android:textColor="@color/text_grey"
+            android:textColor="@color/grey"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -145,13 +148,14 @@
             android:id="@+id/btn_my_team"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="My Team"
             android:textAlignment="center"
-            android:textColor="@color/text_grey"
+            android:textColor="@color/grey"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -197,9 +201,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text="Logged in as: -"
+        android:text="Logged in as:"
         android:textAlignment="center"
-        android:textColor="@color/text_grey"
+        android:textColor="@color/grey"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_logout"
@@ -215,7 +219,7 @@
         android:gravity="center"
         android:text="Log Out"
         android:textAlignment="center"
-        android:textColor="@color/text_grey"
+        android:textColor="@color/grey"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

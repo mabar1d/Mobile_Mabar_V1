@@ -17,7 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mabar_V1">
         <activity
-            android:name=".TournamentGraphWebViewActivity"
+            android:name=".host.HostListTournamentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.TournamentGraphWebViewActivity"
             android:exported="false" />
         <activity
             android:name=".team.DetailTeamInfoActivity"

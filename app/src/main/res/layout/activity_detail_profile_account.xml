@@ -24,7 +24,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            app:civ_border_color="@color/purple_700"
+            app:civ_border_color="@color/grey"
             app:civ_border_width="4dp"
             app:civ_shadow="true"
             android:src="@drawable/person_photo"
@@ -37,7 +37,7 @@
             android:layout_width="55dp"
             android:layout_height="30dp"
             android:background="@drawable/rounded_button_orange_border"
-            android:textColor="@color/white"
+            android:textColor="@color/grey"
             android:layout_gravity="center"
             android:text="Edit"
             android:textSize="10dp"
@@ -64,10 +64,9 @@
                 android:id="@+id/nama_akun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:text="nama_akun"
+                android:text=""
                 android:textAlignment="center"
-                android:textColor="@color/text_grey"
+                android:textColor="@color/grey"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -80,8 +79,8 @@
             android:layout_marginBottom="15dp"
             android:textStyle="italic"
             android:layout_marginEnd="8dp"
-            android:textColor="@color/text_grey"
-            android:text="id_akun"
+            android:textColor="@color/grey"
+            android:text=""
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="16sp" />
@@ -113,6 +112,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:text="First Name"
+                android:textColor="@color/grey"
                 android:textSize="14sp" />
 
             <EditText
@@ -120,6 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:inputType="textPersonName"
                 android:background="@drawable/rounded_edit_text_grey"
                 android:textColor="@color/text_grey"
                 android:padding="8dp"
@@ -141,6 +142,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:text="Last Name"
+                android:textColor="@color/grey"
                 android:textSize="14sp" />
 
             <EditText
@@ -148,6 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:inputType="textPersonName"
                 android:background="@drawable/rounded_edit_text_grey"
                 android:textColor="@color/text_grey"
                 android:padding="8dp"
@@ -169,6 +172,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:text="Gender"
+                android:textColor="@color/grey"
                 android:textSize="14sp" />
 
             <!-- <EditText
@@ -190,6 +194,7 @@
                     android:id="@+id/radio_group_gender"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:outlineSpotShadowColor="@color/white"
                     android:orientation="horizontal"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
@@ -198,6 +203,8 @@
                         android:id="@+id/radio_male"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:outlineSpotShadowColor="@color/white"
+                        android:textColor="@color/grey"
                         android:layout_gravity="left"
                         android:checked="true"
                         android:layout_weight="1"
@@ -208,6 +215,8 @@
                         android:id="@+id/radio_female"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/grey"
+                        android:outlineSpotShadowColor="@color/white"
                         android:layout_gravity="right"
                         android:checked="false"
                         android:layout_weight="1"
@@ -232,6 +241,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:text="Birthdate"
+                android:textColor="@color/grey"
                 android:textSize="14sp" />
 
             <EditText
@@ -262,6 +272,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:text="Address"
+                android:textColor="@color/grey"
                 android:textSize="14sp" />
 
             <EditText
@@ -269,6 +280,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:inputType="text"
                 android:background="@drawable/rounded_edit_text_grey"
                 android:textColor="@color/text_grey"
                 android:padding="8dp"
@@ -290,6 +302,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:text="Zip Code"
+                android:textColor="@color/grey"
                 android:textSize="14sp" />
 
             <EditText
@@ -298,6 +311,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:background="@drawable/rounded_edit_text_grey"
+                android:inputType="number"
                 android:textColor="@color/text_grey"
                 android:maxLength="5"
                 android:padding="8dp"
@@ -319,6 +333,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:text="Phone"
+                android:textColor="@color/grey"
                 android:textSize="14sp" />
 
             <EditText
@@ -326,6 +341,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:inputType="phone"
                 android:background="@drawable/rounded_edit_text_grey"
                 android:textColor="@color/text_grey"
                 android:padding="8dp"

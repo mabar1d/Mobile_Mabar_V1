@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -122,12 +124,14 @@ public class CreateTournamentActivity extends AppCompatActivity {
     private RadioButton radioButton;
     private String current = "";
     NumberFormat currencyFormatter;
+    ArrayList<String> listSpinnerGame = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_setting);
         ButterKnife.bind(this);
+
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -139,6 +143,12 @@ public class CreateTournamentActivity extends AppCompatActivity {
         etPrize.addTextChangedListener(new CurrencyEditTextWatcher(etPrize));
         etRegFee.addTextChangedListener(new CurrencyEditTextWatcher(etRegFee));
 
+        listSpinnerGame.add("Mobile Legend");
+        listSpinnerGame.add("Free Fire");
+        listSpinnerGame.add("PUBG");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,listSpinnerGame);
+        spGame.setAdapter(adapter);
 
         btnCreateTournament.setOnClickListener(new View.OnClickListener() {
             @Override

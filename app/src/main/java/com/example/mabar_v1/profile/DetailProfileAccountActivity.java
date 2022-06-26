@@ -143,15 +143,20 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                 zipCode = etZipCode.getText().toString();
                 phone = etPhone.getText().toString();
 
-                if (zipCode.length()<5){
-                    Toast.makeText(DetailProfileAccountActivity.this, "Zip Code Must be 5 digits", Toast.LENGTH_SHORT).show();
-                }else {
-                    if (phone.length()<10){
-                        Toast.makeText(DetailProfileAccountActivity.this, "Phone Number Must be at Least 10 digits", Toast.LENGTH_SHORT).show();
+                if (cekValue()){
+                    if (zipCode.length()<5){
+                        Toast.makeText(DetailProfileAccountActivity.this, "Zip Code Must be 5 digits", Toast.LENGTH_SHORT).show();
                     }else {
-                        updateDataPerson(firstName,lastName,genderId,brithdateNonFormat,address,"","","",zipCode,phone);
+                        if (phone.length()<10){
+                            Toast.makeText(DetailProfileAccountActivity.this, "Phone Number Must be at Least 10 digits", Toast.LENGTH_SHORT).show();
+                        }else {
+                            updateDataPerson(firstName,lastName,genderId,brithdateNonFormat,address,"","","",zipCode,phone);
+                        }
                     }
+                }else {
+                    Toast.makeText(DetailProfileAccountActivity.this, "Please Complete Your Data", Toast.LENGTH_SHORT).show();
                 }
+
 
 
 
@@ -201,6 +206,23 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
     }
 
+    private Boolean cekValue(){
+        Boolean valid = true;
+        if (firstName.equals("")){
+            valid = false;
+        }
+        if (lastName.equals("")){
+            valid = false;
+        }
+        if (etBirthdate.getText().equals("")){
+            valid = false;
+        }
+        if (address.equals("")){
+            valid = false;
+        }
+
+        return valid;
+    }
 
     private void getDataPerson(){
         ProgressDialog progress = new ProgressDialog(DetailProfileAccountActivity.this);
@@ -305,6 +327,8 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
                             if (!picturePath.equals("")){
                                 uploadImage();
+                            }else {
+                                finish();
                             }
 
                         }else if (response.body().getCode().equals("05")){
@@ -395,6 +419,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                        if (response.body().getCode().equals("00")){
                            String desc = response.body().getDesc();
                            Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+                           finish();
 
                        }else if (response.body().getCode().equals("05")){
                            String desc = response.body().getDesc();

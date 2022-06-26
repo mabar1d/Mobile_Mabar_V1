@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,9 @@ import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.main.adapter.ListTournamentAdapter;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
+import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 
@@ -41,8 +44,11 @@ public class TournamentFragment extends Fragment {
 
     private RecyclerView rlMyTournament;
     private EditText searchBarTournament;
+    private ShimmerFrameLayout shimmerLoad;
+    private LinearLayout llContent;
     private ImageView btnSearch;
     private SessionUser sess;
+    private GlobalMethod globalMethod;
     private JSONArray fltGame = new JSONArray();
     List<GetListTournamentResponseModel.Data> listTournament = new ArrayList<>();
 
@@ -50,6 +56,7 @@ public class TournamentFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sess = new SessionUser(getActivity());
+        globalMethod = new GlobalMethod();
 
     }
 
@@ -61,6 +68,8 @@ public class TournamentFragment extends Fragment {
         rlMyTournament = root.findViewById(R.id.recycler_my_tournaments);
         searchBarTournament = root.findViewById(R.id.search_bar_tournament);
         btnSearch = root.findViewById(R.id.btn_search);
+        shimmerLoad = root.findViewById(R.id.shimmer_load);
+        llContent = root.findViewById(R.id.llcontent);
 
         getListTournament(sess.getString("id_user"),"","0",fltGame);
 
@@ -88,9 +97,11 @@ public class TournamentFragment extends Fragment {
         filterGame = new JSONArray();
         filterGame.put("6");
         filterGame.put("7");
-        ProgressDialog progress = new ProgressDialog(getContext());
+        /*ProgressDialog progress = new ProgressDialog(getContext());
         progress.setMessage("Loading...");
-        progress.show();
+        progress.show();*/
+        globalMethod.setShimmerLinearLayout(true,shimmerLoad,llContent);
+
         try {
             Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTournament(userId, search, page,filterGame);
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
@@ -109,7 +120,6 @@ public class TournamentFragment extends Fragment {
                     } else if (response.body().getCode().equals("05")){
                         String desc = response.body().getDesc();
                         Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
                         sess.clearSess();
                         Intent i = new Intent(getActivity(), LoginActivity.class);
                         startActivity(i);
@@ -117,16 +127,16 @@ public class TournamentFragment extends Fragment {
                     }  else {
                         String desc = response.body().getDesc();
                         Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+
                     }
-                    progress.dismiss();
+                    globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);
                 }
 
                 @Override
                 public void onFailure(Call<GetListTournamentResponseModel> call, Throwable t) {
-                    Toast.makeText(getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);
 
                 }
 
@@ -134,6 +144,7 @@ public class TournamentFragment extends Fragment {
             });
         }catch (Exception e){
             e.printStackTrace();
+            globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);
         }
     }
 }

@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Tournament Name"
                     android:textSize="14sp" />
 
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Description"
                     android:textSize="14sp" />
 
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Number of Participants"
                     android:textSize="14sp" />
 
@@ -168,9 +168,10 @@
                             android:id="@+id/radio_eight"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:outlineSpotShadowColor="@color/grey"
                             android:layout_gravity="left"
                             android:layout_weight="1"
-                            android:textColor="@color/text_grey"
+                            android:textColor="@color/grey"
                             android:checked="true"
                             android:text="8"
                             android:textSize="14sp" />
@@ -179,9 +180,10 @@
                             android:id="@+id/radio_sixteen"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:outlineSpotShadowColor="@color/grey"
                             android:layout_gravity="right"
                             android:layout_weight="1"
-                            android:textColor="@color/text_grey"
+                            android:textColor="@color/grey"
                             android:checked="false"
                             android:text="16"
                             android:textSize="14sp" />
@@ -202,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Register Date Start"
                     android:textSize="14sp" />
 
@@ -234,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Register Date End"
                     android:textSize="14sp" />
 
@@ -266,7 +268,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Start Date"
                     android:textSize="14sp" />
 
@@ -298,7 +300,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="End Date"
                     android:textSize="14sp" />
 
@@ -330,7 +332,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Prize"
                     android:textSize="14sp" />
 
@@ -360,7 +362,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Register Fee"
                     android:textSize="14sp" />
 
@@ -390,7 +392,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Game"
                     android:textSize="14sp" />
 
@@ -403,16 +405,13 @@
                     android:maxLength="5"
                     android:padding="8dp"
                     android:text=""
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:textSize="14sp" />-->
                 <Spinner
                     android:id="@+id/sp_game"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:entries="@array/game_name"
-                    android:textColor="@color/text_grey"
-                    android:padding="5dp"/>
+                    android:layout_weight="0.5"/>
             </LinearLayout>
 
             <LinearLayout
@@ -428,7 +427,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:textColor="@color/text_grey"
+                    android:textColor="@color/grey"
                     android:text="Type"
                     android:textSize="14sp" />
 
@@ -450,7 +449,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
-                            android:textColor="@color/text_grey"
+                            android:textColor="@color/grey"
+                            android:outlineSpotShadowColor="@color/grey"
                             android:layout_weight="1"
                             android:checked="true"
                             android:text="Knockout"
@@ -461,7 +461,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:textColor="@color/text_grey"
+                            android:textColor="@color/grey"
+                            android:outlineSpotShadowColor="@color/grey"
                             android:layout_weight="1"
                             android:checked="false"
                             android:text="Group"

@@ -183,7 +183,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:background="@drawable/rounded_edit_text_grey"
-                            android:textColor="@color/text_grey"
+                            android:textColor="@color/grey"
                             android:padding="8dp"
                             android:textSize="14sp" />
                     </LinearLayout>

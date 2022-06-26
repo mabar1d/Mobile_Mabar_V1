@@ -244,6 +244,15 @@ public interface ApiService {
             @Query("filter_game") JSONArray filter_game
     );
 
+    //get List Host Tournament
+    @POST("getListMyTournament")
+    Call<GetListTournamentResponseModel> getListHostTournament(
+            @Query("user_id") String user_id,
+            @Query("search") String search,
+            @Query("page") String page,
+            @Query("filter_game") JSONArray filter_game
+    );
+
     //Register Tournament
     @POST("registerTournament")
     Call<SuccessResponseDefaultModel> registerTournament(

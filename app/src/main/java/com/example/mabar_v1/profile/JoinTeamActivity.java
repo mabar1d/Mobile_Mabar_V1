@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.example.mabar_v1.retrofit.model.GetListTeamResponseModel;
 import com.example.mabar_v1.team.TeamSettingsActivity;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,10 @@ public class JoinTeamActivity extends AppCompatActivity {
     ImageView btnSearch;
     @BindView(R.id.recycler_team)
     RecyclerView rvTeam;
+    @BindView(R.id.ll_content)
+    LinearLayout llContent;
+    @BindView(R.id.shimmer_load)
+    ShimmerFrameLayout shimmerLoad;
 
     private GlobalMethod gm;
     private SessionUser sess;
@@ -83,9 +89,7 @@ public class JoinTeamActivity extends AppCompatActivity {
 
     private void getListTeam(String userId,String search,String page){
 
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
             Call<GetListTeamResponseModel> req = RetrofitConfig.getApiServices("").getListTeam(userId, search, page);
             req.enqueue(new Callback<GetListTeamResponseModel>() {
@@ -102,7 +106,6 @@ public class JoinTeamActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(JoinTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(JoinTeamActivity.this, LoginActivity.class);
                             startActivity(i);
@@ -114,16 +117,15 @@ public class JoinTeamActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(JoinTeamActivity.this, "Failed Request List Teams", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
                     }
-                    progress.dismiss();
+                    gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
                 }
 
                 @Override
                 public void onFailure(Call<GetListTeamResponseModel> call, Throwable t) {
                     Toast.makeText(JoinTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
 
                 }
 
@@ -131,6 +133,7 @@ public class JoinTeamActivity extends AppCompatActivity {
             });
         }catch (Exception e){
             e.printStackTrace();
+            gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
         }
 
 

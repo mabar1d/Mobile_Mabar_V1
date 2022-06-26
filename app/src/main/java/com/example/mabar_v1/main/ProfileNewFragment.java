@@ -2,6 +2,7 @@ package com.example.mabar_v1.main;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -71,12 +72,14 @@ public class ProfileNewFragment extends Fragment {
     private Integer role = 1;
     private Dialog dialogSwitchAccount;
     private String idTeam = "";
+    public Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sess = new SessionUser(getActivity());
         gm = new GlobalMethod();
+        context = getContext();
 
     }
 
@@ -156,7 +159,7 @@ public class ProfileNewFragment extends Fragment {
             }
         });
 
-        getDataPerson();
+        //getDataPerson();
 
         return rootView;
 
@@ -315,9 +318,9 @@ public class ProfileNewFragment extends Fragment {
     }
 
     private void getDataPerson(){
-        ProgressDialog progress = new ProgressDialog(getActivity());
-        progress.setMessage("Getting Profile Info...");
-        progress.show();
+//        ProgressDialog progress = new ProgressDialog(getActivity());
+//        progress.setMessage("Getting Profile Info...");
+//        progress.show();
         try {
             Call<PersonnelResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getPersonnel(sess.getString("id_user"));
             req.enqueue(new Callback<PersonnelResponseModel>() {
@@ -327,7 +330,7 @@ public class ProfileNewFragment extends Fragment {
                         if (response.body().getCode().equals("00")){
 
                             if (response.body().getData().getImage() != null){
-                                Glide.with(getActivity())
+                                Glide.with(context)
                                         .load(response.body().getData().getImage())
                                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                                         //.skipMemoryCache(true)
@@ -342,12 +345,15 @@ public class ProfileNewFragment extends Fragment {
                             tvNamaAkun.setText(sess.getString("username"));
                             tvIdAkun.setText("Id: "+sess.getString("id_user"));
                             role = response.body().getData().getRole();
+                            btnAccount.setVisibility(View.VISIBLE);
                             if (role == 2){
                                 btnHostSettings.setVisibility(View.GONE);
                                 btnJoinTeam.setVisibility(View.GONE);
                                 btnMyTeam.setVisibility(View.GONE);
+                                btnTeamSettings.setVisibility(View.VISIBLE);
                             }else if (role == 3){
                                 btnTeamSettings.setVisibility(View.GONE);
+                                btnHostSettings.setVisibility(View.VISIBLE);
                                 if (idTeam != null){
                                     btnMyTeam.setVisibility(View.VISIBLE);
                                     btnJoinTeam.setVisibility(View.GONE);
@@ -372,7 +378,7 @@ public class ProfileNewFragment extends Fragment {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                           // progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(getActivity(), LoginActivity.class);
                             startActivity(i);
@@ -384,16 +390,16 @@ public class ProfileNewFragment extends Fragment {
 
                     } else {
                         Toast.makeText(getActivity(), "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        //progress.dismiss();
                     }
-                    progress.dismiss();
+                    //progress.dismiss();
                 }
 
                 @Override
                 public void onFailure(Call<PersonnelResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    //progress.dismiss();
                 }
 
 
@@ -470,4 +476,9 @@ public class ProfileNewFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDataPerson();
+    }
 }

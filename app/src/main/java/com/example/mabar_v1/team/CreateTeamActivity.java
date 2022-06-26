@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -106,6 +107,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     private ListPersonAddedAdapter listPersonAddedAdapter;
     List<ListPersonnelResponseModel.Data> listPerson = new ArrayList<>();
     List<ListPersonnelResponseModel.Data> listPersonAdded = new ArrayList<>();
+    ArrayList<String> listSpinnerGame = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +121,13 @@ public class CreateTeamActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        listSpinnerGame.add("Mobile Legend");
+        listSpinnerGame.add("Free Fire");
+        listSpinnerGame.add("PUBG");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,listSpinnerGame);
+        spGame.setAdapter(adapter);
 
         btnAddImage.setOnClickListener(new View.OnClickListener() {
 

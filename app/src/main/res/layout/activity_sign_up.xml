@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
         android:text="Sudah Memiliki Akun?"
-        android:textColor="@android:color/secondary_text_light"
+        android:textColor="@color/grey"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvLogin"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -135,6 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginBottom="33dp"
+        android:textStyle="bold"
         android:text="Log in"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

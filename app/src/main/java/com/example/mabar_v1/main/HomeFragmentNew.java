@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.asura.library.posters.Poster;
@@ -31,6 +32,7 @@ import com.example.mabar_v1.retrofit.model.ResponseListGame;
 import com.example.mabar_v1.splash.SplashScreen1;
 import com.example.mabar_v1.utility.GlobalMethod;
 import com.example.mabar_v1.utility.SessionUser;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -50,6 +52,8 @@ public class HomeFragmentNew extends Fragment {
 
     private RecyclerView rlGame,rlTournament;
     private PosterSlider posterSlider;
+    private ShimmerFrameLayout shimmerLoad;
+    private ScrollView svHome;
 
     private GlobalMethod gm;
     private SessionUser sess;
@@ -77,6 +81,11 @@ public class HomeFragmentNew extends Fragment {
         rlGame = root.findViewById(R.id.recycler_game_list);
         rlTournament = root.findViewById(R.id.recycler_new_tournaments);
         posterSlider = root.findViewById(R.id.poster_slider);
+        shimmerLoad = root.findViewById(R.id.shimmer_load);
+        svHome = root.findViewById(R.id.svHome);
+
+        posterSlider.setDefaultIndicator(3);
+        posterSlider.setMustAnimateIndicators(true);
 
         getListGame(sess.getString("id_user"),"","0");
         getListTournament(sess.getString("id_user"),"","0",listFilterGame);
@@ -86,9 +95,11 @@ public class HomeFragmentNew extends Fragment {
     }
 
     private void getListTournament(String userId,String search,String page,JSONArray filterGame){
-        ProgressDialog progress = new ProgressDialog(getContext());
+        /*ProgressDialog progress = new ProgressDialog(getContext());
         progress.setMessage("Loading...");
-        progress.show();
+        progress.show();*/
+        setLoad(true);
+
         try {
             Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTournament(userId, search, page,filterGame);
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
@@ -112,7 +123,6 @@ public class HomeFragmentNew extends Fragment {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(getActivity(), LoginActivity.class);
                             startActivity(i);
@@ -124,30 +134,32 @@ public class HomeFragmentNew extends Fragment {
 
                     } else {
                         Toast.makeText(getActivity(), "Failed Request List Tournament", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+
                     }
-                    progress.dismiss();
+                    setLoad(false);
                 }
 
                 @Override
                 public void onFailure(Call<GetListTournamentResponseModel> call, Throwable t) {
                     Toast.makeText(getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    setLoad(false);
 
                 }
 
             });
         }catch (Exception e){
             e.printStackTrace();
+            setLoad(false);
         }
     }
 
     private void getListGame(String userId,String search,String page){
 
-        ProgressDialog progress = new ProgressDialog(getContext());
+        /*ProgressDialog progress = new ProgressDialog(getContext());
         progress.setMessage("Loading...");
-        progress.show();
+        progress.show();*/
+        setLoad(true);
         try {
             Call<ResponseListGame> req = RetrofitConfig.getApiServices("").getListGame(userId, search, page);
             req.enqueue(new Callback<ResponseListGame>() {
@@ -173,7 +185,6 @@ public class HomeFragmentNew extends Fragment {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(getActivity(), LoginActivity.class);
                             startActivity(i);
@@ -185,16 +196,16 @@ public class HomeFragmentNew extends Fragment {
 
                     } else {
                         Toast.makeText(getActivity(), "Failed Request List Games", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+
                     }
-                    progress.dismiss();
+                    setLoad(false);
                 }
 
                 @Override
                 public void onFailure(Call<ResponseListGame> call, Throwable t) {
-                    Toast.makeText(getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    setLoad(false);
 
                 }
 
@@ -202,6 +213,24 @@ public class HomeFragmentNew extends Fragment {
             });
         }catch (Exception e){
             e.printStackTrace();
+            setLoad(false);
+        }
+
+
+    }
+    private void setLoad(Boolean loading){
+        if (loading){
+            shimmerLoad.setVisibility(View.VISIBLE);
+            svHome.setVisibility(View.GONE);
+
+            shimmerLoad.startShimmer();
+        }else {
+
+            shimmerLoad.setVisibility(View.GONE);
+            svHome.setVisibility(View.VISIBLE);
+
+            shimmerLoad.stopShimmer();
+
         }
 
 

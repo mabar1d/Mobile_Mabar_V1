@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -24,12 +25,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
+import com.example.mabar_v1.main.DetailTournamentActivity;
 import com.example.mabar_v1.profile.CreateTournamentActivity;
 import com.example.mabar_v1.retrofit.ApiService;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.ResponseCreateTournamentResponseModel;
+import com.example.mabar_v1.retrofit.model.ResponseGetInfoTournamentModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
 import com.example.mabar_v1.utility.CurrencyEditTextWatcher;
 import com.example.mabar_v1.utility.GlobalMethod;
@@ -37,6 +42,7 @@ import com.example.mabar_v1.utility.SessionUser;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -52,8 +58,8 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
     @BindView(R.id.image_tournament)
     ImageView ivTournament;
-    @BindView(R.id.btn_add_image)
-    Button btnAddImage;
+    @BindView(R.id.btn_edit_image)
+    Button btnEditImage;
     @BindView(R.id.et_tour_name)
     EditText etTourName;
     @BindView(R.id.et_description)
@@ -110,7 +116,9 @@ public class HostManageTournamentActivity extends AppCompatActivity {
     private SessionUser sess;
     private static int RESULT_LOAD_IMAGE = 1;
     private String picturePath = "";
+    private String idTournament = "";
     private RadioButton radioButton;
+    ArrayList<String> listSpinnerGame = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +126,15 @@ public class HostManageTournamentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_host_manage_tournament);
         ButterKnife.bind(this);
 
+        Bundle b = getIntent().getExtras();
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
+        }
+        if(b != null) {
+            idTournament = b.getString("id_tournament");
+//            judulGame = b.getString("judul_game");
+//            usage = b.getString("usage");
         }
 
         sess = new SessionUser(this);
@@ -128,6 +143,13 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
         etPrize.addTextChangedListener(new CurrencyEditTextWatcher(etPrize));
         etRegFee.addTextChangedListener(new CurrencyEditTextWatcher(etRegFee));
+
+        listSpinnerGame.add("Mobile Legend");
+        listSpinnerGame.add("Free Fire");
+        listSpinnerGame.add("PUBG");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item,listSpinnerGame);
+        spGame.setAdapter(adapter);
 
         btnUpdateTournament.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,7 +214,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
             }
         });
 
-        btnAddImage.setOnClickListener(new View.OnClickListener() {
+        btnEditImage.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -215,6 +237,8 @@ public class HostManageTournamentActivity extends AppCompatActivity {
         setDateOpenRegEnd();
         setDateOpenStart();
         setDateOpenEnd();
+
+        getInfoTournament(sess.getString("id_user"),idTournament);
 
 
     }
@@ -418,6 +442,79 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                     String msg = t.getMessage();
                     Toast.makeText(HostManageTournamentActivity.this, msg, Toast.LENGTH_SHORT).show();
                     progress.dismiss();
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void getInfoTournament(String userId,String idTournament){
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Loading...");
+        progress.show();
+        try {
+            Call<ResponseGetInfoTournamentModel> req = RetrofitConfig.getApiServices("").getInfoTournament(userId, idTournament);
+            req.enqueue(new Callback<ResponseGetInfoTournamentModel>() {
+                @Override
+                public void onResponse(Call<ResponseGetInfoTournamentModel> call, Response<ResponseGetInfoTournamentModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+
+                            Glide.with(HostManageTournamentActivity.this)
+                                    .load(response.body().getData().getImage())
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    //.skipMemoryCache(true)
+                                    .into(ivTournament);
+                            etTourName.setText(response.body().getData().getName());
+
+                            etPrize.setText("Rp. "+response.body().getData().getPrize());
+                            etDescription.setText(response.body().getData().getDetail());
+                            etRegisterDateStart.setText(response.body().getData().getRegisterDateStart());
+                            etRegisterDateEnd.setText(response.body().getData().getRegisterDateEnd());
+                            etStartDate.setText(response.body().getData().getStartDate());
+                            etEndDate.setText(response.body().getData().getEndDate());
+                            etRegFee.setText(response.body().getData().getRegister_fee());
+                            //e.setText(response.body().getData().getDetail());
+                            //type belom
+                            String fee = response.body().getData().getRegister_fee();
+
+                            if (fee.equalsIgnoreCase("0")){
+                                fee = "FREE";
+                            }else {
+                                fee = "Rp. "+fee;
+                            }
+                           // btnRegister.setText("Register "+ "("+fee+")");
+
+
+                        }else {
+                            String notif = response.body().getDesc();
+                            Toast.makeText(HostManageTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (response.body().getCode().equals("05")){
+                        String desc = response.body().getDesc();
+                        Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                        sess.clearSess();
+                        Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
+                        startActivity(i);
+                        finish();
+                    }  else {
+                        String desc = response.body().getDesc();
+                        Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseGetInfoTournamentModel> call, Throwable t) {
+                    Toast.makeText(HostManageTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    System.out.println("onFailure"+call);
+                    progress.dismiss();
+
                 }
 
 

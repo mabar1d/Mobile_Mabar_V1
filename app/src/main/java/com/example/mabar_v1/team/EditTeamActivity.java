@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -111,6 +112,7 @@ public class EditTeamActivity extends AppCompatActivity {
     List<ListPersonnelResponseModel.Data> listPersonAdded = new ArrayList<>();
     List<GetTeamInfoResponseModel.Data.Personnel> listPersonnelExisting = new ArrayList<>();
     List<String> listPersonnelText = new ArrayList<>();
+    ArrayList<String> listSpinnerGame = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,13 @@ public class EditTeamActivity extends AppCompatActivity {
         if(b != null) {
             idTeam = b.getString("id_team");
         }
+
+        listSpinnerGame.add("Mobile Legend");
+        listSpinnerGame.add("Free Fire");
+        listSpinnerGame.add("PUBG");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,listSpinnerGame);
+        spGame.setAdapter(adapter);
 
         btnEditImage.setOnClickListener(new View.OnClickListener() {
 
