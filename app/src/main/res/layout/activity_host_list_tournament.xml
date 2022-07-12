@@ -14,26 +14,17 @@
         android:layout_height="match_parent"
         android:paddingBottom="70dp"
         android:id="@+id/ll_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/grey"
-            android:layout_marginBottom="10dp"
-            android:text="My Tournament"/>
 
         <!--Searchbar-->
         <androidx.cardview.widget.CardView
             android:layout_width="250dp"
             android:layout_gravity="center"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="20dp"
             android:layout_marginBottom="20dp">
 
@@ -55,7 +46,7 @@
                     android:singleLine="true"
                     android:textColor="@color/grey"
                     android:textColorHint="@color/grey"
-                    android:textSize="14dp" />
+                    android:textSize="13dp" />
 
                 <ImageView
                     android:id="@+id/btn_search"
@@ -95,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/shimmer_load"
-        android:visibility="visible"
+        android:visibility="gone"
         android:paddingBottom="70dp"
         android:orientation="vertical">
         <LinearLayout

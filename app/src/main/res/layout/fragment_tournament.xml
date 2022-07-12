@@ -10,32 +10,22 @@
     tools:context=".main.TournamentFragment">
 
     <LinearLayout
+        android:id="@+id/llcontent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="70dp"
-        android:id="@+id/llcontent"
-        android:visibility="gone"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/grey"
-            android:layout_marginBottom="10dp"
-            android:text="Tournament"/>
+        android:orientation="vertical"
+        android:paddingBottom="55dp"
+        android:visibility="visible">
 
         <!--Searchbar-->
         <androidx.cardview.widget.CardView
             android:layout_width="250dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
-            android:layout_height="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            app:cardCornerRadius="20dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -55,15 +45,15 @@
                     android:singleLine="true"
                     android:textColor="@color/grey"
                     android:textColorHint="@color/grey"
-                    android:textSize="14dp" />
+                    android:textSize="13dp" />
 
                 <ImageView
                     android:id="@+id/btn_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:src="@android:drawable/ic_menu_search"
-                    android:layout_alignParentEnd="true"/>
+                    android:src="@android:drawable/ic_menu_search" />
 
             </RelativeLayout>
 
@@ -71,21 +61,20 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/primary_color_blue"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginBottom="5dp"
-            app:cardCornerRadius="15dp"
-            android:padding="10dp">
+            android:layout_marginRight="30dp"
+            android:padding="10dp"
+            app:cardBackgroundColor="@color/primary_color_blue"
+            app:cardCornerRadius="15dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="10dp"
-            android:id="@+id/recycler_my_tournaments"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_my_tournaments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp" />
         </androidx.cardview.widget.CardView>
 
 
@@ -95,7 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/shimmer_load"
-        android:visibility="visible"
+        android:visibility="gone"
         android:paddingBottom="70dp"
         android:orientation="vertical">
         <LinearLayout

@@ -9,15 +9,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asura.library.posters.Poster;
 import com.asura.library.posters.RemoteImage;
 import com.asura.library.views.PosterSlider;
+import com.example.mabar_v1.MainActivity;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.login.model.ResponseLoginModel;
@@ -55,6 +61,11 @@ public class HomeFragmentNew extends Fragment {
     private ShimmerFrameLayout shimmerLoad;
     private ScrollView svHome;
 
+    @BindView(R.id.search_bar)
+    EditText etSearchBar;
+    @BindView(R.id.btn_search)
+    ImageView btnSearch;
+
     private GlobalMethod gm;
     private SessionUser sess;
     private String page = "0";
@@ -77,6 +88,7 @@ public class HomeFragmentNew extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home_new, container, false);
+        ButterKnife.bind(this,root);
 
         rlGame = root.findViewById(R.id.recycler_game_list);
         rlTournament = root.findViewById(R.id.recycler_new_tournaments);
@@ -86,6 +98,26 @@ public class HomeFragmentNew extends Fragment {
 
         posterSlider.setDefaultIndicator(3);
         posterSlider.setMustAnimateIndicators(true);
+
+        etSearchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
+                    intentWithBundle();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                intentWithBundle();
+
+            }
+        });
 
         getListGame(sess.getString("id_user"),"","0");
         getListTournament(sess.getString("id_user"),"","0",listFilterGame);
@@ -234,5 +266,13 @@ public class HomeFragmentNew extends Fragment {
         }
 
 
+    }
+
+    private void intentWithBundle(){
+        Intent i = new Intent(getActivity(),GeneralSearchTournamentActivity.class);
+        Bundle bun = new Bundle();
+        bun.putString("judul_game",etSearchBar.getText().toString());
+        i.putExtras(bun);
+        startActivity(i);
     }
 }

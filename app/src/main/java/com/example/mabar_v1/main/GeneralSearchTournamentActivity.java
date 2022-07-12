@@ -62,9 +62,19 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
         idGame = b.getString("id_game");
         judulGame = b.getString("judul_game");
 
-        fltGame.put(idGame);
+        if (idGame != null){
+            fltGame.put(idGame);
+        }
 
-        getListTournament(sess.getString("id_user"),"","0",fltGame);
+
+        if (judulGame != null){
+            etSearchBarTournament.setText(judulGame);
+        }else {
+            judulGame = "";
+        }
+
+
+        getListTournament(sess.getString("id_user"),judulGame,"0",fltGame);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

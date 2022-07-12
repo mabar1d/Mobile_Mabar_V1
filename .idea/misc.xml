@@ -37,13 +37,14 @@
         <entry key="..\:/MABAR/app/src/main/res/layout/list_tournament_home.xml" value="0.4" />
         <entry key="..\:/MABAR/app/src/main/res/layout/splash_screen_background.xml" value="0.14221014492753623" />
         <entry key="..\:/MABAR/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_group_28.xml" value="0.135" />
         <entry key="app/src/main/res/drawable/rounded_button_grey.xml" value="0.241" />
         <entry key="app/src/main/res/drawable/rounded_button_white.xml" value="0.241" />
         <entry key="app/src/main/res/layout/activity_create_team.xml" value="0.10187886555989586" />
         <entry key="app/src/main/res/layout/activity_detail_profile_account.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/activity_detail_team_info.xml" value="0.13333333333333333" />
         <entry key="app/src/main/res/layout/activity_edit_team.xml" value="0.13333333333333333" />
-        <entry key="app/src/main/res/layout/activity_general_search_tournament.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/activity_general_search_tournament.xml" value="0.4258900960286458" />
         <entry key="app/src/main/res/layout/activity_host_list_tournament.xml" value="0.11927083333333334" />
         <entry key="app/src/main/res/layout/activity_host_manage_tournament.xml" value="0.13333333333333333" />
         <entry key="app/src/main/res/layout/activity_host_menu_settings.xml" value="0.21730804443359375" />
@@ -55,6 +56,8 @@
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.13333333333333333" />
         <entry key="app/src/main/res/layout/activity_team_settings.xml" value="0.41629955947136565" />
         <entry key="app/src/main/res/layout/activity_tournament_graph_web_view.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/dialog_confirmation.xml" value="0.15260416666666668" />
+        <entry key="app/src/main/res/layout/dialog_switch_account.xml" value="0.15260416666666668" />
         <entry key="app/src/main/res/layout/fragment_home_new.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_profile_new.xml" value="0.13858695652173914" />
         <entry key="app/src/main/res/layout/fragment_tournament.xml" value="0.15070921985815602" />
