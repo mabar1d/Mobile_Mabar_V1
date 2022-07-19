@@ -28,11 +28,13 @@ import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.main.adapter.ListGameAdapter;
+import com.example.mabar_v1.main.adapter.ListMenuHomeAdapter;
 import com.example.mabar_v1.main.adapter.ListTournamentAdapter;
 import com.example.mabar_v1.main.model.ListGameModel;
 import com.example.mabar_v1.profile.DetailProfileAccountActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.DataItem;
+import com.example.mabar_v1.retrofit.model.GetListMenuResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseListGame;
 import com.example.mabar_v1.splash.SplashScreen1;
@@ -56,7 +58,7 @@ import retrofit2.Response;
 
 public class HomeFragmentNew extends Fragment {
 
-    private RecyclerView rlGame,rlTournament;
+    private RecyclerView rlGame,rlTournament,rlMenu;
     private PosterSlider posterSlider;
     private ShimmerFrameLayout shimmerLoad;
     private ScrollView svHome;
@@ -70,11 +72,13 @@ public class HomeFragmentNew extends Fragment {
     private SessionUser sess;
     private String page = "0";
     private ListGameAdapter listGameAdapter;
+    private ListMenuHomeAdapter listMenuAdapter;
 
     private ArrayList<ListGameModel> listGameModels = new ArrayList<>();
     private JSONArray listFilterGame = new JSONArray();
     List<GetListTournamentResponseModel.Data> listTournament = new ArrayList<>();
     List<DataItem> listGames = new ArrayList<>();
+    List<GetListMenuResponseModel.Data> listMenu = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,7 @@ public class HomeFragmentNew extends Fragment {
         ButterKnife.bind(this,root);
 
         rlGame = root.findViewById(R.id.recycler_game_list);
+        rlMenu = root.findViewById(R.id.recycler_menu);
         rlTournament = root.findViewById(R.id.recycler_new_tournaments);
         posterSlider = root.findViewById(R.id.poster_slider);
         shimmerLoad = root.findViewById(R.id.shimmer_load);
@@ -119,6 +124,7 @@ public class HomeFragmentNew extends Fragment {
             }
         });
 
+        getListMenu(sess.getString("id_user"));
         getListGame(sess.getString("id_user"),"","0");
         getListTournament(sess.getString("id_user"),"","0",listFilterGame);
 
@@ -250,6 +256,60 @@ public class HomeFragmentNew extends Fragment {
 
 
     }
+
+    private void getListMenu(String userId){
+
+        setLoad(true);
+        try {
+            Call<GetListMenuResponseModel> req = RetrofitConfig.getApiServices("").getListMenuHome(userId);
+            req.enqueue(new Callback<GetListMenuResponseModel>() {
+                @Override
+                public void onResponse(Call<GetListMenuResponseModel> call, Response<GetListMenuResponseModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+                            listMenu.clear();
+                            listMenu = response.body().getData();
+
+                            listMenuAdapter = new ListMenuHomeAdapter(getContext(),listMenu);
+                            rlMenu.setLayoutManager(new GridLayoutManager(getContext(),1,GridLayoutManager.HORIZONTAL,false));
+                            rlMenu.setAdapter(listMenuAdapter);
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            sess.clearSess();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                            getActivity().finish();
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), "Failed Request List Games", Toast.LENGTH_SHORT).show();
+
+                    }
+                    setLoad(false);
+                }
+
+                @Override
+                public void onFailure(Call<GetListMenuResponseModel> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    System.out.println("onFailure"+call);
+                    setLoad(false);
+
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            setLoad(false);
+        }
+
+
+    }
+
     private void setLoad(Boolean loading){
         if (loading){
             shimmerLoad.setVisibility(View.VISIBLE);

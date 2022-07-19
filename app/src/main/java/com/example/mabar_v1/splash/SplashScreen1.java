@@ -79,7 +79,7 @@ public class SplashScreen1 extends AppCompatActivity {
         ButterKnife.bind(this);
         sess = new SessionUser(this);
 
-        pathVideo = "android.resource://"+getPackageName()+"/"+R.raw.splash_video;
+        //pathVideo = "android.resource://"+getPackageName()+"/"+R.raw.splash_video;
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();

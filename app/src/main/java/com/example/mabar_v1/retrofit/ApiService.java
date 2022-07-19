@@ -2,6 +2,7 @@ package com.example.mabar_v1.retrofit;
 
 import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.model.CreateTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.GetListMenuResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListRequestJoinTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTeamTournamentResponseModel;
@@ -298,6 +299,12 @@ public interface ApiService {
             @Part("user_id") RequestBody user_id,
             @Part("team_id") RequestBody team_id,
             @Part MultipartBody.Part image_file
+    );
+
+    //get list game
+    @POST("getListApkMenu")
+    Call<GetListMenuResponseModel> getListMenuHome(
+            @Query("user_id") String user_id
     );
 
 }

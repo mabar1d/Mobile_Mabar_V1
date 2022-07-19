@@ -43,4 +43,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text_grey">#585F65</color>
     <color name="orange">#fb6f31</color>
+
+    <!--new primary color-->
+    <color name="purple_dark">#060022</color>
+    <color name="purple_light">#5d0aaf</color>
+
+    <!--bottom nav color-->
+    <color name="bg_bottom_nav">#303030</color>
+    <color name="btm_nav_item">#c2c2c2</color>
+
 </resources>

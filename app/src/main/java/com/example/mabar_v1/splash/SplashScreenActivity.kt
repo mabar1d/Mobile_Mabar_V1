@@ -18,8 +18,6 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        pathVideo = "android.resource://a0.insertvideo/"+R.raw.splash_video + ".mp4"
-
         /*video = VideoLayout(this)
         video.setGravity(VideoLayout.VGravity.centerCrop)
         video.setIsLoop(true)
