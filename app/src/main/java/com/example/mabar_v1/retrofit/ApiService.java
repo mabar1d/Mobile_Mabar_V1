@@ -2,6 +2,7 @@ package com.example.mabar_v1.retrofit;
 
 import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.model.CreateTeamResponseModel;
+import com.example.mabar_v1.retrofit.model.GetLinkTreeWebviewResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListMenuResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListRequestJoinTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTeamResponseModel;
@@ -305,6 +306,12 @@ public interface ApiService {
     @POST("getListApkMenu")
     Call<GetListMenuResponseModel> getListMenuHome(
             @Query("user_id") String user_id
+    );
+
+    @POST("getTournamentTreeWeb")
+    Call<GetLinkTreeWebviewResponseModel> getLinkTournamentTreeWeb(
+            @Query("user_id") String user_id,
+            @Query("tournament_id") String tournament_id
     );
 
 }

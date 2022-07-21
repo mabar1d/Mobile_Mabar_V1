@@ -19,8 +19,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mabar_v1.databinding.ActivityTournamentGraphWebViewBinding
-import java.security.AccessController.getContext
-import java.util.*
 
 class TournamentGraphWebViewActivity : AppCompatActivity() {
 
@@ -35,6 +33,10 @@ class TournamentGraphWebViewActivity : AppCompatActivity() {
         binding = ActivityTournamentGraphWebViewBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
 
         binding.webView.settings.javaScriptEnabled = true
 

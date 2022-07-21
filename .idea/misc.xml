@@ -37,6 +37,7 @@
         <entry key="..\:/MABAR/app/src/main/res/layout/list_tournament_home.xml" value="0.4" />
         <entry key="..\:/MABAR/app/src/main/res/layout/splash_screen_background.xml" value="0.14221014492753623" />
         <entry key="..\:/MABAR/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/circle_shape.xml" value="0.194" />
         <entry key="app/src/main/res/drawable/ic_game.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/ic_group_28.xml" value="0.135" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.178" />
@@ -47,6 +48,7 @@
         <entry key="app/src/main/res/layout/activity_create_team.xml" value="0.10187886555989586" />
         <entry key="app/src/main/res/layout/activity_detail_profile_account.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/activity_detail_team_info.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/activity_detail_tournament.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/activity_edit_team.xml" value="0.13333333333333333" />
         <entry key="app/src/main/res/layout/activity_general_search_tournament.xml" value="0.4258900960286458" />
         <entry key="app/src/main/res/layout/activity_host_list_tournament.xml" value="0.11927083333333334" />

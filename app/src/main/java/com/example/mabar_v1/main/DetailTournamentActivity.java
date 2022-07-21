@@ -19,6 +19,7 @@ import com.example.mabar_v1.R;
 import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.main.adapter.ListTournamentAdapter;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
+import com.example.mabar_v1.retrofit.model.GetLinkTreeWebviewResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseGetInfoTournamentModel;
 import com.example.mabar_v1.retrofit.model.SuccessResponseDefaultModel;
@@ -117,6 +118,15 @@ public class DetailTournamentActivity extends AppCompatActivity {
             }
         });
 
+        btnDetailTournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLinkTree(sess.getString("id_user"),idTournament);
+            }
+        });
+
+
+
     }
 
     private void getInfoTournament(String userId,String idTournament){
@@ -184,6 +194,60 @@ public class DetailTournamentActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseGetInfoTournamentModel> call, Throwable t) {
+                    Toast.makeText(DetailTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    System.out.println("onFailure"+call);
+                    progress.dismiss();
+
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void getLinkTree(String userId,String idTournament){
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Loading...");
+        progress.show();
+        try {
+            Call<GetLinkTreeWebviewResponseModel> req = RetrofitConfig.getApiServices("").getLinkTournamentTreeWeb(userId, idTournament);
+            req.enqueue(new Callback<GetLinkTreeWebviewResponseModel>() {
+                @Override
+                public void onResponse(Call<GetLinkTreeWebviewResponseModel> call, Response<GetLinkTreeWebviewResponseModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+
+                            String url = response.body().getData().getUrl();
+                            Intent i = new Intent(DetailTournamentActivity.this, TournamentGraphWebViewActivity.class);
+                            Bundle bun = new Bundle();
+                            bun.putString("url", url);
+                            i.putExtras(bun);
+                            startActivity(i);
+
+                        }else {
+                            String notif = response.body().getDesc();
+                            Toast.makeText(DetailTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (response.body().getCode().equals("05")){
+                        String desc = response.body().getDesc();
+                        Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                        sess.clearSess();
+                        Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
+                        startActivity(i);
+                        finish();
+                    }  else {
+                        String desc = response.body().getDesc();
+                        Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<GetLinkTreeWebviewResponseModel> call, Throwable t) {
                     Toast.makeText(DetailTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     progress.dismiss();

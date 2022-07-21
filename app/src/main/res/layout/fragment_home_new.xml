@@ -22,12 +22,13 @@
 
             <!--Searchbar-->
             <androidx.cardview.widget.CardView
-                android:layout_width="200dp"
+                android:layout_width="300dp"
                 android:layout_height="30dp"
-                android:layout_gravity="end"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="25dp"
                 app:cardCornerRadius="20dp"
                 app:cardBackgroundColor="@color/material_grey_700">
 
@@ -39,13 +40,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginBottom="10dp"
                 app:cardBackgroundColor="@color/material_grey_700"
                 app:cardCornerRadius="20dp">
 
 
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="10dp"
+                app:cardBackgroundColor="@color/material_grey_700"
+                app:cardCornerRadius="15dp">
             </androidx.cardview.widget.CardView>
 
             <!--Game List-->
@@ -168,6 +178,7 @@
                     android:layout_gravity="center"
                     app:defaultIndicator="circle"
                     app:hideIndicators="false"
+                    android:background="@color/material_grey_700"
                     app:imageSlideInterval="5000"
                     app:layout_constraintTop_toTopOf="parent"
                     app:loopSlides="true" />
