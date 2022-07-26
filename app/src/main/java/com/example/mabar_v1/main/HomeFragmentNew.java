@@ -34,6 +34,7 @@ import com.example.mabar_v1.main.model.ListGameModel;
 import com.example.mabar_v1.profile.DetailProfileAccountActivity;
 import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.DataItem;
+import com.example.mabar_v1.retrofit.model.GetCarouselResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListMenuResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseListGame;
@@ -124,6 +125,7 @@ public class HomeFragmentNew extends Fragment {
             }
         });
 
+        getHighlightsImage(sess.getString("id_user"));
         getListMenu(sess.getString("id_user"));
         getListGame(sess.getString("id_user"),"","0");
         getListTournament(sess.getString("id_user"),"","0",listFilterGame);
@@ -133,9 +135,7 @@ public class HomeFragmentNew extends Fragment {
     }
 
     private void getListTournament(String userId,String search,String page,JSONArray filterGame){
-        /*ProgressDialog progress = new ProgressDialog(getContext());
-        progress.setMessage("Loading...");
-        progress.show();*/
+
         setLoad(true);
 
         try {
@@ -147,14 +147,14 @@ public class HomeFragmentNew extends Fragment {
                         if (response.body().getCode().equals("00")){
                             listTournament = response.body().getData();
 
-                            List<Poster> posters=new ArrayList<>();
+                            /*List<Poster> posters=new ArrayList<>();
                             //add poster using remote url
                             posters.add(new RemoteImage("https://eventkampus.com/data/event/1/1319/poster-i-fest-2018-supernova-tournament-mobile-legends.jpeg"));
                             posters.add(new RemoteImage("https://1.bp.blogspot.com/-nz7E2so-ud8/X2lbq-9nb4I/AAAAAAAAFTU/5UrnMMLEhOoaiSY5MyXhoB8neZX9m9HwwCLcBGAsYHQ/s957/Untitled-1.jpg"));
                             posters.add(new RemoteImage("https://www.itcshoppingfestival.com/wp-content/uploads/2019/03/banner-web.jpeg"));
                             posters.add(new RemoteImage("https://1.bp.blogspot.com/-tpxDJceDtTg/YS8FCUQncfI/AAAAAAAAClo/QRiA3xb6j00osV6jROkrUFFD7fW4Sry4wCLcBGAsYHQ/s1697/Poster%2BTurnamen%2BMobile%2BLegends%2BVersi%2B1%2Blow.jpg"));
                             posters.add(new RemoteImage("https://mhs.unikama.ac.id/hmps-si/wp-content/nfs/sites/38/2019/10/Artboard-1.png"));
-                            posterSlider.setPosters(posters);
+                            posterSlider.setPosters(posters);*/
 
                             rlTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament));
                             rlTournament.setLayoutManager(new GridLayoutManager(getActivity(),1,GridLayoutManager.HORIZONTAL,false));
@@ -208,14 +208,14 @@ public class HomeFragmentNew extends Fragment {
                             listGames.clear();
                             listGames = response.body().getData();
 
-                            List<Poster> posters=new ArrayList<>();
+                            /*List<Poster> posters=new ArrayList<>();
                             //add poster using remote url
                             posters.add(new RemoteImage("https://eventkampus.com/data/event/1/1319/poster-i-fest-2018-supernova-tournament-mobile-legends.jpeg"));
                             posters.add(new RemoteImage("https://1.bp.blogspot.com/-nz7E2so-ud8/X2lbq-9nb4I/AAAAAAAAFTU/5UrnMMLEhOoaiSY5MyXhoB8neZX9m9HwwCLcBGAsYHQ/s957/Untitled-1.jpg"));
                             posters.add(new RemoteImage("https://www.itcshoppingfestival.com/wp-content/uploads/2019/03/banner-web.jpeg"));
                             posters.add(new RemoteImage("https://1.bp.blogspot.com/-tpxDJceDtTg/YS8FCUQncfI/AAAAAAAAClo/QRiA3xb6j00osV6jROkrUFFD7fW4Sry4wCLcBGAsYHQ/s1697/Poster%2BTurnamen%2BMobile%2BLegends%2BVersi%2B1%2Blow.jpg"));
                             posters.add(new RemoteImage("https://mhs.unikama.ac.id/hmps-si/wp-content/nfs/sites/38/2019/10/Artboard-1.png"));
-                            posterSlider.setPosters(posters);
+                            posterSlider.setPosters(posters);*/
 
                             listGameAdapter = new ListGameAdapter(getContext(),listGames);
                             rlGame.setLayoutManager(new GridLayoutManager(getContext(),1,GridLayoutManager.HORIZONTAL,false));
@@ -294,6 +294,62 @@ public class HomeFragmentNew extends Fragment {
 
                 @Override
                 public void onFailure(Call<GetListMenuResponseModel> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    System.out.println("onFailure"+call);
+                    setLoad(false);
+
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            setLoad(false);
+        }
+
+
+    }
+
+    private void getHighlightsImage(String userId){
+
+        setLoad(true);
+        try {
+            Call<GetCarouselResponseModel> req = RetrofitConfig.getApiServices("").getCarouselTournament(userId);
+            req.enqueue(new Callback<GetCarouselResponseModel>() {
+                @Override
+                public void onResponse(Call<GetCarouselResponseModel> call, Response<GetCarouselResponseModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+
+                            List<Poster> posters=new ArrayList<>();
+                            posters.clear();
+
+                            for(int i = 0; i < response.body().getData().size() ; i++){
+                                posters.add(new RemoteImage(response.body().getData().get(i).getImage()));
+                            }
+                            posterSlider.setPosters(posters);
+
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            sess.clearSess();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                            getActivity().finish();
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), "Failed Request List Games", Toast.LENGTH_SHORT).show();
+
+                    }
+                    setLoad(false);
+                }
+
+                @Override
+                public void onFailure(Call<GetCarouselResponseModel> call, Throwable t) {
                     Toast.makeText(getActivity(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     setLoad(false);
