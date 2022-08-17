@@ -333,7 +333,7 @@ public class ProfileNewFragment extends Fragment {
                                 Glide.with(context)
                                         .load(response.body().getData().getImage())
                                         .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                        //.skipMemoryCache(true)
+                                        .skipMemoryCache(true)
                                         .into(ivProfile);
                             }
                             idTeam = response.body().getData().getTeamId();

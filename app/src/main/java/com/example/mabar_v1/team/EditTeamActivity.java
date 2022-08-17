@@ -132,7 +132,7 @@ public class EditTeamActivity extends AppCompatActivity {
             idTeam = b.getString("id_team");
         }
 
-        listSpinnerGame.add("Mobile Legend");
+        listSpinnerGame.add("Mobile Legends");
         listSpinnerGame.add("Free Fire");
         listSpinnerGame.add("PUBG");
 
@@ -554,6 +554,7 @@ public class EditTeamActivity extends AppCompatActivity {
                             Glide.with(EditTeamActivity.this)
                                     .load(response.body().getData().getImage())
                                     .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
                                     .into(civTeam);
 
                             etTeamName.setText(response.body().getData().getName());

@@ -89,8 +89,6 @@ public class TeamSettingsActivity extends AppCompatActivity {
         gm = new GlobalMethod();
         sess = new SessionUser(this);
 
-        getDataPerson();
-
         btnCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,6 +269,7 @@ public class TeamSettingsActivity extends AppCompatActivity {
                             Glide.with(TeamSettingsActivity.this)
                                     .load(response.body().getData().getImage())
                                     .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
                                     .into(civTeam);
 
                             tvTeamName.setText(response.body().getData().getName());
@@ -309,6 +308,12 @@ public class TeamSettingsActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDataPerson();
     }
 
 }

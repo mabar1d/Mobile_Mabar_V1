@@ -122,7 +122,7 @@ public class CreateTeamActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        listSpinnerGame.add("Mobile Legend");
+        listSpinnerGame.add("Mobile Legends");
         listSpinnerGame.add("Free Fire");
         listSpinnerGame.add("PUBG");
 
@@ -223,7 +223,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                             if (flagSendData){
                                 uploadImage(idTeam);
                             }else {
-                                createTeam(teamName,game.toString(),teamInfo,personnelId);
+                                createTeam(teamName,teamInfo,game.toString(),personnelId);
                             }
 
                         }
