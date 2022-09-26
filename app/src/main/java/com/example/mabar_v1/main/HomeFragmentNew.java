@@ -29,6 +29,7 @@ import com.example.mabar_v1.login.LoginActivity;
 import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.main.adapter.ListGameAdapter;
 import com.example.mabar_v1.main.adapter.ListMenuHomeAdapter;
+import com.example.mabar_v1.main.adapter.ListNewsHomeAdapter;
 import com.example.mabar_v1.main.adapter.ListTournamentAdapter;
 import com.example.mabar_v1.main.model.ListGameModel;
 import com.example.mabar_v1.profile.DetailProfileAccountActivity;
@@ -36,6 +37,7 @@ import com.example.mabar_v1.retrofit.RetrofitConfig;
 import com.example.mabar_v1.retrofit.model.DataItem;
 import com.example.mabar_v1.retrofit.model.GetCarouselResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListMenuResponseModel;
+import com.example.mabar_v1.retrofit.model.GetListNewsResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTournamentResponseModel;
 import com.example.mabar_v1.retrofit.model.ResponseListGame;
 import com.example.mabar_v1.splash.SplashScreen1;
@@ -59,7 +61,7 @@ import retrofit2.Response;
 
 public class HomeFragmentNew extends Fragment {
 
-    private RecyclerView rlGame,rlTournament,rlMenu;
+    private RecyclerView rlGame,rlTournament,rlMenu, rlNews;
     private PosterSlider posterSlider;
     private ShimmerFrameLayout shimmerLoad;
     private ScrollView svHome;
@@ -78,6 +80,7 @@ public class HomeFragmentNew extends Fragment {
     private ArrayList<ListGameModel> listGameModels = new ArrayList<>();
     private JSONArray listFilterGame = new JSONArray();
     List<GetListTournamentResponseModel.Data> listTournament = new ArrayList<>();
+    List<GetListNewsResponseModel.Data> listNews = new ArrayList<>();
     List<DataItem> listGames = new ArrayList<>();
     List<GetListMenuResponseModel.Data> listMenu = new ArrayList<>();
 
@@ -97,6 +100,7 @@ public class HomeFragmentNew extends Fragment {
 
         rlGame = root.findViewById(R.id.recycler_game_list);
         rlMenu = root.findViewById(R.id.recycler_menu);
+        rlNews = root.findViewById(R.id.recycler_news);
         rlTournament = root.findViewById(R.id.recycler_new_tournaments);
         posterSlider = root.findViewById(R.id.poster_slider);
         shimmerLoad = root.findViewById(R.id.shimmer_load);
@@ -129,9 +133,59 @@ public class HomeFragmentNew extends Fragment {
         getListMenu(sess.getString("id_user"));
         getListGame(sess.getString("id_user"),"","0");
         getListTournament(sess.getString("id_user"),"","0",listFilterGame);
+        getListNews(sess.getString("id_user"),"","0");
 
         // Inflate the layout for this fragment
         return root;
+    }
+
+    private void getListNews(String userId,String search,String page){
+
+        setLoad(true);
+
+        try {
+            Call<GetListNewsResponseModel> req = RetrofitConfig.getApiServices("").getListNews(userId, search, page);
+            req.enqueue(new Callback<GetListNewsResponseModel>() {
+                @Override
+                public void onResponse(Call<GetListNewsResponseModel> call, Response<GetListNewsResponseModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+                            listNews = response.body().getData();
+
+                            rlNews.setAdapter(new ListNewsHomeAdapter(getActivity(),listNews));
+                            rlNews.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            sess.clearSess();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                            getActivity().finish();
+                        }else {
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), "Failed Request List News", Toast.LENGTH_SHORT).show();
+
+                    }
+                    setLoad(false);
+                }
+
+                @Override
+                public void onFailure(Call<GetListNewsResponseModel> call, Throwable t) {
+                    Toast.makeText(getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    System.out.println("onFailure"+call);
+                    setLoad(false);
+
+                }
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            setLoad(false);
+        }
     }
 
     private void getListTournament(String userId,String search,String page,JSONArray filterGame){
@@ -146,15 +200,6 @@ public class HomeFragmentNew extends Fragment {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
                             listTournament = response.body().getData();
-
-                            /*List<Poster> posters=new ArrayList<>();
-                            //add poster using remote url
-                            posters.add(new RemoteImage("https://eventkampus.com/data/event/1/1319/poster-i-fest-2018-supernova-tournament-mobile-legends.jpeg"));
-                            posters.add(new RemoteImage("https://1.bp.blogspot.com/-nz7E2so-ud8/X2lbq-9nb4I/AAAAAAAAFTU/5UrnMMLEhOoaiSY5MyXhoB8neZX9m9HwwCLcBGAsYHQ/s957/Untitled-1.jpg"));
-                            posters.add(new RemoteImage("https://www.itcshoppingfestival.com/wp-content/uploads/2019/03/banner-web.jpeg"));
-                            posters.add(new RemoteImage("https://1.bp.blogspot.com/-tpxDJceDtTg/YS8FCUQncfI/AAAAAAAAClo/QRiA3xb6j00osV6jROkrUFFD7fW4Sry4wCLcBGAsYHQ/s1697/Poster%2BTurnamen%2BMobile%2BLegends%2BVersi%2B1%2Blow.jpg"));
-                            posters.add(new RemoteImage("https://mhs.unikama.ac.id/hmps-si/wp-content/nfs/sites/38/2019/10/Artboard-1.png"));
-                            posterSlider.setPosters(posters);*/
 
                             rlTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament));
                             rlTournament.setLayoutManager(new GridLayoutManager(getActivity(),1,GridLayoutManager.HORIZONTAL,false));

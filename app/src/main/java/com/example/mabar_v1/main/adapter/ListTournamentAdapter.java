@@ -60,9 +60,9 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
         holder.judulGame.setText(dataTournament.get(position).getTitle_game());
 
         CircularProgressDrawable cp = new CircularProgressDrawable(context);
-        cp.setStrokeWidth(5f);
+        cp.setStrokeWidth(15f);
         cp.setBackgroundColor(R.color.material_grey_300);
-        cp.setCenterRadius(3f);
+        cp.setCenterRadius(10f);
         cp.start();
         Glide.with(context)
                 .load(dataTournament.get(position).getImage())

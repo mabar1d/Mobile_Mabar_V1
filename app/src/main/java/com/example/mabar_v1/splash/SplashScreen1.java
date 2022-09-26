@@ -46,33 +46,32 @@ public class SplashScreen1 extends AppCompatActivity {
     ConstraintLayout clVideo;
     private String pathVideo = "";
     private SessionUser sess;
+    int ALL_PERMISSIONS = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Dexter.withContext(this)
-                .withPermission(Manifest.permission.CAMERA)
-                .withListener(new PermissionListener() {
-                    @Override public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
-                    @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
-                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
-                }).check();
 
-        Dexter.withContext(this)
+        final String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+        ActivityCompat.requestPermissions(this, permissions, ALL_PERMISSIONS);
+
+
+        /*Dexter.withContext(this)
                 .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .withListener(new PermissionListener() {
-                    @Override public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
-                    @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
-                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+                    @Override public void onPermissionGranted(PermissionGrantedResponse response) { ... }
+                    @Override public void onPermissionDenied(PermissionDeniedResponse response) { ... }
+                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) { ... }
                 }).check();
 
         Dexter.withContext(this)
                 .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .withListener(new PermissionListener() {
-                    @Override public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
-                    @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
-                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
-                }).check();
+                    @Override public void onPermissionGranted(PermissionGrantedResponse response) { ... }
+                    @Override public void onPermissionDenied(PermissionDeniedResponse response) { ... }
+                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) { ... }
+                }).check();*/
 
 
         setContentView(R.layout.activity_splash_screen);
@@ -117,7 +116,7 @@ public class SplashScreen1 extends AppCompatActivity {
                     startActivity(mainIntent);
                     finish();
                 }
-            }, 10000);
+            }, 5000);
         }else {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -126,7 +125,7 @@ public class SplashScreen1 extends AppCompatActivity {
                     startActivity(mainIntent);
                     finish();
                 }
-            }, 10000);
+            }, 5000);
         }
     }
 

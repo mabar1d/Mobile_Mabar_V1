@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_color_blue"
+    android:background="@color/primary_color_black"
     tools:context=".profile.JoinTeamActivity">
 
     <LinearLayout
@@ -70,7 +70,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/primary_color_blue"
+            app:cardBackgroundColor="@color/primary_color_black"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"

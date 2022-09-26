@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="33dp"
         android:text="E-Sports Tournament Platform"
-        android:textColor="@color/primary_color_blue"
+        android:textColor="@color/primary_color_black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

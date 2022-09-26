@@ -3,8 +3,12 @@ package com.example.mabar_v1.retrofit;
 import com.example.mabar_v1.login.model.ResponseLoginModel;
 import com.example.mabar_v1.retrofit.model.CreateTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetCarouselResponseModel;
+import com.example.mabar_v1.retrofit.model.GetInfoNewsCategoryResponseModel;
+import com.example.mabar_v1.retrofit.model.GetInfoNewsResponseModel;
 import com.example.mabar_v1.retrofit.model.GetLinkTreeWebviewResponseModel;
+import com.example.mabar_v1.retrofit.model.GetListCategoryNewsResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListMenuResponseModel;
+import com.example.mabar_v1.retrofit.model.GetListNewsResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListRequestJoinTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTeamResponseModel;
 import com.example.mabar_v1.retrofit.model.GetListTeamTournamentResponseModel;
@@ -318,6 +322,32 @@ public interface ApiService {
     @POST("getCarouselTournament")
     Call<GetCarouselResponseModel> getCarouselTournament(
             @Query("user_id") String user_id
+    );
+
+    @POST("getListNews")
+    Call<GetListNewsResponseModel> getListNews(
+            @Query("user_id") String user_id,
+            @Query("search") String search,
+            @Query("page") String page
+    );
+
+    @POST("getInfoNews")
+    Call<GetInfoNewsResponseModel> getInfoNews(
+            @Query("user_id") String user_id,
+            @Query("news_id") String news_id
+    );
+
+    @POST("getListNewsCategory")
+    Call<GetListCategoryNewsResponseModel> getListNewsCategory(
+            @Query("user_id") String user_id,
+            @Query("search") String search,
+            @Query("page") String page
+    );
+
+    @POST("getInfoNewsCategory")
+    Call<GetInfoNewsCategoryResponseModel> getInfoNewsCategory(
+            @Query("user_id") String user_id,
+            @Query("news_category_id") String news_id
     );
 
 }

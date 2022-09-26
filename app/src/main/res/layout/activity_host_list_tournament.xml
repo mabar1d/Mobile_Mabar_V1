@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/primary_color_blue"
+    android:background="@color/primary_color_black"
     tools:context=".host.HostListTournamentActivity">
 
     <LinearLayout
@@ -62,7 +62,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/primary_color_blue"
+            app:cardBackgroundColor="@color/primary_color_black"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginRight="30dp"

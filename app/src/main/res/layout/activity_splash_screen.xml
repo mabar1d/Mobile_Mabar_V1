@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/primary_color_blue"
+    android:background="@color/primary_color_black"
     android:gravity="center"
     tools:context=".splash.SplashScreenActivity">
 
@@ -15,9 +15,9 @@
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_marginTop="20dp"
-        android:layout_width="400dp"
-        android:layout_height="500dp"
-        android:src="@drawable/logo_circle_splash"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:src="@drawable/logo_circle_hd"
         android:visibility="visible" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="Mohon Tunggu..."
-        android:textColor="@color/primary_color_blue"
+        android:textColor="@color/primary_color_black"
         android:textSize="25dp"
         android:visibility="gone"
         android:layout_centerHorizontal="true"

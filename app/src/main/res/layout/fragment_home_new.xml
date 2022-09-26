@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_color_blue"
+    android:background="@color/primary_color_black"
     android:orientation="vertical"
     tools:context=".main.HomeFragmentNew">
 
@@ -282,6 +282,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </androidx.cardview.widget.CardView>
+
+            <!--New Tournaments-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="10dp"
+                android:text="News"
+                android:textColor="@color/material_grey_500"
+                android:textSize="14dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="15dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
 
     </ScrollView>

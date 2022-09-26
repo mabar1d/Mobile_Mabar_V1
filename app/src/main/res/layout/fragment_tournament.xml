@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/primary_color_blue"
+    android:background="@color/primary_color_black"
     tools:context=".main.TournamentFragment">
 
     <LinearLayout
@@ -66,7 +66,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:padding="10dp"
-            app:cardBackgroundColor="@color/primary_color_blue"
+            app:cardBackgroundColor="@color/primary_color_black"
             app:cardCornerRadius="15dp">
 
             <androidx.recyclerview.widget.RecyclerView

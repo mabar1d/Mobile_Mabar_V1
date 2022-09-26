@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_color_blue"
+    android:background="@color/primary_color_black"
     tools:context=".profile.DetailProfileAccountActivity">
 
     <LinearLayout
@@ -28,7 +28,7 @@
             app:civ_border_width="4dp"
             app:civ_shadow="true"
             android:src="@drawable/person_photo"
-            app:civ_shadow_color="@color/primary_color_blue"
+            app:civ_shadow_color="@color/primary_color_black"
             tools:layout_editor_absoluteX="105dp"
             tools:layout_editor_absoluteY="100dp" />
 

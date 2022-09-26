@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Mabar_V1" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary_color_blue_transparant</item>
-        <item name="colorPrimaryVariant">@color/primary_color_blue</item>
+        <item name="colorPrimary">@color/primary_color_black_transparant</item>
+        <item name="colorPrimaryVariant">@color/primary_color_black</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
