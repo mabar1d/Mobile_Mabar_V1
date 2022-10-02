@@ -59,8 +59,13 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
         }
 
         Bundle b = getIntent().getExtras();
-        idGame = b.getString("id_game");
-        judulGame = b.getString("judul_game");
+        if (b.getString("id_game") != null){
+            idGame = b.getString("id_game");
+        }
+        if (b.getString("judul_game") != null){
+            judulGame = b.getString("judul_game");
+        }
+
 
         if (idGame != null){
             fltGame.put(idGame);

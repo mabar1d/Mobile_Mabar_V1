@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -55,8 +56,17 @@ public class ListHostTournamentAdapter extends RecyclerView.Adapter<ListHostTour
         holder.createdBy.setText("Created by "+dataTournament.get(position).getCreated_name());
 
         holder.judulGame.setText(dataTournament.get(position).getTitle_game());
+
+        CircularProgressDrawable cp = new CircularProgressDrawable(context);
+        cp.setStrokeWidth(5f);
+        //cp.setBackgroundColor(R.color.material_grey_300);
+        cp.setColorSchemeColors(R.color.primary_color_black, R.color.material_grey_800, R.color.material_grey_700);
+        cp.setCenterRadius(30f);
+        cp.start();
+
         Glide.with(context)
                 .load(dataTournament.get(position).getImage())
+                .placeholder(cp)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 //.skipMemoryCache(true)
                 .into(holder.imageTourney);

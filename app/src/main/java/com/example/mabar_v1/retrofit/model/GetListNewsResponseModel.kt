@@ -57,6 +57,12 @@ data class GetListNewsResponseModel(
         val updatedAt: String?,
         @SerializedName("updated_by")
         @Expose
-        val updatedBy: String?
+        val updatedBy: String?,
+        @SerializedName("diffCreatedAt")
+        @Expose
+        val diffCreatedAt: String?,
+        @SerializedName("news_category_name")
+        @Expose
+        val newsCategoryName: String?,
     )
 }

@@ -19,18 +19,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.DetailNewsActivity;
 import com.example.mabar_v1.retrofit.model.GetListNewsResponseModel;
-import com.example.mabar_v1.retrofit.model.GetListNewsResponseModel;
 import com.example.mabar_v1.utility.GlobalMethod;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListNewsHomeAdapter extends RecyclerView.Adapter<ListNewsHomeAdapter.NewsViewHolder> {
+public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.NewsViewHolder> {
     private Context context;
     private List<GetListNewsResponseModel.Data> dataNews = new ArrayList<>();
     private GlobalMethod globalMethod;
 
-    public ListNewsHomeAdapter(Context context, List<GetListNewsResponseModel.Data> dataNews) {
+    public ListNewsAdapter(Context context, List<GetListNewsResponseModel.Data> dataNews) {
         this.context = context;
         this.dataNews = dataNews;
     }
@@ -38,7 +37,7 @@ public class ListNewsHomeAdapter extends RecyclerView.Adapter<ListNewsHomeAdapte
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_news_home,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_news,parent,false);
         globalMethod = new GlobalMethod();
         return new NewsViewHolder(view);
     }
@@ -47,6 +46,7 @@ public class ListNewsHomeAdapter extends RecyclerView.Adapter<ListNewsHomeAdapte
     public void onBindViewHolder(@NonNull NewsViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.judulNews.setText(dataNews.get(position).getTitle());
+        holder.categoryNews.setText(dataNews.get(position).getNewsCategoryName());
 
         holder.infoNews.setText(dataNews.get(position).getFirstname() + " - " + dataNews.get(position).getDiffCreatedAt() );
 
@@ -84,12 +84,13 @@ public class ListNewsHomeAdapter extends RecyclerView.Adapter<ListNewsHomeAdapte
 
     public class NewsViewHolder extends RecyclerView.ViewHolder {
         ImageView imageNews;
-        TextView judulNews,infoNews;
+        TextView judulNews,infoNews,categoryNews;
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             imageNews = itemView.findViewById(R.id.image_news);
             judulNews = itemView.findViewById(R.id.judul_news);
             infoNews = itemView.findViewById(R.id.info_news);
+            categoryNews = itemView.findViewById(R.id.tv_category);
         }
     }
 }

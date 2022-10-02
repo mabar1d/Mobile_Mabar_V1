@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mabar_v1.R;
 import com.example.mabar_v1.main.GeneralSearchTournamentActivity;
+import com.example.mabar_v1.main.NewsActivity;
 import com.example.mabar_v1.retrofit.model.DataItem;
 import com.example.mabar_v1.retrofit.model.GetListMenuResponseModel;
 import com.example.mabar_v1.utility.GlobalMethod;
@@ -60,8 +61,10 @@ public class ListMenuHomeAdapter extends RecyclerView.Adapter<ListMenuHomeAdapte
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(context, GeneralSearchTournamentActivity.class);
-                    /*Bundle bun = new Bundle();
-                    i.putExtras(bun);*/
+                    Bundle bun = new Bundle();
+                    bun.putString("id_game",null);
+                    bun.putString("judul_game",null);
+                    i.putExtras(bun);
                     context.startActivity(i);
                 }
             });
@@ -84,9 +87,7 @@ public class ListMenuHomeAdapter extends RecyclerView.Adapter<ListMenuHomeAdapte
             holder.llMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, GeneralSearchTournamentActivity.class);
-                    /*Bundle bun = new Bundle();
-                    i.putExtras(bun);*/
+                    Intent i = new Intent(context, NewsActivity.class);
                     context.startActivity(i);
                 }
             });

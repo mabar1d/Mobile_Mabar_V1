@@ -12,30 +12,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="70dp"
-        android:orientation="vertical">
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/grey"
-            android:layout_marginBottom="10dp"
-            android:text="Search Tournament"/>-->
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
 
         <!--Searchbar-->
         <androidx.cardview.widget.CardView
             android:layout_width="250dp"
-            android:layout_gravity="center"
             android:layout_height="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="40dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="40dp"
-            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="20dp"
             app:cardBackgroundColor="@color/material_grey_700"
-            android:layout_marginBottom="20dp">
+            app:cardCornerRadius="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -54,15 +44,16 @@
                     android:paddingLeft="10dp"
                     android:singleLine="true"
                     android:textColor="@color/grey"
-                    android:textColorHint="@color/grey" />
+                    android:textColorHint="@color/grey"
+                    android:textSize="14dp" />
 
                 <ImageView
                     android:id="@+id/btn_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:src="@android:drawable/ic_menu_search"
-                    android:layout_alignParentEnd="true"/>
+                    android:src="@android:drawable/ic_menu_search" />
 
             </RelativeLayout>
 
@@ -70,22 +61,22 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/primary_color_black"
-            android:background="@color/primary_color_black"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="30dp"
-            app:cardCornerRadius="15dp"
-            android:padding="10dp">
+            android:background="@color/primary_color_black"
+            android:padding="10dp"
+            app:cardBackgroundColor="@color/primary_color_black"
+            app:cardCornerRadius="15dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="10dp"
                 android:id="@+id/recycler_my_tournaments"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp" />
         </androidx.cardview.widget.CardView>
 
 

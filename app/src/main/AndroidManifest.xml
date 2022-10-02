@@ -53,6 +53,12 @@
             android:name=".main.DetailTournamentActivity"
             android:exported="false" />
         <activity
+            android:name=".main.DetailNewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.NewsActivity"
+            android:exported="false" />
+        <activity
             android:name=".main.GeneralSearchTournamentActivity"
             android:exported="false" />
         <activity

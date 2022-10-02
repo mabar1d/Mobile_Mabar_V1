@@ -27,7 +27,19 @@ data class GetInfoNewsResponseModel(
         val createdBy: String?,
         @SerializedName("deleted_at")
         @Expose
-        val deletedAt: Any?,
+        val deletedAt: String?,
+        @SerializedName("firstname")
+        @Expose
+        val firstname: String?,
+        @SerializedName("lastname")
+        @Expose
+        val lastname: String?,
+        @SerializedName("linkShare")
+        @Expose
+        val linkShare: String?,
+        @SerializedName("diffCreatedAt")
+        @Expose
+        val diffCreatedAt: String?,
         @SerializedName("id")
         @Expose
         val id: Int?,
