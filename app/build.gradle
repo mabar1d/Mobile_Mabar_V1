@@ -22,7 +22,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.example.mabar_v1"
+        applicationId 'com.circle.CircleGames'
         minSdkVersion 23
         targetSdkVersion 32
         versionCode generateVersionCode()

@@ -53,11 +53,12 @@
 
             <ImageView
                 android:id="@+id/btn_cancel"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/ic_cancel" />
+                android:src="@drawable/ic_cancel"
+                app:tint="@color/grey" />
 
         </LinearLayout>
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/primary_color_black"
-    tools:context=".main.DetailTournamentActivity">
+    tools:context="com.circle.circle_games.main.DetailTournamentActivity">
 
     <ScrollView
         android:layout_width="match_parent"

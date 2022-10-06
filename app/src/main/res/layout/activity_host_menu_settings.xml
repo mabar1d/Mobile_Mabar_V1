@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_color_black"
-    tools:context=".host.HostMenuSettingsActivity">
+    tools:context="com.circle.circle_games.host.HostMenuSettingsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

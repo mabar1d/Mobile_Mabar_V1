@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/primary_color_black"
-    tools:context=".main.TournamentFragment">
+    tools:context="com.circle.circle_games.main.TournamentFragment">
 
     <LinearLayout
         android:id="@+id/llcontent"

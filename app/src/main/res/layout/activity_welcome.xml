@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/primary_background_gradient"
     android:id="@+id/cl_main"
-    tools:context=".WelcomeActivity">
+    tools:context="com.circle.circle_games.WelcomeActivity">
 
 
     <ImageView

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/primary_color_black"
-    tools:context=".main.GeneralSearchTournamentActivity">
+    tools:context="com.circle.circle_games.main.GeneralSearchTournamentActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

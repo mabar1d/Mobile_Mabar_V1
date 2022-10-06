@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "572215764394",
+    "project_id": "circle-games-jda098",
+    "storage_bucket": "circle-games-jda098.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572215764394:android:6359c92f1f5ebc73abb7d3",
+        "android_client_info": {
+          "package_name": "com.circle.CircleGames"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572215764394-mj4rt2lovkkmhhejir3la3n7npin9ke2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.circle.CircleGames",
+            "certificate_hash": "2875701d3d3973bdfc04406949004adf9a9e890a"
+          }
+        },
+        {
+          "client_id": "572215764394-ddoogr2q7eo55pvamgkit2v17pr8kg60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJo2PU_5J8GkBggh75__b1mjTjuNEP6dI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572215764394-ddoogr2q7eo55pvamgkit2v17pr8kg60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

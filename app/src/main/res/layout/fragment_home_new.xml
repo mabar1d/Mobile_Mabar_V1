@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/primary_color_black"
     android:orientation="vertical"
-    tools:context=".main.HomeFragmentNew">
+    tools:context="com.circle.circle_games.main.HomeFragmentNew">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
@@ -158,18 +158,15 @@
                 android:paddingLeft="10dp"
                 android:text="Highlights"
                 android:textColor="@color/material_grey_500"
-                android:textSize="14dp" />
+                android:textSize="15dp" />
 
             <!--Top Tournaments-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/material_grey_700"
-                app:cardCornerRadius="20dp">
+                app:cardBackgroundColor="@color/material_grey_700">
 
                 <com.asura.library.views.PosterSlider
                     android:id="@+id/poster_slider"
@@ -242,17 +239,14 @@
                 android:paddingLeft="10dp"
                 android:text="Game List"
                 android:textColor="@color/material_grey_500"
-                android:textSize="14dp" />
+                android:textSize="15dp" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
                 android:padding="10dp"
-                app:cardBackgroundColor="@color/material_grey_700"
-                app:cardCornerRadius="15dp">
+                app:cardBackgroundColor="@color/material_grey_700">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_game_list"
@@ -268,12 +262,14 @@
                 android:paddingLeft="10dp"
                 android:text="New Tournaments"
                 android:textColor="@color/material_grey_500"
-                android:textSize="14dp" />
+                android:textSize="15dp" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
                 app:cardBackgroundColor="@color/black"
                 app:cardCornerRadius="15dp">
 
@@ -291,12 +287,14 @@
                 android:paddingLeft="10dp"
                 android:text="News"
                 android:textColor="@color/material_grey_500"
-                android:textSize="14dp" />
+                android:textSize="15dp" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
                 app:cardBackgroundColor="@color/black"
                 app:cardCornerRadius="15dp">
 

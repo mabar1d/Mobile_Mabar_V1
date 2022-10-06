@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_color_black"
-    tools:context=".profile.JoinTeamActivity">
+    tools:context="com.circle.circle_games.profile.JoinTeamActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

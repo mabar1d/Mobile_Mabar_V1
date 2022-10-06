@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_home"
         android:label="Fragment Home"
-        android:name="com.example.mabar_v1.main.HomeFragmentNew"
+        android:name="com.circle.circle_games.main.HomeFragmentNew"
         tools:layout="@layout/fragment_home_new" />
 
     <fragment
         android:id="@+id/navigation_tournament"
         android:label="Fragment Tournament"
-        android:name="com.example.mabar_v1.main.TournamentFragment"
+        android:name="com.circle.circle_games.main.TournamentFragment"
         tools:layout="@layout/fragment_tournament" />
 
     <fragment
         android:id="@+id/navigation_profile"
         android:label="Fragment Profile"
-        android:name="com.example.mabar_v1.main.ProfileNewFragment"
+        android:name="com.circle.circle_games.main.ProfileNewFragment"
         tools:layout="@layout/fragment_profile_new" />
 </navigation>

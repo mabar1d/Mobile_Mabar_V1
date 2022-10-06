@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_color_black"
-    tools:context=".login.LoginActivity">
+    tools:context="com.circle.circle_games.login.LoginActivity">
 
 
     <EditText

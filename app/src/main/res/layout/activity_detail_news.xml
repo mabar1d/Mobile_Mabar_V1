@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/primary_color_black"
-    tools:context=".main.DetailTournamentActivity">
+    tools:context="com.circle.circle_games.main.DetailTournamentActivity">
 
 
     <RelativeLayout
@@ -266,7 +266,6 @@
                     android:textColor="@color/grey"
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="20dp"
-                    android:text="29-sep-2022 "
                     android:textStyle="bold"
                     app:cardCornerRadius="10dp"
                     android:textSize="12sp" />
