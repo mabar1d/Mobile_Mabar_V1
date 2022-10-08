@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Circle Game</string>
+    <string name="app_name">Circle Games</string>
     <string name="tx_login_username">Username or Email</string>
     <string name="tx_login_password">Password</string>
 

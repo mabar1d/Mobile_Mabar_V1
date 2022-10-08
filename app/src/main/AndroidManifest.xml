@@ -18,55 +18,55 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mabar_V1">
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.host.HostListTournamentActivity"
+            android:name="com.circle.circle_games.host.HostListTournamentActivity"
             android:exported="false" />
         <activity
             android:name="com.circle.circle_games.main.TournamentGraphWebViewActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.team.DetailTeamInfoActivity"
+            android:name="com.circle.circle_games.team.DetailTeamInfoActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.team.ManageTeamActivity"
+            android:name="com.circle.circle_games.team.ManageTeamActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.profile.JoinTeamActivity"
+            android:name="com.circle.circle_games.profile.JoinTeamActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.team.EditTeamActivity"
+            android:name="com.circle.circle_games.team.EditTeamActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.host.HostManageTournamentActivity"
+            android:name="com.circle.circle_games.host.HostManageTournamentActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.host.HostMenuSettingsActivity"
+            android:name="com.circle.circle_games.host.HostMenuSettingsActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.team.CreateTeamActivity"
+            android:name="com.circle.circle_games.team.CreateTeamActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.team.TeamSettingsActivity"
+            android:name="com.circle.circle_games.team.TeamSettingsActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.profile.CreateTournamentActivity"
+            android:name="com.circle.circle_games.profile.CreateTournamentActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.main.DetailTournamentActivity"
+            android:name="com.circle.circle_games.main.DetailTournamentActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.main.DetailNewsActivity"
+            android:name="com.circle.circle_games.main.DetailNewsActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.main.NewsActivity"
+            android:name="com.circle.circle_games.main.NewsActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.main.GeneralSearchTournamentActivity"
+            android:name="com.circle.circle_games.main.GeneralSearchTournamentActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.profile.DetailProfileAccountActivity"
+            android:name="com.circle.circle_games.profile.DetailProfileAccountActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.splash.SplashScreen1"
+            android:name="com.circle.circle_games.splash.SplashScreen1"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -75,23 +75,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.WelcomeActivity"
+            android:name="com.circle.circle_games.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.signup.SignUpActivity"
+            android:name="com.circle.circle_games.signup.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.login.LoginActivity"
+            android:name="com.circle.circle_games.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.circle.circle_games.com.circle.circle_games.MainActivity"
+            android:name="com.circle.circle_games.MainActivity"
             android:layout_alignParentBottom="true"
             android:exported="false"
             android:fitsSystemWindows="true"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustNothing" />
 
-        <service android:name="com.circle.circle_games.com.circle.circle_games.service.FirebaseMessageReceiver">
+        <service android:name="com.circle.circle_games.service.FirebaseMessageReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
