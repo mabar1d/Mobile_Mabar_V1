@@ -34,7 +34,8 @@ import com.circle.circle_games.main.adapter.ListPersonAddedAdapter;
 import com.circle.circle_games.retrofit.ApiService;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.retrofit.model.CreateTeamResponseModel;
-import com.circle.circle_games.retrofit.model.ListPersonnelResponseModel;
+import com.circle.circle_games.retrofit.model.ListPersonnelNotMemberResponseModel;
+import com.circle.circle_games.retrofit.model.ListPersonnelNotMemberResponseModel;
 import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
@@ -45,7 +46,7 @@ import com.circle.circle_games.main.adapter.ListPersonAddedAdapter;
 import com.circle.circle_games.retrofit.ApiService;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.retrofit.model.CreateTeamResponseModel;
-import com.circle.circle_games.retrofit.model.ListPersonnelResponseModel;
+import com.circle.circle_games.retrofit.model.ListPersonnelNotMemberResponseModel;
 import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
@@ -120,8 +121,8 @@ public class CreateTeamActivity extends AppCompatActivity {
     private GlobalMethod gm;
     private ListPersonAdapter listPersonAdapter;
     private ListPersonAddedAdapter listPersonAddedAdapter;
-    List<ListPersonnelResponseModel.Data> listPerson = new ArrayList<>();
-    List<ListPersonnelResponseModel.Data> listPersonAdded = new ArrayList<>();
+    List<ListPersonnelNotMemberResponseModel.Data> listPerson = new ArrayList<>();
+    List<ListPersonnelNotMemberResponseModel.Data> listPersonAdded = new ArrayList<>();
     ArrayList<String> listSpinnerGame = new ArrayList<>();
 
     @Override
@@ -372,10 +373,10 @@ public class CreateTeamActivity extends AppCompatActivity {
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<ListPersonnelResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListPersonnelNotMember(sess.getString("id_user"), search, page);
-            req.enqueue(new Callback<ListPersonnelResponseModel>() {
+            Call<ListPersonnelNotMemberResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListPersonnelNotMember(sess.getString("id_user"), search, page);
+            req.enqueue(new Callback<ListPersonnelNotMemberResponseModel>() {
                 @Override
-                public void onResponse(Call<ListPersonnelResponseModel> call, Response<ListPersonnelResponseModel> response) {
+                public void onResponse(Call<ListPersonnelNotMemberResponseModel> call, Response<ListPersonnelNotMemberResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
 
@@ -384,12 +385,12 @@ public class CreateTeamActivity extends AppCompatActivity {
 
                             listPersonAdapter = new ListPersonAdapter(CreateTeamActivity.this, listPerson, new ListPersonAdapter.OnItemClickListener() {
                                 @Override
-                                public void onItemClick(ListPersonnelResponseModel.Data item, int position) {
+                                public void onItemClick(ListPersonnelNotMemberResponseModel.Data item, int position) {
                                     //item.setOnClick(true);
 
                                     listPerson.set(position, item);
                                     for (int i = 0; i < listPerson.size(); i++) {
-                                        ListPersonnelResponseModel.Data itemLain = listPerson.get(i);
+                                        ListPersonnelNotMemberResponseModel.Data itemLain = listPerson.get(i);
                                         itemLain.setOnClick(false);
                                         listPerson.set(i, itemLain);
                                     }
@@ -428,7 +429,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                             //Setting Adapter Added Person
                             listPersonAddedAdapter = new ListPersonAddedAdapter(CreateTeamActivity.this, listPersonAdded, new ListPersonAddedAdapter.OnItemClickListener() {
                                 @Override
-                                public void onItemClick(ListPersonnelResponseModel.Data item, int position) {
+                                public void onItemClick(ListPersonnelNotMemberResponseModel.Data item, int position) {
                                     listPersonAdded.remove(position);
                                     personnel.remove(position);
                                     personnelId.remove(position);
@@ -481,7 +482,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ListPersonnelResponseModel> call, Throwable t) {
+                public void onFailure(Call<ListPersonnelNotMemberResponseModel> call, Throwable t) {
                     Toast.makeText(CreateTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     progress.dismiss();

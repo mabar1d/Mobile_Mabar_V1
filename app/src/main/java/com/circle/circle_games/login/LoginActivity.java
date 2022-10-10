@@ -21,6 +21,7 @@ import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.signup.SignUpActivity;
 import com.circle.circle_games.splash.SplashScreen1;
 import com.circle.circle_games.utility.SessionUser;
+import com.google.android.material.textfield.TextInputEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,9 +32,9 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.etEmail)
-    EditText etEmail;
+    TextInputEditText etEmail;
     @BindView(R.id.etPassword)
-    EditText etPassword;
+    TextInputEditText etPassword;
     @BindView(R.id.tvLupaPassword)
     TextView tvLupaPassword;
     @BindView(R.id.btnLogin)

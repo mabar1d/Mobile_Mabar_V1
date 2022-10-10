@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -36,6 +37,7 @@ import com.circle.circle_games.main.adapter.ListPersonAddedAdapter;
 import com.circle.circle_games.retrofit.ApiService;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.retrofit.model.GetTeamInfoResponseModel;
+import com.circle.circle_games.retrofit.model.ListPersonnelNotMemberResponseModel;
 import com.circle.circle_games.retrofit.model.ListPersonnelResponseModel;
 import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
 import com.circle.circle_games.utility.GlobalMethod;
@@ -83,8 +85,6 @@ public class EditTeamActivity extends AppCompatActivity {
     EditText etTeamInfo;
     @BindView(R.id.sp_game)
     Spinner spGame;
-    @BindView(R.id.et_personnel)
-    TextView etPersonnel;
     @BindView(R.id.recycler_personell_added_clone)
     RecyclerView rvAddedPersonellClone;
     @BindView(R.id.btn_add_personell)
@@ -97,10 +97,8 @@ public class EditTeamActivity extends AppCompatActivity {
     BottomSheetDialog bsDialog;
     View bottomSheet;
 
-    private boolean firstStart = true;
 
     private EditText sbPerson;
-    private TextView tvAddedPerson;
     private ImageView btnSearch;
     RecyclerView rvPersonell;
     RecyclerView rvPersonellAdded;
@@ -116,18 +114,15 @@ public class EditTeamActivity extends AppCompatActivity {
     private String teamInfo = "";
     private String tourDescription = "";
     private Integer game;
-    private JSONArray personnel = new JSONArray();
     private JSONArray personnelId = new JSONArray();
-    private boolean memberEdited = false;
 
     private SessionUser sess;
     private GlobalMethod gm;
     private ListPersonAdapter listPersonAdapter;
     private ListPersonAddedAdapter listPersonAddedAdapter;
-    List<ListPersonnelResponseModel.Data> listPerson = new ArrayList<>();
-    List<ListPersonnelResponseModel.Data> listPersonAdded = new ArrayList<>();
+    List<ListPersonnelNotMemberResponseModel.Data> listPerson = new ArrayList<>();
+    List<ListPersonnelNotMemberResponseModel.Data> listPersonAdded = new ArrayList<>();
     List<GetTeamInfoResponseModel.Data.Personnel> listPersonnelExisting = new ArrayList<>();
-    List<String> listPersonnelText = new ArrayList<>();
     ArrayList<String> listSpinnerGame = new ArrayList<>();
 
     @Override
@@ -192,14 +187,14 @@ public class EditTeamActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getListPerson(sbPerson.getText().toString(),"0");
+                getListNotMemberPerson(sbPerson.getText().toString(),"0");
             }
         });
         sbPerson.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    getListPerson(sbPerson.getText().toString(),"0");
+                    getListNotMemberPerson(sbPerson.getText().toString(),"0");
                     return true;
                 }
                 return false;
@@ -211,7 +206,7 @@ public class EditTeamActivity extends AppCompatActivity {
         btnAddPersonell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getListPerson("","0");
+                getListNotMemberPerson("","0");
             }
         });
 
@@ -244,7 +239,10 @@ public class EditTeamActivity extends AppCompatActivity {
                         }else {
                             game = 0;
                         }
-                        //game = Integer.parseInt(etGame.getText().toString());
+                        for (int i = 0;i<listPersonAdded.size();i++){
+                            personnelId.put(listPersonAdded.get(i).getUserId());
+                        }
+
                         if (picturePath.equals("")){
                             updateTeam(idTeam,teamName,teamInfo,game.toString(),personnelId);
                         }else {
@@ -266,8 +264,28 @@ public class EditTeamActivity extends AppCompatActivity {
             }
         });
 
+        //Setting Adapter Added Person
+        listPersonAddedAdapter = new ListPersonAddedAdapter(EditTeamActivity.this, listPersonAdded, new ListPersonAddedAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ListPersonnelNotMemberResponseModel.Data item, int position) {
+                gm.showDialogConfirmation(EditTeamActivity.this, "Remove From Team?", "Remove "+ item.getUsername() + " from your team?", "Yes", "Cancel", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listPersonAdded.remove(position);
+                        listPersonAddedAdapter.notifyDataSetChanged();
+                        gm.dismissDialogConfirmation();
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gm.dismissDialogConfirmation();
+                    }
+                });
+
+            }
+        });
+
         getDataTeam(idTeam);
-        getListPerson("","0");
 
     }
 
@@ -386,67 +404,31 @@ public class EditTeamActivity extends AppCompatActivity {
         }
     }
 
-    private void getListPerson(String search,String page){
+    private void getListNotMemberPerson(String search,String page){
 
         ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<ListPersonnelResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListPersonnelNotMember(sess.getString("id_user"), search, page);
-            req.enqueue(new Callback<ListPersonnelResponseModel>() {
+            Call<ListPersonnelNotMemberResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListPersonnelNotMember(sess.getString("id_user"), search, page);
+            req.enqueue(new Callback<ListPersonnelNotMemberResponseModel>() {
                 @Override
-                public void onResponse(Call<ListPersonnelResponseModel> call, Response<ListPersonnelResponseModel> response) {
+                public void onResponse(Call<ListPersonnelNotMemberResponseModel> call, Response<ListPersonnelNotMemberResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
-/*
-                bottomSheet.buttonSubmit.setOnClickListener { dialog.dismiss() }
-*/
 
                             listPerson.clear();
                             listPerson = response.body().getData();
-                            if (memberEdited == false){
-                                listPersonAdded.clear();
-                                personnel = new JSONArray();
-                                personnelId = new JSONArray();
-                                for (int i = 0; i < listPersonnelExisting.size(); i++) {
-                                    String idPersonEx = "";
-                                    idPersonEx = listPersonnelExisting.get(i).getUserId();
-                                    for (int j = 0; j < listPerson.size(); j++) {
-                                        Integer idPerson;
-                                        idPerson = listPerson.get(j).getUserId();
-                                        if (idPersonEx.equals(idPerson.toString())){
-
-                                            listPersonAdded.add(listPerson.get(j));
-                                            personnel.put(listPerson.get(j).getUsername());
-                                            personnelId.put(idPersonEx);
-                                            valueMember = personnel.toString();
-
-                                            if (valueMember.contains("[")) {
-                                                valueMember=valueMember.replace("[", "");
-                                            }
-                                            if (valueMember.contains("]")){
-                                                valueMember=valueMember.replace("]", "");
-                                            }
-
-                                            etPersonnel.setText(valueMember);
-
-                                        }
-
-                                    }
-
-                                }
-                            }
-                            memberEdited = true;
 
 
                             listPersonAdapter = new ListPersonAdapter(EditTeamActivity.this, listPerson, new ListPersonAdapter.OnItemClickListener() {
                                 @Override
-                                public void onItemClick(ListPersonnelResponseModel.Data item, int position) {
+                                public void onItemClick(ListPersonnelNotMemberResponseModel.Data item, int position) {
                                     //item.setOnClick(true);
 
                                     listPerson.set(position, item);
                                     for (int i = 0; i < listPerson.size(); i++) {
-                                        ListPersonnelResponseModel.Data itemLain = listPerson.get(i);
+                                        ListPersonnelNotMemberResponseModel.Data itemLain = listPerson.get(i);
                                         itemLain.setOnClick(false);
                                         listPerson.set(i, itemLain);
                                     }
@@ -458,61 +440,20 @@ public class EditTeamActivity extends AppCompatActivity {
                                     if (!listPersonAdded.contains(item)){
 
                                         listPersonAdded.add(item);
-                                        personnel.put(item.getUsername());
-                                        personnelId.put(item.getUserId());
                                         //tvAddedPerson.setText(personnel.toString());
-
-                                        valueMember = personnel.toString();
-                                        if (valueMember.contains("[")) {
-                                            valueMember=valueMember.replace("[", "");
-                                        }
-                                        if (valueMember.contains("]")){
-                                            valueMember=valueMember.replace("]", "");
-                                        }
-                                    /*if (valueMember.contains("")){
-                                        valueMember=valueMember.replace("", "");
-                                    }*/
-
-                                        etPersonnel.setText(valueMember);
 
                                         item.setOnClick(true);
                                         listPersonAddedAdapter.notifyDataSetChanged();
 
                                     }
 
-                                    //listPerson.remove(position);
                                     listPersonAdapter.notifyDataSetChanged();
-                                    //notifyAll();
                                 }
                             });
 
                             rvPersonell.setLayoutManager(new GridLayoutManager(EditTeamActivity.this,2));
                             rvPersonell.setAdapter(listPersonAdapter);
                             listPersonAdapter.notifyDataSetChanged();
-
-                            //Setting Adapter Added Person
-                            listPersonAddedAdapter = new ListPersonAddedAdapter(EditTeamActivity.this, listPersonAdded, new ListPersonAddedAdapter.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(ListPersonnelResponseModel.Data item, int position) {
-                                    listPersonAdded.remove(position);
-                                    personnel.remove(position);
-                                    personnelId.remove(position);
-
-                                    valueMember = personnel.toString();
-                                    if (valueMember.contains("[")) {
-                                        valueMember=valueMember.replace("[", "");
-                                    }
-                                    if (valueMember.contains("]")){
-                                        valueMember=valueMember.replace("]", "");
-                                    }
-                                    /*if (valueMember.contains("")){
-                                        valueMember=valueMember.replace("", "");
-                                    }*/
-
-                                    etPersonnel.setText(valueMember);
-                                    listPersonAddedAdapter.notifyDataSetChanged();
-                                }
-                            });
 
                             rvPersonellAdded.setLayoutManager(new GridLayoutManager(EditTeamActivity.this,2,GridLayoutManager.HORIZONTAL,false));
                             rvPersonellAdded.setAdapter(listPersonAddedAdapter);
@@ -523,16 +464,7 @@ public class EditTeamActivity extends AppCompatActivity {
                             listPersonAddedAdapter.notifyDataSetChanged();
 
                             bsDialog.setContentView(bottomSheet);
-
-                            if (firstStart){
-                                bsDialog.dismiss();
-                            }else {
-                                bsDialog.show();
-                            }
-
-
-                            //untuk menandai pertama kebuka
-                            firstStart = false;
+                            bsDialog.show();
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
@@ -555,7 +487,7 @@ public class EditTeamActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ListPersonnelResponseModel> call, Throwable t) {
+                public void onFailure(Call<ListPersonnelNotMemberResponseModel> call, Throwable t) {
                     Toast.makeText(EditTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     progress.dismiss();
@@ -583,11 +515,22 @@ public class EditTeamActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
 
-                            Glide.with(EditTeamActivity.this)
-                                    .load(response.body().getData().getImage())
-                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                    .skipMemoryCache(true)
-                                    .into(civTeam);
+                            CircularProgressDrawable cp = new CircularProgressDrawable(EditTeamActivity.this);
+                            cp.setStrokeWidth(5f);
+                            //cp.setBackgroundColor(R.color.material_grey_300);
+                            cp.setColorSchemeColors(R.color.primary_color_black, R.color.material_grey_800, R.color.material_grey_700);
+                            cp.setCenterRadius(30f);
+                            cp.start();
+
+                            if (!response.body().getData().getImage().equals("")){
+                                Glide.with(EditTeamActivity.this)
+                                        .load(response.body().getData().getImage())
+                                        .placeholder(cp)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
+                                        .into(civTeam);
+                            }
+
 
                             etTeamName.setText(response.body().getData().getName());
                             etTeamInfo.setText(response.body().getData().getInfo());
@@ -604,17 +547,20 @@ public class EditTeamActivity extends AppCompatActivity {
 
                             listPersonnelExisting = response.body().getData().getPersonnel();
                             for (int i = 0; i < listPersonnelExisting.size(); i++) {
-                                personnel.put(listPersonnelExisting.get(i).getUsername());
-                                personnelId.put(listPersonnelExisting.get(i).getUserId());
+
+                                ListPersonnelNotMemberResponseModel.Data item = new ListPersonnelNotMemberResponseModel.Data(
+                                        listPersonnelExisting.get(i).getUsername(),
+                                        Integer.parseInt(listPersonnelExisting.get(i).getUserId()),
+                                        true
+                                );
+                                listPersonAdded.add(item);
+                                listPersonAddedAdapter.notifyDataSetChanged();
+
                             }
-                            valueMember = personnel.toString();
-                            if (valueMember.contains("[")) {
-                                valueMember=valueMember.replace("[", "");
-                            }
-                            if (valueMember.contains("]")){
-                                valueMember=valueMember.replace("]", "");
-                            }
-                            etPersonnel.setText(valueMember);
+
+                            rvAddedPersonellClone.setLayoutManager(new LinearLayoutManager(EditTeamActivity.this));
+                            rvAddedPersonellClone.setAdapter(listPersonAddedAdapter);
+
 
 
                         }else if (response.body().getCode().equals("05")){

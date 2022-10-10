@@ -8,19 +8,16 @@
     tools:context="com.circle.circle_games.login.LoginActivity">
 
 
-    <EditText
-        android:id="@+id/etEmail"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_email_layout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="54dp"
-        android:layout_marginTop="258dp"
+        android:layout_marginTop="280dp"
         android:layout_marginEnd="54dp"
         android:background="@drawable/rounded_edit_text_grey"
         android:textColorHint="@color/text_grey"
-        android:textColor="@color/text_grey"
-        android:ems="10"
-        android:hint="@string/tx_login_username"
-        android:inputType="textEmailAddress"
         android:focusable="true"
         android:paddingLeft="15dp"
         android:paddingTop="8dp"
@@ -28,29 +25,53 @@
         android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:background="@drawable/rounded_edit_text_grey"
+            android:textColorHint="@color/text_grey"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/text_grey"
+            android:hint="@string/tx_login_username"
+            android:textSize="16sp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:textColorHint="@color/text_grey"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_password_layout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="54dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="54dp"
         android:background="@drawable/rounded_edit_text_grey"
-        android:textColor="@color/text_grey"
-        android:ems="10"
-        android:hint="@string/tx_login_password"
-        android:inputType="textPassword"
+        android:textColorHint="@color/text_grey"
         android:focusable="true"
         android:paddingLeft="15dp"
-        android:paddingTop="8dp"
         android:paddingRight="15dp"
         android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/et_email_layout"
+        app:endIconTint="@color/text_grey"
+        app:endIconMode="password_toggle">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:background="@drawable/rounded_edit_text_grey"
+            android:textColorHint="@color/text_grey"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword"
+            android:textColor="@color/text_grey"
+            android:hint="@string/tx_login_password"
+            android:textSize="16sp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
     <Button
         android:id="@+id/btnLogin"
@@ -64,7 +85,7 @@
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/et_password_layout" />
 
     <TextView
         android:id="@+id/tvLupaPassword"
@@ -103,14 +124,15 @@
         android:id="@+id/imageView2"
         android:layout_width="248dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
         android:padding="10dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/etEmail"
+        app:layout_constraintBottom_toTopOf="@+id/et_email_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_circle_text" />
+        app:srcCompat="@drawable/logo_circle_hd" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

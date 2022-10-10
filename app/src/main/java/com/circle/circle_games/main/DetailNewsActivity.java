@@ -176,4 +176,5 @@ public class DetailNewsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 }

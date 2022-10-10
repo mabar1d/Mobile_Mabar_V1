@@ -2,6 +2,7 @@ package com.circle.circle_games.team;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -255,8 +256,16 @@ public class TeamSettingsActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
 
+                            CircularProgressDrawable cp = new CircularProgressDrawable(TeamSettingsActivity.this);
+                            cp.setStrokeWidth(5f);
+                            //cp.setBackgroundColor(R.color.material_grey_300);
+                            cp.setColorSchemeColors(R.color.primary_color_black, R.color.material_grey_800, R.color.material_grey_700);
+                            cp.setCenterRadius(30f);
+                            cp.start();
+
                             Glide.with(TeamSettingsActivity.this)
                                     .load(response.body().getData().getImage())
+                                    .placeholder(cp)
                                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                                     .skipMemoryCache(true)
                                     .into(civTeam);

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.circle.circle_games.R;
+import com.circle.circle_games.retrofit.model.ListPersonnelNotMemberResponseModel;
 import com.circle.circle_games.retrofit.model.ListPersonnelResponseModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -24,18 +25,18 @@ import java.util.List;
 
 public class ListPersonAddedAdapter extends RecyclerView.Adapter {
     private Context context;
-    private List<ListPersonnelResponseModel.Data> dataPerson = new ArrayList<>();
+    private List<ListPersonnelNotMemberResponseModel.Data> dataPerson = new ArrayList<>();
     private GlobalMethod globalMethod;
     private final ListPersonAddedAdapter.OnItemClickListener listener;
 
-    public ListPersonAddedAdapter(Context context, List<ListPersonnelResponseModel.Data> dataPerson,
+    public ListPersonAddedAdapter(Context context, List<ListPersonnelNotMemberResponseModel.Data> dataPerson,
                                   ListPersonAddedAdapter.OnItemClickListener listener) {
         this.context = context;
         this.dataPerson = dataPerson;
         this.listener = listener;
     }
     public interface OnItemClickListener {
-        void onItemClick(ListPersonnelResponseModel.Data item, int position);
+        void onItemClick(ListPersonnelNotMemberResponseModel.Data item, int position);
     }
 
     @NonNull
@@ -48,29 +49,15 @@ public class ListPersonAddedAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        ListPersonnelResponseModel.Data dataModel  = dataPerson.get(position);
+        ListPersonnelNotMemberResponseModel.Data dataModel  = dataPerson.get(position);
         final ListPersonAddedAdapter.PersonViewHolder holderItem = (ListPersonAddedAdapter.PersonViewHolder)holder;
 
         //postFinancingHolder.rbAsuransi.setEnabled(false);
 
 
-        /*if (dataModel.getOnClick() == true){
-            holderItem.cvPerson.setBackgroundColor(Color.parseColor("#ededed"));
-            //postFinancingHolder.rbAsuransi.setChecked(true);
-        }else {
-           // postFinancingHolder.rbAsuransi.setChecked(false);
-            holderItem.cvPerson.setBackgroundColor(context.getResources().getColor(R.color.white));
-        }*/
-
         holderItem.tvPersonName.setText(dataModel.getUsername());
 
-        /*holderItem.ivCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dataPerson.remove(position);
-                notifyDataSetChanged();
-            }
-        });*/
+
         Glide.with(context)
                 /*.load(dataPerson.get(position).getImage())*/
                 .load(R.drawable.person_photo)
@@ -99,7 +86,7 @@ public class ListPersonAddedAdapter extends RecyclerView.Adapter {
             cvPerson = itemView.findViewById(R.id.card_person);
             ivCancel = itemView.findViewById(R.id.btn_cancel);
         }
-        public void bind(ListPersonnelResponseModel.Data modelList, ListPersonAddedAdapter.OnItemClickListener listener) {
+        public void bind(ListPersonnelNotMemberResponseModel.Data modelList, ListPersonAddedAdapter.OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(modelList, getAdapterPosition());

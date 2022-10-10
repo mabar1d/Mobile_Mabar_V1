@@ -1,6 +1,9 @@
 package com.circle.circle_games.retrofit.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+
 
 data class ResponseListGame(
 
@@ -13,7 +16,7 @@ data class ResponseListGame(
 	@field:SerializedName("desc")
 	val desc: String? = null
 )
-
+@Entity(tableName = "table_game")
 data class DataItem(
 
 	@field:SerializedName("image")
@@ -25,6 +28,7 @@ data class DataItem(
 	@field:SerializedName("created_at")
 	val createdAt: String? = null,
 
+	@PrimaryKey(autoGenerate = false)
 	@field:SerializedName("id")
 	val id: Int? = null,
 

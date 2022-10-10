@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +40,7 @@ import com.circle.circle_games.retrofit.model.GetListMenuResponseModel;
 import com.circle.circle_games.retrofit.model.GetListNewsResponseModel;
 import com.circle.circle_games.retrofit.model.GetListTournamentResponseModel;
 import com.circle.circle_games.retrofit.model.ResponseListGame;
+import com.circle.circle_games.room.viewmodel.MasterViewModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -78,11 +81,14 @@ public class HomeFragmentNew extends Fragment {
     List<DataItem> listGames = new ArrayList<>();
     List<GetListMenuResponseModel.Data> listMenu = new ArrayList<>();
 
+    private MasterViewModel viewModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gm = new GlobalMethod();
         sess = new SessionUser(getActivity());
+        viewModel = ViewModelProviders.of(this).get(MasterViewModel.class);
 
     }
 
@@ -128,9 +134,26 @@ public class HomeFragmentNew extends Fragment {
         getListGame(sess.getString("id_user"),"","0");
         getListTournament(sess.getString("id_user"),"","0",listFilterGame);
         getListNews(sess.getString("id_user"),"","0");
+        getListGameFromDB();
 
         // Inflate the layout for this fragment
         return root;
+    }
+
+    private void getListGameFromDB(){
+        // below line is use to get all the courses from view modal.
+        viewModel.getAllGame().observe(requireActivity(), new Observer<List<DataItem>>() {
+            @Override
+            public void onChanged(List<DataItem> models) {
+                // when the data is changed in our models we are
+                // adding that list to our adapter class.
+                //listGameAdapter.submitList(models);
+                listGameAdapter = new ListGameAdapter(getContext(),models);
+                rlGame.setLayoutManager(new GridLayoutManager(getContext(),1,GridLayoutManager.HORIZONTAL,false));
+                rlGame.setAdapter(listGameAdapter);
+            }
+        });
+
     }
 
     private void getListNews(String userId,String search,String page){
@@ -233,9 +256,6 @@ public class HomeFragmentNew extends Fragment {
 
     private void getListGame(String userId,String search,String page){
 
-        /*ProgressDialog progress = new ProgressDialog(getContext());
-        progress.setMessage("Loading...");
-        progress.show();*/
         setLoad(true);
         try {
             Call<ResponseListGame> req = RetrofitConfig.getApiServices("").getListGame(userId, search, page);
@@ -244,21 +264,25 @@ public class HomeFragmentNew extends Fragment {
                 public void onResponse(Call<ResponseListGame> call, Response<ResponseListGame> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
+                            viewModel.deleteAllGame();
                             listGames.clear();
                             listGames = response.body().getData();
 
-                            /*List<Poster> posters=new ArrayList<>();
-                            //add poster using remote url
-                            posters.add(new RemoteImage("https://eventkampus.com/data/event/1/1319/poster-i-fest-2018-supernova-tournament-mobile-legends.jpeg"));
-                            posters.add(new RemoteImage("https://1.bp.blogspot.com/-nz7E2so-ud8/X2lbq-9nb4I/AAAAAAAAFTU/5UrnMMLEhOoaiSY5MyXhoB8neZX9m9HwwCLcBGAsYHQ/s957/Untitled-1.jpg"));
-                            posters.add(new RemoteImage("https://www.itcshoppingfestival.com/wp-content/uploads/2019/03/banner-web.jpeg"));
-                            posters.add(new RemoteImage("https://1.bp.blogspot.com/-tpxDJceDtTg/YS8FCUQncfI/AAAAAAAAClo/QRiA3xb6j00osV6jROkrUFFD7fW4Sry4wCLcBGAsYHQ/s1697/Poster%2BTurnamen%2BMobile%2BLegends%2BVersi%2B1%2Blow.jpg"));
-                            posters.add(new RemoteImage("https://mhs.unikama.ac.id/hmps-si/wp-content/nfs/sites/38/2019/10/Artboard-1.png"));
-                            posterSlider.setPosters(posters);*/
-
-                            listGameAdapter = new ListGameAdapter(getContext(),listGames);
+                            for(int i = 0; i < response.body().getData().size(); i++){
+                                DataItem di = new DataItem(
+                                        response.body().getData().get(i).getImage(),
+                                        response.body().getData().get(i).getUpdatedAt(),
+                                        response.body().getData().get(i).getCreatedAt(),
+                                        response.body().getData().get(i).getId(),
+                                        response.body().getData().get(i).getTitle()
+                                );
+                                viewModel.insert(di);
+                            }
+                            /*listGameAdapter = new ListGameAdapter(getContext(),listGames);
                             rlGame.setLayoutManager(new GridLayoutManager(getContext(),1,GridLayoutManager.HORIZONTAL,false));
-                            rlGame.setAdapter(listGameAdapter);
+                            rlGame.setAdapter(listGameAdapter);*/
+
+
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();

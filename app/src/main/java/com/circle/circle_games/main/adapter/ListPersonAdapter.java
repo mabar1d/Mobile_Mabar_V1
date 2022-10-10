@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.circle.circle_games.R;
+import com.circle.circle_games.retrofit.model.ListPersonnelNotMemberResponseModel;
 import com.circle.circle_games.retrofit.model.ListPersonnelResponseModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -22,18 +23,18 @@ import java.util.List;
 
 public class ListPersonAdapter extends RecyclerView.Adapter {
     private Context context;
-    private List<ListPersonnelResponseModel.Data> dataTeam = new ArrayList<>();
+    private List<ListPersonnelNotMemberResponseModel.Data> dataTeam = new ArrayList<>();
     private GlobalMethod globalMethod;
     private final ListPersonAdapter.OnItemClickListener listener;
 
-    public ListPersonAdapter(Context context, List<ListPersonnelResponseModel.Data> dataTeam,
+    public ListPersonAdapter(Context context, List<ListPersonnelNotMemberResponseModel.Data> dataTeam,
                              ListPersonAdapter.OnItemClickListener listener) {
         this.context = context;
         this.dataTeam = dataTeam;
         this.listener = listener;
     }
     public interface OnItemClickListener {
-        void onItemClick(ListPersonnelResponseModel.Data item, int position);
+        void onItemClick(ListPersonnelNotMemberResponseModel.Data item, int position);
     }
 
     @NonNull
@@ -46,7 +47,7 @@ public class ListPersonAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ListPersonnelResponseModel.Data dataModel  = dataTeam.get(position);
+        ListPersonnelNotMemberResponseModel.Data dataModel  = dataTeam.get(position);
         final ListPersonAdapter.PersonViewHolder holderItem = (ListPersonAdapter.PersonViewHolder)holder;
 
         holderItem.tvPersonName.setText(dataTeam.get(position).getUsername());
@@ -81,7 +82,7 @@ public class ListPersonAdapter extends RecyclerView.Adapter {
             civPerson = itemView.findViewById(R.id.civ_person);
             cvPerson = itemView.findViewById(R.id.card_person);
         }
-        public void bind(ListPersonnelResponseModel.Data modelList, ListPersonAdapter.OnItemClickListener listener) {
+        public void bind(ListPersonnelNotMemberResponseModel.Data modelList, ListPersonAdapter.OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(modelList, getAdapterPosition());

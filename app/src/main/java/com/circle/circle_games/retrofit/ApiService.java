@@ -74,7 +74,7 @@ public interface ApiService {
 
     //Search not Member
     @POST("getPersonnelNotMember")
-    Call<ListPersonnelResponseModel> getListPersonnelNotMember(
+    Call<ListPersonnelNotMemberResponseModel> getListPersonnelNotMember(
             @Query("user_id") String user_id,
             @Query("search") String search,
             @Query("page") String page
