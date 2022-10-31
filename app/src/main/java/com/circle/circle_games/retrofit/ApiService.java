@@ -47,7 +47,8 @@ public interface ApiService {
     Call<ResponseLoginModel> login(
             @Query("username") String username,
             @Query("email") String email,
-            @Query("password") String password
+            @Query("password") String password,
+            @Query("token_firebase") String token_firebase
     );
 
     /*@POST("refresh")

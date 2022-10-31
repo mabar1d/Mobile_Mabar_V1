@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_tournament"
-        android:label="Fragment Tournament"
         android:name="com.circle.circle_games.main.TournamentFragment"
+        android:label="Fragment Tournament"
         tools:layout="@layout/fragment_tournament" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:label="Fragment Profile"
         android:name="com.circle.circle_games.main.ProfileNewFragment"
+        android:label="Fragment Profile"
         tools:layout="@layout/fragment_profile_new" />
 </navigation>

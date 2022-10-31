@@ -3,98 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/BRISPOT/Android/sdk/platforms/android-31/data/res/drawable/btn_dropdown.xml" value="0.153" />
-        <entry key="..\:/MABAR/app/src/main/res/drawable/ic_new_information.xml" value="0.1" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_create_team.xml" value="0.21920289855072464" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_detail_profile_account.xml" value="0.264" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_detail_team_info.xml" value="0.25" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_detail_tournament.xml" value="0.2" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_edit_team.xml" value="0.1921875" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_general_search_tournament.xml" value="0.13360507246376813" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_host_manage_tournament.xml" value="0.203125" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_host_menu_settings.xml" value="0.23854166666666668" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_host_setting.xml" value="0.264" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_host_setting_new.xml" value="0.2028985507246377" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_join_team.xml" value="0.1921875" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_manage_team.xml" value="0.2" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_splash_screen.xml" value="0.14221014492753623" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_team_setting.xml" value="0.21510416666666668" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/activity_team_settings.xml" value="0.28892835997631733" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/dialog_confirmation.xml" value="0.23854166666666668" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/dialog_search_person.xml" value="0.176" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/dialog_switch_account.xml" value="0.2" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/fragment_home_new.xml" value="0.12590579710144928" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/fragment_profile_new.xml" value="0.264" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/fragment_tournament.xml" value="0.2" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/list_card_person.xml" value="0.4" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/list_card_person_added.xml" value="0.4" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/list_card_person_req_join.xml" value="0.6" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/list_card_team.xml" value="0.264" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/list_game_home.xml" value="0.4" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/list_team_tournament.xml" value="0.536" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/list_tournament_home.xml" value="0.4" />
-        <entry key="..\:/MABAR/app/src/main/res/layout/splash_screen_background.xml" value="0.14221014492753623" />
-        <entry key="..\:/MABAR/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/circle_shape.xml" value="0.194" />
-        <entry key="app/src/main/res/drawable/ic_game.xml" value="0.178" />
-        <entry key="app/src/main/res/drawable/ic_group_28.xml" value="0.135" />
-        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.178" />
-        <entry key="app/src/main/res/drawable/ic_shop.xml" value="0.178" />
-        <entry key="app/src/main/res/drawable/ic_video.xml" value="0.178" />
-        <entry key="app/src/main/res/drawable/rounded_button_grey.xml" value="0.241" />
-        <entry key="app/src/main/res/drawable/rounded_button_white.xml" value="0.241" />
-        <entry key="app/src/main/res/drawable/rounded_edit_text_grey.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/activity_create_team.xml" value="0.10187886555989586" />
-        <entry key="app/src/main/res/layout/activity_detail_news.xml" value="0.30318194403164633" />
-        <entry key="app/src/main/res/layout/activity_detail_profile_account.xml" value="0.1875" />
-        <entry key="app/src/main/res/layout/activity_detail_team_info.xml" value="0.13333333333333333" />
-        <entry key="app/src/main/res/layout/activity_detail_tournament.xml" value="0.15364583333333334" />
-        <entry key="app/src/main/res/layout/activity_edit_team.xml" value="0.3005254109700521" />
-        <entry key="app/src/main/res/layout/activity_general_search_tournament.xml" value="0.13167165120442703" />
-        <entry key="app/src/main/res/layout/activity_host_list_tournament.xml" value="0.11927083333333334" />
-        <entry key="app/src/main/res/layout/activity_host_manage_tournament.xml" value="0.13333333333333333" />
-        <entry key="app/src/main/res/layout/activity_host_menu_settings.xml" value="0.21730804443359375" />
-        <entry key="app/src/main/res/layout/activity_host_setting.xml" value="0.1875" />
-        <entry key="app/src/main/res/layout/activity_join_team.xml" value="0.1875" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1572357177734375" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27373962402343743" />
-        <entry key="app/src/main/res/layout/activity_manage_team.xml" value="0.13333333333333333" />
-        <entry key="app/src/main/res/layout/activity_peyment.xml" value="0.2210144927536232" />
-        <entry key="app/src/main/res/layout/activity_search_news.xml" value="0.14322916666666666" />
-        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.13333333333333333" />
-        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_team_settings.xml" value="0.254952930359727" />
-        <entry key="app/src/main/res/layout/activity_tournament_graph_web_view.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/circle_shape.xml" value="0.19791666666666666" />
-        <entry key="app/src/main/res/layout/dialog_confirmation.xml" value="0.15260416666666668" />
-        <entry key="app/src/main/res/layout/dialog_search_person.xml" value="0.23052536231884058" />
-        <entry key="app/src/main/res/layout/dialog_switch_account.xml" value="0.15260416666666668" />
-        <entry key="app/src/main/res/layout/fragment_home_new.xml" value="0.16186434980751818" />
-        <entry key="app/src/main/res/layout/fragment_profile_new.xml" value="0.13858695652173914" />
-        <entry key="app/src/main/res/layout/fragment_tournament.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/list_card_person_added.xml" value="0.18840579710144928" />
-        <entry key="app/src/main/res/layout/list_game_home.xml" value="0.12447916666666667" />
-        <entry key="app/src/main/res/layout/list_host_tournament.xml" value="0.13333333333333333" />
-        <entry key="app/src/main/res/layout/list_menu_home.xml" value="0.6795191446940104" />
-        <entry key="app/src/main/res/layout/list_news.xml" value="0.2762476603190104" />
-        <entry key="app/src/main/res/layout/list_news_home.xml" value="0.45934569446753104" />
-        <entry key="app/src/main/res/layout/list_tournament_home.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/push_notification.xml" value="0.2210144927536232" />
-        <entry key="app/src/main/res/layout/spinner_item.xml" value="0.1875" />
-        <entry key="app/src/main/res/layout/splash_screen_background.xml" value="0.14336372847011145" />
-        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.135258358662614" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1558565886124321" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/fragment_profile_new.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
-  </component>
-  <component name="ProjectType">
-    <option name="id" value="Android" />
-  </component>
-  <component name="SuppressKotlinCodeStyleNotification">
-    <option name="disableForAll" value="true" />
-  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

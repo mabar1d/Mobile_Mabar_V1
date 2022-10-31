@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
+import com.circle.circle_games.BuildConfig;
 import com.circle.circle_games.MainActivity;
 import com.circle.circle_games.login.LoginActivity;
 import com.circle.circle_games.utility.SessionUser;
@@ -36,12 +38,9 @@ import butterknife.ButterKnife;
 
 public class SplashScreen1 extends AppCompatActivity {
 
-   /* @BindView(R.id.videoLayout)
-    VideoLayout videoLayout;*/
-    @BindView(R.id.videoView) VideoView videoView;
 
-    @BindView(R.id.c_layout_video)
-    ConstraintLayout clVideo;
+    @BindView(R.id.tv_version)
+    TextView tvVersion;
     private String pathVideo = "";
     private SessionUser sess;
     int ALL_PERMISSIONS = 101;
@@ -75,10 +74,11 @@ public class SplashScreen1 extends AppCompatActivity {
                     @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) { ... }
                 }).check();*/
 
-
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
         sess = new SessionUser(this);
+
+        tvVersion.setText("Version "+BuildConfig.VERSION_NAME);
 
         //pathVideo = "android.resource://"+getPackageName()+"/"+R.raw.splash_video;
 
