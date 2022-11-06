@@ -60,6 +60,16 @@
             android:name="com.circle.circle_games.main.NewsActivity"
             android:exported="false" />
         <activity
+            android:name="com.circle.circle_games.main.VideosActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.circle.circle_games.main.DetailVideosActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.circle.circle_games.main.VideosFullScreenActivity"
+            android:screenOrientation="landscape"
+            android:exported="false" />
+        <activity
             android:name="com.circle.circle_games.main.GeneralSearchTournamentActivity"
             android:exported="false" />
         <activity

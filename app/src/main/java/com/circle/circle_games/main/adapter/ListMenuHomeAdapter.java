@@ -10,12 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.circle.circle_games.main.GeneralSearchTournamentActivity;
 import com.circle.circle_games.main.NewsActivity;
+import com.circle.circle_games.main.VideosActivity;
 import com.circle.circle_games.retrofit.model.GetListMenuResponseModel;
 import com.circle.circle_games.R;
 import com.circle.circle_games.main.GeneralSearchTournamentActivity;
@@ -72,10 +74,12 @@ public class ListMenuHomeAdapter extends RecyclerView.Adapter<ListMenuHomeAdapte
             holder.llMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, GeneralSearchTournamentActivity.class);
-                    /*Bundle bun = new Bundle();
-                    i.putExtras(bun);*/
-                    context.startActivity(i);
+
+                    Toast.makeText(context,"Coming Soon!!!",Toast.LENGTH_SHORT).show();
+                    /*Intent i = new Intent(context, GeneralSearchTournamentActivity.class);
+                    *//*Bundle bun = new Bundle();
+                    i.putExtras(bun);*//*
+                    context.startActivity(i);*/
                 }
             });
 
@@ -96,7 +100,7 @@ public class ListMenuHomeAdapter extends RecyclerView.Adapter<ListMenuHomeAdapte
             holder.llMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, GeneralSearchTournamentActivity.class);
+                    Intent i = new Intent(context, VideosActivity.class);
                     /*Bundle bun = new Bundle();
                     i.putExtras(bun);*/
                     context.startActivity(i);
@@ -109,10 +113,11 @@ public class ListMenuHomeAdapter extends RecyclerView.Adapter<ListMenuHomeAdapte
             holder.llMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, GeneralSearchTournamentActivity.class);
-                    /*Bundle bun = new Bundle();
-                    i.putExtras(bun);*/
-                    context.startActivity(i);
+                    Toast.makeText(context,"Coming Soon!!!",Toast.LENGTH_SHORT).show();
+                    /*Intent i = new Intent(context, GeneralSearchTournamentActivity.class);
+                    *//*Bundle bun = new Bundle();
+                    i.putExtras(bun);*//*
+                    context.startActivity(i);*/
                 }
             });
 
