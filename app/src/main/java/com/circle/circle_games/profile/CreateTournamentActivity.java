@@ -149,7 +149,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
         etPrize.addTextChangedListener(new CurrencyEditTextWatcher(etPrize));
         etRegFee.addTextChangedListener(new CurrencyEditTextWatcher(etRegFee));
 
-        listSpinnerGame.add("Mobile Legend");
+        listSpinnerGame.add("Mobile Legends");
         listSpinnerGame.add("Free Fire");
         listSpinnerGame.add("PUBG");
 

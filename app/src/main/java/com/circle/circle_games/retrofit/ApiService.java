@@ -35,6 +35,13 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiService {
+
+    @POST("checkVersionApk")
+    Call<CheckVersionAPKResponseModel> logicheckVersionApkn(
+            @Query("user_id") String user_id
+    );
+
+
     @POST("register")
     Call<ResponseRegisterModel> register(
             @Query("username") String username,
@@ -354,7 +361,23 @@ public interface ApiService {
     @POST("getInfoNewsCategory")
     Call<GetInfoNewsCategoryResponseModel> getInfoNewsCategory(
             @Query("user_id") String user_id,
-            @Query("news_category_id") String news_id
+            @Query("news_category_id") String news_category_id
+    );
+
+    //Videos
+
+    @POST("getListVideo")
+    Call<GetListVideosResponseModel> getListVideo(
+            @Query("user_id") String user_id,
+            @Query("search") String search,
+            @Query("page") String page
+    );
+
+    @POST("getInfoVideo")
+    Call<GetInfoVideosResponseModel> getInfoVideo(
+            @Query("user_id") String user_id,
+            @Query("video_id") String video_id,
+            @Query("slug") String slug
     );
 
 }

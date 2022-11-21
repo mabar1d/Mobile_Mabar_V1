@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
@@ -19,10 +20,13 @@ import com.circle.circle_games.R;
 import com.circle.circle_games.login.LoginActivity;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.retrofit.model.GetInfoNewsResponseModel;
+import com.circle.circle_games.retrofit.model.GetInfoVideosResponseModel;
 import com.circle.circle_games.signup.SignUpActivity;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import butterknife.BindView;
@@ -56,7 +60,8 @@ public class DetailVideosActivity extends AppCompatActivity {
     @BindView(R.id.tv_diff_date)
     TextView tvDiffDate;
 
-    private String idNews = "";
+    private String idVideo = "";
+    private String linkVideo = "";
     private String urlImage = "";
     private String fileUrlShare = "";
     private String titleNews = "";
@@ -72,13 +77,13 @@ public class DetailVideosActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
         if(b != null) {
-            idNews = b.getString("id_news");
+            idVideo = b.getString("id_video");
         }
 
         sess = new SessionUser(this);
         gm = new GlobalMethod();
 
-        getInfoNews(sess.getString("id_user"),idNews);
+        getInfoVideo(sess.getString("id_user"),idVideo);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +116,10 @@ public class DetailVideosActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(DetailVideosActivity.this, VideosFullScreenActivity.class);
+                Bundle bun = new Bundle();
+                bun.putString("link_video", linkVideo);
+
+                i.putExtras(bun);
                 startActivity(i);
 
             }
@@ -120,17 +129,25 @@ public class DetailVideosActivity extends AppCompatActivity {
 
     }
 
-    private void getInfoNews(String userId,String idTournament){
+    private void getInfoVideo(String userId,String idVideo){
 
         gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
 
         try {
-            Call<GetInfoNewsResponseModel> req = RetrofitConfig.getApiServices("").getInfoNews(userId, idTournament);
-            req.enqueue(new Callback<GetInfoNewsResponseModel>() {
+            Call<GetInfoVideosResponseModel> req = RetrofitConfig.getApiServices("").getInfoVideo(userId, idVideo,"");
+            req.enqueue(new Callback<GetInfoVideosResponseModel>() {
                 @Override
-                public void onResponse(Call<GetInfoNewsResponseModel> call, Response<GetInfoNewsResponseModel> response) {
+                public void onResponse(Call<GetInfoVideosResponseModel> call, Response<GetInfoVideosResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
+
+                            ytPlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                                @Override
+                                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                                    linkVideo = response.body().getData().getLink();
+                                    youTubePlayer.loadVideo(linkVideo, 0);
+                                }
+                            });
 
                             CircularProgressDrawable cp = new CircularProgressDrawable(DetailVideosActivity.this);
                             cp.setStrokeWidth(5f);
@@ -151,7 +168,6 @@ public class DetailVideosActivity extends AppCompatActivity {
                             tvContent.setText(response.body().getData().getContent());
                             tvDiffDate.setText(response.body().getData().getDiffCreatedAt());
                             fileUrlShare = response.body().getData().getLinkShare();
-                            urlImage = response.body().getData().getImage();
                             titleNews = response.body().getData().getTitle();
 
 
@@ -176,7 +192,7 @@ public class DetailVideosActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<GetInfoNewsResponseModel> call, Throwable t) {
+                public void onFailure(Call<GetInfoVideosResponseModel> call, Throwable t) {
                     Toast.makeText(DetailVideosActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     gm.setShimmerLinearLayout(false,shimmerLoad,llContent);

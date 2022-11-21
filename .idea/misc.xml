@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_detail_videos.xml" value="0.24061060366423234" />
         <entry key="app/src/main/res/layout/activity_fullscreen_videos.xml" value="0.15489130434782608" />
+        <entry key="app/src/main/res/layout/activity_host_setting.xml" value="0.15489130434782608" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.135258358662614" />
         <entry key="app/src/main/res/layout/activity_search_news.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1558565886124321" />

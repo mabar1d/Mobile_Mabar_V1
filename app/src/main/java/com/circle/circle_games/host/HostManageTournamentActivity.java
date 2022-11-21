@@ -190,7 +190,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                         }else if (getGame.equalsIgnoreCase("PUBG")){
                             game = 8;
                         }else {
-                            game = 0;
+                            game = 6;
                         }
                         //game = Integer.parseInt(etGame.getText().toString());
                         if (picturePath.equals("")){

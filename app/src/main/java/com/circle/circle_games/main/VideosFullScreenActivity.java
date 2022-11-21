@@ -14,11 +14,16 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 public class VideosFullScreenActivity extends AppCompatActivity {
 
     // id of the video which we are playing.
-    String video_id = "0lYhvuIPZgk";
+    String linkVideo = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle b = getIntent().getExtras();
+        if(b != null) {
+            linkVideo = b.getString("link_video");
+        }
 
         // below two lines are used to set our screen orientation in landscape mode.
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -52,7 +57,7 @@ public class VideosFullScreenActivity extends AppCompatActivity {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 // loading the selected video into the YouTube Player
-                youTubePlayer.loadVideo(video_id, 0);
+                youTubePlayer.loadVideo(linkVideo, 0);
             }
 
             @Override

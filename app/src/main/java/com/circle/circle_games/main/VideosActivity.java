@@ -20,9 +20,11 @@ import com.circle.circle_games.login.LoginActivity;
 import com.circle.circle_games.main.adapter.ListVideosAdapter;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.retrofit.model.GetListNewsResponseModel;
+import com.circle.circle_games.retrofit.model.GetListVideosResponseModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VideosActivity extends AppCompatActivity {
+public class VideosActivity extends AppCompatActivity implements AddLifecycleCallbackListener {
 
     @BindView(R.id.recycler_videos)
     RecyclerView rvVideos;
@@ -50,7 +52,7 @@ public class VideosActivity extends AppCompatActivity {
     private String judulNews = "";
     private SessionUser sess;
     private GlobalMethod globalMethod;
-    List<GetListNewsResponseModel.Data> listNews = new ArrayList<>();
+    List<GetListVideosResponseModel.Data> listNews = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +93,10 @@ public class VideosActivity extends AppCompatActivity {
     private void getListVideos(String userId, String search, String page ){
         globalMethod.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
-            Call<GetListNewsResponseModel> req = RetrofitConfig.getApiServices("").getListNews(userId, search, page);
-            req.enqueue(new Callback<GetListNewsResponseModel>() {
+            Call<GetListVideosResponseModel> req = RetrofitConfig.getApiServices("").getListVideo(userId, search, page);
+            req.enqueue(new Callback<GetListVideosResponseModel>() {
                 @Override
-                public void onResponse(Call<GetListNewsResponseModel> call, Response<GetListNewsResponseModel> response) {
+                public void onResponse(Call<GetListVideosResponseModel> call, Response<GetListVideosResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
                             listNews = response.body().getData();
@@ -122,7 +124,7 @@ public class VideosActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<GetListNewsResponseModel> call, Throwable t) {
+                public void onFailure(Call<GetListVideosResponseModel> call, Throwable t) {
                     Toast.makeText(VideosActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);
@@ -135,4 +137,10 @@ public class VideosActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void addLifeCycleCallBack(YouTubePlayerView youTubePlayerView) {
+
+    }
 }
+
