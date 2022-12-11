@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,8 +56,7 @@ import retrofit2.Response;
 
 public class ProfileNewFragment extends Fragment {
 
-    @BindView(R.id.btn_switch_account)
-    TextView btnSwitchAccount;
+
     @BindView(R.id.iv_is_verif)
     ImageView ivIsVerified;
     @BindView(R.id.civ_profile)
@@ -65,23 +65,32 @@ public class ProfileNewFragment extends Fragment {
     TextView tvIdAkun;
     @BindView(R.id.nama_akun)
     TextView tvNamaAkun;
+
+    //Btn
     @BindView(R.id.btn_account)
-    TextView btnAccount;
+    RelativeLayout btnAccount;
     @BindView(R.id.btn_team_settings)
-    TextView btnTeamSettings;
+    RelativeLayout btnTeamSettings;
     @BindView(R.id.btn_host_settings)
-    TextView btnHostSettings;
+    RelativeLayout btnHostSettings;
     @BindView(R.id.btn_join_team)
-    TextView btnJoinTeam;
+    RelativeLayout btnJoinTeam;
     @BindView(R.id.btn_my_team)
-    TextView btnMyTeam;
+    RelativeLayout btnMyTeam;
+
     @BindView(R.id.ll_content)
     LinearLayout llContent;
     @BindView(R.id.shimmer_load)
     ShimmerFrameLayout shimmerLoad;
 
     @BindView(R.id.btn_logout)
-    TextView btnLogout;
+    RelativeLayout btnLogout;
+    @BindView(R.id.btn_faq)
+    RelativeLayout btnFaq;
+    @BindView(R.id.btn_switch_account)
+    RelativeLayout btnSwitchAccount;
+    @BindView(R.id.tv_switch_account)
+    TextView tvSwitchAccount;
 
     private SessionUser sess;
     private GlobalMethod gm;
@@ -394,7 +403,7 @@ public class ProfileNewFragment extends Fragment {
                                     btnJoinTeam.setVisibility(View.VISIBLE);
                                 }
                             }
-                            btnSwitchAccount.setText("Logged in as : "+ gm.getRoleById(role));
+                            tvSwitchAccount.setText("Logged in as : "+ gm.getRoleById(role));
 
 
                         }else if (response.body().getCode().equals("05")){

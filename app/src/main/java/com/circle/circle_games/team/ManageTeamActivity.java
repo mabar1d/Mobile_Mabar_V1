@@ -136,8 +136,8 @@ public class ManageTeamActivity extends AppCompatActivity {
                             progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(ManageTeamActivity.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
@@ -190,8 +190,8 @@ public class ManageTeamActivity extends AppCompatActivity {
                             progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(ManageTeamActivity.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
@@ -249,8 +249,8 @@ public class ManageTeamActivity extends AppCompatActivity {
                             progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(ManageTeamActivity.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();

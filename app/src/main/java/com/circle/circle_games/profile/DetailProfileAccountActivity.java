@@ -292,8 +292,8 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                             progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
@@ -345,8 +345,8 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                             progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();

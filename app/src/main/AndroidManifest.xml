@@ -33,6 +33,9 @@
             android:name="com.circle.circle_games.team.DetailTeamInfoActivity"
             android:exported="false" />
         <activity
+            android:name="com.circle.circle_games.team.MemberTeamListTournamentActivity"
+            android:exported="false" />
+        <activity
             android:name="com.circle.circle_games.team.ManageTeamActivity"
             android:exported="false" />
         <activity

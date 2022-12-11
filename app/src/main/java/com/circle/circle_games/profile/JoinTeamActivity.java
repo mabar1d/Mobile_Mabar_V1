@@ -117,8 +117,8 @@ public class JoinTeamActivity extends AppCompatActivity {
                             Toast.makeText(JoinTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
                             sess.clearSess();
                             Intent i = new Intent(JoinTeamActivity.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(JoinTeamActivity.this, desc, Toast.LENGTH_SHORT).show();

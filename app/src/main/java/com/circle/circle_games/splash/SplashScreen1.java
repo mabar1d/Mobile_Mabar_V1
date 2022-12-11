@@ -77,6 +77,7 @@ public class SplashScreen1 extends AppCompatActivity {
     private boolean downloadMstGame = false;
     private boolean downloadMstMenu = false;
     private MasterViewModel viewModel;
+    ArrayList<String> dbType = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +110,7 @@ public class SplashScreen1 extends AppCompatActivity {
         gm = new GlobalMethod();
         viewModel = ViewModelProviders.of(this).get(MasterViewModel.class);
 
+        dbType = gm.getTypeDatabase();
         tvVersion.setText("Version "+BuildConfig.VERSION_NAME);
 
         //pathVideo = "android.resource://"+getPackageName()+"/"+R.raw.splash_video;
@@ -141,14 +143,9 @@ public class SplashScreen1 extends AppCompatActivity {
         }
 
         if (done){
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    final Intent mainIntent = new Intent(SplashScreen1.this, MainActivity.class);
-                    startActivity(mainIntent);
-                    finish();
-                    }
-                }, 5000);
+            final Intent mainIntent = new Intent(SplashScreen1.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
         }
     }
 
@@ -219,18 +216,17 @@ public class SplashScreen1 extends AppCompatActivity {
 
                             if (response.body().getData().getVersionApk().equals(BuildConfig.VERSION_NAME)){
                                 //Cek Version Database
-                                ArrayList<String> dbType = gm.getTypeDatabase();
                                 for (int i = 0; i < response.body().getData().getVersionDatabase().size();i++){
-
                                     arrayCheckVersionDb.put(response.body().getData().getVersionDatabase().get(i));
-
                                     String dbTypeApi = response.body().getData().getVersionDatabase().get(i).getType();
-                                 String dbVersionApi = response.body().getData().getVersionDatabase().get(i).getVersion();
+                                    String dbVersionApi = response.body().getData().getVersionDatabase().get(i).getVersion();
 
                                 for (int j = 0; j < dbType.size();j++){
                                     String dbTypeLokal = dbType.get(j);
 
-                                    if (dbTypeApi.equals(dbTypeLokal)){
+                                    if (dbTypeLokal.equals(dbTypeApi)){
+                                        dbType.remove(j);
+                                        dbType.size();
 
                                         if (dbTypeLokal.equals("mst_game")){
                                             String dbVersionGame = gm.getDbLokalVersion(dbTypeLokal);
@@ -351,8 +347,8 @@ public class SplashScreen1 extends AppCompatActivity {
                             Toast.makeText(SplashScreen1.this, desc, Toast.LENGTH_SHORT).show();
                             sess.clearSess();
                             Intent i = new Intent(SplashScreen1.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(SplashScreen1.this, desc, Toast.LENGTH_SHORT).show();

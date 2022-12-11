@@ -102,6 +102,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, desc, Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
                             startActivity(i);
+                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(SignUpActivity.this, desc, Toast.LENGTH_SHORT).show();

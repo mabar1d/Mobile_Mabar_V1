@@ -145,7 +145,7 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
         btnTeamTournament.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(DetailTeamInfoActivity.this, DetailTeamInfoActivity.class);
+                Intent i = new Intent(DetailTeamInfoActivity.this, MemberTeamListTournamentActivity.class);
                 Bundle bun = new Bundle();
                 bun.putString("id_team", idTeam );
                 bun.putString("flag_team", "Y");
@@ -200,8 +200,8 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                             progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(DetailTeamInfoActivity.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
@@ -250,8 +250,8 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                             progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(DetailTeamInfoActivity.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
@@ -300,8 +300,8 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                             progress.dismiss();
                             sess.clearSess();
                             Intent i = new Intent(DetailTeamInfoActivity.this, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
-                            finish();
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
