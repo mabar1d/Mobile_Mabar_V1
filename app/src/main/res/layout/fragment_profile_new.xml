@@ -16,7 +16,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_req_team_lead">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/civ_profile"
@@ -219,45 +219,26 @@
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <Button
-        android:id="@+id/btn_req_team_lead"
+    <TextView
+        android:id="@+id/btn_help"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="95dp"
-        android:background="@drawable/rounded_button_grey"
-        android:text="Buat Team"
-        android:textColor="@color/grey"
-        android:textSize="12dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/btn_req_host"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_req_host"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_button_grey"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:maxLines="2"
-        android:minLines="2"
-        android:text="Buat Turnamen"
+        android:text="FAQ"
+        android:textAlignment="center"
         android:textColor="@color/grey"
-        android:textSize="12dp"
-        android:visibility="gone"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_switch_account"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_req_team_lead"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
     <TextView
         android:id="@+id/btn_switch_account"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Logged in as:"
         android:textAlignment="center"
@@ -284,16 +265,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_version"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="-"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        android:fontFamily="@font/carbon_block"
-        android:textColor="@color/grey" />
 </androidx.constraintlayout.widget.ConstraintLayout>

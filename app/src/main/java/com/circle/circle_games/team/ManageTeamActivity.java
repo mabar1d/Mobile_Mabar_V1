@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.circle.circle_games.main.adapter.ListTeamTournamentAdapter;
@@ -38,6 +39,8 @@ public class ManageTeamActivity extends AppCompatActivity {
     RecyclerView rvPersonReqJoin;
     @BindView(R.id.recycler_tournament)
     RecyclerView rvTournament;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
 
     private ListPersonReqJoinTeamAdapter listPersonAdapter;
     private ListTeamTournamentAdapter listTeamTournamentAdapter;
@@ -67,6 +70,13 @@ public class ManageTeamActivity extends AppCompatActivity {
 
         gm = new GlobalMethod();
         sess = new SessionUser(this);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         getListPerson();
         getListTeamTournament();

@@ -33,10 +33,11 @@
                 android:textColor="@color/grey"
                 android:fontFamily="@font/opensans_bold"/>
         <TextView
+            android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11dp"
-            android:text="Beta Version"
+            android:text=""
             android:textColor="@color/grey"
             android:fontFamily="@font/opensans_italic"/>
         </LinearLayout>

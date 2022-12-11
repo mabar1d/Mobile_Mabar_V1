@@ -94,6 +94,8 @@ public class CreateTournamentActivity extends AppCompatActivity {
     TextView etType;
     @BindView(R.id.btn_create_tournament)
     Button btnCreateTournament;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
 
     BottomSheetDialog bsDialog;
 
@@ -155,6 +157,13 @@ public class CreateTournamentActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,listSpinnerGame);
         spGame.setAdapter(adapter);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnCreateTournament.setOnClickListener(new View.OnClickListener() {
             @Override

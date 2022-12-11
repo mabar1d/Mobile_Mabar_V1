@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/primary_color_black"
-    tools:context="com.circle.circle_games.host.HostListTournamentActivity">
+    tools:context="com.circle.circle_games.host.HostListHistoryTournamentActivity">
 
     <RelativeLayout
         android:id="@+id/rl_titlebar"
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Tournament"
+            android:text="History Tournament"
             android:textColor="@color/grey"
             android:textSize="20dp" />
 
@@ -51,12 +51,12 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_below="@id/rl_titlebar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="70dp"
         android:id="@+id/ll_content"
         android:visibility="gone"
-        android:layout_below="@id/rl_titlebar"
         android:orientation="vertical">
 
         <!--Searchbar-->
@@ -136,6 +136,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                android:textSize="16dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="10dp"
+                android:text="Tournament"/>
 
             <!--Searchbar-->
             <androidx.cardview.widget.CardView

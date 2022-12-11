@@ -9,6 +9,47 @@
     android:background="@color/primary_color_black"
     tools:context="com.circle.circle_games.main.DetailTournamentActivity">
 
+    <RelativeLayout
+        android:id="@+id/rl_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_back_96"
+            app:tint="@color/grey" />
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/tv_title"
+            android:visibility="gone"
+            android:src="@drawable/ic_video"
+            app:tint="@color/grey" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Detail Tournament"
+            android:textColor="@color/grey"
+            android:textSize="20dp" />
+
+
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="400dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
             app:cardCornerRadius="20dp"
@@ -319,6 +360,7 @@
         </LinearLayout>
         <Button
             android:id="@+id/btn_register_tournament"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -330,20 +372,46 @@
             android:text="Register Tournament"
             android:textColor="@color/grey"
             android:textSize="14dp" />
-        <Button
-            android:id="@+id/btn_detail_tournament"
-            android:visibility="gone"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="15dp"
-            android:textAllCaps="false"
-            android:background="@drawable/rounded_button_grey"
-            android:text="See Fixture and Table"
-            android:textColor="@color/grey"
-            android:textSize="14dp" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_fixture_tournament"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_button_grey"
+                android:text="See Fixture"
+                android:textColor="@color/grey"
+                android:layout_weight="0.5"
+                android:textSize="14dp" />
+            <Button
+                android:id="@+id/btn_table_tournament"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_button_grey"
+                android:text="Table/Bracket"
+                android:maxLines="1"
+                android:layout_weight="0.5"
+                android:textColor="@color/grey"
+                android:textSize="14dp" />
+        </LinearLayout>
+
     </LinearLayout>
     </ScrollView>
 

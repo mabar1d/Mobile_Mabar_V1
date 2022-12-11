@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/primary_color_black"
-    tools:context="com.circle.circle_games.host.HostListTournamentActivity">
+    tools:context="com.circle.circle_games.host.HostListOnGoingTournamentActivity">
 
     <RelativeLayout
         android:id="@+id/rl_titlebar"
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Tournament"
+            android:text="On Going Tournament"
             android:textColor="@color/grey"
             android:textSize="20dp" />
 
@@ -54,9 +54,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="70dp"
+        android:layout_below="@id/rl_titlebar"
         android:id="@+id/ll_content"
         android:visibility="gone"
-        android:layout_below="@id/rl_titlebar"
         android:orientation="vertical">
 
         <!--Searchbar-->
@@ -125,9 +125,9 @@
     </LinearLayout>
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:layout_below="@id/rl_titlebar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/rl_titlebar"
         android:id="@+id/shimmer_load"
         android:visibility="visible"
         android:paddingBottom="70dp"

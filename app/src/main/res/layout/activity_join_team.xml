@@ -8,13 +8,59 @@
     android:background="@color/primary_color_black"
     tools:context="com.circle.circle_games.profile.JoinTeamActivity">
 
+    <!--title bar-->
+    <RelativeLayout
+        android:id="@+id/rl_title_bar"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="@dimen/title_bar_height"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_back_96"
+            app:tint="@color/grey" />
+
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:src="@drawable/ic_video"
+            android:layout_marginRight="5dp"
+            app:tint="@color/grey"
+            android:layout_toLeftOf="@id/tv_title"/>
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Team"
+            android:textColor="@color/grey"
+            android:textSize="20dp" />
+
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/rl_title_bar"
         android:visibility="gone"
         android:id="@+id/ll_content"
         android:paddingBottom="70dp"
         android:orientation="vertical">
+
         <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,6 +141,7 @@
     <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/rl_title_bar"
         android:id="@+id/shimmer_load"
         android:visibility="visible"
         android:paddingBottom="70dp"

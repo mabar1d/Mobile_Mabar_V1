@@ -19,6 +19,7 @@ import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -41,6 +42,27 @@ public class GlobalMethod {
     public String getKeyApi(){
         String keyApi = "2ca7c12f40da3aeb0502d71884939cc2";
         return keyApi;
+    }
+
+    //Versioning DB Lokal
+    public String getDbLokalVersion(String dbType){
+        String versionDbLokal = "0";
+        if (dbType.equals("mst_game")){
+            versionDbLokal = "1.0";
+        }else if (dbType.equals("mst_menu")){
+            versionDbLokal = "1.1";
+        }else {
+            versionDbLokal = "0";
+        }
+        return  versionDbLokal;
+    }
+
+    public ArrayList<String> getTypeDatabase(){
+        ArrayList<String> db = new ArrayList<>();
+        db.add("mst_game");
+        db.add("mst_menu");
+
+        return  db;
     }
 
     public void deleteLocalSession(Context context){

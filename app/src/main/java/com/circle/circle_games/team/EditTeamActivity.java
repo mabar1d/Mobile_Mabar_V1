@@ -93,6 +93,8 @@ public class EditTeamActivity extends AppCompatActivity {
     Button btnUpdateTeam;
     @BindView(R.id.btn_edit_image)
     Button btnEditImage;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
 
     BottomSheetDialog bsDialog;
     View bottomSheet;
@@ -149,6 +151,13 @@ public class EditTeamActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,listSpinnerGame);
         spGame.setAdapter(adapter);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnEditImage.setOnClickListener(new View.OnClickListener() {
 

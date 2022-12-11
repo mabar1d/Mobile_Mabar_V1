@@ -20,9 +20,6 @@ import com.circle.circle_games.main.NewsActivity;
 import com.circle.circle_games.main.VideosActivity;
 import com.circle.circle_games.retrofit.model.GetListMenuResponseModel;
 import com.circle.circle_games.R;
-import com.circle.circle_games.main.GeneralSearchTournamentActivity;
-import com.circle.circle_games.main.NewsActivity;
-import com.circle.circle_games.retrofit.model.GetListMenuResponseModel;
 import com.circle.circle_games.utility.GlobalMethod;
 
 import java.util.ArrayList;
@@ -56,7 +53,7 @@ public class ListMenuHomeAdapter extends RecyclerView.Adapter<ListMenuHomeAdapte
         //Mapping Menu
         if (isi.getId() == 1){
             //Tournament
-            holder.ivMenu.setImageResource(R.drawable.ic_tournament);
+            holder.ivMenu.setImageResource(R.drawable.ic_tournament_home);
             holder.llMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

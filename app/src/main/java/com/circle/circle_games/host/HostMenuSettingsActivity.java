@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.circle.circle_games.R;
@@ -19,6 +21,14 @@ public class HostMenuSettingsActivity extends AppCompatActivity {
     TextView btnCreateTournament;
     @BindView(R.id.btn_manage_tournament)
     TextView btnManageTournament;
+    @BindView(R.id.btn_on_going_tournament)
+    TextView btnOnGoingTournament;
+    @BindView(R.id.btn_history_tournament)
+    ImageView btnHistoryTournament;
+    @BindView(R.id.tv_history)
+    TextView tvHistory;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +55,34 @@ public class HostMenuSettingsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        btnOnGoingTournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(HostMenuSettingsActivity.this, HostListOnGoingTournamentActivity.class);
+                startActivity(i);
+            }
+        });
+        btnHistoryTournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HostMenuSettingsActivity.this, HostListHistoryTournamentActivity.class);
+                startActivity(i);
+            }
+        });
+        tvHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HostMenuSettingsActivity.this, HostListHistoryTournamentActivity.class);
+                startActivity(i);
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 }

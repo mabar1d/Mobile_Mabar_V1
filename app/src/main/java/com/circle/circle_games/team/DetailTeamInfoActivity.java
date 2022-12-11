@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,8 +53,13 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
     Button btnTeamTournament;
     @BindView(R.id.btn_leave_team)
     Button btnLeaveTeam;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private String idTeam = "";
+    private String nameTeam = "";
     private String flagTeam = "";
     private String valueMember = "";
     private SessionUser sess;
@@ -72,6 +78,7 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
         }
         if(b != null) {
             idTeam = b.getString("id_team");
+            nameTeam = b.getString("name_team");
             flagTeam = b.getString("flag_team");
         }
         sess = new SessionUser(this);
@@ -88,6 +95,14 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
             btnTeamTournament.setVisibility(View.GONE);
             btnJoinTeam.setVisibility(View.VISIBLE);
         }
+
+        tvTitle.setText(nameTeam);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnJoinTeam.setOnClickListener(new View.OnClickListener() {
             @Override

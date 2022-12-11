@@ -7,6 +7,51 @@
     android:layout_height="match_parent"
     android:background="@color/primary_color_black"
     tools:context="com.circle.circle_games.profile.DetailProfileAccountActivity">
+    <RelativeLayout
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_back_96"
+            app:tint="@color/grey" />
+
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_video"
+            android:layout_marginRight="5dp"
+            app:tint="@color/grey"
+            android:layout_toLeftOf="@id/tv_title"/>
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Account"
+            android:textColor="@color/grey"
+            android:textSize="20dp" />
+
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -17,7 +62,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/titlebar">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/civ_profile"

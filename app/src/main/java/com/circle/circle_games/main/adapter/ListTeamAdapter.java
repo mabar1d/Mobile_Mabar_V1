@@ -58,6 +58,7 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.TeamVi
                 Intent i = new Intent(context, DetailTeamInfoActivity.class);
                 Bundle bun = new Bundle();
                 bun.putString("id_team", String.valueOf(dataTeam.get(position).getId()));
+                bun.putString("name_team", dataTeam.get(position).getName());
                 i.putExtras(bun);
                 context.startActivity(i);
             }

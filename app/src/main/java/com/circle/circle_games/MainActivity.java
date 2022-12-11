@@ -7,8 +7,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.circle.circle_games.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,6 +20,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        TextView tvVersion = findViewById(R.id.tv_version);
 
+        tvVersion.setText("Beta Version "+ BuildConfig.VERSION_NAME);
 
         navView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
             @Override

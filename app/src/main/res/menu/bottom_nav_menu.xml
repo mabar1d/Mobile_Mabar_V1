@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_tournament"
-        android:icon="@drawable/ic_tournament"
+        android:icon="@drawable/ic_tournament_home"
         android:title="@string/title_tournament" />
 
     <item

@@ -47,6 +47,8 @@ public class JoinTeamActivity extends AppCompatActivity {
     LinearLayout llContent;
     @BindView(R.id.shimmer_load)
     ShimmerFrameLayout shimmerLoad;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
 
     private GlobalMethod gm;
     private SessionUser sess;
@@ -68,6 +70,13 @@ public class JoinTeamActivity extends AppCompatActivity {
         sess = new SessionUser(this);
 
         getListTeam(sess.getString("id_user"),"","");
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

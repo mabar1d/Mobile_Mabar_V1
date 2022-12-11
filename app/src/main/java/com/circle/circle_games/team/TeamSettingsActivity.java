@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.circle.circle_games.retrofit.model.PersonnelResponseModel;
 import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import butterknife.BindView;
@@ -55,6 +57,12 @@ public class TeamSettingsActivity extends AppCompatActivity {
     TextView tvTeamId;
     @BindView(R.id.btn_delete_team)
     ImageView btnDeleteTeam;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
+    @BindView(R.id.ll_content)
+    LinearLayout llContent;
+    @BindView(R.id.shimmer_load)
+    ShimmerFrameLayout shimmerLoad;
 
     @BindView(R.id.btn_manage_team)
     TextView btnManageTeam;
@@ -78,6 +86,14 @@ public class TeamSettingsActivity extends AppCompatActivity {
 
         gm = new GlobalMethod();
         sess = new SessionUser(this);
+
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,9 +149,7 @@ public class TeamSettingsActivity extends AppCompatActivity {
     }
 
     private void getDataPerson(){
-        ProgressDialog progress = new ProgressDialog(TeamSettingsActivity.this);
-        progress.setMessage("Getting Info...");
-        progress.show();
+        gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
             Call<PersonnelResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getPersonnel(sess.getString("id_user"));
             req.enqueue(new Callback<PersonnelResponseModel>() {
@@ -163,7 +177,7 @@ public class TeamSettingsActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(TeamSettingsActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
                             sess.clearSess();
                             Intent i = new Intent(TeamSettingsActivity.this, LoginActivity.class);
                             startActivity(i);
@@ -175,16 +189,16 @@ public class TeamSettingsActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(TeamSettingsActivity.this, "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
                     }
-                    progress.dismiss();
+                    gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
                 }
 
                 @Override
                 public void onFailure(Call<PersonnelResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(TeamSettingsActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
                 }
 
 
@@ -245,9 +259,6 @@ public class TeamSettingsActivity extends AppCompatActivity {
     }
 
     private void getDataTeam(String teamId){
-        ProgressDialog progress = new ProgressDialog(TeamSettingsActivity.this);
-        progress.setMessage("Getting Info...");
-        progress.show();
         try {
             Call<GetTeamInfoResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTeam(sess.getString("id_user"),teamId);
             req.enqueue(new Callback<GetTeamInfoResponseModel>() {
@@ -273,11 +284,12 @@ public class TeamSettingsActivity extends AppCompatActivity {
                             tvTeamName.setText(response.body().getData().getName());
                             tvTeamInfo.setText(response.body().getData().getInfo());
                             tvTeamId.setText("Team Id: "+response.body().getData().getId());
+                            gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(TeamSettingsActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
                             sess.clearSess();
                             Intent i = new Intent(TeamSettingsActivity.this, LoginActivity.class);
                             startActivity(i);
@@ -289,16 +301,16 @@ public class TeamSettingsActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(TeamSettingsActivity.this, "Failed Request Team Info", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
                     }
-                    progress.dismiss();
+                    gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
                 }
 
                 @Override
                 public void onFailure(Call<GetTeamInfoResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(TeamSettingsActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
                 }
 
 

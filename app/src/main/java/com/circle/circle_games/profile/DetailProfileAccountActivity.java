@@ -84,6 +84,8 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     private RadioButton radioButton;
     @BindView(R.id.iv_is_verif)
     ImageView ivIsVerified;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
 
     Calendar myCalendar = Calendar.getInstance();
     private SimpleDateFormat sdf;
@@ -122,6 +124,13 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
         tvNamaAkun.setText(sess.getString("username"));
         tvIdAkun.setText("Id: "+sess.getString("id_user"));
 
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -453,5 +462,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
            e.printStackTrace();
        }
    }
+
+
 
 }

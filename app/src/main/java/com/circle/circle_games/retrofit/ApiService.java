@@ -37,7 +37,7 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @POST("checkVersionApk")
-    Call<CheckVersionAPKResponseModel> logicheckVersionApkn(
+    Call<CheckVersionResponseModel> checkVersion(
             @Query("user_id") String user_id
     );
 
@@ -271,7 +271,8 @@ public interface ApiService {
             @Query("user_id") String user_id,
             @Query("search") String search,
             @Query("page") String page,
-            @Query("filter_game") JSONArray filter_game
+            @Query("filter_game") JSONArray filter_game,
+            @Query("type") String type
     );
 
     //Register Tournament

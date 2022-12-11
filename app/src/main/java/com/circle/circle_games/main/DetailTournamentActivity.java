@@ -57,8 +57,12 @@ public class DetailTournamentActivity extends AppCompatActivity {
     TextView tvDescription;
     @BindView(R.id.btn_register_tournament)
     Button btnRegister;
-    @BindView(R.id.btn_detail_tournament)
-    Button btnDetailTournament;
+    @BindView(R.id.btn_fixture_tournament)
+    Button btnFixtureTournament;
+    @BindView(R.id.btn_table_tournament)
+    Button btnTableTournament;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
 
     private String idTournament = "";
     private String usage = "";
@@ -87,11 +91,20 @@ public class DetailTournamentActivity extends AppCompatActivity {
 
         if (!(usage == null)){
             btnRegister.setVisibility(View.GONE);
-            btnDetailTournament.setVisibility(View.VISIBLE);
+            btnFixtureTournament.setVisibility(View.VISIBLE);
+            btnTableTournament.setVisibility(View.VISIBLE);
         }else {
             btnRegister.setVisibility(View.VISIBLE);
-            btnDetailTournament.setVisibility(View.GONE);
+            btnFixtureTournament.setVisibility(View.GONE);
+            btnTableTournament.setVisibility(View.GONE);
         }
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +127,14 @@ public class DetailTournamentActivity extends AppCompatActivity {
             }
         });
 
-        btnDetailTournament.setOnClickListener(new View.OnClickListener() {
+        btnFixtureTournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLinkTree(sess.getString("id_user"),idTournament);
+            }
+        });
+
+        btnTableTournament.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getLinkTree(sess.getString("id_user"),idTournament);

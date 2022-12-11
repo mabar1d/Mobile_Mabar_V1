@@ -131,7 +131,7 @@ public class HomeFragmentNew extends Fragment {
 
         getHighlightsImage(sess.getString("id_user"));
         getListMenu(sess.getString("id_user"));
-        getListGame(sess.getString("id_user"),"","0");
+       // getListGame(sess.getString("id_user"),"","0");
         getListTournament(sess.getString("id_user"),"","0",listFilterGame);
         getListNews(sess.getString("id_user"),"","0");
         getListGameFromDB();
@@ -349,7 +349,7 @@ public class HomeFragmentNew extends Fragment {
                         }
 
                     } else {
-                        Toast.makeText(getActivity(), "Failed Request List Games", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Failed Request List Menu", Toast.LENGTH_SHORT).show();
 
                     }
                     setLoad(false);

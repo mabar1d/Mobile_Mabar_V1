@@ -3,12 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../layout/custom_preview.xml" value="0.10461630695443645" />
+        <entry key="app/src/main/res/drawable/ic_game.xml" value="0.1645" />
+        <entry key="app/src/main/res/drawable/ic_tournament.xml" value="0.1305" />
+        <entry key="app/src/main/res/layout/activity_create_team.xml" value="0.11979166666666667" />
+        <entry key="app/src/main/res/layout/activity_detail_profile_account.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/activity_detail_team_info.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/activity_detail_tournament.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/activity_detail_videos.xml" value="0.24061060366423234" />
+        <entry key="app/src/main/res/layout/activity_edit_team.xml" value="0.11979166666666667" />
         <entry key="app/src/main/res/layout/activity_fullscreen_videos.xml" value="0.15489130434782608" />
+        <entry key="app/src/main/res/layout/activity_general_search_tournament.xml" value="0.11979166666666667" />
+        <entry key="app/src/main/res/layout/activity_host_list_history_tournament.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/activity_host_list_on_going_tournament.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/activity_host_list_tournament.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/activity_host_manage_tournament.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/activity_host_menu_settings.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_host_setting.xml" value="0.15489130434782608" />
+        <entry key="app/src/main/res/layout/activity_join_team.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.135258358662614" />
+        <entry key="app/src/main/res/layout/activity_manage_team.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/activity_peyment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_search_news.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1558565886124321" />
+        <entry key="app/src/main/res/layout/activity_team_settings.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/activity_videos.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/fragment_home_new.xml" value="0.14336372847011145" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.15070921985815602" />

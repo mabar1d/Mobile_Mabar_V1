@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.circle.circle_games.R;
 import com.circle.circle_games.host.HostManageTournamentActivity;
+import com.circle.circle_games.main.DetailTournamentActivity;
 import com.circle.circle_games.retrofit.model.GetListTournamentResponseModel;
 import com.circle.circle_games.utility.GlobalMethod;
 
@@ -26,12 +27,14 @@ import java.util.List;
 
 public class ListHostTournamentAdapter extends RecyclerView.Adapter<ListHostTournamentAdapter.TournamentViewHolder> {
     private Context context;
+    private String type;
     private List<GetListTournamentResponseModel.Data> dataTournament = new ArrayList<>();
     private GlobalMethod globalMethod;
 
-    public ListHostTournamentAdapter(Context context, List<GetListTournamentResponseModel.Data> dataTournament) {
+    public ListHostTournamentAdapter(Context context, List<GetListTournamentResponseModel.Data> dataTournament, String type) {
         this.context = context;
         this.dataTournament = dataTournament;
+        this.type = type;
     }
 
     @NonNull
@@ -45,6 +48,50 @@ public class ListHostTournamentAdapter extends RecyclerView.Adapter<ListHostTour
     @Override
     public void onBindViewHolder(@NonNull TournamentViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.judulTourney.setText(dataTournament.get(position).getName());
+
+        if (type.equals("open")){
+            //on going
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, DetailTournamentActivity.class);
+                    Bundle bun = new Bundle();
+                    bun.putString("id_tournament", String.valueOf(dataTournament.get(position).getId()));
+                    bun.putString("usage", "detail_info");
+                    bun.putString("judul_game", (dataTournament.get(position).getTitle_game()));
+                    i.putExtras(bun);
+                    context.startActivity(i);
+                }
+            });
+
+        }else if (type.equals("not_open")){
+            //edit
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, HostManageTournamentActivity.class);
+                    Bundle bun = new Bundle();
+                    bun.putString("id_tournament", String.valueOf(dataTournament.get(position).getId()));
+                    bun.putString("judul_game", (dataTournament.get(position).getTitle_game()));
+                    i.putExtras(bun);
+                    context.startActivity(i);
+                }
+            });
+        }else{
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                //history
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, DetailTournamentActivity.class);
+                    Bundle bun = new Bundle();
+                    bun.putString("id_tournament", String.valueOf(dataTournament.get(position).getId()));
+                    bun.putString("usage", "detail_info");
+                    bun.putString("judul_game", (dataTournament.get(position).getTitle_game()));
+                    i.putExtras(bun);
+                    context.startActivity(i);
+                }
+            });
+        }
 
         if (dataTournament.get(position).getRating() != null){
             holder.ratingTourney.setText(dataTournament.get(position).getRating());
@@ -70,17 +117,7 @@ public class ListHostTournamentAdapter extends RecyclerView.Adapter<ListHostTour
                 //.skipMemoryCache(true)
                 .into(holder.imageTourney);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, HostManageTournamentActivity.class);
-                Bundle bun = new Bundle();
-                bun.putString("id_tournament", String.valueOf(dataTournament.get(position).getId()));
-                bun.putString("judul_game", (dataTournament.get(position).getTitle_game()));
-                i.putExtras(bun);
-                context.startActivity(i);
-            }
-        });
+
     }
 
     @Override

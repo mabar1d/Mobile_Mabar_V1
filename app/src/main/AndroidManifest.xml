@@ -21,6 +21,12 @@
             android:name="com.circle.circle_games.host.HostListTournamentActivity"
             android:exported="false" />
         <activity
+            android:name="com.circle.circle_games.host.HostListOnGoingTournamentActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.circle.circle_games.host.HostListHistoryTournamentActivity"
+            android:exported="false" />
+        <activity
             android:name="com.circle.circle_games.main.TournamentGraphWebViewActivity"
             android:exported="false" />
         <activity

@@ -49,6 +49,9 @@ public class HostListTournamentActivity extends AppCompatActivity {
     LinearLayout llContent;
     @BindView(R.id.shimmer_load)
     ShimmerFrameLayout shimmerLoad;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
+
     private String idGame = "";
     private JSONArray fltGame = new JSONArray();
     private SessionUser sess;
@@ -68,12 +71,16 @@ public class HostListTournamentActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-
-        getListHostTournament(sess.getString("id_user"),"","0",fltGame);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getListHostTournament(sess.getString("id_user"),etSearchBarTournament.getText().toString(),"0",fltGame);
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
         etSearchBarTournament.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -91,7 +98,7 @@ public class HostListTournamentActivity extends AppCompatActivity {
     private void getListHostTournament(String userId, String search, String page, JSONArray filterGame ){
         gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
-            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListHostTournament(userId, search, page,filterGame);
+            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListHostTournament(userId, search, page,filterGame,"not_open");
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTournamentResponseModel> call, Response<GetListTournamentResponseModel> response) {
@@ -99,7 +106,7 @@ public class HostListTournamentActivity extends AppCompatActivity {
                         if (response.body().getCode().equals("00")){
                             listTournament = response.body().getData();
 
-                            rvTournament.setAdapter(new ListHostTournamentAdapter(HostListTournamentActivity.this,listTournament));
+                            rvTournament.setAdapter(new ListHostTournamentAdapter(HostListTournamentActivity.this,listTournament,"not_open"));
                             rvTournament.setLayoutManager(new GridLayoutManager(HostListTournamentActivity.this,2));
                         }else {
                             String notif = response.body().getDesc();
@@ -133,6 +140,11 @@ public class HostListTournamentActivity extends AppCompatActivity {
             e.printStackTrace();
             gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
         }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        getListHostTournament(sess.getString("id_user"),"","0",fltGame);
     }
 
 }
