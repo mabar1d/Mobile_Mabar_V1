@@ -39,7 +39,6 @@
                 android:src="@drawable/ic_tournament"
                 app:tint="@color/grey" />
 
-
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -59,6 +58,7 @@
                 android:gravity="right"
                 android:padding="5dp"
                 android:text="History"
+                android:layout_marginEnd="5dp"
                 android:textColor="@color/grey"
                 android:textSize="14sp" />
 
@@ -67,23 +67,13 @@
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_centerInParent="true"
-                android:layout_marginStart="15dp"
                 android:layout_toLeftOf="@+id/tv_history"
                 android:src="@drawable/ic_history"
                 app:tint="@color/grey" />
 
 
-        </RelativeLayout>
 
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="My Team"/>-->
+        </RelativeLayout>
 
 
         <LinearLayout
@@ -91,56 +81,170 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingBottom="10dp">
 
-            <TextView
+            <!--Create Tournament-->
+            <RelativeLayout
                 android:id="@+id/btn_create_tournament"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="Create Tournament"
-                android:textAlignment="center"
-                android:textColor="@color/grey"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-            <TextView
+                <ImageView
+                    android:id="@+id/btn6"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_create_tournament"
+                    app:tint="@color/grey" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/btn6"
+                    android:text="Create Tournament"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_arrow_right"
+                    app:tint="@color/grey" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/btn6"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/material_grey_700" />
+
+            </RelativeLayout>
+            <!--Edit Tournament-->
+            <RelativeLayout
                 android:id="@+id/btn_manage_tournament"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="Edit Tournament"
-                android:textAlignment="center"
-                android:textColor="@color/grey"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-            <TextView
+                <ImageView
+                    android:id="@+id/btn7"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_edit_tournament"
+                    app:tint="@color/grey" />
+
+
+                <TextView
+                    android:id="@+id/tv_switch_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/btn7"
+                    android:text="Edit Tournament"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_arrow_right"
+                    app:tint="@color/grey" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/btn7"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/material_grey_700" />
+
+            </RelativeLayout>
+            <!--On Going Tournament-->
+            <RelativeLayout
                 android:id="@+id/btn_on_going_tournament"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="On Going Tournament"
-                android:textAlignment="center"
-                android:textColor="@color/grey"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/btn8"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_on_going_tournament"
+                    app:tint="@color/grey" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/btn8"
+                    android:text="On Going Tournament"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_arrow_right"
+                    app:tint="@color/grey" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/btn8"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/material_grey_700" />
+
+            </RelativeLayout>
 
 
         </LinearLayout>

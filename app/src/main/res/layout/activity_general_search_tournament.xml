@@ -33,8 +33,7 @@
             android:layout_centerInParent="true"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@id/tv_title"
-            android:src="@drawable/ic_video"
-            android:visibility="gone"
+            android:src="@drawable/ic_create_tournament"
             app:tint="@color/grey" />
 
 

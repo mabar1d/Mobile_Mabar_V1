@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.circle.circle_games.R;
@@ -18,11 +19,11 @@ import butterknife.ButterKnife;
 public class HostMenuSettingsActivity extends AppCompatActivity {
 
     @BindView(R.id.btn_create_tournament)
-    TextView btnCreateTournament;
+    RelativeLayout btnCreateTournament;
     @BindView(R.id.btn_manage_tournament)
-    TextView btnManageTournament;
+    RelativeLayout btnManageTournament;
     @BindView(R.id.btn_on_going_tournament)
-    TextView btnOnGoingTournament;
+    RelativeLayout btnOnGoingTournament;
     @BindView(R.id.btn_history_tournament)
     ImageView btnHistoryTournament;
     @BindView(R.id.tv_history)

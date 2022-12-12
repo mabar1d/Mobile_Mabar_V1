@@ -91,6 +91,8 @@ public class HostManageTournamentActivity extends AppCompatActivity {
     TextView etType;
     @BindView(R.id.btn_update_tournament)
     Button btnUpdateTournament;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
 
     private String tourName = "";
     private String tourDescription = "";
@@ -152,6 +154,13 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item,listSpinnerGame);
         spGame.setAdapter(adapter);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnUpdateTournament.setOnClickListener(new View.OnClickListener() {
             @Override

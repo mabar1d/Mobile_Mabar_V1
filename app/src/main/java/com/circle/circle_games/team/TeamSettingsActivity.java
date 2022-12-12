@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +42,12 @@ import retrofit2.Response;
 public class TeamSettingsActivity extends AppCompatActivity {
 
     @BindView(R.id.btn_create_team)
-    TextView btnCreateTeam;
+    RelativeLayout btnCreateTeam;
     @BindView(R.id.btn_edit_team)
-    TextView btnEditTeam;
+    RelativeLayout btnEditTeam;
+    @BindView(R.id.btn_manage_team)
+    RelativeLayout btnManageTeam;
+
     @BindView(R.id.cv_team)
     CardView cvTeam;
 
@@ -63,9 +67,6 @@ public class TeamSettingsActivity extends AppCompatActivity {
     LinearLayout llContent;
     @BindView(R.id.shimmer_load)
     ShimmerFrameLayout shimmerLoad;
-
-    @BindView(R.id.btn_manage_team)
-    TextView btnManageTeam;
 
     private String teamId = "";
 
