@@ -152,7 +152,7 @@ public class DetailVideosActivity extends AppCompatActivity {
                             CircularProgressDrawable cp = new CircularProgressDrawable(DetailVideosActivity.this);
                             cp.setStrokeWidth(5f);
                             //cp.setBackgroundColor(R.color.material_grey_300);
-                            cp.setColorSchemeColors(R.color.primary_color_black, R.color.material_grey_800, R.color.material_grey_700);
+                            cp.setColorSchemeColors(R.color.primary_color_black, R.color.material_grey_800, R.color.material_grey_900);
                             cp.setCenterRadius(30f);
                             cp.start();
 

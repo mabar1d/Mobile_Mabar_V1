@@ -141,7 +141,7 @@ public class HomeFragmentNew extends Fragment {
     }
 
     private void getListGameFromDB(){
-        // below line is use to get all the courses from view modal.
+        // below line is use to get all the game from view modal.
         viewModel.getAllGame().observe(requireActivity(), new Observer<List<DataItem>>() {
             @Override
             public void onChanged(List<DataItem> models) {

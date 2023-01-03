@@ -135,7 +135,7 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:background="@color/material_grey_700" />
+                    android:background="@color/material_grey_900" />
 
             </RelativeLayout>
             <!--Edit Tournament-->
@@ -189,7 +189,7 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:background="@color/material_grey_700" />
+                    android:background="@color/material_grey_900" />
 
             </RelativeLayout>
             <!--On Going Tournament-->
@@ -242,7 +242,7 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:background="@color/material_grey_700" />
+                    android:background="@color/material_grey_900" />
 
             </RelativeLayout>
 

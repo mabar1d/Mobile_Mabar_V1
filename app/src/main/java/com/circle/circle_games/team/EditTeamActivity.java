@@ -2,6 +2,8 @@ package com.circle.circle_games.team;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,14 +34,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.circle.circle_games.login.LoginActivity;
+import com.circle.circle_games.main.adapter.ListGameAdapter;
 import com.circle.circle_games.main.adapter.ListPersonAdapter;
 import com.circle.circle_games.main.adapter.ListPersonAddedAdapter;
 import com.circle.circle_games.retrofit.ApiService;
 import com.circle.circle_games.retrofit.RetrofitConfig;
+import com.circle.circle_games.retrofit.model.DataItem;
 import com.circle.circle_games.retrofit.model.GetTeamInfoResponseModel;
 import com.circle.circle_games.retrofit.model.ListPersonnelNotMemberResponseModel;
 import com.circle.circle_games.retrofit.model.ListPersonnelResponseModel;
 import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
+import com.circle.circle_games.room.viewmodel.MasterViewModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 import com.circle.circle_games.R;
@@ -127,6 +132,8 @@ public class EditTeamActivity extends AppCompatActivity {
     List<GetTeamInfoResponseModel.Data.Personnel> listPersonnelExisting = new ArrayList<>();
     ArrayList<String> listSpinnerGame = new ArrayList<>();
 
+    private MasterViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +142,7 @@ public class EditTeamActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         sess = new SessionUser(this);
         gm = new GlobalMethod();
+        viewModel = ViewModelProviders.of(this).get(MasterViewModel.class);
 
         Bundle b = getIntent().getExtras();
 
@@ -145,12 +153,7 @@ public class EditTeamActivity extends AppCompatActivity {
             idTeam = b.getString("id_team");
         }
 
-        listSpinnerGame.add("Mobile Legends");
-        listSpinnerGame.add("Free Fire");
-        listSpinnerGame.add("PUBG");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,listSpinnerGame);
-        spGame.setAdapter(adapter);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,7 +213,7 @@ public class EditTeamActivity extends AppCompatActivity {
             }
         });
 
-
+        getAllGameTitle();
 
         btnAddPersonell.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,15 +242,8 @@ public class EditTeamActivity extends AppCompatActivity {
 
                         //Mapping Game
                         String getGame = spGame.getSelectedItem().toString();
-                        if (getGame.equalsIgnoreCase("Mobile Legends")){
-                            game = 6;
-                        }else if (getGame.equalsIgnoreCase("Free Fire")){
-                            game = 7;
-                        }else if (getGame.equalsIgnoreCase("PUBG")){
-                            game = 8;
-                        }else {
-                            game = 0;
-                        }
+                        game = getGameId(getGame);
+
                         for (int i = 0;i<listPersonAdded.size();i++){
                             personnelId.put(listPersonAdded.get(i).getUserId());
                         }
@@ -527,7 +523,7 @@ public class EditTeamActivity extends AppCompatActivity {
                             CircularProgressDrawable cp = new CircularProgressDrawable(EditTeamActivity.this);
                             cp.setStrokeWidth(5f);
                             //cp.setBackgroundColor(R.color.material_grey_300);
-                            cp.setColorSchemeColors(R.color.primary_color_black, R.color.material_grey_800, R.color.material_grey_700);
+                            cp.setColorSchemeColors(R.color.primary_color_black, R.color.material_grey_800, R.color.material_grey_900);
                             cp.setCenterRadius(30f);
                             cp.start();
 
@@ -627,6 +623,35 @@ public class EditTeamActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void getAllGameTitle(){
+        viewModel.getAllGame().observe(this, new Observer<List<DataItem>>() {
+            @Override
+            public void onChanged(List<DataItem> models) {
+                for (int i = 0;i<models.size();i++){
+                    listSpinnerGame.add(models.get(i).getTitle());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(EditTeamActivity.this, R.layout.spinner_item,listSpinnerGame);
+                spGame.setAdapter(adapter);
+            }
+        });
+    }
+
+    private int getGameId(String title){
+        final int[] id = {0};
+        viewModel.getAllGame().observe(this, new Observer<List<DataItem>>() {
+            @Override
+            public void onChanged(List<DataItem> models) {
+                for (int i = 0;i<models.size();i++){
+                    if (models.get(i).getTitle().equalsIgnoreCase(title)){
+                        id[0] = models.get(i).getId();
+                    }
+                }
+            }
+        });
+
+        return id[0];
     }
 
 }

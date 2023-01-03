@@ -24,7 +24,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.135258358662614" />
         <entry key="app/src/main/res/layout/activity_manage_team.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_member_team_list_tournament.xml" value="0.19157608695652173" />
-        <entry key="app/src/main/res/layout/activity_peyment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_peyment.xml" value="0.30630035400390626" />
         <entry key="app/src/main/res/layout/activity_search_news.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1558565886124321" />
         <entry key="app/src/main/res/layout/activity_team_settings.xml" value="0.2745605468750001" />
@@ -36,7 +36,9 @@
         <entry key="app/src/main/res/layout/list_host_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_member_team_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_news.xml" value="0.2368659420289855" />
+        <entry key="app/src/main/res/layout/list_team_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_videos.xml" value="0.2128623188405797" />
+        <entry key="app/src/main/res/layout/spinner_item.xml" value="0.19157608695652173" />
       </map>
     </option>
   </component>

@@ -2,6 +2,7 @@ package com.circle.circle_games.host;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -27,13 +28,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.circle.circle_games.profile.CreateTournamentActivity;
 import com.circle.circle_games.retrofit.ApiService;
 import com.circle.circle_games.R;
 import com.circle.circle_games.login.LoginActivity;
 import com.circle.circle_games.retrofit.ApiService;
 import com.circle.circle_games.retrofit.RetrofitConfig;
+import com.circle.circle_games.retrofit.model.DataItem;
 import com.circle.circle_games.retrofit.model.ResponseGetInfoTournamentModel;
 import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
+import com.circle.circle_games.room.viewmodel.MasterViewModel;
 import com.circle.circle_games.utility.CurrencyEditTextWatcher;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
@@ -42,6 +46,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -124,6 +129,8 @@ public class HostManageTournamentActivity extends AppCompatActivity {
     private long minStartDate = 0;
     private long minEndDate = 0;
 
+    private MasterViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,12 +155,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
         etPrize.addTextChangedListener(new CurrencyEditTextWatcher(etPrize));
         etRegFee.addTextChangedListener(new CurrencyEditTextWatcher(etRegFee));
 
-        listSpinnerGame.add("Mobile Legends");
-        listSpinnerGame.add("Free Fire");
-        listSpinnerGame.add("PUBG");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item,listSpinnerGame);
-        spGame.setAdapter(adapter);
+        getAllGameTitle();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,16 +194,8 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
                         //Mapping Game
                         String getGame = spGame.getSelectedItem().toString();
-                        if (getGame.equalsIgnoreCase("Mobile Legends")){
-                            game = 6;
-                        }else if (getGame.equalsIgnoreCase("Free Fire")){
-                            game = 7;
-                        }else if (getGame.equalsIgnoreCase("PUBG")){
-                            game = 8;
-                        }else {
-                            game = 6;
-                        }
-                        //game = Integer.parseInt(etGame.getText().toString());
+                        game = getGameId(getGame);
+
                         if (picturePath.equals("")){
                             Toast.makeText(HostManageTournamentActivity.this, "Please select a picture before create Tournament", Toast.LENGTH_SHORT).show();
                         }else {
@@ -575,6 +569,34 @@ public class HostManageTournamentActivity extends AppCompatActivity {
         }
 
 
+    }
+    private void getAllGameTitle(){
+        viewModel.getAllGame().observe(this, new Observer<List<DataItem>>() {
+            @Override
+            public void onChanged(List<DataItem> models) {
+                for (int i = 0;i<models.size();i++){
+                    listSpinnerGame.add(models.get(i).getTitle());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(HostManageTournamentActivity.this, R.layout.spinner_item,listSpinnerGame);
+                spGame.setAdapter(adapter);
+            }
+        });
+    }
+
+    private int getGameId(String title){
+        final int[] id = {0};
+        viewModel.getAllGame().observe(this, new Observer<List<DataItem>>() {
+            @Override
+            public void onChanged(List<DataItem> models) {
+                for (int i = 0;i<models.size();i++){
+                    if (models.get(i).getTitle().equalsIgnoreCase(title)){
+                        id[0] = models.get(i).getId();
+                    }
+                }
+            }
+        });
+
+        return id[0];
     }
 
 }

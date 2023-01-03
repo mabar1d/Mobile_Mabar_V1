@@ -66,7 +66,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"
-            app:cardBackgroundColor="@color/material_grey_700"
+            app:cardBackgroundColor="@color/material_grey_900"
             app:cardCornerRadius="10dp">
 
             <LinearLayout

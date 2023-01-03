@@ -30,7 +30,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="25dp"
                 app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="@color/material_grey_700">
+                app:cardBackgroundColor="@color/material_grey_900">
 
 
             </androidx.cardview.widget.CardView>
@@ -41,7 +41,7 @@
                 android:layout_height="400dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/material_grey_700"
+                app:cardBackgroundColor="@color/material_grey_900"
                 app:cardCornerRadius="20dp">
 
 
@@ -54,7 +54,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:padding="10dp"
-                app:cardBackgroundColor="@color/material_grey_700"
+                app:cardBackgroundColor="@color/material_grey_900"
                 app:cardCornerRadius="15dp">
             </androidx.cardview.widget.CardView>
 
@@ -74,7 +74,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
                 android:padding="10dp"
-                app:cardBackgroundColor="@color/material_grey_700"
+                app:cardBackgroundColor="@color/material_grey_900"
                 app:cardCornerRadius="15dp">
             </androidx.cardview.widget.CardView>
 
@@ -86,7 +86,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
                 android:padding="10dp"
-                app:cardBackgroundColor="@color/material_grey_700"
+                app:cardBackgroundColor="@color/material_grey_900"
                 app:cardCornerRadius="15dp">
             </androidx.cardview.widget.CardView>
 
@@ -115,7 +115,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@color/material_grey_700"
+                app:cardBackgroundColor="@color/material_grey_900"
                 app:cardCornerRadius="20dp">
 
                 <RelativeLayout
@@ -166,7 +166,7 @@
                 android:layout_height="250dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/material_grey_700">
+                app:cardBackgroundColor="@color/material_grey_900">
 
                 <com.asura.library.views.PosterSlider
                     android:id="@+id/poster_slider"
@@ -175,7 +175,7 @@
                     android:layout_gravity="center"
                     app:defaultIndicator="circle"
                     app:hideIndicators="false"
-                    android:background="@color/material_grey_700"
+                    android:background="@color/material_grey_900"
                     app:imageSlideInterval="5000"
                     app:layout_constraintTop_toTopOf="parent"
                     app:loopSlides="true" />
@@ -246,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:padding="10dp"
-                app:cardBackgroundColor="@color/material_grey_700">
+                app:cardBackgroundColor="@color/material_grey_900">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_game_list"

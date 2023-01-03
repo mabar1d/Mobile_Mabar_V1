@@ -152,7 +152,7 @@
                         android:layout_marginStart="35dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/material_grey_700" />
+                        android:background="@color/material_grey_900" />
 
                 </RelativeLayout>
                 <!--Team Settings-->
@@ -205,7 +205,7 @@
                         android:layout_marginStart="35dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/material_grey_700" />
+                        android:background="@color/material_grey_900" />
 
                 </RelativeLayout>
                 <!--Manage Tournament-->
@@ -258,7 +258,7 @@
                         android:layout_marginStart="35dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/material_grey_700" />
+                        android:background="@color/material_grey_900" />
 
                 </RelativeLayout>
                 <!--Join Team-->
@@ -311,7 +311,7 @@
                         android:layout_marginStart="35dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/material_grey_700" />
+                        android:background="@color/material_grey_900" />
 
                 </RelativeLayout>
                 <!--My Team-->
@@ -364,7 +364,7 @@
                         android:layout_marginStart="35dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/material_grey_700" />
+                        android:background="@color/material_grey_900" />
 
                 </RelativeLayout>
 
@@ -425,7 +425,7 @@
                         android:layout_marginStart="35dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/material_grey_700" />
+                        android:background="@color/material_grey_900" />
 
                 </RelativeLayout>
                 <!--Switch Account-->
@@ -479,7 +479,7 @@
                         android:layout_marginStart="35dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/material_grey_700" />
+                        android:background="@color/material_grey_900" />
 
                 </RelativeLayout>
                 <!--Logout-->
@@ -532,7 +532,7 @@
                         android:layout_marginStart="35dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:background="@color/material_grey_700" />
+                        android:background="@color/material_grey_900" />
 
                 </RelativeLayout>
 

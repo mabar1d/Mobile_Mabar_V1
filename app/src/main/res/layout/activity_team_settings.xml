@@ -68,7 +68,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"
-            app:cardBackgroundColor="@color/material_grey_700"
+            app:cardBackgroundColor="@color/material_grey_900"
             app:cardCornerRadius="10dp">
 
             <ImageView
@@ -216,7 +216,7 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:background="@color/material_grey_700" />
+                    android:background="@color/material_grey_900" />
 
             </RelativeLayout>
 
@@ -270,7 +270,7 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:background="@color/material_grey_700" />
+                    android:background="@color/material_grey_900" />
 
             </RelativeLayout>
 
@@ -324,7 +324,7 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:background="@color/material_grey_700" />
+                    android:background="@color/material_grey_900" />
 
             </RelativeLayout>
 

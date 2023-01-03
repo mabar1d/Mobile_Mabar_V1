@@ -2,6 +2,8 @@ package com.circle.circle_games.team;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,9 +36,11 @@ import com.circle.circle_games.main.adapter.ListPersonAddedAdapter;
 import com.circle.circle_games.retrofit.ApiService;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.retrofit.model.CreateTeamResponseModel;
+import com.circle.circle_games.retrofit.model.DataItem;
 import com.circle.circle_games.retrofit.model.ListPersonnelNotMemberResponseModel;
 import com.circle.circle_games.retrofit.model.ListPersonnelNotMemberResponseModel;
 import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
+import com.circle.circle_games.room.viewmodel.MasterViewModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 import com.circle.circle_games.R;
@@ -126,6 +130,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     List<ListPersonnelNotMemberResponseModel.Data> listPerson = new ArrayList<>();
     List<ListPersonnelNotMemberResponseModel.Data> listPersonAdded = new ArrayList<>();
     ArrayList<String> listSpinnerGame = new ArrayList<>();
+    private MasterViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,17 +140,12 @@ public class CreateTeamActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         sess = new SessionUser(this);
         gm = new GlobalMethod();
+        viewModel = ViewModelProviders.of(this).get(MasterViewModel.class);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
-        listSpinnerGame.add("Mobile Legends");
-        listSpinnerGame.add("Free Fire");
-        listSpinnerGame.add("PUBG");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,listSpinnerGame);
-        spGame.setAdapter(adapter);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +172,8 @@ public class CreateTeamActivity extends AppCompatActivity {
 
             }
         });
+
+        getAllGameTitle();
 
         //BOttomsheet
         bsDialog = new BottomSheetDialog(CreateTeamActivity.this);
@@ -231,16 +233,8 @@ public class CreateTeamActivity extends AppCompatActivity {
                         teamInfo = etTeamInfo.getText().toString();
                         //Mapping Game
                         String getGame = spGame.getSelectedItem().toString();
-                        if (getGame.equalsIgnoreCase("Mobile Legends")){
-                            game = 6;
-                        }else if (getGame.equalsIgnoreCase("Free Fire")){
-                            game = 7;
-                        }else if (getGame.equalsIgnoreCase("PUBG")){
-                            game = 8;
-                        }else {
-                            game = 0;
-                        }
-                        //game = Integer.parseInt(etGame.getText().toString());
+                        game = getGameId(getGame);
+
                         if (picturePath.equals("")){
                             Toast.makeText(CreateTeamActivity.this, "Please select a picture before create Team", Toast.LENGTH_SHORT).show();
                         }else {
@@ -528,6 +522,35 @@ public class CreateTeamActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void getAllGameTitle(){
+        viewModel.getAllGame().observe(this, new Observer<List<DataItem>>() {
+            @Override
+            public void onChanged(List<DataItem> models) {
+                for (int i = 0;i<models.size();i++){
+                    listSpinnerGame.add(models.get(i).getTitle());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateTeamActivity.this, R.layout.spinner_item,listSpinnerGame);
+                spGame.setAdapter(adapter);
+            }
+        });
+    }
+
+    private int getGameId(String title){
+        final int[] id = {0};
+        viewModel.getAllGame().observe(this, new Observer<List<DataItem>>() {
+            @Override
+            public void onChanged(List<DataItem> models) {
+                for (int i = 0;i<models.size();i++){
+                    if (models.get(i).getTitle().equalsIgnoreCase(title)){
+                        id[0] = models.get(i).getId();
+                    }
+                }
+            }
+        });
+
+        return id[0];
     }
 
 }

@@ -30,7 +30,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/material_grey_700">
+                android:background="@color/material_grey_900">
 
                 <EditText
                     android:id="@+id/search_bar_tournament"
@@ -110,7 +110,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            app:cardBackgroundColor="@color/material_grey_700"
+            app:cardBackgroundColor="@color/material_grey_900"
             app:cardCornerRadius="20dp"
             android:layout_marginBottom="20dp">
 
@@ -125,7 +125,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:padding="10dp"
-                app:cardBackgroundColor="@color/material_grey_700"
+                app:cardBackgroundColor="@color/material_grey_900"
                 app:cardCornerRadius="15dp">
 
 

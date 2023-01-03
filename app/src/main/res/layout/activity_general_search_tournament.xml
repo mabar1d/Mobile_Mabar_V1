@@ -65,7 +65,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="20dp"
-            app:cardBackgroundColor="@color/material_grey_700"
+            app:cardBackgroundColor="@color/material_grey_900"
             app:cardCornerRadius="20dp">
 
             <RelativeLayout
