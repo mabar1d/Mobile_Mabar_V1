@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mabar_V1">
         <activity
+            android:name="com.circle.circle_games.PaymentActivity"
+            android:exported="false" />
+        <activity
             android:name="com.circle.circle_games.host.HostListTournamentActivity"
             android:exported="false" />
         <activity

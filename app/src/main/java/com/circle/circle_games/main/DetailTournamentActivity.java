@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.circle.circle_games.PaymentActivity;
 import com.circle.circle_games.utility.SessionUser;
 import com.circle.circle_games.R;
 import com.circle.circle_games.login.LoginActivity;
@@ -69,6 +70,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
     private String judulGame = "";
     private SessionUser sess;
     private GlobalMethod gm;
+    private String fee = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,8 +116,14 @@ public class DetailTournamentActivity extends AppCompatActivity {
                         "Register", "Cancel", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                registerTournament(sess.getString("id_user"),idTournament);
+                                if (fee.equalsIgnoreCase("Free")){
+                                    registerTournament(sess.getString("id_user"),idTournament);
+                                }else {
+                                    Intent i = new Intent(DetailTournamentActivity.this, PaymentActivity.class);
+                                    startActivity(i);
+                                }
                                 gm.dismissDialogConfirmation();
+
                             }
                         }, new View.OnClickListener() {
                             @Override
@@ -178,7 +186,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             tvRegEnd.setText(response.body().getData().getRegisterDateEnd());
                             tvNumParticipant.setText(response.body().getData().getNumberOfParticipants().toString()+" Slot");
                             tvDescription.setText(response.body().getData().getDetail());
-                            String fee = response.body().getData().getRegister_fee();
+                            fee = response.body().getData().getRegister_fee();
 
                             if (fee.equalsIgnoreCase("0")){
                                 fee = "FREE";

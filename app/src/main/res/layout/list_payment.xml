@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/material_grey_900">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/grey"
+        app:cardCornerRadius="10dp">
+
+    <ImageView
+        android:id="@+id/iv_payment"
+        android:background="@color/grey"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_dana" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_marginLeft="15dp"
+        android:id="@+id/title_payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@id/cv_logo"
+        android:text="Gopay"
+        android:textColor="@color/grey"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/id_payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp"
+        android:text="-"
+        android:textColor="@color/grey"
+        android:textSize="14dp"
+        android:textStyle="italic" />
+
+
+
+
+</RelativeLayout>
