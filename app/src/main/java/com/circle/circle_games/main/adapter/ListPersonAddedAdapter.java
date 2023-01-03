@@ -28,10 +28,12 @@ public class ListPersonAddedAdapter extends RecyclerView.Adapter {
     private List<ListPersonnelNotMemberResponseModel.Data> dataPerson = new ArrayList<>();
     private GlobalMethod globalMethod;
     private final ListPersonAddedAdapter.OnItemClickListener listener;
+    private int userId;
 
-    public ListPersonAddedAdapter(Context context, List<ListPersonnelNotMemberResponseModel.Data> dataPerson,
+    public ListPersonAddedAdapter(Context context,int userId, List<ListPersonnelNotMemberResponseModel.Data> dataPerson,
                                   ListPersonAddedAdapter.OnItemClickListener listener) {
         this.context = context;
+        this.userId = userId;
         this.dataPerson = dataPerson;
         this.listener = listener;
     }
@@ -52,18 +54,22 @@ public class ListPersonAddedAdapter extends RecyclerView.Adapter {
         ListPersonnelNotMemberResponseModel.Data dataModel  = dataPerson.get(position);
         final ListPersonAddedAdapter.PersonViewHolder holderItem = (ListPersonAddedAdapter.PersonViewHolder)holder;
 
-        //postFinancingHolder.rbAsuransi.setEnabled(false);
-
 
         holderItem.tvPersonName.setText(dataModel.getUsername());
+        if (userId == dataModel.getUserId()){
+            Glide.with(context)
+                    .load(R.drawable.crown)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    //.skipMemoryCache(true)
+                    .into(((PersonViewHolder) holder).civPerson);
+        }else {
+            Glide.with(context)
+                    .load(R.drawable.person_photo)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    //.skipMemoryCache(true)
+                    .into(((PersonViewHolder) holder).civPerson);
+        }
 
-
-        Glide.with(context)
-                /*.load(dataPerson.get(position).getImage())*/
-                .load(R.drawable.person_photo)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                //.skipMemoryCache(true)
-                .into(holderItem.civPerson);
 
         holderItem.bind(dataPerson.get(position), listener);
     }

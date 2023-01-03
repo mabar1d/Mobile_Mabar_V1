@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../layout/custom_preview.xml" value="0.10461630695443645" />
         <entry key="app/src/main/res/drawable/ic_game.xml" value="0.1645" />
+        <entry key="app/src/main/res/drawable/ic_person.xml" value="0.1745" />
         <entry key="app/src/main/res/drawable/ic_tournament.xml" value="0.1305" />
         <entry key="app/src/main/res/layout/activity_create_team.xml" value="0.11979166666666667" />
         <entry key="app/src/main/res/layout/activity_detail_profile_account.xml" value="0.19157608695652173" />
@@ -29,10 +30,12 @@
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1558565886124321" />
         <entry key="app/src/main/res/layout/activity_team_settings.xml" value="0.2745605468750001" />
         <entry key="app/src/main/res/layout/activity_videos.xml" value="0.19429347826086957" />
+        <entry key="app/src/main/res/layout/dialog_confirmation.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/fragment_home_new.xml" value="0.14336372847011145" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/fragment_profile_new.xml" value="0.33820800781250004" />
         <entry key="app/src/main/res/layout/fragment_tournament.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/list_card_person_added.xml" value="0.517584692913553" />
         <entry key="app/src/main/res/layout/list_host_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_member_team_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_news.xml" value="0.2368659420289855" />

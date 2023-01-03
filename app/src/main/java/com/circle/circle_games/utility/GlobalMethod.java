@@ -33,6 +33,7 @@ public class GlobalMethod {
     SessionUser sessionUser;
     SweetAlertDialog pDialog;
     Dialog confirmationDialog;
+    Dialog warningDialog;
     NumberFormat currencyFormatter;
     /*public String getUriImage(String path){
         //String url = "https://image.tmdb.org/t/p/w500"+path;

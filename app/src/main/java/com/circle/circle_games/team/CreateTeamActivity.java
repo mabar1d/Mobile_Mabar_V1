@@ -118,6 +118,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     private String teamName = "";
     private String teamInfo = "";
     private Integer game;
+    private Integer idUser;
     private JSONArray personnel = new JSONArray();
     private JSONArray personnelId = new JSONArray();
 
@@ -146,6 +147,7 @@ public class CreateTeamActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        idUser = Integer.parseInt(sess.getString("id_user"));
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -430,7 +432,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                             listPersonAdapter.notifyDataSetChanged();
 
                             //Setting Adapter Added Person
-                            listPersonAddedAdapter = new ListPersonAddedAdapter(CreateTeamActivity.this, listPersonAdded, new ListPersonAddedAdapter.OnItemClickListener() {
+                            listPersonAddedAdapter = new ListPersonAddedAdapter(CreateTeamActivity.this,idUser, listPersonAdded, new ListPersonAddedAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(ListPersonnelNotMemberResponseModel.Data item, int position) {
                                     listPersonAdded.remove(position);

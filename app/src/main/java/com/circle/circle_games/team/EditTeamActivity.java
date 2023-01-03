@@ -121,6 +121,7 @@ public class EditTeamActivity extends AppCompatActivity {
     private String teamInfo = "";
     private String tourDescription = "";
     private Integer game;
+    private Integer idUser;
     private JSONArray personnelId = new JSONArray();
 
     private SessionUser sess;
@@ -153,7 +154,7 @@ public class EditTeamActivity extends AppCompatActivity {
             idTeam = b.getString("id_team");
         }
 
-
+        idUser = Integer.parseInt(sess.getString("id_user"));
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,22 +271,27 @@ public class EditTeamActivity extends AppCompatActivity {
         });
 
         //Setting Adapter Added Person
-        listPersonAddedAdapter = new ListPersonAddedAdapter(EditTeamActivity.this, listPersonAdded, new ListPersonAddedAdapter.OnItemClickListener() {
+        listPersonAddedAdapter = new ListPersonAddedAdapter(EditTeamActivity.this,idUser, listPersonAdded, new ListPersonAddedAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ListPersonnelNotMemberResponseModel.Data item, int position) {
-                gm.showDialogConfirmation(EditTeamActivity.this, "Remove From Team?", "Remove "+ item.getUsername() + " from your team?", "Yes", "Cancel", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        listPersonAdded.remove(position);
-                        listPersonAddedAdapter.notifyDataSetChanged();
-                        gm.dismissDialogConfirmation();
-                    }
-                }, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        gm.dismissDialogConfirmation();
-                    }
-                });
+                if (idUser == item.getUserId()){
+                    Toast.makeText(EditTeamActivity.this, "Cannot delete yourself..", Toast.LENGTH_SHORT).show();
+                }else {
+                    gm.showDialogConfirmation(EditTeamActivity.this, "Remove From Team?", "Remove "+ item.getUsername() + " from your team?", "Yes", "Cancel", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            listPersonAdded.remove(position);
+                            listPersonAddedAdapter.notifyDataSetChanged();
+                            gm.dismissDialogConfirmation();
+                        }
+                    }, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            gm.dismissDialogConfirmation();
+                        }
+                    });
+                }
+
 
             }
         });
