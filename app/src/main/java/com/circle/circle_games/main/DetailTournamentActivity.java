@@ -120,6 +120,10 @@ public class DetailTournamentActivity extends AppCompatActivity {
                                     registerTournament(sess.getString("id_user"),idTournament);
                                 }else {
                                     Intent i = new Intent(DetailTournamentActivity.this, PaymentActivity.class);
+                                    Bundle bun = new Bundle();
+                                    bun.putString("id_tournament", idTournament);
+                                    bun.putString("fee",fee);
+                                    i.putExtras(bun);
                                     startActivity(i);
                                 }
                                 gm.dismissDialogConfirmation();

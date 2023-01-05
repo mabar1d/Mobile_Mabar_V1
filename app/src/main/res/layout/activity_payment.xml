@@ -67,8 +67,11 @@
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             app:cardBackgroundColor="@color/material_grey_900"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="15dp">
 
 
             <LinearLayout
@@ -82,7 +85,8 @@
                     android:layout_marginTop="10dp"
                     android:id="@+id/rv_payment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="30dp"/>
 
 
 
@@ -103,112 +107,41 @@
 
     </LinearLayout>
 
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/shimmer_load"
-        android:visibility="gone"
-        android:paddingBottom="70dp"
-        android:orientation="vertical">
-        <LinearLayout
+    <LinearLayout
+        android:id="@+id/llBottomContainer2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:padding="5dp" >
+        <TextView
+            android:id="@+id/tv_total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+            android:text="Total : "
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="16dp"
+            android:textColor="@color/grey"/>
+    <Button
+        android:layout_gravity="bottom"
+        android:id="@+id/btn_pay"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="15dp"
+        android:textAllCaps="false"
+        android:background="@drawable/rounded_button_green"
+        android:text="Pay"
+        android:textColor="@color/grey"
+        android:textSize="14dp" />
+    </LinearLayout>
 
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="vertical">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="horizontal"
-                    android:paddingTop="5dp"
-                    app:cardCornerRadius="10dp"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:gravity="left"
-                        android:minLines="2"
-                        android:maxLines="2"
-                        android:text=""
-                        android:textColor="@color/grey"
-                        android:textSize="17dp"
-                        android:textStyle="bold" />
-                </androidx.cardview.widget.CardView>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="15dp">
-
-                    <ImageView
-                        android:id="@+id/ic_person1"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/ic_writer_96"
-                        app:tint="@color/grey" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="100dp"
-                        android:layout_height="15dp"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="4dp"
-                        android:layout_toRightOf="@id/ic_person1"
-                        app:cardCornerRadius="10dp"
-                        android:textSize="12sp" />
-
-                </RelativeLayout>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="100dp"
-                    android:layout_height="15dp"
-                    android:textColor="@color/grey"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="20dp"
-                    android:textStyle="bold"
-                    app:cardCornerRadius="10dp"
-                    android:textSize="12sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:orientation="vertical"
-                    android:layout_margin="10dp">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="4dp"
-                        android:layout_toRightOf="@id/ic_person1"
-                        app:cardCornerRadius="10dp"
-                        android:layout_marginTop="10dp"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </LinearLayout>
-
-
-    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
 </LinearLayout>
