@@ -4,13 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../layout/custom_preview.xml" value="0.10461630695443645" />
+        <entry key="../.gradle/caches/transforms-2/files-2.1/80bc054025fe2a6a551a7741507d3d0a/jetified-library-1.5.6/res/drawable/gray_button_background.xml" value="0.1745" />
         <entry key="app/src/main/res/drawable/ic_game.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/ic_person.xml" value="0.1745" />
         <entry key="app/src/main/res/drawable/ic_tournament.xml" value="0.1305" />
+        <entry key="app/src/main/res/drawable/rounded_button_orange.xml" value="0.1745" />
         <entry key="app/src/main/res/layout/activity_create_team.xml" value="0.11979166666666667" />
         <entry key="app/src/main/res/layout/activity_detail_profile_account.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_detail_team_info.xml" value="0.19157608695652173" />
-        <entry key="app/src/main/res/layout/activity_detail_tournament.xml" value="0.19010416666666666" />
+        <entry key="app/src/main/res/layout/activity_detail_tournament.xml" value="0.33809458414713545" />
         <entry key="app/src/main/res/layout/activity_detail_videos.xml" value="0.24061060366423234" />
         <entry key="app/src/main/res/layout/activity_edit_team.xml" value="0.11979166666666667" />
         <entry key="app/src/main/res/layout/activity_fullscreen_videos.xml" value="0.15489130434782608" />
@@ -22,12 +24,14 @@
         <entry key="app/src/main/res/layout/activity_host_menu_settings.xml" value="0.2840931768002718" />
         <entry key="app/src/main/res/layout/activity_host_setting.xml" value="0.3583214801290761" />
         <entry key="app/src/main/res/layout/activity_join_team.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.135258358662614" />
         <entry key="app/src/main/res/layout/activity_manage_team.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_member_team_list_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_payment.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_peyment.xml" value="0.30630035400390626" />
         <entry key="app/src/main/res/layout/activity_search_news.xml" value="0.19429347826086957" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1558565886124321" />
         <entry key="app/src/main/res/layout/activity_team_settings.xml" value="0.2745605468750001" />
         <entry key="app/src/main/res/layout/activity_videos.xml" value="0.19429347826086957" />
@@ -44,6 +48,7 @@
         <entry key="app/src/main/res/layout/list_team_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_videos.xml" value="0.2128623188405797" />
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

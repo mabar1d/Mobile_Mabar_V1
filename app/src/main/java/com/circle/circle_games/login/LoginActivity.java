@@ -1,6 +1,7 @@
 package com.circle.circle_games.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -35,9 +36,9 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.etEmail)
-    TextInputEditText etEmail;
+    EditText etEmail;
     @BindView(R.id.etPassword)
-    TextInputEditText etPassword;
+    EditText etPassword;
     @BindView(R.id.tvLupaPassword)
     TextView tvLupaPassword;
     @BindView(R.id.btnLogin)

@@ -380,15 +380,9 @@ public class SplashScreen1 extends AppCompatActivity {
 
     private void cekSession(){
         if (sess.getString("token").equalsIgnoreCase("")){
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    final Intent mainIntent = new Intent(SplashScreen1.this, LoginActivity.class);
-                    startActivity(mainIntent);
-                    finish();
-                }
-            }, 5000);
+            Intent i = new Intent(SplashScreen1.this, LoginActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
         }else {
             checkVersion();
 

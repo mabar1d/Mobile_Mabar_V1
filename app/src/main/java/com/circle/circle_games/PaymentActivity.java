@@ -101,8 +101,10 @@ public class PaymentActivity extends AppCompatActivity {
                             "Pay", "Cancel", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Log.e("Hasil",paymentMethod);
-                                    //registerTournament(sess.getString("id_user"),idTournament);
+                                    /*if (s){
+
+                                    }*/
+                                    registerTournament(sess.getString("id_user"),idTournament);
                                     gm.dismissDialogConfirmation();
 
                                 }
@@ -176,6 +178,7 @@ public class PaymentActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(ListPaymentResponseModel.Data item, int position) {
                     paymentMethod = item.getPayment();
+
                 }
             });
             rvPayment.setAdapter(paymentAdapter);
