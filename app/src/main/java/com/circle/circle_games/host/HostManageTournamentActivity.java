@@ -3,6 +3,7 @@ package com.circle.circle_games.host;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -108,7 +109,6 @@ public class HostManageTournamentActivity extends AppCompatActivity {
     private Integer game;
     private Integer type;
     private boolean flagSendData = false;
-    private String idTour = "";
 
     private String regDateStartNonFormat = "";
     private String regDateEndNonFormat = "";
@@ -150,12 +150,20 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
         sess = new SessionUser(this);
         gm = new GlobalMethod();
+        viewModel = ViewModelProviders.of(this).get(MasterViewModel.class);
         sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         etPrize.addTextChangedListener(new CurrencyEditTextWatcher(etPrize));
         etRegFee.addTextChangedListener(new CurrencyEditTextWatcher(etRegFee));
 
         getAllGameTitle();
+        getInfoTournament(sess.getString("id_user"),idTournament);
+
+        //Open DatePicker
+        setDateOpenRegStart();
+        setDateOpenRegEnd();
+        setDateOpenStart();
+        setDateOpenEnd();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,17 +204,13 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                         String getGame = spGame.getSelectedItem().toString();
                         game = getGameId(getGame);
 
-                        if (picturePath.equals("")){
-                            Toast.makeText(HostManageTournamentActivity.this, "Please select a picture before create Tournament", Toast.LENGTH_SHORT).show();
-                        }else {
                             if (flagSendData == true){
-                                uploadImage(idTour);
+                                uploadImage(idTournament);
                             }else {
-                                updateTournament(idTour,tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
+                                updateTournament(idTournament,tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
                                         dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type);
                             }
 
-                        }
                     }
                 }, new View.OnClickListener() {
                     @Override
@@ -218,6 +222,8 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
             }
         });
+
+
 
         btnEditImage.setOnClickListener(new View.OnClickListener() {
 
@@ -236,14 +242,6 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //Open DatePicker
-        setDateOpenRegStart();
-        setDateOpenRegEnd();
-        setDateOpenStart();
-        setDateOpenEnd();
-
-        getInfoTournament(sess.getString("id_user"),idTournament);
 
 
     }
@@ -383,7 +381,11 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                             flagSendData = true;
                             String desc = response.body().getDesc();
                             Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            uploadImage(idTour);
+                            if (!picturePath.equals("")){
+                                uploadImage(idTournament);
+                            }else {
+                                finish();
+                            }
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
