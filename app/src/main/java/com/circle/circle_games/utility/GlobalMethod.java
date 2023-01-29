@@ -18,6 +18,7 @@ import java.math.RoundingMode;
 import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -97,6 +98,27 @@ public class GlobalMethod {
         }
         return textRole;
     }
+
+    public long getTimeMillis(String date){
+        long timeMillis = 0;
+
+        Date dt;
+        Calendar calendar = Calendar.getInstance();
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+        try {
+
+            dt = df.parse(date);
+            calendar.setTime(dt);
+            timeMillis = calendar.getTimeInMillis();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return timeMillis;
+    }
+
     public String setDateIndonesia(Integer type, String date){
         DateFormat df;
         Date dt;

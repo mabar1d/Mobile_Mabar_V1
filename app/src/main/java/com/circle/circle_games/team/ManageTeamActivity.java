@@ -182,7 +182,8 @@ public class ManageTeamActivity extends AppCompatActivity {
                         if (response.body().getCode().equals("00")){
                             String desc = response.body().getDesc();
                             Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            getListPerson();
+                            //getListPerson();
+                            recreate();
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();

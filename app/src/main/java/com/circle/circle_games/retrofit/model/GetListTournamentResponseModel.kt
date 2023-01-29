@@ -16,56 +16,68 @@ data class GetListTournamentResponseModel(
     var desc: String
 ) {
     data class Data(
-        @SerializedName("detail")
-        @Expose
-        var detail: String,
-        @SerializedName("end_date")
-        @Expose
-        var endDate: String,
-        @SerializedName("id")
-        @Expose
-        var id: Int,
-        @SerializedName("id_created_by")
-        @Expose
-        var idCreatedBy: String,
-        @SerializedName("name")
-        @Expose
-        var name: String,
-        @SerializedName("number_of_participants")
-        @Expose
-        var numberOfParticipants: Int,
-        @SerializedName("poster")
-        @Expose
-        var poster: Any,
-        @SerializedName("prize")
-        @Expose
-        var prize: String,
-        @SerializedName("register_date_end")
-        @Expose
-        var registerDateEnd: String,
-        @SerializedName("register_date_start")
-        @Expose
-        var registerDateStart: String,
-        @SerializedName("start_date")
-        @Expose
-        var startDate: String,
-        @SerializedName("image")
-        @Expose
-        var image: String,
-        @SerializedName("game_id")
-        @Expose
-        var game_id: Int,
-        @SerializedName("type")
-        @Expose
-        var type: Int,
-        @SerializedName("title_game")
-        @Expose
-        var title_game: String,
-        @SerializedName("rating")
-        @Expose
-        var rating: String,
-        @SerializedName("created_name")
-        @Expose
-        var created_name: String
-    )
+            @SerializedName("created_name")
+            @Expose
+            val createdName: String?,
+            @SerializedName("detail")
+            @Expose
+            val detail: String?,
+            @SerializedName("end_date")
+            @Expose
+            val endDate: String?,
+            @SerializedName("game_id")
+            @Expose
+            val gameId: String?,
+            @SerializedName("id")
+            @Expose
+            val id: String?,
+            @SerializedName("id_created_by")
+            @Expose
+            val idCreatedBy: String?,
+            @SerializedName("image")
+            @Expose
+            val image: String?,
+            @SerializedName("name")
+            @Expose
+            val name: String?,
+            @SerializedName("number_of_participants")
+            @Expose
+            val numberOfParticipants: String?,
+            @SerializedName("prize")
+            @Expose
+            val prize: String?,
+            @SerializedName("rating")
+            @Expose
+            val rating: String?,
+            @SerializedName("register_date_end")
+            @Expose
+            val registerDateEnd: String?,
+            @SerializedName("register_date_start")
+            @Expose
+            val registerDateStart: String?,
+            @SerializedName("register_fee")
+            @Expose
+            val registerFee: String?,
+            @SerializedName("start_date")
+            @Expose
+            val startDate: String?,
+            @SerializedName("team_in_tournament")
+            @Expose
+            val teamInTournament: List<TeamInTournament?>?,
+            @SerializedName("title_game")
+            @Expose
+            val titleGame: String?,
+            @SerializedName("type")
+            @Expose
+            val type: String?
+    ) {
+        data class TeamInTournament(
+                @SerializedName("team_id")
+                @Expose
+                val teamId: Int?,
+                @SerializedName("team_name")
+                @Expose
+                val teamName: String?
+        )
+    }
 }

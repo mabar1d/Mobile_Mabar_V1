@@ -454,4 +454,10 @@ public class HomeFragmentNew extends Fragment {
         i.putExtras(bun);
         startActivity(i);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getListTournament(sess.getString("id_user"),"","0",listFilterGame);
+    }
 }

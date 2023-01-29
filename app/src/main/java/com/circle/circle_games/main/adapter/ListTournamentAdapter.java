@@ -57,9 +57,10 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
             holder.ratingTourney.setText("-");
         }
         holder.prizeTourney.setText("Rp. "+dataTournament.get(position).getPrize());
-        holder.createdBy.setText("Created by "+dataTournament.get(position).getCreated_name());
+        holder.createdBy.setText("Created by "+dataTournament.get(position).getCreatedName());
+        holder.participant.setText(dataTournament.get(position).getTeamInTournament().size()+ "/"+ dataTournament.get(position).getNumberOfParticipants());
 
-        holder.judulGame.setText(dataTournament.get(position).getTitle_game());
+        holder.judulGame.setText(dataTournament.get(position).getTitleGame());
 
         CircularProgressDrawable cp = new CircularProgressDrawable(context);
         cp.setStrokeWidth(5f);
@@ -80,7 +81,7 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
                 Intent i = new Intent(context, DetailTournamentActivity.class);
                 Bundle bun = new Bundle();
                 bun.putString("id_tournament", String.valueOf(dataTournament.get(position).getId()));
-                bun.putString("judul_game", (dataTournament.get(position).getTitle_game()));
+                bun.putString("judul_game", (dataTournament.get(position).getTitleGame()));
                 i.putExtras(bun);
                 context.startActivity(i);
             }
@@ -95,12 +96,13 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
 
     public class TournamentViewHolder extends RecyclerView.ViewHolder {
         ImageView imageTourney;
-        TextView judulTourney,judulGame,prizeTourney,btnDetail, ratingTourney, createdBy;
+        TextView judulTourney,judulGame,prizeTourney,btnDetail, ratingTourney, createdBy, participant;
         public TournamentViewHolder(@NonNull View itemView) {
             super(itemView);
             ratingTourney = itemView.findViewById(R.id.rating_tourney);
             judulTourney = itemView.findViewById(R.id.judul_tourney);
             prizeTourney = itemView.findViewById(R.id.prize_tourney);
+            participant = itemView.findViewById(R.id.participant);
             imageTourney = itemView.findViewById(R.id.image_tourney);
             judulGame = itemView.findViewById(R.id.judul_game);
             createdBy = itemView.findViewById(R.id.tv_created_by);

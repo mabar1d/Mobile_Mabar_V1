@@ -44,9 +44,12 @@ import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -199,6 +202,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                         tourDescription = etDescription.getText().toString();
                         prize = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etPrize.getText().toString()));
                         regFee = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etRegFee.getText().toString()));
+
 
                         //Mapping Game
                         String getGame = spGame.getSelectedItem().toString();
@@ -488,7 +492,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseGetInfoTournamentModel> call, Response<ResponseGetInfoTournamentModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
-
+                            String gameTitle = "";
                             Glide.with(HostManageTournamentActivity.this)
                                     .load(response.body().getData().getImage())
                                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -498,11 +502,33 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
                             etPrize.setText("Rp. "+response.body().getData().getPrize());
                             etDescription.setText(response.body().getData().getDetail());
-                            etRegisterDateStart.setText(response.body().getData().getRegisterDateStart());
-                            etRegisterDateEnd.setText(response.body().getData().getRegisterDateEnd());
-                            etStartDate.setText(response.body().getData().getStartDate());
-                            etEndDate.setText(response.body().getData().getEndDate());
+
+                            regDateStartNonFormat = response.body().getData().getRegisterDateStart();
+                            regDateEndNonFormat = response.body().getData().getRegisterDateEnd();
+                            dateStartNonFormat = response.body().getData().getStartDate();
+                            dateEndNonFormat = response.body().getData().getEndDate();
+
+                            minRegEndDate = gm.getTimeMillis(response.body().getData().getRegisterDateStart());
+                            minStartDate = gm.getTimeMillis(response.body().getData().getRegisterDateEnd());
+                            minEndDate = gm.getTimeMillis(response.body().getData().getStartDate());
+
+                            etRegisterDateStart.setText(gm.setDateIndonesia(2,regDateStartNonFormat));
+                            etRegisterDateEnd.setText(gm.setDateIndonesia(2,regDateEndNonFormat));
+                            etStartDate.setText(gm.setDateIndonesia(2,dateStartNonFormat));
+                            etEndDate.setText(gm.setDateIndonesia(2,dateEndNonFormat));
                             etRegFee.setText(response.body().getData().getRegister_fee());
+
+                            gameTitle = response.body().getData().getTitleGame();
+                            if (getGameId(gameTitle) == 6){
+                                spGame.setSelection(0);
+                            }else if (getGameId(gameTitle) == 7){
+                                spGame.setSelection(1);
+                            }else if (getGameId(gameTitle) == 8){
+                                spGame.setSelection(2);
+                            }else {
+                                spGame.setSelection(0);
+                            }
+
                             //e.setText(response.body().getData().getDetail());
                             //type belom
                             String fee = response.body().getData().getRegister_fee();

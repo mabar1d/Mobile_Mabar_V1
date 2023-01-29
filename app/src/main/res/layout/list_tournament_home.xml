@@ -73,6 +73,18 @@
             android:maxLines="2"/>
 
         <TextView
+            android:id="@+id/participant"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="12dp"
+            android:gravity="center"
+            android:textColor="@color/grey"
+            android:textStyle="italic"
+            android:maxLines="1"/>
+
+        <TextView
             android:id="@+id/judul_game"
             android:layout_marginTop="2dp"
             android:layout_width="match_parent"
