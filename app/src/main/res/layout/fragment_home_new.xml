@@ -168,17 +168,15 @@
                 android:layout_marginBottom="10dp"
                 app:cardBackgroundColor="@color/material_grey_900">
 
-                <com.asura.library.views.PosterSlider
-                    android:id="@+id/poster_slider"
+                <com.denzcoskun.imageslider.ImageSlider
+                    android:id="@+id/image_slider"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    app:defaultIndicator="circle"
-                    app:hideIndicators="false"
-                    android:background="@color/material_grey_900"
-                    app:imageSlideInterval="5000"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:loopSlides="true" />
+                    app:iss_error_image="@drawable/error"
+                    app:iss_placeholder="@drawable/logo_circle"
+                    app:iss_auto_cycle="true"
+                    app:iss_period="5000"
+                    app:iss_delay="0"/>
 
 
             </androidx.cardview.widget.CardView>

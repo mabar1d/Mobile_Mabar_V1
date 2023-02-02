@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../layout/custom_preview.xml" value="0.10461630695443645" />
+        <entry key="../.gradle/caches/transforms-2/files-2.1/4832e317ba32b56d2c3c8084f7ea2b87/jetified-library-1.5.6/res/drawable/error_center_x.xml" value="0.1745" />
+        <entry key="../.gradle/caches/transforms-2/files-2.1/4832e317ba32b56d2c3c8084f7ea2b87/jetified-library-1.5.6/res/drawable/error_circle.xml" value="0.1745" />
         <entry key="../.gradle/caches/transforms-2/files-2.1/80bc054025fe2a6a551a7741507d3d0a/jetified-library-1.5.6/res/drawable/gray_button_background.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/circle_shape.xml" value="0.1745" />
         <entry key="app/src/main/res/drawable/ic_game.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/ic_person.xml" value="0.1745" />
         <entry key="app/src/main/res/drawable/ic_tournament.xml" value="0.1305" />

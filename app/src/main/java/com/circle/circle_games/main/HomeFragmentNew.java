@@ -1,6 +1,8 @@
 package com.circle.circle_games.main;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,15 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.asura.library.posters.Poster;
-import com.asura.library.posters.RemoteImage;
-import com.asura.library.views.PosterSlider;
 import com.circle.circle_games.main.adapter.ListNewsHomeAdapter;
 import com.circle.circle_games.retrofit.model.GetListNewsResponseModel;
 import com.circle.circle_games.R;
@@ -43,15 +43,23 @@ import com.circle.circle_games.retrofit.model.ResponseListGame;
 import com.circle.circle_games.room.viewmodel.MasterViewModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,7 +67,7 @@ import retrofit2.Response;
 public class HomeFragmentNew extends Fragment {
 
     private RecyclerView rlGame,rlTournament,rlMenu, rlNews;
-    private PosterSlider posterSlider;
+    private ImageSlider posterSlider;
     private ShimmerFrameLayout shimmerLoad;
     private ScrollView svHome;
 
@@ -102,12 +110,10 @@ public class HomeFragmentNew extends Fragment {
         rlMenu = root.findViewById(R.id.recycler_menu);
         rlNews = root.findViewById(R.id.recycler_news);
         rlTournament = root.findViewById(R.id.recycler_new_tournaments);
-        posterSlider = root.findViewById(R.id.poster_slider);
+        posterSlider = root.findViewById(R.id.image_slider);
         shimmerLoad = root.findViewById(R.id.shimmer_load);
         svHome = root.findViewById(R.id.svHome);
 
-        posterSlider.setDefaultIndicator(3);
-        posterSlider.setMustAnimateIndicators(true);
 
         etSearchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -384,13 +390,21 @@ public class HomeFragmentNew extends Fragment {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
 
-                            List<Poster> posters=new ArrayList<>();
-                            posters.clear();
+                            ArrayList<SlideModel> imageList = new ArrayList<SlideModel>();
 
-                            for(int i = 0; i < response.body().getData().size() ; i++){
-                                posters.add(new RemoteImage(response.body().getData().get(i).getImage()));
+                            for (int i = 0; i < response.body().getData().size() ; i++) {
+                                imageList.add(new SlideModel(response.body().getData().get(i).getImage(),
+                                        response.body().getData().get(i).getId(), ScaleTypes.CENTER_CROP));
                             }
-                            posterSlider.setPosters(posters);
+                            posterSlider.setImageList(imageList);
+                            //Item Click Listener Slider
+                            posterSlider.setItemClickListener(new ItemClickListener() {
+                                @Override
+                                public void onItemSelected(int i) {
+                                    Toast.makeText(requireActivity(),response.body().getData().get(i).getId(),Toast.LENGTH_LONG).show();
+                                }
+                            });
+
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
