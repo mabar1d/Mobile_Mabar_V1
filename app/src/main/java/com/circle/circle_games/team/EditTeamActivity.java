@@ -122,7 +122,7 @@ public class EditTeamActivity extends AppCompatActivity {
     private String tourDescription = "";
     private Integer game;
     private Integer idUser;
-    private JSONArray personnelId = new JSONArray();
+
 
     private SessionUser sess;
     private GlobalMethod gm;
@@ -244,6 +244,8 @@ public class EditTeamActivity extends AppCompatActivity {
                         //Mapping Game
                         String getGame = spGame.getSelectedItem().toString();
                         game = getGameId(getGame);
+
+                        JSONArray personnelId = new JSONArray();
 
                         for (int i = 0;i<listPersonAdded.size();i++){
                             personnelId.put(listPersonAdded.get(i).getUserId());
