@@ -274,8 +274,8 @@
         android:layout_marginBottom="28dp"
         android:padding="10dp"
         android:layout_gravity="center"
-        android:background="@drawable/gray_button_background"
-        android:textColor="@color/text_grey"
+        android:background="@drawable/rounded_button_orange"
+        android:textColor="@color/grey"
         android:text="Create Team"
         android:textSize="14dp" />
     </LinearLayout>

@@ -21,6 +21,9 @@ data class GetCarouselResponseModel(
         val id: String,
         @SerializedName("image")
         @Expose
-        val image: String
+        val image: String,
+        @SerializedName("title_tournament")
+        @Expose
+        val titleTournament: String
     )
 }

@@ -37,6 +37,9 @@ data class PersonnelResponseModel(
         @SerializedName("lastname")
         @Expose
         var lastname: String,
+        @SerializedName("ign")
+        @Expose
+        var ign: String,
         @SerializedName("phone")
         @Expose
         var phone: String,

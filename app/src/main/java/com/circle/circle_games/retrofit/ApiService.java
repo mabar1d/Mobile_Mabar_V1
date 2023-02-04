@@ -94,6 +94,7 @@ public interface ApiService {
             @Query("user_id") String user_id,
             @Query("firstname") String firstname,
             @Query("lastname") String lastname,
+            @Query("ign") String ign,
             @Query("gender_id") String gender_id,
             @Query("birthdate") String birthdate,
             @Query("address") String address,

@@ -394,14 +394,19 @@ public class HomeFragmentNew extends Fragment {
 
                             for (int i = 0; i < response.body().getData().size() ; i++) {
                                 imageList.add(new SlideModel(response.body().getData().get(i).getImage(),
-                                        response.body().getData().get(i).getId(), ScaleTypes.CENTER_CROP));
+                                        response.body().getData().get(i).getTitleTournament(), ScaleTypes.CENTER_CROP));
                             }
                             posterSlider.setImageList(imageList);
                             //Item Click Listener Slider
                             posterSlider.setItemClickListener(new ItemClickListener() {
                                 @Override
                                 public void onItemSelected(int i) {
-                                    Toast.makeText(requireActivity(),response.body().getData().get(i).getId(),Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getActivity(), DetailTournamentActivity.class);
+                                    Bundle bun = new Bundle();
+                                    bun.putString("id_tournament", response.body().getData().get(i).getId());
+                                    bun.putString("judul_game", response.body().getData().get(i).getTitleTournament());
+                                    intent.putExtras(bun);
+                                    startActivity(intent);
                                 }
                             });
 

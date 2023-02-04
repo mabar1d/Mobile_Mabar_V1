@@ -385,13 +385,7 @@ public class ProfileNewFragment extends Fragment {
                             }else if (role == 3){
                                 btnTeamSettings.setVisibility(View.GONE);
                                 btnHostSettings.setVisibility(View.VISIBLE);
-                                if (idTeam != null){
-                                    btnMyTeam.setVisibility(View.VISIBLE);
-                                    btnJoinTeam.setVisibility(View.GONE);
-                                }else {
-                                    btnMyTeam.setVisibility(View.GONE);
-                                    btnJoinTeam.setVisibility(View.VISIBLE);
-                                }
+                                btnJoinTeam.setVisibility(View.GONE);
                             }else {
                                 btnHostSettings.setVisibility(View.GONE);
                                 btnTeamSettings.setVisibility(View.GONE);

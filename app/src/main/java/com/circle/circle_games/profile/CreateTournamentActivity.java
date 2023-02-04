@@ -429,6 +429,8 @@ public class CreateTournamentActivity extends AppCompatActivity {
         progress.show();
 
         File file = new File(picturePath);
+        //compress size
+        file = gm.saveBitmapToFile(file);
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part parts = MultipartBody.Part.createFormData("image_file", file.getName(), requestBody);
 

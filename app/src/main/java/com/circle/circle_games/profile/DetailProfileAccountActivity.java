@@ -63,6 +63,8 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     EditText etFirstName;
     @BindView(R.id.last_name)
     EditText etLastName;
+    @BindView(R.id.et_ign)
+    EditText etIgn;
     @BindView(R.id.radio_group_gender)
     RadioGroup rgGender;
     @BindView(R.id.radio_male)
@@ -96,6 +98,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     private SessionUser sess;
     private String firstName = "";
     private String lastName = "";
+    private String ign = "";
     private String gender = "";
     private String birthDate = "";
     private String address = "";
@@ -147,6 +150,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                 }
                 firstName = etFirstName.getText().toString();
                 lastName = etLastName.getText().toString();
+                ign = etIgn.getText().toString();
                 address = etAddress.getText().toString();
                 zipCode = etZipCode.getText().toString();
                 phone = etPhone.getText().toString();
@@ -158,7 +162,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                         if (phone.length()<10){
                             Toast.makeText(DetailProfileAccountActivity.this, "Phone Number Must be at Least 10 digits", Toast.LENGTH_SHORT).show();
                         }else {
-                            updateDataPerson(firstName,lastName,genderId,brithdateNonFormat,address,"","","",zipCode,phone);
+                            updateDataPerson(firstName,lastName,ign,genderId,brithdateNonFormat,address,"","","",zipCode,phone);
                         }
                     }
                 }else {
@@ -264,6 +268,9 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                             if (response.body().getData().getLastname() != null){
                                 etLastName.setText(response.body().getData().getLastname());
                             }
+                            if (response.body().getData().getIgn() != null){
+                                etIgn.setText(response.body().getData().getIgn());
+                            }
                             if (response.body().getData().getGenderId() != null){
                                 if (response.body().getData().getGenderId().equalsIgnoreCase("1")){
                                     rbMale.setChecked(true);
@@ -320,12 +327,12 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
         }
     }
 
-    private void updateDataPerson(String fname,String lName,String gender_id, String birthDate,String address,String subDistrictId,String districtId,String provinceId,String zipCode,String phone){
+    private void updateDataPerson(String fname,String lName,String ign,String gender_id, String birthDate,String address,String subDistrictId,String districtId,String provinceId,String zipCode,String phone){
         ProgressDialog progress = new ProgressDialog(DetailProfileAccountActivity.this);
         progress.setMessage("Updating Profile Info...");
         progress.show();
         try {
-            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateInfoPersonnel(sess.getString("id_user"),fname,lName,gender_id,birthDate,address,subDistrictId,districtId,provinceId,zipCode,phone);
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateInfoPersonnel(sess.getString("id_user"),fname,lName,ign,gender_id,birthDate,address,subDistrictId,districtId,provinceId,zipCode,phone);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
                 public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
