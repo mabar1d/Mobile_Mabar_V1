@@ -102,6 +102,8 @@ public class HostManageTournamentActivity extends AppCompatActivity {
     Button btnUpdateTournament;
     @BindView(R.id.btn_back)
     ImageView btnBack;
+    @BindView(R.id.et_terms_condition)
+    EditText etTermsCondition;
 
     private String tourName = "";
     private String tourDescription = "";
@@ -109,6 +111,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
     private String prize = "";
     private String regFee = "";
+    private String termsCondition = "";
     private Integer game;
     private Integer type;
     private boolean flagSendData = false;
@@ -200,6 +203,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
                         tourName = etTourName.getText().toString();
                         tourDescription = etDescription.getText().toString();
+                        termsCondition = etTermsCondition.getText().toString();
                         prize = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etPrize.getText().toString()));
                         regFee = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etRegFee.getText().toString()));
 
@@ -212,7 +216,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                                 uploadImage(idTournament);
                             }else {
                                 updateTournament(idTournament,tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
-                                        dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type);
+                                        dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type,termsCondition);
                             }
 
                     }
@@ -370,13 +374,13 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
     private void updateTournament(String tourId,String tourName,String description,Integer numParticipants,
                                   String regStartDate,String regEndDate,String startDate,String endDate,String regFee,
-                                  String prize,Integer game,Integer type){
+                                  String prize,Integer game,Integer type, String termsCondition){
         ProgressDialog progress = new ProgressDialog(HostManageTournamentActivity.this);
         progress.setMessage("Update Tournament");
         progress.show();
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateTournament(sess.getString("id_user"),tourId,
-                    tourName,description,numParticipants,regStartDate,regEndDate,startDate,endDate,regFee,prize,game,type);
+                    tourName,description,numParticipants,regStartDate,regEndDate,startDate,endDate,regFee,prize,game,type,termsCondition);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
                 public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
@@ -519,6 +523,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                             etStartDate.setText(gm.setDateIndonesia(2,dateStartNonFormat));
                             etEndDate.setText(gm.setDateIndonesia(2,dateEndNonFormat));
                             etRegFee.setText(response.body().getData().getRegister_fee());
+                            etTermsCondition.setText(response.body().getData().getTermsCondition());
 
                             gameTitle = response.body().getData().getTitleGame();
                             if (getGameId(gameTitle) == 6){

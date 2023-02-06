@@ -369,17 +369,13 @@
             app:cardCornerRadius="15dp"
             app:cardBackgroundColor="@color/material_grey_900"
             android:padding="10dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
 
                 <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:orientation="vertical">
+                    android:id="@+id/ll_tournament_terms_condition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -387,6 +383,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/expand_tournament_terms"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="5dp"
@@ -411,20 +408,42 @@
 
                 </RelativeLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_tournament_terms"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp" />
+                    <TextView
+                        android:id="@+id/tv_tournament_terms"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/grey"
+                        android:lineSpacingExtra="10sp"
+                        android:justificationMode="inter_word"
+                        android:gravity="start"
+                        android:text="-"
+                        android:textSize="14sp" />
 
             </LinearLayout>
 
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_terms_condition2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="15dp"
+            app:cardBackgroundColor="@color/material_grey_900"
+            android:padding="10dp">
+
+
                 <LinearLayout
+                    android:id="@+id/ll_general_terms_condition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+                    android:layout_margin="10dp"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -433,13 +452,14 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:id="@+id/expand_general_terms"
                             android:layout_width="30dp"
                             android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
                             android:layout_marginEnd="5dp"
-                            android:layout_centerVertical="true"
                             android:scaleType="centerCrop"
-                            android:layout_alignParentRight="true"
                             android:src="@drawable/quantum_ic_keyboard_arrow_down_white_36"
                             app:tint="@color/grey" />
 
@@ -457,18 +477,23 @@
 
                     </RelativeLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_app_terms"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                    <TextView
+                        android:id="@+id/tv_general_terms"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp" />
+                        android:textColor="@color/grey"
+                        android:lineSpacingExtra="10sp"
+                        android:justificationMode="inter_word"
+                        android:gravity="start"
+                        android:text="-"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
 
-            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <Button

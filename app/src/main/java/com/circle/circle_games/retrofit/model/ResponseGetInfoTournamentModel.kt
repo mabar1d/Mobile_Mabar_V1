@@ -62,5 +62,8 @@ data class Data(
 	val register_fee: String? = null,
 
 	@field:SerializedName("rating")
-	val rating: String? = null
+	val rating: String? = null,
+
+	@field:SerializedName("terms_condition")
+	val termsCondition: String? = null,
 )

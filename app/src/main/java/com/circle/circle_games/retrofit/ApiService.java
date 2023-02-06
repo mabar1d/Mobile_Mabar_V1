@@ -236,7 +236,8 @@ public interface ApiService {
             @Query("register_fee") String register_fee,
             @Query("prize") String prize,
             @Query("game_id") Integer game_id,
-            @Query("type") Integer type
+            @Query("type") Integer type,
+            @Query("terms_condition") String terms_condition
     );
 
     //Update Tournament
@@ -254,7 +255,8 @@ public interface ApiService {
             @Query("register_fee") String register_fee,
             @Query("prize") String prize,
             @Query("game_id") Integer game_id,
-            @Query("type") Integer type
+            @Query("type") Integer type,
+            @Query("terms_condition") String terms_condition
     );
 
     //get List Tournament
@@ -380,6 +382,13 @@ public interface ApiService {
             @Query("user_id") String user_id,
             @Query("video_id") String video_id,
             @Query("slug") String slug
+    );
+
+    //General Info
+    @POST("getInfoGeneral")
+    Call<GetTermsConditionResponseModel> getInfoGeneral(
+            @Query("user_id") String user_id,
+            @Query("type") String type
     );
 
 }

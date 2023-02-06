@@ -97,11 +97,12 @@ public class CreateTournamentActivity extends AppCompatActivity {
     RadioButton rbTree;
     @BindView(R.id.radio_stage)
     RadioButton rbGroupStage;
-    TextView etType;
     @BindView(R.id.btn_create_tournament)
     Button btnCreateTournament;
     @BindView(R.id.btn_back)
     ImageView btnBack;
+    @BindView(R.id.et_terms_condition)
+    EditText etTermsCondition;
 
     BottomSheetDialog bsDialog;
 
@@ -114,6 +115,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
     private String endDate = "";
     private String prize = "";
     private String regFee = "";
+    private String termsCondition = "";
     private Integer game;
     private Integer type;
     private boolean flagSendData = false;
@@ -195,6 +197,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
 
                         tourName = etTourName.getText().toString();
                         tourDescription = etDescription.getText().toString();
+                        termsCondition = etTermsCondition.getText().toString();
                         prize = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etPrize.getText().toString()));
                         regFee = String.valueOf(CurrencyEditTextWatcher.parseCurrencyValue(etRegFee.getText().toString()));
 
@@ -209,7 +212,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
                                 uploadImage(idTour);
                             }else {
                                 createTournament(tourName,tourDescription,numberParticipants,regDateStartNonFormat,regDateEndNonFormat,
-                                        dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type);
+                                        dateStartNonFormat,dateEndNonFormat,regFee,prize,game,type,termsCondition);
                             }
 
                         }
@@ -372,13 +375,13 @@ public class CreateTournamentActivity extends AppCompatActivity {
 
     private void createTournament(String tourName,String description,Integer numParticipants,
                                   String regStartDate,String regEndDate,String startDate,String endDate,String regFee,
-                                  String prize,Integer game,Integer type){
+                                  String prize,Integer game,Integer type, String termsCondition){
         ProgressDialog progress = new ProgressDialog(CreateTournamentActivity.this);
         progress.setMessage("Create Tournament");
         progress.show();
         try {
             Call<ResponseCreateTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).createTournament(sess.getString("id_user"),
-                    tourName,description,numParticipants,regStartDate,regEndDate,startDate,endDate,regFee,prize,game,type);
+                    tourName,description,numParticipants,regStartDate,regEndDate,startDate,endDate,regFee,prize,game,type,termsCondition);
             req.enqueue(new Callback<ResponseCreateTournamentResponseModel>() {
                 @Override
                 public void onResponse(Call<ResponseCreateTournamentResponseModel> call, Response<ResponseCreateTournamentResponseModel> response) {

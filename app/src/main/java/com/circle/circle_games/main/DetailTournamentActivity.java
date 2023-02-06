@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.circle.circle_games.PaymentActivity;
+import com.circle.circle_games.retrofit.model.GetTermsConditionResponseModel;
 import com.circle.circle_games.utility.SessionUser;
 import com.circle.circle_games.R;
 import com.circle.circle_games.login.LoginActivity;
@@ -65,6 +67,21 @@ public class DetailTournamentActivity extends AppCompatActivity {
     @BindView(R.id.btn_back)
     ImageView btnBack;
 
+    //Terms n Condition
+    @BindView(R.id.ll_general_terms_condition)
+    LinearLayout llGeneralTerms;
+    @BindView(R.id.tv_general_terms)
+    TextView tvGeneralTerms;
+    @BindView(R.id.expand_general_terms)
+    ImageView btnExpandGeneralTerms;
+
+    @BindView(R.id.ll_tournament_terms_condition)
+    LinearLayout llTournamentTerms;
+    @BindView(R.id.tv_tournament_terms)
+    TextView tvTournamentTerms;
+    @BindView(R.id.expand_tournament_terms)
+    ImageView btnExpandTournamentTerms;
+
     private String idTournament = "";
     private String usage = "";
     private String judulGame = "";
@@ -89,7 +106,8 @@ public class DetailTournamentActivity extends AppCompatActivity {
         sess = new SessionUser(this);
         gm = new GlobalMethod();
 
-        getInfoTournament(sess.getString("id_user"),idTournament);
+        getInfoTournament(sess.getString("id_user"));
+        getTermsCondition(sess.getString("id_user"));
 
         if (!(usage == null)){
             btnRegister.setVisibility(View.GONE);
@@ -100,6 +118,47 @@ public class DetailTournamentActivity extends AppCompatActivity {
             btnFixtureTournament.setVisibility(View.GONE);
             btnTableTournament.setVisibility(View.GONE);
         }
+
+        llTournamentTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tvTournamentTerms.getVisibility() == View.VISIBLE){
+                    tvTournamentTerms.setVisibility(View.GONE);
+                }else {
+                    tvTournamentTerms.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        btnExpandTournamentTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tvTournamentTerms.getVisibility() == View.VISIBLE){
+                    tvTournamentTerms.setVisibility(View.GONE);
+                }else {
+                    tvTournamentTerms.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        llGeneralTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tvGeneralTerms.getVisibility() == View.VISIBLE){
+                    tvGeneralTerms.setVisibility(View.GONE);
+                }else {
+                    tvGeneralTerms.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        btnExpandGeneralTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tvGeneralTerms.getVisibility() == View.VISIBLE){
+                    tvGeneralTerms.setVisibility(View.GONE);
+                }else {
+                    tvGeneralTerms.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +216,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
 
     }
 
-    private void getInfoTournament(String userId,String idTournament){
+    private void getInfoTournament(String userId ){
         ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Loading...");
         progress.show();
@@ -175,6 +234,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                                     //.skipMemoryCache(true)
                                     .into(ivTournament);
                             tvJudulTourney.setText(response.body().getData().getName());
+                            tvTournamentTerms.setText(response.body().getData().getTermsCondition());
                             if (response.body().getData().getRating() != null){
                                 tvRating.setText(response.body().getData().getRating());
                             }else {
@@ -222,6 +282,56 @@ public class DetailTournamentActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseGetInfoTournamentModel> call, Throwable t) {
+                    Toast.makeText(DetailTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                    System.out.println("onFailure"+call);
+                    progress.dismiss();
+
+                }
+
+
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void getTermsCondition(String userId){
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Loading...");
+        progress.show();
+        try {
+            Call<GetTermsConditionResponseModel> req = RetrofitConfig.getApiServices("").getInfoGeneral(userId, "terms_condition");
+            req.enqueue(new Callback<GetTermsConditionResponseModel>() {
+                @Override
+                public void onResponse(Call<GetTermsConditionResponseModel> call, Response<GetTermsConditionResponseModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("00")){
+
+                            tvGeneralTerms.setText(response.body().getData().getDesc());
+
+
+                        }else {
+                            String notif = response.body().getDesc();
+                            Toast.makeText(DetailTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (response.body().getCode().equals("05")){
+                        String desc = response.body().getDesc();
+                        Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                        sess.clearSess();
+                        Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
+                        startActivity(i);
+                        finish();
+                    }  else {
+                        String desc = response.body().getDesc();
+                        Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<GetTermsConditionResponseModel> call, Throwable t) {
                     Toast.makeText(DetailTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     progress.dismiss();
