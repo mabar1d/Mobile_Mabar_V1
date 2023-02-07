@@ -3,6 +3,11 @@
     <string name="tx_login_username">Username or Email</string>
     <string name="tx_login_password">Password</string>
 
+    <string name="tx_signup_username">Username</string>
+    <string name="tx_signup_email">Email</string>
+    <string name="tx_signup_password">Password</string>
+    <string name="tx_signup_re_password">Re-type password</string>
+
     <string name="title_home">Home</string>
     <string name="title_tournament">Tournament</string>
     <string name="title_profile">Profile</string>

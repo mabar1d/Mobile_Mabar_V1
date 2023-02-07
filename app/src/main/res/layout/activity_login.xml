@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Lupa Password?"
+        android:text="Forget Password?"
         android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
-        android:text="Tidak Punya Akun?"
+        android:text="Do not have account?"
         android:textColor="@color/grey"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvSignup"
         app:layout_constraintStart_toStartOf="parent" />
