@@ -31,6 +31,15 @@ import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback;
+import com.midtrans.sdk.corekit.core.MidtransSDK;
+import com.midtrans.sdk.corekit.core.TransactionRequest;
+import com.midtrans.sdk.corekit.core.themes.CustomColorTheme;
+import com.midtrans.sdk.corekit.models.CustomerDetails;
+import com.midtrans.sdk.corekit.models.ItemDetails;
+import com.midtrans.sdk.corekit.models.snap.TransactionResult;
+import com.midtrans.sdk.uikit.SdkUIFlowBuilder;
+import com.midtrans.sdk.uikit.external.UiKitApi;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,12 +53,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentActivity extends AppCompatActivity implements TransactionFinishedCallback {
 
-    @BindView(R.id.rv_payment)
-    RecyclerView rvPayment;
-    @BindView(R.id.ll_content)
-    LinearLayout llContent;
     @BindView(R.id.btn_back)
     ImageView btnBack;
     @BindView(R.id.btn_pay)
@@ -60,6 +65,7 @@ public class PaymentActivity extends AppCompatActivity {
     private GlobalMethod gm;
     private SessionUser sess;
     private String idTournament = "";
+    private String idUser = "";
     private String fee = "";
     private String paymentMethod = "";
 
@@ -85,6 +91,8 @@ public class PaymentActivity extends AppCompatActivity {
         gm = new GlobalMethod();
         sess = new SessionUser(this);
 
+        idUser = sess.getString("id_user");
+
         tvTotal.setText("Total : "+ fee);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,102 +100,15 @@ public class PaymentActivity extends AppCompatActivity {
                 finish();
             }
         });
+        makePayment();
 
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!paymentMethod.equalsIgnoreCase("")){
-                    gm.showDialogConfirmation(PaymentActivity.this, "Using "+ paymentMethod+"?", fee,
-                            "Pay", "Cancel", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    /*if (s){
-
-                                    }*/
-                                    registerTournament(sess.getString("id_user"),idTournament);
-                                    gm.dismissDialogConfirmation();
-
-                                }
-                            }, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    gm.dismissDialogConfirmation();
-                                }
-                            });
-                }else {
-                    Toast.makeText(PaymentActivity.this,"Choose Payment Method..",Toast.LENGTH_SHORT).show();
-                }
+                clickPay();
 
             }
         });
-
-        try {
-            JSONArray an = new JSONArray("[\n" +
-                    "        {\n" +
-                    "            \"id\": 101,\n" +
-                    "            \"id_user\": 8,\n" +
-                    "            \"payment\": \"Link Aja\",\n" +
-                    "            \"id_payment\": \"halo2\",\n" +
-                    "            \"created_at\": \"2022-02-27T07:40:09.000000Z\",\n" +
-                    "            \"updated_at\": \"2022-06-26T11:46:05.000000Z\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"id\": 102,\n" +
-                    "            \"id_user\": 8,\n" +
-                    "            \"payment\": \"Gopay\",\n" +
-                    "            \"id_payment\": \"anu12\",\n" +
-                    "            \"created_at\": \"2022-02-27T07:40:09.000000Z\",\n" +
-                    "            \"updated_at\": \"2022-06-26T11:46:05.000000Z\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"id\": 103,\n" +
-                    "            \"id_user\": 8,\n" +
-                    "            \"payment\": \"Ovo\",\n" +
-                    "            \"id_payment\": \"holaaa\",\n" +
-                    "            \"created_at\": \"2022-02-27T07:40:09.000000Z\",\n" +
-                    "            \"updated_at\": \"2022-06-26T11:46:05.000000Z\"\n" +
-                    "        },{\n" +
-                    "            \"id\": 104,\n" +
-                    "            \"id_user\": 8,\n" +
-                    "            \"payment\": \"Dana\",\n" +
-                    "            \"id_payment\": \"-\",\n" +
-                    "            \"created_at\": \"2022-02-27T07:40:09.000000Z\",\n" +
-                    "            \"updated_at\": \"2022-06-26T11:46:05.000000Z\"\n" +
-                    "        },{\n" +
-                    "            \"id\": 105,\n" +
-                    "            \"id_user\": 8,\n" +
-                    "            \"payment\": \"Coin Circle\",\n" +
-                    "            \"id_payment\": \"Rp.30.200.000\",\n" +
-                    "            \"created_at\": \"2022-02-27T07:40:09.000000Z\",\n" +
-                    "            \"updated_at\": \"2022-06-26T11:46:05.000000Z\"\n" +
-                    "        }\n" +
-                    "    ]");
-
-            for (int i = 0; i<an.length();i++){
-                listPaymentModels = new ListPaymentResponseModel.Data(
-                        an.getJSONObject(i).getString("created_at"),
-                        an.getJSONObject(i).getInt("id"),
-                        an.getJSONObject(i).getString("id_payment"),
-                        an.getJSONObject(i).getInt("id_user"),
-                        an.getJSONObject(i).getString("payment"),
-                        an.getJSONObject(i).getString("updated_at")
-                        );
-                listPayment.add(listPaymentModels);
-            }
-            paymentAdapter = new ListPaymentAdapter(PaymentActivity.this, listPayment, new ListPaymentAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(ListPaymentResponseModel.Data item, int position) {
-                    paymentMethod = item.getPayment();
-
-                }
-            });
-            rvPayment.setAdapter(paymentAdapter);
-            rvPayment.setLayoutManager(new LinearLayoutManager(this));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
 
     }
 
@@ -237,6 +158,78 @@ public class PaymentActivity extends AppCompatActivity {
             });
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void makePayment(){
+        SdkUIFlowBuilder.init()
+                .setClientKey(BuildConfig.CLIENT_KEY_MIDTRANS)
+                .setContext(getApplicationContext())
+                .setTransactionFinishedCallback(this)
+                .setMerchantBaseUrl(/*"url yang index.php pake /"*/BuildConfig.BASE_URL_MIDTRANS)
+                .enableLog(true)
+                .setColorTheme(new CustomColorTheme("#777777","#f77474" , "#3f0d0d"))
+                .setLanguage("id")
+                .buildSDK();
+
+        /*SdkUIFlowBuilder.init()
+                .setContext(this)
+                .setMerchantBaseUrl(BuildConfig.BASE_URL)
+                .setClientKey(BuildConfig.CLIENT_KEY)
+                .setTransactionFinishedCallback(this)
+                .enableLog(true)
+                .setColorTheme(new CustomColorTheme("#777777","#f77474" , "#3f0d0d"))
+                .buildSDK();*/
+    }
+    private void clickPay(){
+        MidtransSDK.getInstance().setTransactionRequest(transactionRequest("Tournament-"+idTournament, Double.parseDouble(fee), 1, "Nama Turnament"));
+        MidtransSDK.getInstance().startPaymentUiFlow(PaymentActivity.this );
+    }
+    public TransactionRequest transactionRequest(String id, Double price, int qty, String name){
+        TransactionRequest request =  new TransactionRequest("CG-"+ idUser +"-"+System.currentTimeMillis(), price );
+        request.setCustomerDetails(customerDetails());
+        ItemDetails details = new ItemDetails(id, price, qty, name);
+
+        ArrayList<ItemDetails> itemDetails = new ArrayList<>();
+        itemDetails.add(details);
+        request.setItemDetails(itemDetails);
+
+        return request;
+    }
+
+    public static CustomerDetails customerDetails(){
+        CustomerDetails cd = new CustomerDetails();
+        cd.setFirstName("NAMAMU");
+        cd.setLastName("Bagus");
+        cd.setEmail("email@gmail.com");
+        cd.setPhone("0897354772537");
+        return cd;
+    }
+
+    @Override
+    public void onTransactionFinished(TransactionResult result) {
+
+        if(result.getResponse() != null){
+            switch (result.getStatus()){
+                case TransactionResult.STATUS_SUCCESS:
+                    Toast.makeText(this, "Transaction Sukses " + result.getResponse().getTransactionId(), Toast.LENGTH_LONG).show();
+                    break;
+                case TransactionResult.STATUS_PENDING:
+                    Toast.makeText(this, "Transaction Pending " + result.getResponse().getTransactionId(), Toast.LENGTH_LONG).show();
+                    break;
+                case TransactionResult.STATUS_FAILED:
+                    Toast.makeText(this, "Transaction Failed" + result.getResponse().getTransactionId(), Toast.LENGTH_LONG).show();
+                    break;
+            }
+            result.getResponse().getStatusMessage();
+        }else if(result.isTransactionCanceled()){
+            Toast.makeText(this, "Transaction Failed", Toast.LENGTH_LONG).show();
+        }else{
+            if(result.getStatus().equalsIgnoreCase((TransactionResult.STATUS_INVALID))){
+                Toast.makeText(this, "Transaction Invalid" + result.getResponse().getTransactionId(), Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this, "Something Wrong", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

@@ -51,62 +51,6 @@
     </RelativeLayout>
 
 
-
-    <LinearLayout
-        android:id="@+id/ll_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="15dp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            app:cardBackgroundColor="@color/material_grey_900"
-            android:layout_marginBottom="15dp"
-            app:cardCornerRadius="15dp">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="5dp"
-                android:background="@color/material_grey_900">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/rv_payment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="30dp"/>
-
-
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/image_news"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"/>
-
-            </LinearLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-
-    </ScrollView>
-
-    </LinearLayout>
-
     <LinearLayout
         android:id="@+id/llBottomContainer2"
         android:layout_width="fill_parent"

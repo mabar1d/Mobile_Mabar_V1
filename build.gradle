@@ -25,6 +25,7 @@ allprojects {
         google()
         mavenCentral()  // Maven Central repository
         jcenter()
+        maven { url "http://dl.bintray.com/pt-midtrans/maven" }
         maven { url 'https://jitpack.io' }
     }
 }
