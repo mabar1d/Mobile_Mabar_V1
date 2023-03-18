@@ -25,6 +25,9 @@ data class PersonnelResponseModel(
         @SerializedName("district_id")
         @Expose
         var districtId: Any,
+        @SerializedName("email")
+        @Expose
+        var email: String,
         @SerializedName("firstname")
         @Expose
         var firstname: String,

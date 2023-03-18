@@ -88,6 +88,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
     private SessionUser sess;
     private GlobalMethod gm;
     private String fee = "";
+    private String feeText = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,7 +182,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                                     Intent i = new Intent(DetailTournamentActivity.this, PaymentActivity.class);
                                     Bundle bun = new Bundle();
                                     bun.putString("id_tournament", idTournament);
-                                    bun.putString("fee",fee);
+                                    bun.putString("fee",feeText);
                                     i.putExtras(bun);
                                     startActivity(i);
                                 }
@@ -251,6 +252,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             tvNumParticipant.setText(response.body().getData().getNumberOfParticipants().toString()+" Slot");
                             tvDescription.setText(response.body().getData().getDetail());
                             fee = response.body().getData().getRegister_fee();
+                            feeText = response.body().getData().getRegister_fee();
 
                             if (fee.equalsIgnoreCase("0")){
                                 fee = "FREE";

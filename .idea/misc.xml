@@ -28,7 +28,7 @@
         <entry key="app/src/main/res/layout/activity_host_setting.xml" value="0.32877502441406253" />
         <entry key="app/src/main/res/layout/activity_join_team.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.19157608695652173" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.135258358662614" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2502836882524577" />
         <entry key="app/src/main/res/layout/activity_manage_team.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_member_team_list_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_payment.xml" value="0.19157608695652173" />
@@ -37,13 +37,18 @@
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1558565886124321" />
         <entry key="app/src/main/res/layout/activity_team_settings.xml" value="0.2745605468750001" />
+        <entry key="app/src/main/res/layout/activity_transaction_history.xml" value="0.1671875" />
         <entry key="app/src/main/res/layout/activity_videos.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/dialog_confirmation.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/fragment_home_new.xml" value="0.14336372847011145" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/fragment_profile_new.xml" value="0.33820800781250004" />
         <entry key="app/src/main/res/layout/fragment_tournament.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/fragment_transaction_failed.xml" value="0.153125" />
+        <entry key="app/src/main/res/layout/fragment_transaction_pending.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/fragment_transaction_success.xml" value="0.153125" />
         <entry key="app/src/main/res/layout/list_card_person_added.xml" value="0.6427993774414062" />
+        <entry key="app/src/main/res/layout/list_card_team.xml" value="0.1671875" />
         <entry key="app/src/main/res/layout/list_host_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_member_team_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_news.xml" value="0.2368659420289855" />
@@ -51,6 +56,7 @@
         <entry key="app/src/main/res/layout/list_team_tournament.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_tournament_home.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/list_videos.xml" value="0.2128623188405797" />
+        <entry key="app/src/main/res/layout/nav_menu_transaction.xml" value="0.153125" />
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
       </map>
