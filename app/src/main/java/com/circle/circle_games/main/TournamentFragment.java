@@ -111,19 +111,19 @@ public class TournamentFragment extends Fragment {
 
                             rlMyTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament));
                             rlMyTournament.setLayoutManager(new GridLayoutManager(getActivity(),2));
-                        }else {
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
+                            sess.clearSess();
+                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(i);
+                            getActivity().finish();
+                        } else {
                             String notif = response.body().getDesc();
                             Toast.makeText(getContext(), notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                        sess.clearSess();
-                        Intent i = new Intent(getActivity(), LoginActivity.class);
-                        startActivity(i);
-                        getActivity().finish();
-                    }  else {
-                        String desc = response.body().getDesc();
+                    } else {
+                        String desc = "Failed get list tournament";
                         Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
 
                     }

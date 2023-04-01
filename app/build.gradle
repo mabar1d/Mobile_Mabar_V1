@@ -52,7 +52,7 @@ android {
             dimension "dim"
             buildConfigField "String", "BASE_URL_MIDTRANS", "\"https://api.circlegames.id/api/callbackMidtransNotification/\""
             buildConfigField "String", "CLIENT_KEY_MIDTRANS", "\"SB-Mid-client-r84N-pQ16AZMxRDe\""
-            matchingFallbacks = ["sanbox"]
+            matchingFallbacks = ["sandbox"]
         }
 
         production {

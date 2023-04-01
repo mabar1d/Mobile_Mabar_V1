@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.circle.circle_games.R;
 import com.circle.circle_games.transaction.fragment.TransactionFailedFragment;
@@ -13,16 +15,30 @@ import com.circle.circle_games.transaction.fragment.TransactionPendingFragment;
 import com.circle.circle_games.transaction.fragment.TransactionSuccessFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class TransactionHistoryActivity extends AppCompatActivity {
+
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_history);
+        ButterKnife.bind(this);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Initialize the three fragments
         TransactionSuccessFragment fragmentSuccess = new TransactionSuccessFragment();

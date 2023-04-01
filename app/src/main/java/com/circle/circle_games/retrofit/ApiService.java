@@ -23,6 +23,7 @@ import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
 import com.circle.circle_games.retrofit.model.*;
 
 import com.circle.circle_games.signup.model.ResponseRegisterModel;
+import com.circle.circle_games.transaction.model.GetListTransactionResponseModel;
 
 import org.json.JSONArray;
 
@@ -389,6 +390,15 @@ public interface ApiService {
     Call<GetTermsConditionResponseModel> getInfoGeneral(
             @Query("user_id") String user_id,
             @Query("type") String type
+    );
+
+    //Transaction
+    @POST("getListTransactions")
+    Call<GetListTransactionResponseModel> getListTransactions(
+            @Query("user_id") String user_id,
+            @Query("payment_code") String payment_code,
+            @Query("search") String search,
+            @Query("page") String page
     );
 
 }

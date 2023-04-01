@@ -30,6 +30,7 @@ import com.circle.circle_games.retrofit.model.PersonnelResponseModel;
 import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
 import com.circle.circle_games.team.DetailTeamInfoActivity;
 import com.circle.circle_games.team.TeamSettingsActivity;
+import com.circle.circle_games.transaction.TransactionHistoryActivity;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 import com.circle.circle_games.R;
@@ -77,6 +78,8 @@ public class ProfileNewFragment extends Fragment {
     RelativeLayout btnJoinTeam;
     @BindView(R.id.btn_my_team)
     RelativeLayout btnMyTeam;
+    @BindView(R.id.btn_transaction_history)
+    RelativeLayout btnTransactionHistory;
 
     @BindView(R.id.ll_content)
     LinearLayout llContent;
@@ -173,6 +176,14 @@ public class ProfileNewFragment extends Fragment {
                 bun.putString("id_team", idTeam );
                 bun.putString("flag_team", "Y");
                 i.putExtras(bun);
+                startActivity(i);
+            }
+        });
+
+        btnTransactionHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), TransactionHistoryActivity.class);
                 startActivity(i);
             }
         });
@@ -382,13 +393,16 @@ public class ProfileNewFragment extends Fragment {
                                 btnJoinTeam.setVisibility(View.GONE);
                                 btnMyTeam.setVisibility(View.GONE);
                                 btnTeamSettings.setVisibility(View.VISIBLE);
+                                btnTransactionHistory.setVisibility(View.VISIBLE);
                             }else if (role == 3){
                                 btnTeamSettings.setVisibility(View.GONE);
+                                btnTransactionHistory.setVisibility(View.GONE);
                                 btnHostSettings.setVisibility(View.VISIBLE);
                                 btnJoinTeam.setVisibility(View.GONE);
                             }else {
                                 btnHostSettings.setVisibility(View.GONE);
                                 btnTeamSettings.setVisibility(View.GONE);
+                                btnTransactionHistory.setVisibility(View.GONE);
                                 if (idTeam != null){
                                     btnMyTeam.setVisibility(View.VISIBLE);
                                     btnJoinTeam.setVisibility(View.GONE);

@@ -4,20 +4,23 @@
 
     <item
         android:id="@+id/nav_fragment_success"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_success_payment"
         android:title="Success"
+        app:tint="@color/grey"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/nav_fragment_pending"
-        android:icon="@drawable/ic_tournament_home"
+        android:icon="@drawable/ic_pending_payment"
         android:title="Pending"
-        app:showAsAction="always" />
+        app:tint="@color/grey"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/nav_fragment_failed"
-        android:icon="@drawable/ic_switch_account"
+        android:icon="@drawable/ic_failed_payment"
         android:title="Failed"
-        app:showAsAction="always" />
+        app:tint="@color/grey"
+        app:showAsAction="ifRoom" />
 
 </menu>

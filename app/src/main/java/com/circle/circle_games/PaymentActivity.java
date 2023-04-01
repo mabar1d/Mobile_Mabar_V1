@@ -252,8 +252,6 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
                 .setColorTheme(new CustomColorTheme("#777777","#f77474" , "#3f0d0d"))
                 .setLanguage("id")
                 .buildSDK();
-
-
     }
     private void clickPay(){
         MidtransSDK.getInstance().setTransactionRequest(transactionRequest("Tournament-"+idTournament, Double.parseDouble(fee), 1, "Nama Turnament"));
