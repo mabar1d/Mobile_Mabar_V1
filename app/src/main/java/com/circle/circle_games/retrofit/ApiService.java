@@ -393,7 +393,7 @@ public interface ApiService {
     );
 
     //Transaction
-    @POST("getListTransactions")
+    @POST("/api/payment/getListTransactions")
     Call<GetListTransactionResponseModel> getListTransactions(
             @Query("user_id") String user_id,
             @Query("payment_code") String payment_code,

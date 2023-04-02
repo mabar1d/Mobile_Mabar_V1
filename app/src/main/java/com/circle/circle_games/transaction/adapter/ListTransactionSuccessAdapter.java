@@ -56,7 +56,7 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
         final ListTransactionSuccessAdapter.TransactionViewHolder holderItem = (ListTransactionSuccessAdapter.TransactionViewHolder)holder;
 
 
-        holderItem.tvAmount.setText(dataModel.getGrossAmount());
+        holderItem.tvAmount.setText("Rp. "+dataModel.getGrossAmount());
         holderItem.tvOrderId.setText(dataModel.getOrderId());
         holderItem.tvItemName.setText(dataModel.getUserId());
         holderItem.tvSettlementTime.setText(dataModel.getSettlementTime());

@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.circle.circle_games.R;
 import com.circle.circle_games.login.LoginActivity;
@@ -53,6 +54,8 @@ public class TransactionSuccessFragment extends Fragment {
     LinearLayout llContent;
     @BindView(R.id.shimmer_load)
     ShimmerFrameLayout shimmerLoad;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefresh;
 
     @BindView(R.id.search_bar_transaction)
     EditText sbTransaction;
@@ -98,6 +101,13 @@ public class TransactionSuccessFragment extends Fragment {
                     return true;
                 }
                 return false;
+            }
+        });
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefresh.setRefreshing(false);
+                getListTransaction(sbTransaction.getText().toString());
             }
         });
 
