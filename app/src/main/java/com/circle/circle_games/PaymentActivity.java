@@ -80,6 +80,7 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
     private GlobalMethod gm;
     private SessionUser sess;
     private String idTournament = "";
+    private String namaTournament = "";
     private String idUser = "";
     private String fee = "";
     private String firstName = "";
@@ -103,6 +104,7 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
         }
         if(b != null) {
             idTournament = b.getString("id_tournament");
+            namaTournament = b.getString("nama_tournament");
             fee = b.getString("fee");
         }
 
@@ -249,12 +251,12 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
                 .setTransactionFinishedCallback(this)
                 .setMerchantBaseUrl(BuildConfig.BASE_URL_MIDTRANS)
                 .enableLog(true)
-                .setColorTheme(new CustomColorTheme("#777777","#f77474" , "#3f0d0d"))
+                .setColorTheme(new CustomColorTheme("#FF000000","#FF000000" , "#FF000000"))
                 .setLanguage("id")
                 .buildSDK();
     }
     private void clickPay(){
-        MidtransSDK.getInstance().setTransactionRequest(transactionRequest("Tournament-"+idTournament, Double.parseDouble(fee), 1, "Nama Turnament"));
+        MidtransSDK.getInstance().setTransactionRequest(transactionRequest("Tournament-"+idTournament, Double.parseDouble(fee), 1, namaTournament));
         MidtransSDK.getInstance().startPaymentUiFlow(PaymentActivity.this );
         MidtransSDK.getInstance().startPaymentUiFlow(PaymentActivity.this);
     }
@@ -286,7 +288,6 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
             switch (result.getStatus()){
                 case TransactionResult.STATUS_SUCCESS:
                     Toast.makeText(this, "Transaction Sukses " + result.getResponse().getTransactionId(), Toast.LENGTH_LONG).show();
-                    registerTournament(idUser, idTournament);
                     break;
                 case TransactionResult.STATUS_PENDING:
                     gm.showDialogConfirmation(PaymentActivity.this, "Transaction on progress", "Please check your transaction regularly",
@@ -316,7 +317,7 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
             }
             result.getResponse().getStatusMessage();
         }else if(result.isTransactionCanceled()){
-            Toast.makeText(this, "Transaction Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Transaction Canceled", Toast.LENGTH_LONG).show();
         }else{
             if(result.getStatus().equalsIgnoreCase((TransactionResult.STATUS_INVALID))){
                 Toast.makeText(this, "Transaction Invalid" + result.getResponse().getTransactionId(), Toast.LENGTH_LONG).show();

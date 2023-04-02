@@ -182,6 +182,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                                     Intent i = new Intent(DetailTournamentActivity.this, PaymentActivity.class);
                                     Bundle bun = new Bundle();
                                     bun.putString("id_tournament", idTournament);
+                                    bun.putString("nama_tournament", tvJudulTourney.getText().toString());
                                     bun.putString("fee",feeText);
                                     i.putExtras(bun);
                                     startActivity(i);
