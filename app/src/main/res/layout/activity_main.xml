@@ -16,10 +16,10 @@
         android:id="@+id/gif_logo"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:scaleType="fitStart"
-        android:paddingBottom="5dp"
+        android:scaleType="fitCenter"
+        android:padding="12dp"
         android:layout_gravity="center"
-        android:src="@drawable/logo_circle_hd" />
+        android:src="@drawable/cg_new_logo" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

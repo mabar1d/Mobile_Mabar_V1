@@ -127,13 +127,13 @@
         android:layout_height="0dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="30dp"
-        android:padding="10dp"
-        android:scaleType="centerCrop"
+        android:padding="40dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/et_email_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_circle_hd" />
+        app:srcCompat="@drawable/cg_new_logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

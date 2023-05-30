@@ -11,10 +11,10 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo_circle_hd"
+        android:icon="@drawable/cg_new_logo"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_logo_circle"
+        android:roundIcon="@drawable/cg_new_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mabar_V1"
         tools:replace="allowBackup">

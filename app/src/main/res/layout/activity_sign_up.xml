@@ -11,12 +11,13 @@
         android:id="@+id/imageView2"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
+        android:padding="40dp"
         app:layout_constraintBottom_toTopOf="@+id/et_username_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_circle" />
+        app:srcCompat="@drawable/cg_new_logo" />
 
 
     <com.google.android.material.textfield.TextInputLayout
