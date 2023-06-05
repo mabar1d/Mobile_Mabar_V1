@@ -14,12 +14,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.circle.circle_games.login.model.ResponseLoginModel;
+import com.circle.circle_games.login.model.LoginResponseModel;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.signup.SignUpActivity;
 import com.circle.circle_games.utility.SessionUser;
 import com.circle.circle_games.R;
-import com.circle.circle_games.login.model.ResponseLoginModel;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.signup.SignUpActivity;
 import com.circle.circle_games.splash.SplashScreen1;
@@ -90,10 +89,10 @@ public class LoginActivity extends AppCompatActivity {
         progress.setMessage("Login On Progress...");
         progress.show();
         try {
-            Call<ResponseLoginModel> req = RetrofitConfig.getApiServices("").login(username, email, password, tokenFirebase);
-            req.enqueue(new Callback<ResponseLoginModel>() {
+            Call<LoginResponseModel> req = RetrofitConfig.getApiServices("").login(username, email, password, tokenFirebase);
+            req.enqueue(new Callback<LoginResponseModel>() {
                 @Override
-                public void onResponse(Call<ResponseLoginModel> call, Response<ResponseLoginModel> response) {
+                public void onResponse(Call<LoginResponseModel> call, Response<LoginResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
 
@@ -102,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                 sess.setString("username",response.body().getData().getUser().getUsername());
                                 sess.setString("email",response.body().getData().getUser().getEmail());
                                 sess.setString("id_user",response.body().getData().getUser().getId()+"");
+                                sess.setString("id_team",response.body().getData().getDetailPersonnel().getTeamId());
                                 sess.commitSess();
                                 String desc = response.body().getDesc();
                                 Toast.makeText(LoginActivity.this, desc, Toast.LENGTH_SHORT).show();
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseLoginModel> call, Throwable t) {
+                public void onFailure(Call<LoginResponseModel> call, Throwable t) {
                     Toast.makeText(LoginActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
                     progress.dismiss();

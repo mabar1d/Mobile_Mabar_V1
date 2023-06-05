@@ -195,54 +195,6 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
         }
     }
 
-    private void registerTournament(String userId,String idTournament){
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
-        try {
-            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices("").registerTournament(userId, idTournament);
-            req.enqueue(new Callback<SuccessResponseDefaultModel>() {
-                @Override
-                public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {
-                    if (response.isSuccessful()) {
-                        if (response.body().getCode().equals("00")){
-                            String notif = response.body().getDesc();
-                            Toast.makeText(PaymentActivity.this, notif, Toast.LENGTH_SHORT).show();
-                            finish();
-                        }else {
-                            String notif = response.body().getDesc();
-                            Toast.makeText(PaymentActivity.this, notif, Toast.LENGTH_SHORT).show();
-                        }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(PaymentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(PaymentActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    }  else {
-                        String desc = response.body().getDesc();
-                        Toast.makeText(PaymentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                    }
-                    progress.dismiss();
-                }
-
-                @Override
-                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
-                    Toast.makeText(PaymentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
-                    System.out.println("onFailure"+call);
-                    progress.dismiss();
-
-                }
-
-
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     private void makePayment(){
         SdkUIFlowBuilder.init()
@@ -258,7 +210,6 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
     private void clickPay(){
         MidtransSDK.getInstance().setTransactionRequest(transactionRequest("Tournament-"+idTournament, Double.parseDouble(fee), 1, namaTournament));
         MidtransSDK.getInstance().startPaymentUiFlow(PaymentActivity.this );
-        MidtransSDK.getInstance().startPaymentUiFlow(PaymentActivity.this);
     }
     public TransactionRequest transactionRequest(String id, Double price, int qty, String name){
         TransactionRequest request =  new TransactionRequest("CG-"+"TR-"+ idUser +"-"+System.currentTimeMillis()+"-"+idTournament, price );

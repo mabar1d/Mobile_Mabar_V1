@@ -5,6 +5,7 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,6 @@ import com.circle.circle_games.BuildConfig;
 import com.circle.circle_games.MainActivity;
 import com.circle.circle_games.host.HostManageTournamentActivity;
 import com.circle.circle_games.login.LoginActivity;
-import com.circle.circle_games.login.model.ResponseLoginModel;
 import com.circle.circle_games.main.DetailTournamentActivity;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.retrofit.model.CheckVersionResponseModel;
@@ -64,6 +65,8 @@ public class SplashScreen1 extends AppCompatActivity {
 
     @BindView(R.id.tv_version)
     TextView tvVersion;
+    @BindView(R.id.iv_logo)
+    ImageView ivLogo;
     private String pathVideo = "";
     private SessionUser sess;
     int ALL_PERMISSIONS = 101;
@@ -112,6 +115,12 @@ public class SplashScreen1 extends AppCompatActivity {
 
         dbType = gm.getTypeDatabase();
         tvVersion.setText("Version "+BuildConfig.VERSION_NAME);
+        ivLogo.post(new Runnable() {
+            @Override
+            public void run() {
+                startImageAnimation();
+            }
+        });
 
         //pathVideo = "android.resource://"+getPackageName()+"/"+R.raw.splash_video;
 
@@ -410,6 +419,12 @@ public class SplashScreen1 extends AppCompatActivity {
             cekSession();
         }
 
+    }
+
+    private void startImageAnimation() {
+        ObjectAnimator animation = ObjectAnimator.ofFloat(ivLogo, "translationY",-(ivLogo.getHeight()), 0);
+        animation.setDuration(1100);
+        animation.start();
     }
 
 

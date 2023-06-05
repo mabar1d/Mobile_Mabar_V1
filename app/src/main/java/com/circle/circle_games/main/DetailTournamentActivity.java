@@ -26,6 +26,10 @@ import com.circle.circle_games.retrofit.model.SuccessResponseDefaultModel;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -252,8 +256,8 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             tvRegEnd.setText(response.body().getData().getRegisterDateEnd());
                             tvNumParticipant.setText(response.body().getData().getNumberOfParticipants().toString()+" Slot");
                             tvDescription.setText(response.body().getData().getDetail());
-                            fee = response.body().getData().getRegister_fee();
-                            feeText = response.body().getData().getRegister_fee();
+                            fee = response.body().getData().getRegisterFee();
+                            feeText = response.body().getData().getRegisterFee();
 
                             if (fee.equalsIgnoreCase("0")){
                                 fee = "FREE";
@@ -261,6 +265,13 @@ public class DetailTournamentActivity extends AppCompatActivity {
                                 fee = "Rp. "+fee;
                             }
                             btnRegister.setText("Register "+ "("+fee+")");
+
+                            if (response.body().getData().getTeamInTournament() != null){
+                                for (int i=0;i<response.body().getData().getTeamInTournament().size();i++){
+
+                                }
+                            }
+                            mappingButton(response.body().getData().getRegisterDateEnd());
 
 
                         }else {
@@ -449,5 +460,36 @@ public class DetailTournamentActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void mappingButton(String endRegDate){
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+            final Date endReg = sdf.parse(endRegDate);
+            final Date now = new Date();
+
+            if (usage == null){
+                if (now.after(endReg)) {
+                    // kadaluarsa
+                    btnRegister.setVisibility(View.GONE);
+                    btnFixtureTournament.setVisibility(View.VISIBLE);
+                    btnTableTournament.setVisibility(View.VISIBLE);
+                } else if(now.before(endReg)) {
+                    // belum kadaluarsa
+                    btnRegister.setVisibility(View.VISIBLE);
+                    btnFixtureTournament.setVisibility(View.GONE);
+                    btnTableTournament.setVisibility(View.GONE);
+                } else {
+                    // sama
+                    btnRegister.setVisibility(View.VISIBLE);
+                    btnFixtureTournament.setVisibility(View.GONE);
+                    btnTableTournament.setVisibility(View.GONE);
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package com.circle.circle_games.retrofit.model
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class ResponseGetInfoTournamentModel(
@@ -14,56 +15,73 @@ data class ResponseGetInfoTournamentModel(
 	val desc: String? = null
 )
 
-data class Data(
-
-	@field:SerializedName("end_date")
-	val endDate: String? = null,
-
-	@field:SerializedName("created_name")
-	val createdName: String? = null,
-
-	@field:SerializedName("image")
-	val image: Any? = null,
-
-	@field:SerializedName("number_of_participants")
-	val numberOfParticipants: Int? = null,
-
-	@field:SerializedName("prize")
-	val prize: String? = null,
-
-	@field:SerializedName("register_date_start")
-	val registerDateStart: String? = null,
-
-	@field:SerializedName("id_created_by")
-	val idCreatedBy: String? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("register_date_end")
-	val registerDateEnd: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("detail")
-	val detail: String? = null,
-
-	@field:SerializedName("start_date")
-	val startDate: String? = null,
-
-	@field:SerializedName("game_id")
-	val gameId: String? = null,
-
-	@field:SerializedName("title_game")
-	val titleGame: String? = null,
-
-	@field:SerializedName("register_fee")
-	val register_fee: String? = null,
-
-	@field:SerializedName("rating")
-	val rating: String? = null,
-
-	@field:SerializedName("terms_condition")
-	val termsCondition: String? = null,
-)
+{
+	data class Data(
+			@SerializedName("created_name")
+			@Expose
+			val createdName: String? = "",
+			@SerializedName("detail")
+			@Expose
+			val detail: String? = "",
+			@SerializedName("end_date")
+			@Expose
+			val endDate: String? = "",
+			@SerializedName("game_id")
+			@Expose
+			val gameId: String? = "",
+			@SerializedName("id")
+			@Expose
+			val id: String? = "",
+			@SerializedName("id_created_by")
+			@Expose
+			val idCreatedBy: String? = "",
+			@SerializedName("image")
+			@Expose
+			val image: String? = "",
+			@SerializedName("name")
+			@Expose
+			val name: String? = "",
+			@SerializedName("number_of_participants")
+			@Expose
+			val numberOfParticipants: String? = "",
+			@SerializedName("prize")
+			@Expose
+			val prize: String? = "",
+			@SerializedName("rating")
+			@Expose
+			val rating: String? = "",
+			@SerializedName("register_date_end")
+			@Expose
+			val registerDateEnd: String? = "",
+			@SerializedName("register_date_start")
+			@Expose
+			val registerDateStart: String? = "",
+			@SerializedName("register_fee")
+			@Expose
+			val registerFee: String? = "",
+			@SerializedName("start_date")
+			@Expose
+			val startDate: String? = "",
+			@SerializedName("team_in_tournament")
+			@Expose
+			val teamInTournament: List<TeamInTournament?>? = listOf(),
+			@SerializedName("terms_condition")
+			@Expose
+			val termsCondition: String? = "",
+			@SerializedName("title_game")
+			@Expose
+			val titleGame: String? = "",
+			@SerializedName("type")
+			@Expose
+			val type: String? = ""
+	) {
+		data class TeamInTournament(
+				@SerializedName("team_id")
+				@Expose
+				val teamId: Int? = 0,
+				@SerializedName("team_name")
+				@Expose
+				val teamName: String? = ""
+		)
+	}
+}

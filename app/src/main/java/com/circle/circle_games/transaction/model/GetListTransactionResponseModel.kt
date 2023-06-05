@@ -28,6 +28,9 @@ data class GetListTransactionResponseModel(
         @SerializedName("order_id")
         @Expose
         val orderId: String? = "",
+        @SerializedName("item_name")
+        @Expose
+        val itemName: String? = "",
         @SerializedName("settlement_time")
         @Expose
         val settlementTime: String? = "",
@@ -42,6 +45,18 @@ data class GetListTransactionResponseModel(
         val transactionTime: String? = "",
         @SerializedName("user_id")
         @Expose
-        val userId: String? = ""
+        val userId: String? = "",
+        @SerializedName("payment_type_name")
+        @Expose
+        val paymentTypeName: String? = "",
+        @SerializedName("va_final")
+        @Expose
+        val vaFinal: String? = "",
+        @SerializedName("va_number")
+        @Expose
+        val vaNumber: String? = "",
+        @SerializedName("bank_name")
+        @Expose
+        val bankName: String? = ""
     )
 }

@@ -522,7 +522,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                             etRegisterDateEnd.setText(gm.setDateIndonesia(2,regDateEndNonFormat));
                             etStartDate.setText(gm.setDateIndonesia(2,dateStartNonFormat));
                             etEndDate.setText(gm.setDateIndonesia(2,dateEndNonFormat));
-                            etRegFee.setText(response.body().getData().getRegister_fee());
+                            etRegFee.setText(response.body().getData().getRegisterFee());
                             etTermsCondition.setText(response.body().getData().getTermsCondition());
 
                             gameTitle = response.body().getData().getTitleGame();
@@ -538,7 +538,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
                             //e.setText(response.body().getData().getDetail());
                             //type belom
-                            String fee = response.body().getData().getRegister_fee();
+                            String fee = response.body().getData().getRegisterFee();
 
                             if (fee.equalsIgnoreCase("0")){
                                 fee = "FREE";

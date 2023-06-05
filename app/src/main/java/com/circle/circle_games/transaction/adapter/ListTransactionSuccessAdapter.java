@@ -1,11 +1,14 @@
 package com.circle.circle_games.transaction.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,9 +61,27 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
 
         holderItem.tvAmount.setText("Rp. "+dataModel.getGrossAmount());
         holderItem.tvOrderId.setText(dataModel.getOrderId());
-        holderItem.tvItemName.setText(dataModel.getUserId());
+        holderItem.tvItemName.setText(dataModel.getItemName());
         holderItem.tvSettlementTime.setText(dataModel.getSettlementTime());
         holderItem.tvExpiryTime.setText(dataModel.getExpiryTime());
+        if (dataModel.getPaymentTypeName().contains("Bank Transfer")){
+            holderItem.llVaNumber.setVisibility(View.VISIBLE);
+            holderItem.llBankName.setVisibility(View.VISIBLE);
+            holderItem.tvVaNumber.setText(dataModel.getVaNumber());
+            if (dataModel.getBankName() != null){
+                holderItem.tvBankName.setText(dataModel.getBankName().toUpperCase());
+            }
+
+        }
+
+        holderItem.tvVaNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Copied Text", holderItem.tvVaNumber.getText().toString());
+                clipboard.setPrimaryClip(clip);
+            }
+        });
 
         if (status.equalsIgnoreCase("success")){
             holderItem.tvStatus.setText("Success");
@@ -87,7 +108,8 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
 
     public class TransactionViewHolder extends RecyclerView.ViewHolder {
         ImageView ivJenisPayment;
-        TextView tvJenisPayment,tvAmount,tvOrderId,tvItemName,tvSettlementTime,tvExpiryTime,tvStatus;
+        LinearLayout llVaNumber,llBankName;
+        TextView tvJenisPayment,tvAmount,tvOrderId,tvItemName,tvSettlementTime,tvExpiryTime,tvStatus,tvVaNumber,tvBankName;
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
             ivJenisPayment = itemView.findViewById(R.id.iv_jenis);
@@ -98,6 +120,10 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
             tvSettlementTime = itemView.findViewById(R.id.tv_settlement_time);
             tvExpiryTime = itemView.findViewById(R.id.tv_expiry_time);
             tvStatus = itemView.findViewById(R.id.tv_status);
+            tvVaNumber = itemView.findViewById(R.id.tv_va_number);
+            llVaNumber = itemView.findViewById(R.id.ll_va_number);
+            llBankName = itemView.findViewById(R.id.ll_bank_name);
+            tvBankName = itemView.findViewById(R.id.tv_bank_name);
         }
         public void bind(GetListTransactionResponseModel.Data modelList, ListTransactionSuccessAdapter.OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {

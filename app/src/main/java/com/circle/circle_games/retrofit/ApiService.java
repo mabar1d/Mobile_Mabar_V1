@@ -1,6 +1,6 @@
 package com.circle.circle_games.retrofit;
 
-import com.circle.circle_games.login.model.ResponseLoginModel;
+import com.circle.circle_games.login.model.LoginResponseModel;
 import com.circle.circle_games.retrofit.model.CreateTeamResponseModel;
 import com.circle.circle_games.retrofit.model.GetCarouselResponseModel;
 import com.circle.circle_games.retrofit.model.GetInfoNewsCategoryResponseModel;
@@ -52,7 +52,7 @@ public interface ApiService {
     );
 
     @POST("login")
-    Call<ResponseLoginModel> login(
+    Call<LoginResponseModel> login(
             @Query("username") String username,
             @Query("email") String email,
             @Query("password") String password,
