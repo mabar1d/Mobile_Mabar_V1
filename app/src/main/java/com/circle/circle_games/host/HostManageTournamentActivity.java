@@ -492,7 +492,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<ResponseGetInfoTournamentModel> req = RetrofitConfig.getApiServices("").getInfoTournament(userId, idTournament);
+            Call<ResponseGetInfoTournamentModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTournament(userId, idTournament);
             req.enqueue(new Callback<ResponseGetInfoTournamentModel>() {
                 @Override
                 public void onResponse(Call<ResponseGetInfoTournamentModel> call, Response<ResponseGetInfoTournamentModel> response) {
@@ -506,7 +506,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                                     .into(ivTournament);
                             etTourName.setText(response.body().getData().getName());
 
-                            etPrize.setText("Rp. "+response.body().getData().getPrize());
+                            etPrize.setText(gm.formattedRupiah(response.body().getData().getPrize()));
                             etDescription.setText(response.body().getData().getDetail());
 
                             regDateStartNonFormat = response.body().getData().getRegisterDateStart();

@@ -98,7 +98,7 @@ public class HostListOnGoingTournamentActivity extends AppCompatActivity {
     private void getListHostTournament(String userId, String search, String page, JSONArray filterGame ){
         gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
-            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListHostTournament(userId, search, page,filterGame,"open");
+            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListHostTournament(userId, search, page,filterGame,"open");
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTournamentResponseModel> call, Response<GetListTournamentResponseModel> response) {

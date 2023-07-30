@@ -98,7 +98,7 @@ public class ListHostTournamentAdapter extends RecyclerView.Adapter<ListHostTour
         }else {
             holder.ratingTourney.setText("-");
         }
-        holder.prizeTourney.setText("Rp. "+dataTournament.get(position).getPrize());
+        holder.prizeTourney.setText(globalMethod.formattedRupiah(dataTournament.get(position).getPrize()));
         holder.createdBy.setText("Created by "+dataTournament.get(position).getCreatedName());
         holder.participant.setText(dataTournament.get(position).getTeamInTournament().size()+ "/"+ dataTournament.get(position).getNumberOfParticipants());
 

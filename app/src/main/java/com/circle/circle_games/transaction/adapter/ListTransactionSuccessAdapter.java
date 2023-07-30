@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -61,7 +62,7 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
         final ListTransactionSuccessAdapter.TransactionViewHolder holderItem = (ListTransactionSuccessAdapter.TransactionViewHolder)holder;
 
 
-        holderItem.tvAmount.setText("Rp. "+dataModel.getGrossAmount());
+        holderItem.tvAmount.setText(globalMethod.formattedRupiah(dataModel.getGrossAmount()));
         holderItem.tvOrderId.setText(dataModel.getOrderId());
         holderItem.tvItemName.setText(dataModel.getItemName());
         holderItem.tvSettlementTime.setText(dataModel.getSettlementTime());
@@ -82,6 +83,7 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
                 ClipboardManager clipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("Copied Text", holderItem.tvVaNumber.getText().toString());
                 clipboard.setPrimaryClip(clip);
+                Toast.makeText(context,"Copied to Clipboard",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -102,12 +104,19 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
                 ClipboardManager clipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("Copied Text", holderItem.tvVaNumber.getText().toString());
                 clipboard.setPrimaryClip(clip);
+                Toast.makeText(context,"Copied to Clipboard",Toast.LENGTH_SHORT).show();
             }
         });
 
 
 
         holderItem.bind(dataTransaction.get(position), listener);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void clearAllData() {
+        dataTransaction.clear(); // clear list
+        notifyDataSetChanged(); // let your adapter know about the changes and reload view.
     }
 
     @Override

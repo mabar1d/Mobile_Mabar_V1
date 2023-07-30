@@ -227,7 +227,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<ResponseGetInfoTournamentModel> req = RetrofitConfig.getApiServices("").getInfoTournament(userId, idTournament);
+            Call<ResponseGetInfoTournamentModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTournament(userId, idTournament);
             req.enqueue(new Callback<ResponseGetInfoTournamentModel>() {
                 @Override
                 public void onResponse(Call<ResponseGetInfoTournamentModel> call, Response<ResponseGetInfoTournamentModel> response) {
@@ -247,7 +247,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                                 tvRating.setText("-");
                             }
 
-                            tvPrize.setText("Rp. "+response.body().getData().getPrize());
+                            tvPrize.setText(gm.formattedRupiah(response.body().getData().getPrize()));
                             tvGame.setText(response.body().getData().getTitleGame());
                             tvCreatedBy.setText("Created By "+response.body().getData().getCreatedName());
                             tvStartDate.setText(response.body().getData().getStartDate());
@@ -262,7 +262,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             if (fee.equalsIgnoreCase("0")){
                                 fee = "FREE";
                             }else {
-                                fee = "Rp. "+fee;
+                                fee = gm.formattedRupiah(fee);
                             }
                             btnRegister.setText("Register "+ "("+fee+")");
 
@@ -314,7 +314,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<GetTermsConditionResponseModel> req = RetrofitConfig.getApiServices("").getInfoGeneral(userId, "terms_condition");
+            Call<GetTermsConditionResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoGeneral(userId, "terms_condition");
             req.enqueue(new Callback<GetTermsConditionResponseModel>() {
                 @Override
                 public void onResponse(Call<GetTermsConditionResponseModel> call, Response<GetTermsConditionResponseModel> response) {
@@ -364,7 +364,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<GetLinkTreeWebviewResponseModel> req = RetrofitConfig.getApiServices("").getLinkTournamentTreeWeb(userId, idTournament);
+            Call<GetLinkTreeWebviewResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getLinkTournamentTreeWeb(userId, idTournament);
             req.enqueue(new Callback<GetLinkTreeWebviewResponseModel>() {
                 @Override
                 public void onResponse(Call<GetLinkTreeWebviewResponseModel> call, Response<GetLinkTreeWebviewResponseModel> response) {
@@ -418,7 +418,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
         progress.setMessage("Loading...");
         progress.show();
         try {
-            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices("").registerTournament(userId, idTournament);
+            Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).registerTournament(userId, idTournament);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
                 @Override
                 public void onResponse(Call<SuccessResponseDefaultModel> call, Response<SuccessResponseDefaultModel> response) {

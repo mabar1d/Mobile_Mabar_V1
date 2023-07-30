@@ -112,7 +112,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
 
         try {
-            Call<GetInfoNewsResponseModel> req = RetrofitConfig.getApiServices("").getInfoNews(userId, idTournament);
+            Call<GetInfoNewsResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoNews(userId, idTournament);
             req.enqueue(new Callback<GetInfoNewsResponseModel>() {
                 @Override
                 public void onResponse(Call<GetInfoNewsResponseModel> call, Response<GetInfoNewsResponseModel> response) {

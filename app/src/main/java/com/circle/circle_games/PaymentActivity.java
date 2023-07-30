@@ -114,7 +114,7 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
         idUser = sess.getString("id_user");
 
         getDataPerson();
-        tvTotal.setText("Total : "+ fee);
+        tvTotal.setText("Total : "+ gm.formattedRupiah(fee));
         if (fee.contains(".")){
             fee = fee.replace(".","");
         }

@@ -93,7 +93,7 @@ public class VideosActivity extends AppCompatActivity implements AddLifecycleCal
     private void getListVideos(String userId, String search, String page ){
         globalMethod.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
-            Call<GetListVideosResponseModel> req = RetrofitConfig.getApiServices("").getListVideo(userId, search, page);
+            Call<GetListVideosResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListVideo(userId, search, page);
             req.enqueue(new Callback<GetListVideosResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListVideosResponseModel> call, Response<GetListVideosResponseModel> response) {

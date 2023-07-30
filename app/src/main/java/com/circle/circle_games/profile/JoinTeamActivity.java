@@ -100,7 +100,7 @@ public class JoinTeamActivity extends AppCompatActivity {
 
         gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
-            Call<GetListTeamResponseModel> req = RetrofitConfig.getApiServices("").getListTeam(userId, search, page);
+            Call<GetListTeamResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListTeam(userId, search, page);
             req.enqueue(new Callback<GetListTeamResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTeamResponseModel> call, Response<GetListTeamResponseModel> response) {

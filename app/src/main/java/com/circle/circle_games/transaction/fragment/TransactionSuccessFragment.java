@@ -120,12 +120,13 @@ public class TransactionSuccessFragment extends Fragment {
         globalMethod.setShimmerLinearLayout(true,shimmerLoad,llContent);
 
         try {
-            Call<GetListTransactionResponseModel> req = RetrofitConfig.getApiServices("").getListTransactions(sess.getString("id_user"), "200", search ,"0");
+            Call<GetListTransactionResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListTransactions(sess.getString("id_user"), "200", search ,"0");
             req.enqueue(new Callback<GetListTransactionResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTransactionResponseModel> call, Response<GetListTransactionResponseModel> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
+                            listTransaction.clear();
                             listTransaction = response.body().getData();
 
                             rvTransaction.setAdapter(new ListTransactionSuccessAdapter(getActivity(), "success", listTransaction, new ListTransactionSuccessAdapter.OnItemClickListener() {

@@ -160,7 +160,7 @@
 
         <LinearLayout
             android:id="@+id/ll_va_number"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"

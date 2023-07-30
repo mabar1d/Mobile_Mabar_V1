@@ -216,7 +216,7 @@ public class SplashScreen1 extends AppCompatActivity {
 
     private void checkVersion(){
         try {
-            Call<CheckVersionResponseModel> req = RetrofitConfig.getApiServices("").checkVersion(sess.getString("id_user"));
+            Call<CheckVersionResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).checkVersion(sess.getString("id_user"));
             req.enqueue(new Callback<CheckVersionResponseModel>() {
                 @Override
                 public void onResponse(Call<CheckVersionResponseModel> call, Response<CheckVersionResponseModel> response) {
@@ -330,7 +330,7 @@ public class SplashScreen1 extends AppCompatActivity {
     private void getListGame(String userId,String search,String page){
 
         try {
-            Call<ResponseListGame> req = RetrofitConfig.getApiServices("").getListGame(userId, search, page);
+            Call<ResponseListGame> req = RetrofitConfig.getApiServices(sess.getString("token")).getListGame(userId, search, page);
             req.enqueue(new Callback<ResponseListGame>() {
                 @Override
                 public void onResponse(Call<ResponseListGame> call, Response<ResponseListGame> response) {

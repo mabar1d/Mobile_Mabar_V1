@@ -134,7 +134,7 @@ public class DetailVideosActivity extends AppCompatActivity {
         gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
 
         try {
-            Call<GetInfoVideosResponseModel> req = RetrofitConfig.getApiServices("").getInfoVideo(userId, idVideo,"");
+            Call<GetInfoVideosResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoVideo(userId, idVideo,"");
             req.enqueue(new Callback<GetInfoVideosResponseModel>() {
                 @Override
                 public void onResponse(Call<GetInfoVideosResponseModel> call, Response<GetInfoVideosResponseModel> response) {

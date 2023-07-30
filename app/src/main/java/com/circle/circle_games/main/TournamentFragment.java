@@ -101,7 +101,7 @@ public class TournamentFragment extends Fragment {
         globalMethod.setShimmerLinearLayout(true,shimmerLoad,llContent);
 
         try {
-            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTournament(userId, search, page,filterGame);
+            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListTournament(userId, search, page,filterGame);
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTournamentResponseModel> call, Response<GetListTournamentResponseModel> response) {

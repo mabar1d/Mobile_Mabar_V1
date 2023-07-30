@@ -167,7 +167,7 @@ public class HomeFragmentNew extends Fragment {
         setLoad(true);
 
         try {
-            Call<GetListNewsResponseModel> req = RetrofitConfig.getApiServices("").getListNews(userId, search, page);
+            Call<GetListNewsResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListNews(userId, search, page);
             req.enqueue(new Callback<GetListNewsResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListNewsResponseModel> call, Response<GetListNewsResponseModel> response) {
@@ -216,7 +216,7 @@ public class HomeFragmentNew extends Fragment {
         setLoad(true);
 
         try {
-            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTournament(userId, search, page,filterGame);
+            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListTournament(userId, search, page,filterGame);
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTournamentResponseModel> call, Response<GetListTournamentResponseModel> response) {
@@ -264,7 +264,7 @@ public class HomeFragmentNew extends Fragment {
 
         setLoad(true);
         try {
-            Call<ResponseListGame> req = RetrofitConfig.getApiServices("").getListGame(userId, search, page);
+            Call<ResponseListGame> req = RetrofitConfig.getApiServices(sess.getString("token")).getListGame(userId, search, page);
             req.enqueue(new Callback<ResponseListGame>() {
                 @Override
                 public void onResponse(Call<ResponseListGame> call, Response<ResponseListGame> response) {
@@ -330,7 +330,7 @@ public class HomeFragmentNew extends Fragment {
 
         setLoad(true);
         try {
-            Call<GetListMenuResponseModel> req = RetrofitConfig.getApiServices("").getListMenuHome(userId);
+            Call<GetListMenuResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListMenuHome(userId);
             req.enqueue(new Callback<GetListMenuResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListMenuResponseModel> call, Response<GetListMenuResponseModel> response) {
@@ -383,7 +383,7 @@ public class HomeFragmentNew extends Fragment {
 
         setLoad(true);
         try {
-            Call<GetCarouselResponseModel> req = RetrofitConfig.getApiServices("").getCarouselTournament(userId);
+            Call<GetCarouselResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getCarouselTournament(userId);
             req.enqueue(new Callback<GetCarouselResponseModel>() {
                 @Override
                 public void onResponse(Call<GetCarouselResponseModel> call, Response<GetCarouselResponseModel> response) {

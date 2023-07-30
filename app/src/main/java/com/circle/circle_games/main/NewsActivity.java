@@ -94,7 +94,7 @@ public class NewsActivity extends AppCompatActivity {
     private void getListNews(String userId, String search, String page ){
         globalMethod.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
-            Call<GetListNewsResponseModel> req = RetrofitConfig.getApiServices("").getListNews(userId, search, page);
+            Call<GetListNewsResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListNews(userId, search, page);
             req.enqueue(new Callback<GetListNewsResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListNewsResponseModel> call, Response<GetListNewsResponseModel> response) {

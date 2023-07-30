@@ -102,7 +102,7 @@ public class MemberTeamListTournamentActivity extends AppCompatActivity {
     private void getListTeamTournamentForMember(String userId, String teamId , String search, String page){
         gm.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
-            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices("").getListTeamTournamentforMember(userId, teamId,search,page);
+            Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListTeamTournamentforMember(userId, teamId,search,page);
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTournamentResponseModel> call, Response<GetListTournamentResponseModel> response) {
