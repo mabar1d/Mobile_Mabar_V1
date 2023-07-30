@@ -20,6 +20,13 @@ buildscript {
     }
 }
 
+plugins {
+    //...
+
+    // Add the App Distribution Gradle plugin
+    id 'com.google.firebase.appdistribution' version '4.0.0' apply false
+}
+
 allprojects {
     repositories {
         google()

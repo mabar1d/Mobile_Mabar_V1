@@ -3,8 +3,11 @@ plugins {
     id 'com.google.gms.google-services'
     // Add the Crashlytics Gradle plugin
     id 'com.google.firebase.crashlytics'
+    // Add the App Distribution plugin
+    id 'com.google.firebase.appdistribution'
 }
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.firebase.appdistribution'
 
 ext.versionMajor = 1 //2 digit depan
 ext.versionFitur = 0 //3 digit tengah
@@ -53,6 +56,12 @@ android {
             buildConfigField "String", "BASE_URL_MIDTRANS", "\"https://api.circlegames.id/api/callbackMidtransNotification/\""
             buildConfigField "String", "CLIENT_KEY_MIDTRANS", "\"SB-Mid-client-r84N-pQ16AZMxRDe\""
             matchingFallbacks = ["sandbox"]
+            firebaseAppDistribution {
+                //appId = "yourAppId"
+                artifactType = "APK"
+                releaseNotes = "Cek circle"
+                groups="circle-main"
+            }
         }
 
         production {

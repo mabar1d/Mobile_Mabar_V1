@@ -160,7 +160,7 @@
 
         <LinearLayout
             android:id="@+id/ll_va_number"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
@@ -177,15 +177,32 @@
                 android:textColor="@color/grey"
                 android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/tv_va_number"
+            <RelativeLayout
+                android:id="@+id/rl_va"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:gravity="start"
-                android:textColor="@color/grey"
-                android:text="-"
-                android:textSize="12sp"/>
+                android:gravity="start">
+
+                <TextView
+                    android:id="@+id/tv_va_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey"
+                    android:text="-"
+                    android:textSize="12sp"/>
+                <ImageView
+                    android:id="@+id/iv_copy"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_copy"
+                    app:tint="@color/grey"
+                    android:layout_toRightOf="@id/tv_va_number"/>
+
+            </RelativeLayout>
+
+
         </LinearLayout>
 
         <LinearLayout

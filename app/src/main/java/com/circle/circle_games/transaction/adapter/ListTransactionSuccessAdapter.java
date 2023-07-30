@@ -1,5 +1,7 @@
 package com.circle.circle_games.transaction.adapter;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -77,7 +79,7 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
         holderItem.tvVaNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager clipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("Copied Text", holderItem.tvVaNumber.getText().toString());
                 clipboard.setPrimaryClip(clip);
             }
@@ -94,6 +96,14 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
             holderItem.tvStatus.setTextColor(ContextCompat.getColor(context,R.color.material_red_500));
         }
 
+        holderItem.ivCopyVa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Copied Text", holderItem.tvVaNumber.getText().toString());
+                clipboard.setPrimaryClip(clip);
+            }
+        });
 
 
 
@@ -107,7 +117,7 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
 
 
     public class TransactionViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivJenisPayment;
+        ImageView ivJenisPayment,ivCopyVa;
         LinearLayout llVaNumber,llBankName;
         TextView tvJenisPayment,tvAmount,tvOrderId,tvItemName,tvSettlementTime,tvExpiryTime,tvStatus,tvVaNumber,tvBankName;
         public TransactionViewHolder(@NonNull View itemView) {
@@ -124,6 +134,7 @@ public class ListTransactionSuccessAdapter extends RecyclerView.Adapter {
             llVaNumber = itemView.findViewById(R.id.ll_va_number);
             llBankName = itemView.findViewById(R.id.ll_bank_name);
             tvBankName = itemView.findViewById(R.id.tv_bank_name);
+            ivCopyVa = itemView.findViewById(R.id.iv_copy);
         }
         public void bind(GetListTransactionResponseModel.Data modelList, ListTransactionSuccessAdapter.OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
