@@ -115,6 +115,8 @@ public class SplashScreen1 extends AppCompatActivity {
 
         dbType = gm.getTypeDatabase();
         tvVersion.setText("Version "+BuildConfig.VERSION_NAME);
+        sess.setString("id_user","0");
+        sess.commitSess();
         ivLogo.post(new Runnable() {
             @Override
             public void run() {
@@ -216,7 +218,7 @@ public class SplashScreen1 extends AppCompatActivity {
 
     private void checkVersion(){
         try {
-            Call<CheckVersionResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).checkVersion(sess.getString("id_user"));
+            Call<CheckVersionResponseModel> req = RetrofitConfig.getApiServices("").checkVersion(sess.getString("id_user"));
             req.enqueue(new Callback<CheckVersionResponseModel>() {
                 @Override
                 public void onResponse(Call<CheckVersionResponseModel> call, Response<CheckVersionResponseModel> response) {
@@ -330,7 +332,7 @@ public class SplashScreen1 extends AppCompatActivity {
     private void getListGame(String userId,String search,String page){
 
         try {
-            Call<ResponseListGame> req = RetrofitConfig.getApiServices(sess.getString("token")).getListGame(userId, search, page);
+            Call<ResponseListGame> req = RetrofitConfig.getApiServices("").getListGame(userId, search, page);
             req.enqueue(new Callback<ResponseListGame>() {
                 @Override
                 public void onResponse(Call<ResponseListGame> call, Response<ResponseListGame> response) {
@@ -388,14 +390,15 @@ public class SplashScreen1 extends AppCompatActivity {
     //master menu
 
     private void cekSession(){
-        if (sess.getString("token").equalsIgnoreCase("")){
+        checkVersion();
+       /* if (sess.getString("token").equalsIgnoreCase("")){
             Intent i = new Intent(SplashScreen1.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }else {
             checkVersion();
 
-        }
+        }*/
     }
 
 
