@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.circle.circle_games.BuildConfig;
@@ -38,6 +39,7 @@ import com.circle.circle_games.retrofit.model.CheckVersionResponseModel;
 import com.circle.circle_games.retrofit.model.DataItem;
 import com.circle.circle_games.retrofit.model.ResponseListGame;
 import com.circle.circle_games.room.viewmodel.MasterViewModel;
+import com.circle.circle_games.team.DetailTeamInfoActivity;
 import com.circle.circle_games.utility.CurrencyEditTextWatcher;
 import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
@@ -75,8 +77,15 @@ public class SplashScreen1 extends AppCompatActivity {
 
     private JSONArray arrayCheckVersionDb = new JSONArray();
 
-    public static int MY_PERMISSIONS_REQUEST_CAMERA = 1;
-    public static int MY_PERMISSIONS_REQUEST_STORAGE = 2;
+    private static final int PERMISSION_REQUEST_CODE = 123;
+
+    private String[] permissions = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+
+    private int permissionIndex = 0;
     private boolean downloadMstGame = false;
     private boolean downloadMstMenu = false;
     private MasterViewModel viewModel;
@@ -86,27 +95,6 @@ public class SplashScreen1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final String[] permissions = new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE};
-
-        ActivityCompat.requestPermissions(this, permissions, ALL_PERMISSIONS);
-
-
-        /*Dexter.withContext(this)
-                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(new PermissionListener() {
-                    @Override public void onPermissionGranted(PermissionGrantedResponse response) { ... }
-                    @Override public void onPermissionDenied(PermissionDeniedResponse response) { ... }
-                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) { ... }
-                }).check();
-
-        Dexter.withContext(this)
-                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .withListener(new PermissionListener() {
-                    @Override public void onPermissionGranted(PermissionGrantedResponse response) { ... }
-                    @Override public void onPermissionDenied(PermissionDeniedResponse response) { ... }
-                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) { ... }
-                }).check();*/
-
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
         sess = new SessionUser(this);
@@ -115,8 +103,6 @@ public class SplashScreen1 extends AppCompatActivity {
 
         dbType = gm.getTypeDatabase();
         tvVersion.setText("Version "+BuildConfig.VERSION_NAME);
-        sess.setString("id_user","0");
-        sess.commitSess();
         ivLogo.post(new Runnable() {
             @Override
             public void run() {
@@ -129,18 +115,97 @@ public class SplashScreen1 extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+        requestPermission(permissions[0]);
 
-        if(ActivityCompat.checkSelfPermission(this, CAMERA) == PackageManager.PERMISSION_GRANTED &&
+       /* if(ActivityCompat.checkSelfPermission(this, CAMERA) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
         {
             cekSession();
         }else {
-            Toast.makeText(this, "All permission is needed to run the app", Toast.LENGTH_LONG).show();
+            gm.showDialogConfirmation(SplashScreen1.this, "Warning?", "All permission is needed to run the app",
+                    "Ok", "Exit", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            gm.dismissDialogConfirmation();
+                        }
+                    }, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            gm.dismissDialogConfirmation();
+                            finish();
+                        }
+                    });
+            //Toast.makeText(this, "All permission is needed to run the app", Toast.LENGTH_LONG).show();
+        }*/
+
+
+
+    }
+
+    private void requestPermission(String permission) {
+        if (ContextCompat.checkSelfPermission(this, permission)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request it
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                showPermissionExplanation(permission);
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    cekSession();
+                }else {
+                    ActivityCompat.requestPermissions(this, new String[]{permission}, PERMISSION_REQUEST_CODE);
+
+                }
+            }
+        } else {
+            // Permission is already granted, proceed with the next permission
+            requestNextPermission();
         }
+    }
+    private void requestNextPermission() {
+        permissionIndex++;
+        if (permissionIndex < permissions.length) {
+            requestPermission(permissions[permissionIndex]);
+        } else {
+            cekSession();
+        }
+    }
 
+    private void showPermissionExplanation(final String permission) {
+        gm.showDialogConfirmation(SplashScreen1.this, "Permission Needed", "This app needs the permission to function properly",
+                "Ok", "Exit", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gm.dismissDialogConfirmation();
+                        ActivityCompat.requestPermissions(SplashScreen1.this,
+                                new String[]{permission}, PERMISSION_REQUEST_CODE);
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gm.dismissDialogConfirmation();
+                        finish();
+                    }
+                });
+    }
 
-
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, proceed with the next permission
+                requestNextPermission();
+            } else {
+                // Permission denied, handle accordingly
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    cekSession();
+                }else {
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     private void checkAllDownload(){
@@ -401,8 +466,7 @@ public class SplashScreen1 extends AppCompatActivity {
         }*/
     }
 
-
-    @SuppressLint("MissingSuperCall")
+    /*@SuppressLint("MissingSuperCall")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -416,13 +480,14 @@ public class SplashScreen1 extends AppCompatActivity {
         if((PermissionsMap.get(CAMERA) != 0)
                 || PermissionsMap.get(WRITE_EXTERNAL_STORAGE) != 0
                 || PermissionsMap.get(READ_EXTERNAL_STORAGE) != 0){
+            ActivityCompat.requestPermissions(this, permissions, ALL_PERMISSIONS);
             Toast.makeText(this, "All permission is needed to run the app", Toast.LENGTH_SHORT).show();
             finish();
         }else {
             cekSession();
         }
 
-    }
+    }*/
 
     private void startImageAnimation() {
         ObjectAnimator animation = ObjectAnimator.ofFloat(ivLogo, "translationY",-(ivLogo.getHeight()), 0);

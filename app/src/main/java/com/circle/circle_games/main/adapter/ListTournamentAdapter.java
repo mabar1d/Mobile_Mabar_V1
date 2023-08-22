@@ -57,6 +57,7 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
             holder.ratingTourney.setText("-");
         }
         holder.prizeTourney.setText(globalMethod.formattedRupiah(dataTournament.get(position).getPrize()));
+        holder.startDate.setText(dataTournament.get(position).getStartDate());
         holder.createdBy.setText("Created by "+dataTournament.get(position).getCreatedName());
         holder.participant.setText(dataTournament.get(position).getTeamInTournament().size()+ "/"+ dataTournament.get(position).getNumberOfParticipants());
 
@@ -96,12 +97,13 @@ public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAd
 
     public class TournamentViewHolder extends RecyclerView.ViewHolder {
         ImageView imageTourney;
-        TextView judulTourney,judulGame,prizeTourney,btnDetail, ratingTourney, createdBy, participant;
+        TextView judulTourney,judulGame,prizeTourney,btnDetail, ratingTourney, createdBy, participant, startDate;
         public TournamentViewHolder(@NonNull View itemView) {
             super(itemView);
             ratingTourney = itemView.findViewById(R.id.rating_tourney);
             judulTourney = itemView.findViewById(R.id.judul_tourney);
             prizeTourney = itemView.findViewById(R.id.prize_tourney);
+            startDate = itemView.findViewById(R.id.tv_start_date);
             participant = itemView.findViewById(R.id.participant);
             imageTourney = itemView.findViewById(R.id.image_tourney);
             judulGame = itemView.findViewById(R.id.judul_game);

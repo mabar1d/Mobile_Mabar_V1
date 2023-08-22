@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.circle.circle_games.profile.CreateTournamentActivity;
+import com.circle.circle_games.profile.DetailProfileAccountActivity;
 import com.circle.circle_games.retrofit.ApiService;
 import com.circle.circle_games.R;
 import com.circle.circle_games.login.LoginActivity;
@@ -237,16 +239,25 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(HostManageTournamentActivity.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(HostManageTournamentActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
-                } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     Intent i = new Intent(
                             Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                     startActivityForResult(i, RESULT_LOAD_IMAGE);
+                }else {
+                    if (ContextCompat.checkSelfPermission(HostManageTournamentActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(HostManageTournamentActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent i = new Intent(
+                                Intent.ACTION_PICK,
+                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                        startActivityForResult(i, RESULT_LOAD_IMAGE);
+                    }
+
                 }
             }
         });

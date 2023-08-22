@@ -1,6 +1,7 @@
 package com.circle.circle_games.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -11,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -201,17 +203,27 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(DetailProfileAccountActivity.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(DetailProfileAccountActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
-                } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     Intent i = new Intent(
                             Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                     startActivityForResult(i, RESULT_LOAD_IMAGE);
+                }else {
+                    if (ContextCompat.checkSelfPermission(DetailProfileAccountActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(DetailProfileAccountActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent i = new Intent(
+                                Intent.ACTION_PICK,
+                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                        startActivityForResult(i, RESULT_LOAD_IMAGE);
+                    }
+
                 }
+
             }
         });
 

@@ -72,41 +72,133 @@
             android:gravity="center"
             android:maxLines="2"/>
 
-        <TextView
-            android:id="@+id/participant"
+        <RelativeLayout
             android:layout_marginTop="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="-"
-            android:textSize="12dp"
-            android:gravity="center"
-            android:textColor="@color/grey"
-            android:textStyle="italic"
-            android:maxLines="1"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/judul_game"
-            android:layout_marginTop="2dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textSize="12dp"
-            android:gravity="center"
-            android:textColor="@color/grey"
-            android:textStyle="italic"
-            android:maxLines="1"/>
 
-        <TextView
-            android:id="@+id/tv_created_by"
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/tv_start_date"
+                android:src="@drawable/ic_date"
+                app:tint="@color/grey" />
+
+
+            <TextView
+                android:id="@+id/tv_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="-"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:maxLines="1"
+                android:textSize="12dp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_marginTop="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="-"
-            android:textSize="12dp"
-            android:textColor="@color/grey"
-            android:gravity="center"
-            android:textStyle="italic"
-            android:maxLines="1"/>
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/participant"
+                android:src="@drawable/ic_join_team"
+                app:tint="@color/grey" />
+
+
+            <TextView
+                android:id="@+id/participant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="-"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:maxLines="1"
+                android:textSize="12dp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/judul_game"
+                android:src="@drawable/ic_game"
+                app:tint="@color/grey" />
+
+
+            <TextView
+                android:id="@+id/judul_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="-"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:maxLines="1"
+                android:textSize="12dp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/tv_created_by"
+                android:src="@drawable/ic_person"
+                app:tint="@color/grey" />
+
+
+            <TextView
+                android:id="@+id/tv_created_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="-"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:maxLines="1"
+                android:textSize="12dp" />
+
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/btn_detail"

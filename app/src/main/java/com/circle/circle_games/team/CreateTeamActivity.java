@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import com.circle.circle_games.login.LoginActivity;
 import com.circle.circle_games.main.adapter.ListPersonAdapter;
 import com.circle.circle_games.main.adapter.ListPersonAddedAdapter;
+import com.circle.circle_games.profile.DetailProfileAccountActivity;
 import com.circle.circle_games.retrofit.ApiService;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.retrofit.model.CreateTeamResponseModel;
@@ -160,16 +162,25 @@ public class CreateTeamActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(CreateTeamActivity.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(CreateTeamActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
-                } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     Intent i = new Intent(
                             Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                     startActivityForResult(i, RESULT_LOAD_IMAGE);
+                }else {
+                    if (ContextCompat.checkSelfPermission(CreateTeamActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(CreateTeamActivity.this, "Please Check Application Permissions", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent i = new Intent(
+                                Intent.ACTION_PICK,
+                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                        startActivityForResult(i, RESULT_LOAD_IMAGE);
+                    }
+
                 }
 
             }
