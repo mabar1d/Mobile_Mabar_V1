@@ -393,8 +393,14 @@ public class HomeFragmentNew extends Fragment {
                             ArrayList<SlideModel> imageList = new ArrayList<SlideModel>();
 
                             for (int i = 0; i < response.body().getData().size() ; i++) {
-                                imageList.add(new SlideModel(response.body().getData().get(i).getImage(),
-                                        response.body().getData().get(i).getTitleTournament(), ScaleTypes.CENTER_CROP));
+                                if (response.body().getData().get(i).getImage() != null){
+                                    imageList.add(new SlideModel(response.body().getData().get(i).getImage(),
+                                            response.body().getData().get(i).getTitleTournament(), ScaleTypes.CENTER_CROP));
+                                }else {
+                                    imageList.add(new SlideModel(R.drawable.img_not_found,
+                                            response.body().getData().get(i).getTitleTournament(), ScaleTypes.CENTER_CROP));
+                                }
+
                             }
                             posterSlider.setImageList(imageList);
                             //Item Click Listener Slider
