@@ -11,13 +11,13 @@
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="202dp"
-        android:layout_height="301dp"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
         android:layout_centerInParent="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="200dp"
         android:paddingLeft="10dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/cg_splash"
+        android:src="@drawable/cg_new_logo"
         android:visibility="visible" />
 
 

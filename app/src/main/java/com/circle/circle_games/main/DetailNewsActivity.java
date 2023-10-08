@@ -127,18 +127,18 @@ public class DetailNewsActivity extends AppCompatActivity {
                             cp.start();
 
                             Glide.with(DetailNewsActivity.this)
-                                    .load(response.body().getData().getImage())
+                                    .load(response.body().getData().getNewsImageUrl())
                                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                                     .placeholder(cp)
                                     //.skipMemoryCache(true)
                                     .into(ivNews);
                             tvJudulNews.setText(response.body().getData().getTitle());
-                            tvAuthors.setText(response.body().getData().getFirstname());
+                            tvAuthors.setText(response.body().getData().getCreatedByName());
                             tvTglNews.setText(response.body().getData().getCreatedAt());
                             tvContent.setText(response.body().getData().getContent());
                             tvDiffDate.setText(response.body().getData().getDiffCreatedAt());
                             fileUrlShare = response.body().getData().getLinkShare();
-                            urlImage = response.body().getData().getImage();
+                            urlImage = response.body().getData().getNewsImageUrl();
                             titleNews = response.body().getData().getTitle();
 
 

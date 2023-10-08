@@ -108,7 +108,7 @@ public class FirebaseMessageReceiver
         else {
             builder = builder.setContentTitle(title)
                     .setContentText(message)
-                    .setSmallIcon(R.drawable.logo_circle_hd);
+                    .setSmallIcon(R.drawable.cg_new_logo);
         }
         // Create an object of NotificationManager class to
         // notify the

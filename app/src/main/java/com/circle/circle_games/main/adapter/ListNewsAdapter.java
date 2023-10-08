@@ -49,7 +49,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.NewsVi
         holder.judulNews.setText(dataNews.get(position).getTitle());
         holder.categoryNews.setText(dataNews.get(position).getNewsCategoryName());
 
-        holder.infoNews.setText(dataNews.get(position).getFirstname() + " - " + dataNews.get(position).getDiffCreatedAt() );
+        holder.infoNews.setText(dataNews.get(position).getCreatedByName() + " - " + dataNews.get(position).getDiffCreatedAt() );
 
         CircularProgressDrawable cp = new CircularProgressDrawable(context);
         cp.setStrokeWidth(5f);
@@ -58,7 +58,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.NewsVi
         cp.setCenterRadius(30f);
         cp.start();
         Glide.with(context)
-                .load(dataNews.get(position).getImage())
+                .load(dataNews.get(position).getNewsImageUrl())
                 .placeholder(cp)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 //.skipMemoryCache(true)
