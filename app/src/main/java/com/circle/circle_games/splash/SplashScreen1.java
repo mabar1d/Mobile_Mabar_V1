@@ -117,28 +117,6 @@ public class SplashScreen1 extends AppCompatActivity {
         }
         requestPermission(permissions[0]);
 
-       /* if(ActivityCompat.checkSelfPermission(this, CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-        {
-            cekSession();
-        }else {
-            gm.showDialogConfirmation(SplashScreen1.this, "Warning?", "All permission is needed to run the app",
-                    "Ok", "Exit", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            gm.dismissDialogConfirmation();
-                        }
-                    }, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            gm.dismissDialogConfirmation();
-                            finish();
-                        }
-                    });
-            //Toast.makeText(this, "All permission is needed to run the app", Toast.LENGTH_LONG).show();
-        }*/
-
 
 
     }
@@ -455,15 +433,15 @@ public class SplashScreen1 extends AppCompatActivity {
     //master menu
 
     private void cekSession(){
-        checkVersion();
-       /* if (sess.getString("token").equalsIgnoreCase("")){
+
+        if (sess.getString("token").equalsIgnoreCase("")){
             Intent i = new Intent(SplashScreen1.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }else {
             checkVersion();
 
-        }*/
+        }
     }
 
     /*@SuppressLint("MissingSuperCall")
