@@ -171,19 +171,19 @@ public class DetailVideosActivity extends AppCompatActivity {
                             titleNews = response.body().getData().getTitle();
 
 
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailVideosActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
+                            sess.clearSess();
+                            Intent i = new Intent(DetailVideosActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
                         }else {
                             String notif = response.body().getDesc();
                             Toast.makeText(DetailVideosActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(DetailVideosActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        gm.setShimmerLinearLayout(false,shimmerLoad,llContent);
-                        sess.clearSess();
-                        Intent i = new Intent(DetailVideosActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    }  else {
+                    } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(DetailVideosActivity.this, desc, Toast.LENGTH_SHORT).show();
                         gm.setShimmerLinearLayout(false,shimmerLoad,llContent);

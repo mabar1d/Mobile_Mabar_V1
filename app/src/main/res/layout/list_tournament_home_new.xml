@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_gravity="center"
+    app:cardBackgroundColor="@color/material_grey_900"
+    app:cardCornerRadius="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/image_tourney"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:src="@drawable/poster_game1"
+            android:scaleType="centerCrop" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/judul_tourney"
+                android:layout_marginTop="2dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="14dp"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:minLines="2"/>
+
+            <TextView
+                android:id="@+id/prize_tourney"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="14dp"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:maxLines="2"/>
+
+            <RelativeLayout
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/ic_star"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/star"
+                    app:tint="@color/material_yellow_300" />
+
+
+                <TextView
+                    android:id="@+id/rating_tourney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_toRightOf="@id/ic_star"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/grey"
+                    android:gravity="center"
+                    android:textStyle="italic"
+                    android:maxLines="1"
+                    android:textSize="12dp" />
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/ic_std"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_date"
+                    app:tint="@color/grey" />
+
+
+                <TextView
+                    android:id="@+id/tv_start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_toRightOf="@id/ic_std"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/grey"
+                    android:gravity="center"
+                    android:textStyle="italic"
+                    android:maxLines="1"
+                    android:textSize="12dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/ic_prson"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_join_team"
+                    app:tint="@color/grey" />
+
+
+                <TextView
+                    android:id="@+id/participant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ic_prson"
+                    android:layout_centerInParent="true"
+                    android:text="-"
+                    android:textColor="@color/grey"
+                    android:gravity="center"
+                    android:textStyle="italic"
+                    android:maxLines="1"
+                    android:textSize="12dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/ic_game"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_game"
+                    app:tint="@color/grey" />
+
+
+                <TextView
+                    android:id="@+id/judul_game"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ic_game"
+                    android:layout_centerInParent="true"
+                    android:text="-"
+                    android:textColor="@color/grey"
+                    android:gravity="center"
+                    android:textStyle="italic"
+                    android:maxLines="1"
+                    android:textSize="12dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/ic_org"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/grey" />
+
+
+                <TextView
+                    android:id="@+id/tv_created_by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ic_org"
+                    android:layout_centerInParent="true"
+                    android:text="-"
+                    android:textColor="@color/grey"
+                    android:gravity="center"
+                    android:textStyle="italic"
+                    android:maxLines="1"
+                    android:textSize="12dp" />
+
+
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/btn_detail"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="5dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lihat Detail..."
+                android:textSize="10dp"
+                android:textColor="@color/orange"
+                android:gravity="end"
+                android:maxLines="2"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

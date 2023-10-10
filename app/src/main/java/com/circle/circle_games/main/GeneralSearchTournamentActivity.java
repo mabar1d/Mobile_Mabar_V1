@@ -1,7 +1,9 @@
 package com.circle.circle_games.main;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
@@ -48,6 +50,13 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
     private JSONArray fltGame = new JSONArray();
     private SessionUser sess;
     List<GetListTournamentResponseModel.Data> listTournament = new ArrayList<>();
+    LinearLayoutManager layoutManager;
+
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int currentPage = 0;
+    private int lastVisibleItemPosition = 0;
+    private int lastVisibleItemOffset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +77,7 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
         }
 
 
-        if (idGame != null){
+        if (idGame != null && !idGame.equalsIgnoreCase("")){
             fltGame.put(idGame);
         }
 
@@ -78,6 +87,9 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
         }else {
             judulGame = "";
         }
+        layoutManager = new LinearLayoutManager(GeneralSearchTournamentActivity.this);
+
+        listenerRecyclerView();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,24 +98,52 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
             }
         });
 
-        getListTournament(sess.getString("id_user"),judulGame,"0",fltGame);
+        getListTournament(sess.getString("id_user"),judulGame,String.valueOf(currentPage),fltGame);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getListTournament(sess.getString("id_user"),etSearchBarTournament.getText().toString(),"0",fltGame);
+                getListTournament(sess.getString("id_user"),judulGame,String.valueOf(currentPage),fltGame);
             }
         });
         etSearchBarTournament.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    getListTournament(sess.getString("id_user"),etSearchBarTournament.getText().toString(),"0",fltGame);
+                    getListTournament(sess.getString("id_user"),judulGame,String.valueOf(currentPage),fltGame);
                     return true;
                 }
                 return false;
             }
         });
 
+    }
+
+    private void listenerRecyclerView(){
+        rvTournament.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                // Save the current scroll position
+                lastVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                View lastVisibleItem = layoutManager.findViewByPosition(lastVisibleItemPosition);
+                if (lastVisibleItem != null) {
+                    lastVisibleItemOffset = lastVisibleItem.getTop();
+                }
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+
+                if (!isLoading && !isLastPage) {
+                    if ((visibleItemCount + lastVisibleItemPosition) >= totalItemCount
+                            && lastVisibleItemPosition >= 0) {
+                        // Set the flag to prevent multiple data loading calls
+                        isLoading = true;
+                        getListTournament(sess.getString("id_user"),judulGame,String.valueOf(currentPage),fltGame);
+                    }
+                }
+            }
+        });
     }
     private void getListTournament(String userId, String search, String page, JSONArray filterGame ){
         ProgressDialog progress = new ProgressDialog(this);
@@ -114,25 +154,34 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListTournamentResponseModel> call, Response<GetListTournamentResponseModel> response) {
+                    isLoading = false;
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
+                            currentPage++;
                             listTournament = response.body().getData();
+                            rvTournament.setAdapter(new ListTournamentAdapter(GeneralSearchTournamentActivity.this,listTournament,"menu"));
+                            rvTournament.setLayoutManager(layoutManager);
 
-                            rvTournament.setAdapter(new ListTournamentAdapter(GeneralSearchTournamentActivity.this,listTournament));
-                            rvTournament.setLayoutManager(new GridLayoutManager(GeneralSearchTournamentActivity.this,2));
-                        }else {
+                            // Restore the scroll position
+                            layoutManager.scrollToPositionWithOffset(lastVisibleItemPosition, lastVisibleItemOffset);
+
+                        } else if (response.body().getCode().equals("02")) {
+                            isLastPage = true;
+                            String notif = response.body().getDesc();
+                            Toast.makeText(GeneralSearchTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(GeneralSearchTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(GeneralSearchTournamentActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            GeneralSearchTournamentActivity.this.finish();
+                        } else {
                             String notif = response.body().getDesc();
                             Toast.makeText(GeneralSearchTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(GeneralSearchTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(GeneralSearchTournamentActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        GeneralSearchTournamentActivity.this.finish();
-                    }  else {
+                    } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(GeneralSearchTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                         progress.dismiss();

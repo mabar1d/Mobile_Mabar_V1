@@ -108,18 +108,18 @@ public class HostListOnGoingTournamentActivity extends AppCompatActivity {
 
                             rvTournament.setAdapter(new ListHostTournamentAdapter(HostListOnGoingTournamentActivity.this,listTournament,"open"));
                             rvTournament.setLayoutManager(new GridLayoutManager(HostListOnGoingTournamentActivity.this,2));
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(HostListOnGoingTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            sess.clearSess();
+                            Intent i = new Intent(HostListOnGoingTournamentActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
                         }else {
                             String notif = response.body().getDesc();
                             Toast.makeText(HostListOnGoingTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(HostListOnGoingTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        sess.clearSess();
-                        Intent i = new Intent(HostListOnGoingTournamentActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    }  else {
+                    } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(HostListOnGoingTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                     }

@@ -103,19 +103,19 @@ public class VideosActivity extends AppCompatActivity implements AddLifecycleCal
 
                             rvVideos.setAdapter(new ListVideosAdapter(VideosActivity.this,listNews));
                             rvVideos.setLayoutManager(new LinearLayoutManager(VideosActivity.this));
-                        }else {
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(VideosActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);
+                            sess.clearSess();
+                            Intent i = new Intent(VideosActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            VideosActivity.this.finish();
+                        } else {
                             String notif = response.body().getDesc();
                             Toast.makeText(VideosActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(VideosActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);
-                        sess.clearSess();
-                        Intent i = new Intent(VideosActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        VideosActivity.this.finish();
-                    }  else {
+                    }else {
                         String desc = response.body().getDesc();
                         Toast.makeText(VideosActivity.this, desc, Toast.LENGTH_SHORT).show();
                         globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);

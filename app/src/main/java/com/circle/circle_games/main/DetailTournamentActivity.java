@@ -274,19 +274,19 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             mappingButton(response.body().getData().getRegisterDateEnd());
 
 
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
                         }else {
                             String notif = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    }  else {
+                    } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                         progress.dismiss();
@@ -324,19 +324,19 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             tvGeneralTerms.setText(response.body().getData().getDesc());
 
 
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
                         }else {
                             String notif = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    }  else {
+                    } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                         progress.dismiss();
@@ -378,19 +378,19 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             i.putExtras(bun);
                             startActivity(i);
 
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
                         }else {
                             String notif = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    }  else {
+                    } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                         progress.dismiss();
@@ -427,19 +427,19 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             String notif = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
                             finish();
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
                         }else {
                             String notif = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    }  else {
+                    } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                         progress.dismiss();

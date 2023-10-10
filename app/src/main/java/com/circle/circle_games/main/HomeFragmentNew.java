@@ -224,7 +224,7 @@ public class HomeFragmentNew extends Fragment {
                         if (response.body().getCode().equals("00")){
                             listTournament = response.body().getData();
 
-                            rlTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament));
+                            rlTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament,"home"));
                             rlTournament.setLayoutManager(new GridLayoutManager(getActivity(),1,GridLayoutManager.HORIZONTAL,false));
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();

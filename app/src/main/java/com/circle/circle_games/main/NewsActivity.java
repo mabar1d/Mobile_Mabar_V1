@@ -104,19 +104,19 @@ public class NewsActivity extends AppCompatActivity {
 
                             rvNews.setAdapter(new ListNewsAdapter(NewsActivity.this,listNews));
                             rvNews.setLayoutManager(new LinearLayoutManager(NewsActivity.this));
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(NewsActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);
+                            sess.clearSess();
+                            Intent i = new Intent(NewsActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            NewsActivity.this.finish();
                         }else {
                             String notif = response.body().getDesc();
                             Toast.makeText(NewsActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(NewsActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);
-                        sess.clearSess();
-                        Intent i = new Intent(NewsActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        NewsActivity.this.finish();
-                    }  else {
+                    } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(NewsActivity.this, desc, Toast.LENGTH_SHORT).show();
                         globalMethod.setShimmerLinearLayout(false,shimmerLoad,llContent);

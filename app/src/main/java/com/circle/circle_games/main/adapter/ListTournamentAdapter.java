@@ -30,18 +30,26 @@ import java.util.List;
 
 public class ListTournamentAdapter extends RecyclerView.Adapter<ListTournamentAdapter.TournamentViewHolder> {
     private Context context;
+    private String content;
     private List<GetListTournamentResponseModel.Data> dataTournament = new ArrayList<>();
     private GlobalMethod globalMethod;
 
-    public ListTournamentAdapter(Context context, List<GetListTournamentResponseModel.Data> dataTournament) {
+    public ListTournamentAdapter(Context context, List<GetListTournamentResponseModel.Data> dataTournament, String content) {
         this.context = context;
         this.dataTournament = dataTournament;
+        this.content = content;
     }
 
     @NonNull
     @Override
     public TournamentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_tournament_home,parent,false);
+        View view;
+        if (content.equalsIgnoreCase("home")){
+            view = LayoutInflater.from(context).inflate(R.layout.list_tournament_home,parent,false);
+        }else {
+            view = LayoutInflater.from(context).inflate(R.layout.list_tournament_home_new,parent,false);
+        }
+
         globalMethod = new GlobalMethod();
         return new TournamentViewHolder(view);
     }

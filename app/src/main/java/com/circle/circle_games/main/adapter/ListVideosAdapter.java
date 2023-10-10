@@ -80,6 +80,7 @@ public class ListVideosAdapter extends RecyclerView.Adapter<ListVideosAdapter.Vi
                 .load(dataVideo.get(position).getImage())
                 .placeholder(cp)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.img_not_found)
                 //.skipMemoryCache(true)
                 .into(holder.ivVideo);
 

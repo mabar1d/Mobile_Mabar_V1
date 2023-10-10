@@ -354,18 +354,17 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
                             if (!picturePath.equals("")){
                                 uploadImage();
+                            }else if (response.body().getCode().equals("05")){
+                                Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
+                                progress.dismiss();
+                                sess.clearSess();
+                                Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
                             }else {
                                 finish();
                             }
 
-                        }else if (response.body().getCode().equals("05")){
-                            String desc = response.body().getDesc();
-                            Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
-                            sess.clearSess();
-                            Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(i);
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();

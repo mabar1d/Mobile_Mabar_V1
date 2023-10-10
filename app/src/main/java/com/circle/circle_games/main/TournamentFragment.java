@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.KeyEvent;
@@ -109,8 +110,8 @@ public class TournamentFragment extends Fragment {
                         if (response.body().getCode().equals("00")){
                             listTournament = response.body().getData();
 
-                            rlMyTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament));
-                            rlMyTournament.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                            rlMyTournament.setAdapter(new ListTournamentAdapter(getActivity(),listTournament,"menu"));
+                            rlMyTournament.setLayoutManager(new LinearLayoutManager(getActivity()));
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();

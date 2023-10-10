@@ -402,18 +402,17 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                             Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                             if (!picturePath.equals("")){
                                 uploadImage(idTournament);
+                            }else if (response.body().getCode().equals("05")){
+                                Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                                progress.dismiss();
+                                sess.clearSess();
+                                Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
                             }else {
                                 finish();
                             }
 
-                        }else if (response.body().getCode().equals("05")){
-                            String desc = response.body().getDesc();
-                            Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
-                            sess.clearSess();
-                            Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(i);
                         }else {
                             String desc = response.body().getDesc();
                             Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
@@ -559,19 +558,19 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                            // btnRegister.setText("Register "+ "("+fee+")");
 
 
+                        }else if (response.body().getCode().equals("05")){
+                            String desc = response.body().getDesc();
+                            Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            sess.clearSess();
+                            Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
                         }else {
                             String notif = response.body().getDesc();
                             Toast.makeText(HostManageTournamentActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }
-                    } else if (response.body().getCode().equals("05")){
-                        String desc = response.body().getDesc();
-                        Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
-                        sess.clearSess();
-                        Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-                    }  else {
+                    } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
                         progress.dismiss();

@@ -34,6 +34,7 @@
                 android:layout_height="18dp"
                 android:layout_marginRight="2dp"
                 android:src="@drawable/star"
+                app:tint="@color/material_yellow_300"
                 android:gravity="center_vertical"/>
             <TextView
                 android:id="@+id/rating_tourney"
