@@ -7,6 +7,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -69,21 +70,14 @@ public class SplashScreen1 extends AppCompatActivity {
     TextView tvVersion;
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
-    private String pathVideo = "";
     private SessionUser sess;
-    int ALL_PERMISSIONS = 101;
-    private boolean permissionGranted;
     private GlobalMethod gm;
 
     private JSONArray arrayCheckVersionDb = new JSONArray();
 
     private static final int PERMISSION_REQUEST_CODE = 123;
 
-    private String[] permissions = {
-            Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    };
+    private String[] permissions;
 
     private int permissionIndex = 0;
     private boolean downloadMstGame = false;
@@ -110,7 +104,22 @@ public class SplashScreen1 extends AppCompatActivity {
             }
         });
 
-        //pathVideo = "android.resource://"+getPackageName()+"/"+R.raw.splash_video;
+        if (Build.VERSION.SDK_INT >= 33) {
+            permissions = new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.POST_NOTIFICATIONS
+            };
+
+        }else {
+            permissions = new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+            };
+        }
+
+
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -128,12 +137,7 @@ public class SplashScreen1 extends AppCompatActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
                 showPermissionExplanation(permission);
             } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    cekSession();
-                }else {
                     ActivityCompat.requestPermissions(this, new String[]{permission}, PERMISSION_REQUEST_CODE);
-
-                }
             }
         } else {
             // Permission is already granted, proceed with the next permission
@@ -177,11 +181,7 @@ public class SplashScreen1 extends AppCompatActivity {
                 requestNextPermission();
             } else {
                 // Permission denied, handle accordingly
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    cekSession();
-                }else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
