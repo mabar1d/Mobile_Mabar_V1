@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -249,9 +248,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     }
 
     private void getDataPerson(){
-        ProgressDialog progress = new ProgressDialog(DetailProfileAccountActivity.this);
-        progress.setMessage("Getting Profile Info...");
-        progress.show();
+        gm.showLoadingDialog(DetailProfileAccountActivity.this);
         try {
             Call<PersonnelResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getPersonnel(sess.getString("id_user"));
             req.enqueue(new Callback<PersonnelResponseModel>() {
@@ -308,7 +305,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -320,16 +317,16 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(DetailProfileAccountActivity.this, "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<PersonnelResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(DetailProfileAccountActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -340,9 +337,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     }
 
     private void updateDataPerson(String fname,String lName,String ign,String gender_id, String birthDate,String address,String subDistrictId,String districtId,String provinceId,String zipCode,String phone){
-        ProgressDialog progress = new ProgressDialog(DetailProfileAccountActivity.this);
-        progress.setMessage("Updating Profile Info...");
-        progress.show();
+        gm.showLoadingDialog(DetailProfileAccountActivity.this);
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateInfoPersonnel(sess.getString("id_user"),fname,lName,ign,gender_id,birthDate,address,subDistrictId,districtId,provinceId,zipCode,phone);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
@@ -356,7 +351,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                                 uploadImage();
                             }else if (response.body().getCode().equals("05")){
                                 Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
-                                progress.dismiss();
+                                gm.dismissLoadingDialog();
                                 sess.clearSess();
                                 Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -372,16 +367,16 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(DetailProfileAccountActivity.this, "Failed Update Profil Info", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(DetailProfileAccountActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -426,9 +421,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
     }
 
    private void uploadImage() {
-       ProgressDialog progress = new ProgressDialog(DetailProfileAccountActivity.this);
-       progress.setMessage("Uploading Photo");
-       progress.show();
+       gm.showLoadingDialog(DetailProfileAccountActivity.this);
 
        File file = new File(picturePath);
        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
@@ -450,7 +443,7 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
                        }else if (response.body().getCode().equals("05")){
                            String desc = response.body().getDesc();
                            Toast.makeText(DetailProfileAccountActivity.this, desc, Toast.LENGTH_SHORT).show();
-                           progress.dismiss();
+                           gm.dismissLoadingDialog();
                            sess.clearSess();
                            Intent i = new Intent(DetailProfileAccountActivity.this, LoginActivity.class);
                            startActivity(i);
@@ -462,16 +455,16 @@ public class DetailProfileAccountActivity extends AppCompatActivity {
 
                    } else {
                        Toast.makeText(DetailProfileAccountActivity.this, "Failed Upload Image", Toast.LENGTH_SHORT).show();
-                       progress.dismiss();
+                       gm.dismissLoadingDialog();
                    }
-                  progress.dismiss();
+                  gm.dismissLoadingDialog();
                }
 
                @Override
                public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                    String msg = t.getMessage();
                    Toast.makeText(DetailProfileAccountActivity.this, msg, Toast.LENGTH_SHORT).show();
-                   progress.dismiss();
+                   gm.dismissLoadingDialog();
                }
 
 

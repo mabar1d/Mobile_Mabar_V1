@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -85,9 +84,7 @@ public class ManageTeamActivity extends AppCompatActivity {
 
     private void getListPerson(){
 
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(ManageTeamActivity.this);
         try {
             Call<GetListRequestJoinTeamResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListReqJoinTeam(sess.getString("id_user"), idTeam);
             req.enqueue(new Callback<GetListRequestJoinTeamResponseModel>() {
@@ -133,7 +130,7 @@ public class ManageTeamActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(ManageTeamActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -145,16 +142,16 @@ public class ManageTeamActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(ManageTeamActivity.this, "Failed Request List Person", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<GetListRequestJoinTeamResponseModel> call, Throwable t) {
                     Toast.makeText(ManageTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 
@@ -170,9 +167,7 @@ public class ManageTeamActivity extends AppCompatActivity {
     //1 yes, 0 no
     private void answerReqJoin(String answer,int idRequested){
 
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(ManageTeamActivity.this);
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).answerReqJoinTeam(sess.getString("id_user"), idRequested,answer);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
@@ -188,7 +183,7 @@ public class ManageTeamActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(ManageTeamActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -200,16 +195,16 @@ public class ManageTeamActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(ManageTeamActivity.this, "Failed Answer", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     Toast.makeText(ManageTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 
@@ -224,9 +219,7 @@ public class ManageTeamActivity extends AppCompatActivity {
 
     private void getListTeamTournament(){
 
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(ManageTeamActivity.this);
         try {
             Call<GetListTeamTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListTeamTournamentforLeader(sess.getString("id_user"), idTeam);
             req.enqueue(new Callback<GetListTeamTournamentResponseModel>() {
@@ -247,7 +240,7 @@ public class ManageTeamActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(ManageTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(ManageTeamActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -259,16 +252,16 @@ public class ManageTeamActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(ManageTeamActivity.this, "Failed Request List Tournament", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<GetListTeamTournamentResponseModel> call, Throwable t) {
                     Toast.makeText(ManageTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 

@@ -2,7 +2,6 @@ package com.circle.circle_games.team;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -158,9 +157,7 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
 
 
     private void getDataTeam(String teamId){
-        ProgressDialog progress = new ProgressDialog(DetailTeamInfoActivity.this);
-        progress.setMessage("Getting Info...");
-        progress.show();
+        gm.showLoadingDialog(DetailTeamInfoActivity.this);
         try {
             Call<GetTeamInfoResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTeam(sess.getString("id_user"),teamId);
             req.enqueue(new Callback<GetTeamInfoResponseModel>() {
@@ -197,7 +194,7 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(DetailTeamInfoActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -209,16 +206,16 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(DetailTeamInfoActivity.this, "Failed Request Team Info", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<GetTeamInfoResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(DetailTeamInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -229,9 +226,7 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
     }
 
     private void requestJoinTeam(String idTeam){
-        ProgressDialog progress = new ProgressDialog(DetailTeamInfoActivity.this);
-        progress.setMessage("Request Join...");
-        progress.show();
+        gm.showLoadingDialog(DetailTeamInfoActivity.this);
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqJoinTeam(sess.getString("id_user"),idTeam);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
@@ -247,7 +242,7 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(DetailTeamInfoActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -259,16 +254,16 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(DetailTeamInfoActivity.this, "Failed Request Join team", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(DetailTeamInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -279,9 +274,7 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
     }
 
     private void requestLeaveTeam(){
-        ProgressDialog progress = new ProgressDialog(DetailTeamInfoActivity.this);
-        progress.setMessage("Request Join...");
-        progress.show();
+        gm.showLoadingDialog(DetailTeamInfoActivity.this);
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelLeaveTeam(sess.getString("id_user"));
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
@@ -297,7 +290,7 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTeamInfoActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(DetailTeamInfoActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -309,16 +302,16 @@ public class DetailTeamInfoActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(DetailTeamInfoActivity.this, "Failed Request Join team", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(DetailTeamInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 

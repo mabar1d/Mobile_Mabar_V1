@@ -96,9 +96,6 @@ public class TournamentFragment extends Fragment {
         filterGame = new JSONArray();
         filterGame.put("6");
         filterGame.put("7");
-        /*ProgressDialog progress = new ProgressDialog(getContext());
-        progress.setMessage("Loading...");
-        progress.show();*/
         globalMethod.setShimmerLinearLayout(true,shimmerLoad,llContent);
 
         try {

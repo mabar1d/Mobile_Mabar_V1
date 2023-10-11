@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -316,9 +315,7 @@ public class EditTeamActivity extends AppCompatActivity {
 
 
     private void updateTeam(String teamId,String teamName,String teamInfo,String game,JSONArray personnels){
-        ProgressDialog progress = new ProgressDialog(EditTeamActivity.this);
-        progress.setMessage("Update Team");
-        progress.show();
+        gm.showLoadingDialog(EditTeamActivity.this);
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateTeam(sess.getString("id_user"),
                     teamId,teamName,teamInfo,game,personnels);
@@ -339,7 +336,7 @@ public class EditTeamActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(EditTeamActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -351,16 +348,16 @@ public class EditTeamActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(EditTeamActivity.this, "Failed Update Team", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(EditTeamActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -371,9 +368,7 @@ public class EditTeamActivity extends AppCompatActivity {
     }
 
     private void uploadImage(String idTeam) {
-        ProgressDialog progress = new ProgressDialog(EditTeamActivity.this);
-        progress.setMessage("Uploading Image");
-        progress.show();
+        gm.showLoadingDialog(EditTeamActivity.this);
 
         File file = new File(picturePath);
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
@@ -397,7 +392,7 @@ public class EditTeamActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(EditTeamActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -409,16 +404,16 @@ public class EditTeamActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(EditTeamActivity.this, "Failed Upload Image", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(EditTeamActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -430,9 +425,7 @@ public class EditTeamActivity extends AppCompatActivity {
 
     private void getListNotMemberPerson(String search,String page){
 
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(EditTeamActivity.this);
         try {
             Call<ListPersonnelNotMemberResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListPersonnelNotMember(sess.getString("id_user"), search, page);
             req.enqueue(new Callback<ListPersonnelNotMemberResponseModel>() {
@@ -493,7 +486,7 @@ public class EditTeamActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(EditTeamActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -505,16 +498,16 @@ public class EditTeamActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(EditTeamActivity.this, "Failed Request List Teams", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<ListPersonnelNotMemberResponseModel> call, Throwable t) {
                     Toast.makeText(EditTeamActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 
@@ -528,9 +521,7 @@ public class EditTeamActivity extends AppCompatActivity {
     }
 
     private void getDataTeam(String teamId){
-        ProgressDialog progress = new ProgressDialog(EditTeamActivity.this);
-        progress.setMessage("Getting Info...");
-        progress.show();
+        gm.showLoadingDialog(EditTeamActivity.this);
         try {
             Call<GetTeamInfoResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTeam(sess.getString("id_user"),teamId);
             req.enqueue(new Callback<GetTeamInfoResponseModel>() {
@@ -590,7 +581,7 @@ public class EditTeamActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(EditTeamActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(EditTeamActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -602,16 +593,16 @@ public class EditTeamActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(EditTeamActivity.this, "Failed Request Team Info", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<GetTeamInfoResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(EditTeamActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 

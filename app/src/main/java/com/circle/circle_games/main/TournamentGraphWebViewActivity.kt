@@ -1,6 +1,5 @@
 package com.circle.circle_games.main
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.ConnectivityManager
@@ -19,6 +18,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.circle.circle_games.databinding.ActivityTournamentGraphWebViewBinding
+import com.circle.circle_games.utility.GlobalMethod
 
 class TournamentGraphWebViewActivity : AppCompatActivity() {
 
@@ -27,6 +27,7 @@ class TournamentGraphWebViewActivity : AppCompatActivity() {
     private var urlWeb: String = ""
     private var isLoaded: Boolean = false
     private var doubleBackToExitPressedOnce = false
+    private lateinit var gm:GlobalMethod
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,7 @@ class TournamentGraphWebViewActivity : AppCompatActivity() {
         }
 
         binding.webView.settings.javaScriptEnabled = true
+        gm = GlobalMethod()
 
         val b = intent.extras
         if (b != null) {
@@ -67,7 +69,6 @@ class TournamentGraphWebViewActivity : AppCompatActivity() {
     }
 
     private fun loadWebView() {
-        val progress = ProgressDialog(this@TournamentGraphWebViewActivity)
         binding.webView.loadUrl(urlWeb)
         binding.webView.webViewClient = object : WebViewClient() {
             @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -78,14 +79,13 @@ class TournamentGraphWebViewActivity : AppCompatActivity() {
             }
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                progress.setMessage("Loading...")
-                progress.show()
+                gm.showLoadingDialog(this@TournamentGraphWebViewActivity)
                 super.onPageStarted(view, url, favicon)
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 isLoaded = true
-                progress.dismiss()
+                gm.dismissLoadingDialog()
                 super.onPageFinished(view, url)
             }
 
@@ -93,7 +93,7 @@ class TournamentGraphWebViewActivity : AppCompatActivity() {
                 isLoaded = false
                 val errorMessage = "Got Error! $error"
                 showToast(errorMessage)
-                progress.dismiss()
+                gm.dismissLoadingDialog()
                 super.onReceivedError(view, request, error)
             }
         }

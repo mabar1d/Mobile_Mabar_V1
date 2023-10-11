@@ -1,6 +1,5 @@
 package com.circle.circle_games;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.circle.circle_games.login.LoginActivity;
 import com.circle.circle_games.main.DetailTournamentActivity;
+import com.circle.circle_games.main.GeneralSearchTournamentActivity;
 import com.circle.circle_games.main.ProfileNewFragment;
 import com.circle.circle_games.main.adapter.ListNewsHomeAdapter;
 import com.circle.circle_games.main.adapter.ListPaymentAdapter;
@@ -137,9 +137,7 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
     }
 
     private void getDataPerson(){
-        ProgressDialog progress = new ProgressDialog(PaymentActivity.this);
-        progress.setMessage("Getting Profile Info...");
-        progress.show();
+        gm.showLoadingDialog(PaymentActivity.this);
         try {
             Call<PersonnelResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getPersonnel(sess.getString("id_user"));
             req.enqueue(new Callback<PersonnelResponseModel>() {
@@ -164,7 +162,7 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(PaymentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(PaymentActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -176,16 +174,16 @@ public class PaymentActivity extends AppCompatActivity implements TransactionFin
 
                     } else {
                         Toast.makeText(PaymentActivity.this, "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<PersonnelResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(PaymentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 

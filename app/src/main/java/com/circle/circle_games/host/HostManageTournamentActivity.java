@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -386,9 +385,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
     private void updateTournament(String tourId,String tourName,String description,Integer numParticipants,
                                   String regStartDate,String regEndDate,String startDate,String endDate,String regFee,
                                   String prize,Integer game,Integer type, String termsCondition){
-        ProgressDialog progress = new ProgressDialog(HostManageTournamentActivity.this);
-        progress.setMessage("Update Tournament");
-        progress.show();
+        gm.showLoadingDialog(HostManageTournamentActivity.this);
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).updateTournament(sess.getString("id_user"),tourId,
                     tourName,description,numParticipants,regStartDate,regEndDate,startDate,endDate,regFee,prize,game,type,termsCondition);
@@ -404,7 +401,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                                 uploadImage(idTournament);
                             }else if (response.body().getCode().equals("05")){
                                 Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                                progress.dismiss();
+                                gm.dismissLoadingDialog();
                                 sess.clearSess();
                                 Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -420,16 +417,16 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(HostManageTournamentActivity.this, "Failed Update Tournament", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(HostManageTournamentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -439,9 +436,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
         }
     }
     private void uploadImage(String idTournament) {
-        ProgressDialog progress = new ProgressDialog(HostManageTournamentActivity.this);
-        progress.setMessage("Uploading Image");
-        progress.show();
+        gm.showLoadingDialog(HostManageTournamentActivity.this);
 
         File file = new File(picturePath);
         //compress size
@@ -466,7 +461,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -478,16 +473,16 @@ public class HostManageTournamentActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(HostManageTournamentActivity.this, "Failed Upload Image", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(HostManageTournamentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -498,9 +493,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
     }
 
     private void getInfoTournament(String userId,String idTournament){
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(HostManageTournamentActivity.this);
         try {
             Call<ResponseGetInfoTournamentModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTournament(userId, idTournament);
             req.enqueue(new Callback<ResponseGetInfoTournamentModel>() {
@@ -561,7 +554,7 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(HostManageTournamentActivity.this, LoginActivity.class);
                             startActivity(i);
@@ -573,16 +566,16 @@ public class HostManageTournamentActivity extends AppCompatActivity {
                     } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(HostManageTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseGetInfoTournamentModel> call, Throwable t) {
                     Toast.makeText(HostManageTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 

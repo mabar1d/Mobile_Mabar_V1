@@ -3,7 +3,6 @@ package com.circle.circle_games.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,9 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.circle.circle_games.host.HostManageTournamentActivity;
 import com.circle.circle_games.login.model.LoginResponseModel;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.signup.SignUpActivity;
+import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 import com.circle.circle_games.R;
 import com.circle.circle_games.retrofit.RetrofitConfig;
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView tvSignUp;
     private String iUser,iEmail,iPassword, tokenFirebase = "";
     private SessionUser sess;
+    private GlobalMethod gm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         sess = new SessionUser(this);
+        gm = new GlobalMethod();
         sess.clearSess();
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -85,9 +88,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getLoginData(String username,String email,String password, String tokenFirebase){
-        ProgressDialog progress = new ProgressDialog(LoginActivity.this);
-        progress.setMessage("Login On Progress...");
-        progress.show();
+        gm.showLoadingDialog(LoginActivity.this);
         try {
             Call<LoginResponseModel> req = RetrofitConfig.getApiServices("").login(username, email, password, tokenFirebase);
             req.enqueue(new Callback<LoginResponseModel>() {
@@ -120,14 +121,14 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(LoginActivity.this, "Gagal Login", Toast.LENGTH_SHORT).show();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<LoginResponseModel> call, Throwable t) {
                     Toast.makeText(LoginActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 
@@ -139,30 +140,28 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getTokenFCM(){
-        ProgressDialog progress = new ProgressDialog(LoginActivity.this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(LoginActivity.this);
 
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
             if (!TextUtils.isEmpty(token)) {
                 Log.d("TOKEN FCM", "retrieve token successful : " + token);
                 tokenFirebase = token;
-                progress.dismiss();
+                gm.dismissLoadingDialog();
                 getLoginData(iUser,iEmail,iPassword,tokenFirebase);
             } else{
                 Log.w("TOKEN FCM", "token should not be null...");
-                progress.dismiss();
+                gm.dismissLoadingDialog();
                 Toast.makeText(this,"Failed to get Device Token",Toast.LENGTH_SHORT);
             }
         }).addOnFailureListener(e -> {
-            progress.dismiss();
+            gm.dismissLoadingDialog();
             //handle e
         }).addOnCanceledListener(() -> {
-            progress.dismiss();
+            gm.dismissLoadingDialog();
             //handle cancel
         }).addOnCompleteListener(task ->
                 Log.v("TOKEN FCM", "This is the token : " + task.getResult()));
-        progress.dismiss();
+        gm.dismissLoadingDialog();
 
     }
 

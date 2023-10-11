@@ -2,7 +2,6 @@ package com.circle.circle_games.signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -88,9 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void sendRegisterData(String username,String email,String password,String verifPassword){
-        ProgressDialog progress = new ProgressDialog(SignUpActivity.this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(SignUpActivity.this);
         try {
             Call<ResponseRegisterModel> req = RetrofitConfig.getApiServices(sess.getString("token")).register(username, email, password, verifPassword);
             req.enqueue(new Callback<ResponseRegisterModel>() {
@@ -110,16 +107,16 @@ public class SignUpActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(SignUpActivity.this, "Gagal Registrasi", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseRegisterModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 

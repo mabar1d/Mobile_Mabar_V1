@@ -7,7 +7,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +41,7 @@ public class GlobalMethod {
     SessionUser sessionUser;
     SweetAlertDialog pDialog;
     Dialog confirmationDialog;
+    Dialog loadingDialog;
     Dialog warningDialog;
     NumberFormat currencyFormatter;
     /*public String getUriImage(String path){
@@ -74,19 +78,6 @@ public class GlobalMethod {
     public void deleteLocalSession(Context context){
         sessionUser = new SessionUser(context);
         sessionUser.clearSess();
-    }
-
-    public void dialogLoading(Context context,String title, String isi){
-        pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText(title);
-        pDialog.setContentText(isi);
-        pDialog.setCancelable(false);
-        pDialog.show();
-    }
-
-    public void dismissDialogLoading(){
-        pDialog.dismissWithAnimation();
     }
 
     public String getRoleById(Integer role){
@@ -240,6 +231,30 @@ public class GlobalMethod {
     }
     public void dismissDialogConfirmation() {
         confirmationDialog.dismiss();
+
+    }
+
+    public void showLoadingDialog(
+            Context context) {
+
+        loadingDialog = new Dialog(context);
+
+        View dv  = View.inflate(context,R.layout.dialog_loading,null);
+        loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loadingDialog.setContentView(dv);
+
+        ImageView ivLogo = (ImageView) loadingDialog.findViewById(R.id.iv_logo_loading);
+
+        Animation rotateAnimation = AnimationUtils.loadAnimation(context, R.anim.rotate);
+        ivLogo.startAnimation(rotateAnimation);
+        //loadingDialog.setCancelable(false);
+
+        loadingDialog.show();
+
+    }
+    public void dismissLoadingDialog() {
+        loadingDialog.dismiss();
 
     }
 

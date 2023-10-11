@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -210,9 +209,7 @@ public class TeamSettingsActivity extends AppCompatActivity {
     }
 
     private void deleteTeam(String idTeam){
-        ProgressDialog progress = new ProgressDialog(TeamSettingsActivity.this);
-        progress.setMessage("Getting Info...");
-        progress.show();
+        gm.showLoadingDialog(TeamSettingsActivity.this);
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).deleteTeam(sess.getString("id_user"),idTeam);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
@@ -228,7 +225,7 @@ public class TeamSettingsActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(TeamSettingsActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(TeamSettingsActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -240,16 +237,16 @@ public class TeamSettingsActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(TeamSettingsActivity.this, "Failed Request Profil Info", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(TeamSettingsActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 

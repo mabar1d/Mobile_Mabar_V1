@@ -1,7 +1,6 @@
 package com.circle.circle_games.main;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -202,9 +201,7 @@ public class ProfileNewFragment extends Fragment {
     }
 
     private void requestTeamLeader(){
-        ProgressDialog progress = new ProgressDialog(getActivity());
-        progress.setMessage("Log in as Team Leader...");
-        progress.show();
+        gm.showLoadingDialog(getActivity());
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqTeamLead(sess.getString("id_user"));
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
@@ -219,7 +216,7 @@ public class ProfileNewFragment extends Fragment {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(getActivity(), LoginActivity.class);
                             startActivity(i);
@@ -231,16 +228,16 @@ public class ProfileNewFragment extends Fragment {
 
                     } else {
                         Toast.makeText(getActivity(), "Failed Log in as Team Leader", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -252,9 +249,7 @@ public class ProfileNewFragment extends Fragment {
     }
 
     private void requestHostTournament(){
-        ProgressDialog progress = new ProgressDialog(getActivity());
-        progress.setMessage("Log in as Host Tournament...");
-        progress.show();
+        gm.showLoadingDialog(getActivity());
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqHost(sess.getString("id_user"));
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
@@ -271,7 +266,7 @@ public class ProfileNewFragment extends Fragment {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(getActivity(), LoginActivity.class);
                             startActivity(i);
@@ -283,16 +278,16 @@ public class ProfileNewFragment extends Fragment {
 
                     } else {
                         Toast.makeText(getActivity(), "Failed Log in as Host Tournament", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -304,9 +299,7 @@ public class ProfileNewFragment extends Fragment {
     }
 
     private void requestMember(){
-        ProgressDialog progress = new ProgressDialog(getActivity());
-        progress.setMessage("Log in as Member...");
-        progress.show();
+        gm.showLoadingDialog(getActivity());
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).personnelReqMember(sess.getString("id_user"));
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
@@ -321,7 +314,7 @@ public class ProfileNewFragment extends Fragment {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(getActivity(), desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(getActivity(), LoginActivity.class);
                             startActivity(i);
@@ -333,16 +326,16 @@ public class ProfileNewFragment extends Fragment {
 
                     } else {
                         Toast.makeText(getActivity(), "Failed Log in as Member", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 

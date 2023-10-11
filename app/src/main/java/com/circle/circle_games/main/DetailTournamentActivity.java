@@ -2,7 +2,6 @@ package com.circle.circle_games.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -112,7 +111,6 @@ public class DetailTournamentActivity extends AppCompatActivity {
         gm = new GlobalMethod();
 
         getInfoTournament(sess.getString("id_user"));
-        getTermsCondition(sess.getString("id_user"));
 
         if (!(usage == null)){
             btnRegister.setVisibility(View.GONE);
@@ -223,14 +221,13 @@ public class DetailTournamentActivity extends AppCompatActivity {
     }
 
     private void getInfoTournament(String userId ){
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(DetailTournamentActivity.this);
         try {
             Call<ResponseGetInfoTournamentModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoTournament(userId, idTournament);
             req.enqueue(new Callback<ResponseGetInfoTournamentModel>() {
                 @Override
                 public void onResponse(Call<ResponseGetInfoTournamentModel> call, Response<ResponseGetInfoTournamentModel> response) {
+                    gm.dismissLoadingDialog();
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
 
@@ -273,11 +270,13 @@ public class DetailTournamentActivity extends AppCompatActivity {
                             }
                             mappingButton(response.body().getData().getRegisterDateEnd());
 
+                            getTermsCondition(sess.getString("id_user"));
+
 
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
                             startActivity(i);
@@ -289,16 +288,16 @@ public class DetailTournamentActivity extends AppCompatActivity {
                     } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseGetInfoTournamentModel> call, Throwable t) {
                     Toast.makeText(DetailTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 
@@ -310,9 +309,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
     }
 
     private void getTermsCondition(String userId){
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(DetailTournamentActivity.this);
         try {
             Call<GetTermsConditionResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getInfoGeneral(userId, "terms_condition");
             req.enqueue(new Callback<GetTermsConditionResponseModel>() {
@@ -327,7 +324,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
                             startActivity(i);
@@ -339,16 +336,16 @@ public class DetailTournamentActivity extends AppCompatActivity {
                     } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<GetTermsConditionResponseModel> call, Throwable t) {
                     Toast.makeText(DetailTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 
@@ -360,9 +357,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
     }
 
     private void getLinkTree(String userId,String idTournament){
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(DetailTournamentActivity.this);
         try {
             Call<GetLinkTreeWebviewResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getLinkTournamentTreeWeb(userId, idTournament);
             req.enqueue(new Callback<GetLinkTreeWebviewResponseModel>() {
@@ -381,7 +376,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
                             startActivity(i);
@@ -393,16 +388,16 @@ public class DetailTournamentActivity extends AppCompatActivity {
                     } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<GetLinkTreeWebviewResponseModel> call, Throwable t) {
                     Toast.makeText(DetailTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 
@@ -414,9 +409,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
     }
 
     private void registerTournament(String userId,String idTournament){
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(DetailTournamentActivity.this);
         try {
             Call<SuccessResponseDefaultModel> req = RetrofitConfig.getApiServices(sess.getString("token")).registerTournament(userId, idTournament);
             req.enqueue(new Callback<SuccessResponseDefaultModel>() {
@@ -430,7 +423,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(DetailTournamentActivity.this, LoginActivity.class);
                             startActivity(i);
@@ -442,16 +435,16 @@ public class DetailTournamentActivity extends AppCompatActivity {
                     } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(DetailTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     Toast.makeText(DetailTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -386,9 +385,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
     private void createTournament(String tourName,String description,Integer numParticipants,
                                   String regStartDate,String regEndDate,String startDate,String endDate,String regFee,
                                   String prize,Integer game,Integer type, String termsCondition){
-        ProgressDialog progress = new ProgressDialog(CreateTournamentActivity.this);
-        progress.setMessage("Create Tournament");
-        progress.show();
+        gm.showLoadingDialog(CreateTournamentActivity.this);
         try {
             Call<ResponseCreateTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).createTournament(sess.getString("id_user"),
                     tourName,description,numParticipants,regStartDate,regEndDate,startDate,endDate,regFee,prize,game,type,termsCondition);
@@ -406,7 +403,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(CreateTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(CreateTournamentActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -418,16 +415,16 @@ public class CreateTournamentActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(CreateTournamentActivity.this, "Failed Create Tournament", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseCreateTournamentResponseModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(CreateTournamentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 
@@ -437,9 +434,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
         }
     }
     private void uploadImage(String idTournament) {
-        ProgressDialog progress = new ProgressDialog(CreateTournamentActivity.this);
-        progress.setMessage("Uploading Image");
-        progress.show();
+        gm.showLoadingDialog(CreateTournamentActivity.this);
 
         File file = new File(picturePath);
         //compress size
@@ -464,7 +459,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(CreateTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(CreateTournamentActivity.this, LoginActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -476,16 +471,16 @@ public class CreateTournamentActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(CreateTournamentActivity.this, "Failed Upload Image", Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessResponseDefaultModel> call, Throwable t) {
                     String msg = t.getMessage();
                     Toast.makeText(CreateTournamentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
 

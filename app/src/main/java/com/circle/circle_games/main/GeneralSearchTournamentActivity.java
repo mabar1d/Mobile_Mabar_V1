@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -22,6 +21,7 @@ import com.circle.circle_games.login.LoginActivity;
 import com.circle.circle_games.main.adapter.ListTournamentAdapter;
 import com.circle.circle_games.retrofit.RetrofitConfig;
 import com.circle.circle_games.retrofit.model.GetListTournamentResponseModel;
+import com.circle.circle_games.utility.GlobalMethod;
 import com.circle.circle_games.utility.SessionUser;
 
 import org.json.JSONArray;
@@ -51,6 +51,7 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
     private SessionUser sess;
     List<GetListTournamentResponseModel.Data> listTournament = new ArrayList<>();
     LinearLayoutManager layoutManager;
+    GlobalMethod gm;
 
     private boolean isLoading = false;
     private boolean isLastPage = false;
@@ -64,6 +65,7 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_general_search_tournament);
         ButterKnife.bind(this);
         sess = new SessionUser(this);
+        gm = new GlobalMethod();
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -146,9 +148,7 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
         });
     }
     private void getListTournament(String userId, String search, String page, JSONArray filterGame ){
-        ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Loading...");
-        progress.show();
+        gm.showLoadingDialog(GeneralSearchTournamentActivity.this);
         try {
             Call<GetListTournamentResponseModel> req = RetrofitConfig.getApiServices(sess.getString("token")).getListTournament(userId, search, page,filterGame);
             req.enqueue(new Callback<GetListTournamentResponseModel>() {
@@ -172,7 +172,7 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(GeneralSearchTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                            progress.dismiss();
+                            gm.dismissLoadingDialog();
                             sess.clearSess();
                             Intent i = new Intent(GeneralSearchTournamentActivity.this, LoginActivity.class);
                             startActivity(i);
@@ -184,16 +184,16 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
                     } else {
                         String desc = response.body().getDesc();
                         Toast.makeText(GeneralSearchTournamentActivity.this, desc, Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        gm.dismissLoadingDialog();
                     }
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
                 }
 
                 @Override
                 public void onFailure(Call<GetListTournamentResponseModel> call, Throwable t) {
                     Toast.makeText(GeneralSearchTournamentActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     System.out.println("onFailure"+call);
-                    progress.dismiss();
+                    gm.dismissLoadingDialog();
 
                 }
 
