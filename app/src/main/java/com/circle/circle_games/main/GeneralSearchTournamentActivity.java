@@ -100,18 +100,20 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
             }
         });
 
-        getListTournament(sess.getString("id_user"),judulGame,String.valueOf(currentPage),fltGame);
+        getListTournament(sess.getString("id_user"),etSearchBarTournament.getText().toString(),String.valueOf(currentPage),fltGame);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getListTournament(sess.getString("id_user"),judulGame,String.valueOf(currentPage),fltGame);
+                currentPage = 0;
+                getListTournament(sess.getString("id_user"),etSearchBarTournament.getText().toString(),String.valueOf(currentPage),fltGame);
             }
         });
         etSearchBarTournament.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    getListTournament(sess.getString("id_user"),judulGame,String.valueOf(currentPage),fltGame);
+                    currentPage = 0;
+                    getListTournament(sess.getString("id_user"),etSearchBarTournament.getText().toString(),String.valueOf(currentPage),fltGame);
                     return true;
                 }
                 return false;
@@ -141,7 +143,7 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
                             && lastVisibleItemPosition >= 0) {
                         // Set the flag to prevent multiple data loading calls
                         isLoading = true;
-                        getListTournament(sess.getString("id_user"),judulGame,String.valueOf(currentPage),fltGame);
+                        getListTournament(sess.getString("id_user"),etSearchBarTournament.getText().toString(),String.valueOf(currentPage),fltGame);
                     }
                 }
             }
@@ -157,6 +159,10 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
                     isLoading = false;
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
+                            if (currentPage == 0){
+                                listTournament.clear();
+                            }
+                            isLastPage = false;
                             currentPage++;
                             listTournament = response.body().getData();
                             rvTournament.setAdapter(new ListTournamentAdapter(GeneralSearchTournamentActivity.this,listTournament,"menu"));

@@ -211,6 +211,7 @@ public class GlobalMethod {
 
         confirmationDialog = new Dialog(context);
         View dv  = View.inflate(context,R.layout.dialog_confirmation,null);
+        confirmationDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         confirmationDialog.setContentView(dv);
 

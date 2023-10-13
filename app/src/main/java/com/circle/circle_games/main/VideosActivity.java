@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,7 +53,14 @@ public class VideosActivity extends AppCompatActivity implements AddLifecycleCal
     private String judulNews = "";
     private SessionUser sess;
     private GlobalMethod globalMethod;
-    List<GetListVideosResponseModel.Data> listNews = new ArrayList<>();
+    List<GetListVideosResponseModel.Data> listVideos = new ArrayList<>();
+
+    LinearLayoutManager layoutManager;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int currentPage = 0;
+    private int lastVisibleItemPosition = 0;
+    private int lastVisibleItemOffset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +72,23 @@ public class VideosActivity extends AppCompatActivity implements AddLifecycleCal
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+        layoutManager = new LinearLayoutManager(VideosActivity.this);
+        listenerRecyclerView();
 
-        getListVideos(sess.getString("id_user"),judulNews,"0");
+        getListVideos(sess.getString("id_user"),etSearchBarVideos.getText().toString(),String.valueOf(currentPage));
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getListVideos(sess.getString("id_user"),etSearchBarVideos.getText().toString(),"0");
+                currentPage = 0;
+                getListVideos(sess.getString("id_user"),etSearchBarVideos.getText().toString(),String.valueOf(currentPage));
             }
         });
         etSearchBarVideos.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    getListVideos(sess.getString("id_user"),etSearchBarVideos.getText().toString(),"0");
+                    currentPage = 0;
+                    getListVideos(sess.getString("id_user"),etSearchBarVideos.getText().toString(),String.valueOf(currentPage));
                     return true;
                 }
                 return false;
@@ -90,6 +102,33 @@ public class VideosActivity extends AppCompatActivity implements AddLifecycleCal
         });
 
     }
+    private void listenerRecyclerView(){
+        rvVideos.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                // Save the current scroll position
+                lastVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                View lastVisibleItem = layoutManager.findViewByPosition(lastVisibleItemPosition);
+                if (lastVisibleItem != null) {
+                    lastVisibleItemOffset = lastVisibleItem.getTop();
+                }
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+
+                if (!isLoading && !isLastPage) {
+                    if ((visibleItemCount + lastVisibleItemPosition) >= totalItemCount
+                            && lastVisibleItemPosition >= 0) {
+                        // Set the flag to prevent multiple data loading calls
+                        isLoading = true;
+                        getListVideos(sess.getString("id_user"),etSearchBarVideos.getText().toString(),String.valueOf(currentPage));
+                    }
+                }
+            }
+        });
+    }
     private void getListVideos(String userId, String search, String page ){
         globalMethod.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
@@ -97,12 +136,26 @@ public class VideosActivity extends AppCompatActivity implements AddLifecycleCal
             req.enqueue(new Callback<GetListVideosResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListVideosResponseModel> call, Response<GetListVideosResponseModel> response) {
+                    isLoading = false;
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
-                            listNews = response.body().getData();
+                            if (currentPage == 0){
+                                listVideos.clear();
+                            }
+                            isLastPage = false;
+                            currentPage++;
+                            listVideos = response.body().getData();
 
-                            rvVideos.setAdapter(new ListVideosAdapter(VideosActivity.this,listNews));
-                            rvVideos.setLayoutManager(new LinearLayoutManager(VideosActivity.this));
+                            rvVideos.setAdapter(new ListVideosAdapter(VideosActivity.this,listVideos));
+                            rvVideos.setLayoutManager(layoutManager);
+
+                            // Restore the scroll position
+                            layoutManager.scrollToPositionWithOffset(lastVisibleItemPosition, lastVisibleItemOffset);
+
+                        } else if (response.body().getCode().equals("02")) {
+                            isLastPage = true;
+                            String notif = response.body().getDesc();
+                            Toast.makeText(VideosActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(VideosActivity.this, desc, Toast.LENGTH_SHORT).show();

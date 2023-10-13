@@ -447,6 +447,7 @@ public class ProfileNewFragment extends Fragment {
 
         dialogSwitchAccount = new Dialog(getActivity());
         View dv  = getActivity().getLayoutInflater().inflate(R.layout.dialog_switch_account,null);
+        dialogSwitchAccount.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialogSwitchAccount.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogSwitchAccount.setContentView(dv);
 

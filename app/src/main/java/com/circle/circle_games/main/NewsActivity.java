@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,6 +56,13 @@ public class NewsActivity extends AppCompatActivity {
     private GlobalMethod globalMethod;
     List<GetListNewsResponseModel.Data> listNews = new ArrayList<>();
 
+    LinearLayoutManager layoutManager;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int currentPage = 0;
+    private int lastVisibleItemPosition = 0;
+    private int lastVisibleItemOffset = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,19 +73,23 @@ public class NewsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+        layoutManager = new LinearLayoutManager(NewsActivity.this);
+        listenerRecyclerView();
 
-        getListNews(sess.getString("id_user"),judulNews,"0");
+        getListNews(sess.getString("id_user"),judulNews,String.valueOf(currentPage));
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getListNews(sess.getString("id_user"),etSearchBarNews.getText().toString(),"0");
+                currentPage = 0;
+                getListNews(sess.getString("id_user"),etSearchBarNews.getText().toString(),String.valueOf(currentPage));
             }
         });
         etSearchBarNews.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    getListNews(sess.getString("id_user"),etSearchBarNews.getText().toString(),"0");
+                    currentPage = 0;
+                    getListNews(sess.getString("id_user"),etSearchBarNews.getText().toString(),String.valueOf(currentPage));
                     return true;
                 }
                 return false;
@@ -91,6 +103,34 @@ public class NewsActivity extends AppCompatActivity {
         });
 
     }
+
+    private void listenerRecyclerView(){
+        rvNews.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                // Save the current scroll position
+                lastVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                View lastVisibleItem = layoutManager.findViewByPosition(lastVisibleItemPosition);
+                if (lastVisibleItem != null) {
+                    lastVisibleItemOffset = lastVisibleItem.getTop();
+                }
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+
+                if (!isLoading && !isLastPage) {
+                    if ((visibleItemCount + lastVisibleItemPosition) >= totalItemCount
+                            && lastVisibleItemPosition >= 0) {
+                        // Set the flag to prevent multiple data loading calls
+                        isLoading = true;
+                        getListNews(sess.getString("id_user"),etSearchBarNews.getText().toString(),String.valueOf(currentPage));
+                    }
+                }
+            }
+        });
+    }
     private void getListNews(String userId, String search, String page ){
         globalMethod.setShimmerLinearLayout(true,shimmerLoad,llContent);
         try {
@@ -98,12 +138,25 @@ public class NewsActivity extends AppCompatActivity {
             req.enqueue(new Callback<GetListNewsResponseModel>() {
                 @Override
                 public void onResponse(Call<GetListNewsResponseModel> call, Response<GetListNewsResponseModel> response) {
+                    isLoading = false;
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
+                            if (currentPage == 0){
+                                listNews.clear();
+                            }
+                            isLastPage = false;
+                            currentPage++;
                             listNews = response.body().getData();
 
                             rvNews.setAdapter(new ListNewsAdapter(NewsActivity.this,listNews));
-                            rvNews.setLayoutManager(new LinearLayoutManager(NewsActivity.this));
+                            rvNews.setLayoutManager(layoutManager);
+
+                            // Restore the scroll position
+                            layoutManager.scrollToPositionWithOffset(lastVisibleItemPosition, lastVisibleItemOffset);
+                        } else if (response.body().getCode().equals("02")) {
+                            isLastPage = true;
+                            String notif = response.body().getDesc();
+                            Toast.makeText(NewsActivity.this, notif, Toast.LENGTH_SHORT).show();
                         }else if (response.body().getCode().equals("05")){
                             String desc = response.body().getDesc();
                             Toast.makeText(NewsActivity.this, desc, Toast.LENGTH_SHORT).show();
