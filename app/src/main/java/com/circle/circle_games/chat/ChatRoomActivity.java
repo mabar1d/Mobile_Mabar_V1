@@ -154,10 +154,16 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         }
         chatAdapter = new ChatAdapter(chatMessages,ChatRoomActivity.this, sess.getString("username"));
-        chatAdapter.notifyItemInserted(chatMessages.size() - 1);
-        rvChat.scrollToPosition(chatMessages.size() - 1);
         rvChat.setAdapter(chatAdapter);
         rvChat.setLayoutManager(new LinearLayoutManager(this));
+
+        //chatAdapter.notifyItemInserted(chatMessages.size() - 1);
+        //rvChat.scrollToPosition(chatMessages.size() - 1);
+        // Setelah menambahkan pesan baru ke daftar chatMessages
+        int newPosition = chatMessages.size() - 1; // Indeks pesan terbaru
+        // Scroll ke indeks pesan terbaru dengan animasi
+        chatAdapter.notifyItemInserted(newPosition); // Perbarui adapter jika diperlukan
+        rvChat.smoothScrollToPosition(newPosition);
 
     }
 }

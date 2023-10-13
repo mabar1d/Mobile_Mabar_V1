@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pesan yang Anda kirim"
+            android:textIsSelectable="true"
             android:textColor="@color/grey"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
