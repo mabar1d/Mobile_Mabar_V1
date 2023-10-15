@@ -50,6 +50,7 @@ public class ListTeamTournamentAdapter extends RecyclerView.Adapter<ListTeamTour
         Glide.with(context)
                 .load(dataTournament.get(position).getTournamentImage())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.not_found)
                 //.skipMemoryCache(true)
                 .into(holder.imageTourney);
 

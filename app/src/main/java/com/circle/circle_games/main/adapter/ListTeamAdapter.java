@@ -50,6 +50,7 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.TeamVi
         Glide.with(context)
                 .load(dataTeam.get(position).getImage())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.not_found)
                 .into(holder.civTeam);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

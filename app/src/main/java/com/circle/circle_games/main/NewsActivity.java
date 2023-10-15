@@ -144,7 +144,11 @@ public class NewsActivity extends AppCompatActivity {
                             if (currentPage == 0){
                                 listNews.clear();
                             }
-                            isLastPage = false;
+                            if (response.body().getData().size() >= 19){
+                                isLastPage = false;
+                            }else {
+                                isLastPage =  true;
+                            }
                             currentPage++;
                             listNews = response.body().getData();
 

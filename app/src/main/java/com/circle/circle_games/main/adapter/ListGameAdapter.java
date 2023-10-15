@@ -50,6 +50,7 @@ public class ListGameAdapter extends RecyclerView.Adapter<ListGameAdapter.GameVi
         Glide.with(context)
                 .load(dataGame.get(position).getImage())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.not_found)
                 //.skipMemoryCache(true)
                 .into(holder.civGame);
 

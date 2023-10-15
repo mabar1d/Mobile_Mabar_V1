@@ -44,22 +44,22 @@ public class RetrofitConfig {
     }
 
     public static Retrofit getApiUpload(String token) {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
-                /*.addInterceptor(new Interceptor() {
-                    @NonNull
+        OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor(){
                     @Override
-                    public Response intercept(@NonNull Chain chain) throws IOException {
+                    public Response intercept(Chain chain) throws IOException {
                         Request newRequest  = chain.request().newBuilder()
                                 .addHeader("Authorization", " Bearer " + token )
                                 .build();
                         return chain.proceed(newRequest);
                     }
-                }).build();*/
+                });
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(okHttpClient).build();
+                    .client(client.build())
+                    .build();
         }
         return retrofit;
     }

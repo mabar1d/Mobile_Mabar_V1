@@ -57,7 +57,7 @@ public class ListVideosAdapter extends RecyclerView.Adapter<ListVideosAdapter.Vi
 
         holder.judulVideo.setText(dataVideo.get(position).getTitle());
 
-        holder.infoVideo.setText(dataVideo.get(position).getFirstname() + " - " + dataVideo.get(position).getDiffCreatedAt() );
+        holder.infoVideo.setText(dataVideo.get(position).getCreatedByName() + " - " + dataVideo.get(position).getDiffCreatedAt() );
 
 
         /*((VideosActivity) context).addLifeCycleCallBack(holder.playerView);
@@ -80,7 +80,7 @@ public class ListVideosAdapter extends RecyclerView.Adapter<ListVideosAdapter.Vi
                 .load(dataVideo.get(position).getImage())
                 .placeholder(cp)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(R.drawable.img_not_found)
+                .error(R.drawable.not_found)
                 //.skipMemoryCache(true)
                 .into(holder.ivVideo);
 

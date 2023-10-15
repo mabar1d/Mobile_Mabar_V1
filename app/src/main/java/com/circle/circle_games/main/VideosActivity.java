@@ -142,7 +142,11 @@ public class VideosActivity extends AppCompatActivity implements AddLifecycleCal
                             if (currentPage == 0){
                                 listVideos.clear();
                             }
-                            isLastPage = false;
+                            if (response.body().getData().size() >= 19){
+                                isLastPage = false;
+                            }else {
+                                isLastPage =  true;
+                            }
                             currentPage++;
                             listVideos = response.body().getData();
 

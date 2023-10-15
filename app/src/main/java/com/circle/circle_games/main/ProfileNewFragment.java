@@ -368,6 +368,7 @@ public class ProfileNewFragment extends Fragment {
                                         .load(response.body().getData().getImage())
                                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                                         .placeholder(cp)
+                                        .error(R.drawable.not_found)
                                         .skipMemoryCache(true)
                                         .into(ivProfile);
                             }

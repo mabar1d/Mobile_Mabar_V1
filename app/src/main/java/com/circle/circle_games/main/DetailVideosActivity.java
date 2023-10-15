@@ -163,7 +163,7 @@ public class DetailVideosActivity extends AppCompatActivity {
                                     //.skipMemoryCache(true)
                                     .into(ivNews);*/
                             tvJudulNews.setText(response.body().getData().getTitle());
-                            tvAuthors.setText(response.body().getData().getFirstname());
+                            tvAuthors.setText(response.body().getData().getCreatedByName());
                             tvTglNews.setText(response.body().getData().getCreatedAt());
                             tvContent.setText(response.body().getData().getContent());
                             tvDiffDate.setText(response.body().getData().getDiffCreatedAt());

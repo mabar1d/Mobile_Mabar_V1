@@ -85,7 +85,7 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
 
 
         if (judulGame != null){
-            etSearchBarTournament.setText(judulGame);
+            //etSearchBarTournament.setText(judulGame);
         }else {
             judulGame = "";
         }
@@ -162,7 +162,12 @@ public class GeneralSearchTournamentActivity extends AppCompatActivity {
                             if (currentPage == 0){
                                 listTournament.clear();
                             }
-                            isLastPage = false;
+                            if (response.body().getData().size() >= 19){
+                                isLastPage = false;
+                            }else {
+                                isLastPage =  true;
+                            }
+
                             currentPage++;
                             listTournament = response.body().getData();
                             rvTournament.setAdapter(new ListTournamentAdapter(GeneralSearchTournamentActivity.this,listTournament,"menu"));

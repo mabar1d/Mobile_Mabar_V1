@@ -70,6 +70,7 @@ public class ListMemberTeamTournamentAdapter extends RecyclerView.Adapter<ListMe
                 .load(dataTournament.get(position).getImage())
                 .placeholder(cp)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.not_found)
                 //.skipMemoryCache(true)
                 .into(holder.imageTourney);
 

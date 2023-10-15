@@ -61,6 +61,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.NewsVi
                 .load(dataNews.get(position).getNewsImageUrl())
                 .placeholder(cp)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.not_found)
                 //.skipMemoryCache(true)
                 .into(holder.imageNews);
 
