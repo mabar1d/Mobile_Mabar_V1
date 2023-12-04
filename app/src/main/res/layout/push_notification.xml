@@ -18,7 +18,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="5dp"
-            android:src="@drawable/logo_circle_hd" />
+            android:src="@drawable/cg_new_logo" />
     </LinearLayout>
 
     <!-- Parent layout for holding the Title and the Body-->
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Title"
-            android:textColor="#000"
+            android:textColor="@color/grey"
             android:textStyle="bold" />
 
         <!-- TextView for Body -->
@@ -43,6 +43,7 @@
             android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/grey"
             android:text="Message"
             android:textSize="15sp" />
 

@@ -3,8 +3,11 @@ package com.circle.circle_games.main;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.circle.circle_games.PaymentActivity;
 import com.circle.circle_games.retrofit.model.GetTermsConditionResponseModel;
+import com.circle.circle_games.utility.FullScreenImageDialog;
 import com.circle.circle_games.utility.SessionUser;
 import com.circle.circle_games.R;
 import com.circle.circle_games.login.LoginActivity;
@@ -92,6 +96,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
     private GlobalMethod gm;
     private String fee = "";
     private String feeText = "";
+    private String urlImage = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +126,25 @@ public class DetailTournamentActivity extends AppCompatActivity {
             btnFixtureTournament.setVisibility(View.GONE);
             btnTableTournament.setVisibility(View.GONE);
         }
+
+        ivTournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FullScreenImageDialog dialog = new FullScreenImageDialog(DetailTournamentActivity.this);
+                dialog.setImageFromUrl(urlImage);// Ganti dengan URL gambar yang ingin Anda tampilkan
+                // Mendapatkan ukuran layar perangkat
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                // Mengatur lebar dan tinggi dialog sesuai dengan ukuran layar
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                layoutParams.copyFrom(dialog.getWindow().getAttributes());
+                layoutParams.width = size.x;
+                layoutParams.height = size.y;
+                dialog.getWindow().setAttributes(layoutParams);
+                dialog.show();
+            }
+        });
 
         llTournamentTerms.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,6 +255,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("00")){
 
+                            urlImage = response.body().getData().getImage();
                             Glide.with(DetailTournamentActivity.this)
                                     .load(response.body().getData().getImage())
                                     .diskCacheStrategy(DiskCacheStrategy.NONE)

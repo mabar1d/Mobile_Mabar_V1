@@ -173,7 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:iss_error_image="@drawable/error"
-                    app:iss_placeholder="@drawable/logo_circle"
+                    app:iss_placeholder="@drawable/cg_new_logo"
                     app:iss_auto_cycle="true"
                     app:iss_period="5000"
                     app:iss_delay="0"/>

@@ -1,23 +1,34 @@
 package com.circle.circle_games.service;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.widget.RemoteViews;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.circle.circle_games.MainActivity;
 import com.circle.circle_games.R;
+import com.circle.circle_games.chat.ChatRoomActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Map;
 
 
 public class FirebaseMessageReceiver
         extends FirebaseMessagingService {
+    private static final String CHANNEL_ID = "MyNotificationChannel";
+    private static final int NOTIFICATION_ID = 0;
 
     // Override onMessageReceived() method to extract the
     // title and
@@ -32,10 +43,17 @@ public class FirebaseMessageReceiver
         // attributes. Since here we do not have any data
         // payload, This section is commented out. It is
         // here only for reference purposes.
-		/*if(remoteMessage.getData().size()>0){
-			showNotification(remoteMessage.getData().get("title"),
-						remoteMessage.getData().get("message"));
-		}*/
+		if(remoteMessage.getData().size()>0){
+            String tipe = remoteMessage.getData().get("tipe");
+            if (tipe.equalsIgnoreCase("message")){
+                showMessageNotification(remoteMessage.getData().get("room_name"),remoteMessage.getData().get("name"),
+                        remoteMessage.getData().get("msg"));
+            }else {
+                showNotification(remoteMessage.getData().get("title"),
+                        remoteMessage.getData().get("body"));
+            }
+		}
+
 
         // Second case when notification payload is
         // received.
@@ -59,7 +77,7 @@ public class FirebaseMessageReceiver
         remoteViews.setTextViewText(R.id.title, title);
         remoteViews.setTextViewText(R.id.message, message);
         remoteViews.setImageViewResource(R.id.icon,
-                R.drawable.logo_circle_hd);
+                R.drawable.cg_new_logo);
         return remoteViews;
     }
 
@@ -68,7 +86,9 @@ public class FirebaseMessageReceiver
                                  String message) {
         // Pass the intent to switch to the MainActivity
         Intent intent
-                = new Intent(this, MainActivity.class);
+                = new Intent(this, ChatRoomActivity.class);
+        intent.putExtra("user_name", "CircleHost2");
+        intent.putExtra("room_name", message);
         // Assign channel ID
         String channel_id = "notification_channel";
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
@@ -97,12 +117,15 @@ public class FirebaseMessageReceiver
                 = new NotificationCompat
                 .Builder(getApplicationContext(),
                 channel_id)
-                .setSmallIcon(R.drawable.logo_circle_hd)
+                .setSmallIcon(R.drawable.cg_new_logo)
                 .setAutoCancel(true)
                 .setVibrate(new long[]{1000, 1000, 1000,
                         1000, 1000})
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setOnlyAlertOnce(true)
                 .setContentIntent(pendingIntent);
+
 
         // A customized design for the notification can be
         // set only for Android versions 4.1 and above. Thus
@@ -138,4 +161,86 @@ public class FirebaseMessageReceiver
 
         notificationManager.notify(0, builder.build());
     }
+
+    public void showMessageNotification(String roomName,String name,
+                                 String message) {
+        // Pass the intent to switch to the MainActivity
+        Intent intent
+                = new Intent(this, ChatRoomActivity.class);
+        //intent.putExtra("user_name", "CircleHost2");
+        intent.putExtra("room_name", roomName);
+        // Assign channel ID
+        String channel_id = "notification_channel";
+        // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
+        // the activities present in the activity stack,
+        // on the top of the Activity that is to be launched
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // Pass the intent to PendingIntent to start the
+        // next Activity
+        PendingIntent pendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent
+                    = PendingIntent.getActivity(
+                    this, 0, intent,
+                    PendingIntent.FLAG_MUTABLE);
+        } else {
+            pendingIntent
+                    = PendingIntent.getActivity(
+                    this, 0, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        }
+
+
+        // Create a Builder object using NotificationCompat
+        // class. This will allow control over all the flags
+        NotificationCompat.Builder builder
+                = new NotificationCompat
+                .Builder(getApplicationContext(),
+                channel_id)
+                .setSmallIcon(R.drawable.cg_new_logo)
+                .setAutoCancel(true)
+                .setVibrate(new long[]{1000, 1000, 1000,
+                        1000, 1000})
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setOnlyAlertOnce(true)
+                .setContentIntent(pendingIntent);
+
+
+        // A customized design for the notification can be
+        // set only for Android versions 4.1 and above. Thus
+        // condition for the same is checked here.
+        if (Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.JELLY_BEAN) {
+            builder = builder.setContent(
+                    getCustomDesign(name, message));
+        } // If Android Version is lower than Jelly Beans,
+        // customized layout cannot be used and thus the
+        // layout is set as follows
+        else {
+            builder = builder.setContentTitle(name)
+                    .setContentText(message)
+                    .setSmallIcon(R.drawable.cg_new_logo);
+        }
+        // Create an object of NotificationManager class to
+        // notify the
+        // user of events that happen in the background.
+        NotificationManager notificationManager
+                = (NotificationManager) getSystemService(
+                Context.NOTIFICATION_SERVICE);
+        // Check if the Android Version is greater than Oreo
+        if (Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel
+                    = new NotificationChannel(
+                    channel_id, "web_app",
+                    NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(
+                    notificationChannel);
+        }
+
+        notificationManager.notify(0, builder.build());
+    }
+
+
 }

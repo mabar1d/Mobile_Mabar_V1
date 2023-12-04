@@ -245,10 +245,10 @@ public class GlobalMethod {
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         loadingDialog.setContentView(dv);
 
-        ImageView ivLogo = (ImageView) loadingDialog.findViewById(R.id.iv_logo_loading);
+        /*ImageView ivLogo = (ImageView) loadingDialog.findViewById(R.id.iv_logo_loading);
 
         Animation rotateAnimation = AnimationUtils.loadAnimation(context, R.anim.rotate);
-        ivLogo.startAnimation(rotateAnimation);
+        ivLogo.startAnimation(rotateAnimation);*/
         //loadingDialog.setCancelable(false);
 
         loadingDialog.show();
