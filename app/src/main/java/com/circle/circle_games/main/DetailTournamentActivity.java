@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.circle.circle_games.PaymentActivity;
+import com.circle.circle_games.chat.ChatRoomActivity;
 import com.circle.circle_games.retrofit.model.GetTermsConditionResponseModel;
 import com.circle.circle_games.utility.FullScreenImageDialog;
 import com.circle.circle_games.utility.SessionUser;
@@ -71,6 +72,8 @@ public class DetailTournamentActivity extends AppCompatActivity {
     Button btnFixtureTournament;
     @BindView(R.id.btn_table_tournament)
     Button btnTableTournament;
+    @BindView(R.id.btn_chat_room_tournament)
+    Button btnChatRoomTournament;
     @BindView(R.id.btn_back)
     ImageView btnBack;
 
@@ -121,6 +124,7 @@ public class DetailTournamentActivity extends AppCompatActivity {
             btnRegister.setVisibility(View.GONE);
             btnFixtureTournament.setVisibility(View.VISIBLE);
             btnTableTournament.setVisibility(View.VISIBLE);
+            btnChatRoomTournament.setVisibility(View.VISIBLE);
         }else {
             btnRegister.setVisibility(View.VISIBLE);
             btnFixtureTournament.setVisibility(View.GONE);
@@ -237,6 +241,16 @@ public class DetailTournamentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getLinkTree(sess.getString("id_user"),idTournament);
+            }
+        });
+
+        btnChatRoomTournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent I = new Intent(getApplicationContext(), ChatRoomActivity.class);
+                I.putExtra("room_id","Tournament-"+idTournament);
+                I.putExtra("room_name",tvJudulTourney.getText().toString());
+                startActivity(I);
             }
         });
 

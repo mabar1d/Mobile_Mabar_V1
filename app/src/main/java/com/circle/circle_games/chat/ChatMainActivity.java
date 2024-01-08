@@ -120,6 +120,7 @@ public class ChatMainActivity extends AppCompatActivity {
 
                 Intent I = new Intent(getApplicationContext(),ChatRoomActivity.class);
                 I.putExtra("room_name",((TextView)view).getText().toString());
+                I.putExtra("room_id",((TextView)view).getText().toString());
                 I.putExtra("user_name",sess.getString("username"));
                 startActivity(I);
             }

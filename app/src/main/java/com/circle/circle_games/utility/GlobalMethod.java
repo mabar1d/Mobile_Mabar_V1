@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.circle.circle_games.R;
+import com.circle.circle_games.chat.ChatRoomActivity;
+import com.circle.circle_games.service.FCMMessageSender;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.io.File;
@@ -30,7 +32,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.MediaType;
@@ -329,6 +333,19 @@ public class GlobalMethod {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public void sendNotif(String roomName,String tokenPerangkatTujuan, String title, String message,Context context){
+
+        tokenPerangkatTujuan = "chitMVVoRAKIVMR4zolNNH:APA91bFup6cvTwxjlSf6tS5xez2QQJPzAhLesWZjb84BnyR24cnrq5viCFHRzZJfA8n6-HLIE7UKd1cFWi-5bLUmPo_bovIdnZ2RK6BMZLgVKgcZxZ9f5QvoUoTdzUf0JJpABCOrIcDz";
+
+        Map<String, String> messageData = new HashMap<>();
+        messageData.put("tipe", "message");
+        messageData.put("room_name", roomName);
+        messageData.put("name", title);
+        messageData.put("msg", message);
+
+        FCMMessageSender.sendMessage(tokenPerangkatTujuan, messageData, context);
     }
 
 }

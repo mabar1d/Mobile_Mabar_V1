@@ -44,8 +44,6 @@ import butterknife.ButterKnife;
 
 public class ChatRoomActivity extends AppCompatActivity {
     private TextView tvTitle;
-    /*@BindView(R.id.textView)
-    TextView tvChat;*/
     @BindView(R.id.rvChat)
     RecyclerView rvChat;
     @BindView(R.id.messageInput)
@@ -54,7 +52,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     Button btnSendMsg;
     @BindView(R.id.btn_back)
     ImageView btnBack;
-    private String user_name ,room_name;
+    private String user_name ,room_name, room_id;
     private DatabaseReference root;
     private ChatAdapter chatAdapter;
     private SessionUser sess;
@@ -75,13 +73,14 @@ public class ChatRoomActivity extends AppCompatActivity {
         tvTitle = (TextView)findViewById(R.id.tv_title);
         user_name = sess.getString("username");
         room_name = getIntent().getExtras().get("room_name").toString();
+        room_id = getIntent().getExtras().get("room_id").toString();
         layoutManager = new LinearLayoutManager(this);
 
         FirebaseApp.initializeApp(this);
 
         tvTitle.setText(room_name);
 
-        root = FirebaseDatabase.getInstance().getReference().child(room_name);
+        root = FirebaseDatabase.getInstance().getReference().child(room_id);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +184,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     private void sendNotif(String roomName,String title, String message){
 
+        //butuh service untuk blast
         String tokenPerangkatTujuan = "chitMVVoRAKIVMR4zolNNH:APA91bFup6cvTwxjlSf6tS5xez2QQJPzAhLesWZjb84BnyR24cnrq5viCFHRzZJfA8n6-HLIE7UKd1cFWi-5bLUmPo_bovIdnZ2RK6BMZLgVKgcZxZ9f5QvoUoTdzUf0JJpABCOrIcDz";
 
         Map<String, String> messageData = new HashMap<>();
